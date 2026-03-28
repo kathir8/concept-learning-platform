@@ -24,8 +24,5 @@ export class HomeComponent {
     if (!q) return [];
 
     return this.searchService.searchConcepts(q).slice(0, 50);
-    return this.conceptService.concepts().filter(c =>
-      c._searchText.includes(q)
-    );
   });
 }
