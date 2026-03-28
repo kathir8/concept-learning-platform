@@ -23,7 +23,7 @@ console.log(counter()); // 2`
         id: 'event-loop',
         title: 'Event Loop',
         category: 'JavaScript',
-        referenceUrl: 'https://github.com/kathir8/Js-engine-visualizer.git',
+        referenceUrl: 'https://js-engine-visualizer.vercel.app/',
         slangDefinition: `Event loop na sync code first execute pannum, async tasks queue-la wait pannum so blocking avoid pannalaam. Idhu JS non-blocking behavior-ku important. Indha example-la console logs first run aagudhu, Promise callback next, setTimeout last execute aagudhu.`,
         interviewDefinition: `The event loop manages execution of synchronous and asynchronous tasks, ensuring non-blocking behavior in JavaScript. It prioritizes microtasks over macrotasks. The example shows synchronous logs first, then Promise (microtask), followed by setTimeout (macrotask).`,
         example: `console.log('Start');
