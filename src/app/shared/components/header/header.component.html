@@ -1,0 +1,55 @@
+<header
+  class="sticky top-0 z-50 w-full border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-950/80 backdrop-blur-md transition-colors duration-300">
+  <div class="container mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-y-3 gap-x-2 sm:gap-x-4">
+    <a routerLink="/"
+      class="flex items-center gap-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white shrink-0">
+      <mat-icon class="text-indigo-600 dark:text-indigo-400">school</mat-icon>
+      <span class="hidden sm:inline-block">Concept<span class="text-indigo-600 dark:text-indigo-400">Learn</span></span>
+    </a>
+
+    <div class="flex items-center gap-2 sm:gap-4 shrink-0 order-2 sm:order-3">
+      <div class="flex items-center gap-2">
+        <button (click)="preferences.toggleDefinitionType()"
+          class="relative inline-flex h-8 w-28 sm:w-32 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 p-1 text-[10px] sm:text-xs font-medium transition-colors cursor-pointer"
+          aria-label="Toggle default definition type">
+          <div
+            class="absolute left-1 top-1 h-6 w-[calc(50%-4px)] rounded-full bg-white dark:bg-gray-700 shadow-sm transition-transform duration-300 ease-in-out"
+            [class.translate-x-full]="preferences.defaultDefinitionType() === 'interview'"></div>
+          <span class="relative z-10 flex-1 text-center transition-colors duration-200"
+            [class.text-indigo-600]="preferences.defaultDefinitionType() === 'slang'"
+            [class.dark:text-indigo-400]="preferences.defaultDefinitionType() === 'slang'">Slang</span>
+          <span class="relative z-10 flex-1 text-center transition-colors duration-200"
+            [class.text-indigo-600]="preferences.defaultDefinitionType() === 'interview'"
+            [class.dark:text-indigo-400]="preferences.defaultDefinitionType() === 'interview'">Interview</span>
+        </button>
+      </div>
+
+      <div class="w-px h-6 bg-gray-200 dark:bg-gray-800 hidden sm:block"></div>
+
+      <button (click)="theme.toggleTheme()"
+        class="p-2 rounded-full text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors cursor-pointer"
+        [attr.aria-label]="theme.isDarkMode() ? 'Switch to light mode' : 'Switch to dark mode'">
+        @if (theme.isDarkMode()) {
+        <mat-icon class="w-5 h-5 leading-5 flex items-center justify-center">light_mode</mat-icon>
+        } @else {
+        <mat-icon class="w-5 h-5 leading-5 flex items-center justify-center">dark_mode</mat-icon>
+        }
+      </button>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="w-full order-3 sm:order-2 sm:w-auto sm:flex-1 max-w-md relative">
+      <mat-icon
+        class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm w-5 h-5 leading-5">search</mat-icon>
+      <input type="text" [formControl]="searchControl" placeholder="Search concepts..."
+        class="w-full pl-10 pr-10 py-2 rounded-full bg-gray-100 dark:bg-gray-800 border-transparent focus:border-indigo-500 focus:bg-white dark:focus:bg-gray-900 focus:ring-2 focus:ring-indigo-500/20 text-sm transition-all outline-none dark:text-white" />
+      @if (searchControl.value) {
+      <button (click)="clearSearch()"
+        class="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 flex items-center justify-center rounded-full transition-colors focus:outline-none"
+        aria-label="Clear search">
+        <mat-icon class="text-[18px] w-5 h-5 leading-5 flex items-center justify-center">close</mat-icon>
+      </button>
+      }
+    </div>
+  </div>
+</header>

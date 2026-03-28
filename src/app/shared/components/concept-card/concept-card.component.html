@@ -1,0 +1,84 @@
+<div
+  class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm overflow-hidden mb-8">
+  <div class="p-6 border-b border-gray-100 dark:border-gray-800">
+    <h2 class="text-2xl font-bold text-gray-900 dark:text-white flex items-center justify-between">
+      <span>{{ concept().title }}</span>
+      @if (concept().referenceUrl) {
+      <a [href]="concept().referenceUrl" target="_blank" rel="noopener noreferrer"
+        class="text-gray-400 hover:text-indigo-500 transition-colors inline-flex items-center"
+        title="External Reference">
+        <mat-icon class="text-xl w-6 h-6 leading-6">link</mat-icon>
+      </a>
+      }
+    </h2>
+  </div>
+
+  <!-- Tabs Header -->
+  <div class="flex border-b border-gray-200 dark:border-gray-800">
+    <button (click)="activeTab.set('slang')"
+      class="flex-1 py-3 sm:py-4 px-2 sm:px-6 text-xs sm:text-base font-medium text-center transition-colors relative cursor-pointer"
+      [class.text-indigo-600]="activeTab() === 'slang'" [class.dark:text-indigo-400]="activeTab() === 'slang'"
+      [class.text-gray-500]="activeTab() !== 'slang'" [class.hover:text-gray-700]="activeTab() !== 'slang'"
+      [class.dark:text-gray-400]="activeTab() !== 'slang'" [class.dark:hover:text-gray-300]="activeTab() !== 'slang'">
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2">
+        <mat-icon
+          class="text-[18px] sm:text-base w-5 h-5 leading-5 flex items-center justify-center">chat_bubble_outline</mat-icon>
+        <span class="leading-tight sm:whitespace-nowrap">Talking Slang</span>
+      </div>
+      @if (activeTab() === 'slang') {
+      <div class="absolute bottom-0 left-0 right-0 h-0.5 bg-indigo-600 dark:bg-indigo-400"></div>
+      }
+    </button>
+    <button (click)="activeTab.set('interview')"
+      class="flex-1 py-3 sm:py-4 px-2 sm:px-6 text-xs sm:text-base font-medium text-center transition-colors relative cursor-pointer"
+      [class.text-indigo-600]="activeTab() === 'interview'" [class.dark:text-indigo-400]="activeTab() === 'interview'"
+      [class.text-gray-500]="activeTab() !== 'interview'" [class.hover:text-gray-700]="activeTab() !== 'interview'"
+      [class.dark:text-gray-400]="activeTab() !== 'interview'"
+      [class.dark:hover:text-gray-300]="activeTab() !== 'interview'">
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2">
+        <mat-icon
+          class="text-[18px] sm:text-base w-5 h-5 leading-5 flex items-center justify-center">work_outline</mat-icon>
+        <span class="leading-tight sm:whitespace-nowrap">Interview Definition</span>
+      </div>
+      @if (activeTab() === 'interview') {
+      <div class="absolute bottom-0 left-0 right-0 h-0.5 bg-indigo-600 dark:bg-indigo-400"></div>
+      }
+    </button>
+  </div>
+
+  <!-- Tab Content -->
+  <div class="p-6 sm:p-8 min-h-[140px] flex items-center">
+    <p class="text-lg sm:text-xl leading-relaxed text-gray-800 dark:text-gray-200 font-medium">
+      @if (activeTab() === 'slang') {
+      "{{ concept().slangDefinition }}"
+      } @else {
+      {{ concept().interviewDefinition }}
+      }
+    </p>
+  </div>
+
+  <!-- Example Section (No Heading, Just Code Block with Copy) -->
+  @if (concept().example) {
+  <div class="bg-gray-50 dark:bg-gray-900/50 p-6 border-t border-gray-200 dark:border-gray-800">
+    <div class="relative rounded-xl overflow-hidden bg-gray-900 border border-gray-800 group">
+      <div class="flex items-center justify-between px-4 py-2 bg-gray-800 border-b border-gray-700">
+        <div class="flex items-center">
+          <div class="flex gap-1.5">
+            <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+            <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+            <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+          </div>
+          <span class="ml-4 text-xs font-mono text-gray-400">example</span>
+        </div>
+        <button (click)="copyCode()"
+          class="flex items-center justify-center p-1.5 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 transition-colors"
+          title="Copy code">
+          <mat-icon class="text-[16px] w-4 h-4 leading-4">{{ copied() ? 'check' : 'content_copy' }}</mat-icon>
+        </button>
+      </div>
+      <pre
+        class="p-4 overflow-x-auto text-sm font-mono text-gray-300 leading-relaxed"><code>{{ concept().example }}</code></pre>
+    </div>
+  </div>
+  }
+</div>
