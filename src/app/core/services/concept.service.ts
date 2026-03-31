@@ -7,6 +7,7 @@ import { javaScriptConcepts } from './concepts/javaScript';
 import { rxjsConcepts } from './concepts/rxjs';
 import { scssConcepts } from './concepts/scss';
 import { typeScriptConcepts } from './concepts/typeScript';
+import { nodeConcepts } from './concepts/node';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +31,8 @@ export class ConceptService {
     ...csharpConcepts,
     ...htmlConcepts,
     ...scssConcepts,
-    ...rxjsConcepts
+    ...rxjsConcepts,
+    ...nodeConcepts
   ].map(c => ({
     ...c,
     _category: c.category.toLowerCase(),

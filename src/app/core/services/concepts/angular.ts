@@ -805,5 +805,257 @@ ngOnInit() {
 // Query Params  → Optional, visible in URL (?sort=price)
 // State         → Hidden from URL, temporary data
 // Service       → Complex/persistent data sharing`
+  },
+  {
+  id: 'web-worker-angular',
+  title: 'Web Workers in Angular',
+  category: 'Angular',
+  referenceUrl:'https://notebook.zoho.in/app/index.html#/shared/notecards/9wn9o590fa24e73744b9c822d3e0bd10e248c',
+  slangDefinition: `Web Worker na browser-la background thread-la heavy task run panna use panrom. JavaScript single-threaded — oru time-la orae work daan pannum (synchronous and Sigle thread). Heavy calculation pannum bodhu UI freeze aagum. Web Worker use panna heavy task background-la run aagum, UI smooth-ஆ iruku. Main thread-ku Worker separate thread — postMessage() use panni communicate pannuvom. Angular CLI-la ng generate web-worker command use panni create pannalam. DOM access, window object ellam Worker-la use panna mudiyadhu — only pure computation.`,
+  interviewDefinition: `Web Workers allow JavaScript to run scripts in background threads, separate from the main UI thread. Since JavaScript is single-threaded, heavy computations block the UI causing freezes. Web Workers solve this by running CPU-intensive tasks (large data processing, image manipulation, complex calculations) in a separate thread without blocking the main thread. Communication between main thread and worker happens via postMessage() and onmessage events. In Angular, Web Workers are generated using Angular CLI and typically used in services. Workers cannot access the DOM, window, or document objects.`,
+  example: `// ══════════════════════════════════════════════
+// STEP 1: Generate Web Worker using Angular CLI
+// ══════════════════════════════════════════════
+
+// Run this command in terminal:
+// ng generate web-worker app
+
+// This creates:
+// src/app/app.worker.ts        ← Worker file
+// Updates tsconfig.json automatically ✅
+
+
+// ══════════════════════════════════════════════
+// STEP 2: Worker File — app.worker.ts
+// ══════════════════════════════════════════════
+
+/// <reference lib="webworker" />
+
+// Listen for messages from Main Thread
+addEventListener('message', ({ data }) => {
+  console.log('Worker received:', data)
+
+  // Heavy computation — runs in background 🔥
+  const result = heavyCalculation(data.numbers)
+
+  // Send result back to Main Thread
+  postMessage({ result, status: 'done' })
+})
+
+function heavyCalculation(numbers: number[]): number {
+  // Simulate CPU-intensive task
+  let total = 0
+  for (let i = 0; i < numbers.length; i++) {
+    total += Math.sqrt(numbers[i]) * Math.PI // Heavy math
   }
+  return total
+}
+
+// ❌ Worker cannot access:
+// document.getElementById(...)  // No DOM access
+// window.location               // No window
+// localStorage                  // No storage
+
+
+// ══════════════════════════════════════════════
+// STEP 3: Service — worker.service.ts
+// ══════════════════════════════════════════════
+
+import { Injectable } from '@angular/core'
+import { Observable } from 'rxjs'
+
+@Injectable({ providedIn: 'root' })
+export class WorkerService {
+  private worker: Worker | null = null
+
+  constructor() {
+    // Check if browser supports Web Workers
+    if (typeof Worker !== 'undefined') {
+      this.worker = new Worker(
+        new URL('../app.worker', import.meta.url), // Worker file path
+        { type: 'module' }
+      )
+    }
+  }
+
+  // Run heavy task in background
+  runHeavyTask(numbers: number[]): Observable<any> {
+    return new Observable(observer => {
+      if (!this.worker) {
+        // Fallback — run on main thread if Worker not supported
+        observer.next({ result: this.fallbackCalculation(numbers) })
+        observer.complete()
+        return
+      }
+
+      // Send data TO worker
+      this.worker.postMessage({ numbers })
+
+      // Receive result FROM worker
+      this.worker.onmessage = ({ data }) => {
+        observer.next(data)   // { result: 123.45, status: 'done' }
+        observer.complete()
+      }
+
+      // Handle errors
+      this.worker.onerror = (error) => {
+        observer.error(error)
+      }
+    })
+  }
+
+  // Fallback for browsers without Worker support
+  private fallbackCalculation(numbers: number[]): number {
+    return numbers.reduce((total, n) => total + Math.sqrt(n) * Math.PI, 0)
+  }
+
+  // Terminate worker when done
+  terminateWorker() {
+    this.worker?.terminate()
+    this.worker = null
+  }
+}
+
+
+// ══════════════════════════════════════════════
+// STEP 4: Component — using WorkerService
+// ══════════════════════════════════════════════
+
+@Component({
+  selector: 'app-heavy-task',
+  template: \`
+    <div>
+      <h2>Web Worker Demo</h2>
+
+      <button (click)="runWithWorker()" [disabled]="isLoading">
+        {{ isLoading ? 'Processing...' : 'Run Heavy Task (Worker)' }}
+      </button>
+
+      <button (click)="runWithoutWorker()">
+        Run Heavy Task (Main Thread — UI Freezes! ❌)
+      </button>
+
+      <p *ngIf="result">Result: {{ result }}</p>
+      <p *ngIf="timeTaken">Time: {{ timeTaken }}ms</p>
+
+      <!-- This input should stay responsive during computation -->
+      <input placeholder="Type here — should not freeze with Worker ✅" />
+    </div>
+  \`
+})
+export class HeavyTaskComponent implements OnDestroy {
+  isLoading = false
+  result: number | null = null
+  timeTaken: number | null = null
+
+  // Large dataset for testing
+  private largeNumbers = Array.from(
+    { length: 5000000 },
+    (_, i) => i + 1
+  ) // 5 million numbers!
+
+  constructor(private workerService: WorkerService) {}
+
+  // ✅ With Worker — UI stays smooth
+  runWithWorker() {
+    this.isLoading = true
+    const start = performance.now()
+
+    this.workerService.runHeavyTask(this.largeNumbers)
+      .subscribe({
+        next: ({ result }) => {
+          this.result = result
+          this.timeTaken = Math.round(performance.now() - start)
+          this.isLoading = false
+          console.log('Worker done! UI never froze ✅')
+        },
+        error: (err) => {
+          console.error('Worker error:', err)
+          this.isLoading = false
+        }
+      })
+  }
+
+  // ❌ Without Worker — UI freezes during calculation
+  runWithoutWorker() {
+    const start = performance.now()
+    console.log('Main thread starting — UI will freeze ❌')
+
+    // Blocks main thread — input, buttons, animations all freeze!
+    let total = 0
+    for (let i = 0; i < this.largeNumbers.length; i++) {
+      total += Math.sqrt(this.largeNumbers[i]) * Math.PI
+    }
+
+    this.result = total
+    this.timeTaken = Math.round(performance.now() - start)
+    console.log('Done — but UI was frozen the whole time ❌')
+  }
+
+  ngOnDestroy() {
+    this.workerService.terminateWorker() // Clean up ✅
+  }
+}
+
+
+// ══════════════════════════════════════════════
+// STEP 5: Multiple Workers — Parallel Processing
+// ══════════════════════════════════════════════
+
+@Injectable({ providedIn: 'root' })
+export class ParallelWorkerService {
+
+  // Split data and run multiple workers in parallel
+  runParallel(data: number[]): Promise<number[]> {
+    const chunkSize = Math.ceil(data.length / 4) // Split into 4 chunks
+
+    const chunks = [
+      data.slice(0, chunkSize),
+      data.slice(chunkSize, chunkSize * 2),
+      data.slice(chunkSize * 2, chunkSize * 3),
+      data.slice(chunkSize * 3)
+    ]
+
+    // Create 4 workers running simultaneously 🔥
+    const workerPromises = chunks.map(chunk => {
+      return new Promise<number>((resolve, reject) => {
+        const worker = new Worker(
+          new URL('../app.worker', import.meta.url),
+          { type: 'module' }
+        )
+        worker.postMessage({ numbers: chunk })
+        worker.onmessage = ({ data }) => {
+          resolve(data.result)
+          worker.terminate() // Clean up after done ✅
+        }
+        worker.onerror = reject
+      })
+    })
+
+    return Promise.all(workerPromises) // Wait for all 4 workers ✅
+  }
+}
+
+
+// ══════════════════════════════════════════════
+// tsconfig.json — Auto updated by CLI
+// ══════════════════════════════════════════════
+// {
+//   "compilerOptions": {
+//     "lib": ["ES2018", "webworker"] // webworker types added ✅
+//   }
+// }
+
+
+// 📌 Summary:
+// Problem    → Heavy task on main thread = UI freeze ❌
+// Solution   → Web Worker = background thread ✅
+// Create     → ng generate web-worker app
+// Communicate → postMessage() send, onmessage receive
+// Limitations → No DOM, no window, no document access
+// Use cases  → Large data processing, image manipulation,
+//              crypto, complex sorting, file parsing
+// Cleanup    → worker.terminate() in ngOnDestroy() ✅
+// Parallel   → Multiple workers = faster processing 🔥`
+},
 ];
