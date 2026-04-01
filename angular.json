@@ -8,7 +8,8 @@
     ],
     "cache": {
       "enabled": false
-    }
+    },
+    "analytics": "576f19c9-e943-4fbf-98fd-9928ad898233"
   },
   "newProjectRoot": "projects",
   "projects": {
