@@ -8,6 +8,7 @@ import { rxjsConcepts } from './concepts/rxjs';
 import { scssConcepts } from './concepts/scss';
 import { typeScriptConcepts } from './concepts/typeScript';
 import { nodeConcepts } from './concepts/node';
+import { cssConcepts } from './concepts/css';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,7 @@ export class ConceptService {
     { name: 'Node.js', referenceUrl: 'https://notebook.zoho.in/app/index.html#/shared/notebooks/22bt476df5a5c794347bf88309ac18f842346/notecards' },
     { name: 'C#', referenceUrl: 'https://notebook.zoho.in/app/index.html#/shared/notebooks/74tdo9fe8c7f96c6c457182304c40c6f733b3/notecards' },
     { name: 'HTML' },
+    { name: 'CSS' },
     { name: 'SCSS', referenceUrl: 'https://notebook.zoho.in/app/index.html#/shared/notecards/74tdo9d0e3ca5e6754fa89261cf9b01ec38d9' },
     { name: 'RxJS', referenceUrl: 'https://notebook.zoho.in/app/index.html#/shared/notecards/74tdo6de2284eb4094849927b2ce917ac5781' }
   ]);
@@ -30,6 +32,7 @@ export class ConceptService {
     ...javaScriptConcepts,
     ...csharpConcepts,
     ...htmlConcepts,
+    ...cssConcepts,
     ...scssConcepts,
     ...rxjsConcepts,
     ...nodeConcepts
