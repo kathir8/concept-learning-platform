@@ -10,6 +10,7 @@ import { typeScriptConcepts } from './concepts/typeScript';
 import { nodeConcepts } from './concepts/node';
 import { cssConcepts } from './concepts/css';
 import { jasmineKarmaConcepts } from './concepts/jasmine-karma';
+import { dsaConcepts } from './concepts/dsa';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,8 @@ export class ConceptService {
     { name: 'CSS' },
     { name: 'SCSS', referenceUrl: 'https://notebook.zoho.in/app/index.html#/shared/notecards/74tdo9d0e3ca5e6754fa89261cf9b01ec38d9' },
     { name: 'RxJS', referenceUrl: 'https://notebook.zoho.in/app/index.html#/shared/notecards/74tdo6de2284eb4094849927b2ce917ac5781' },
-    { name: 'Jasmine-Karma', referenceUrl: 'https://chatgpt.com/g/g-p-69ebeb3dcbf88191ac99a7704523b0ed-unit-testing/project' }
+    { name: 'Jasmine-Karma', referenceUrl: 'https://chatgpt.com/g/g-p-69ebeb3dcbf88191ac99a7704523b0ed-unit-testing/project' },
+    { name: 'DSA', referenceUrl: 'https://notebook.zoho.in/app/index.html#/shared/notebooks/74tdoda35b4449c2a46ac8c1c0de4cc465212/notecards' }
   ]);
 
   private readonly mockConcepts: ConceptSearch[] = [
@@ -38,7 +40,8 @@ export class ConceptService {
     ...scssConcepts,
     ...rxjsConcepts,
     ...nodeConcepts,
-    ...jasmineKarmaConcepts
+    ...jasmineKarmaConcepts,
+    ...dsaConcepts
   ].map(c => ({
     ...c,
     _category: c.category.toLowerCase(),
