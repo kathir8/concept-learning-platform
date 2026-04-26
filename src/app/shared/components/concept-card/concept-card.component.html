@@ -50,7 +50,7 @@
   <div class="p-6 sm:p-8 min-h-[140px] flex items-center">
     <p class="text-lg sm:text-xl leading-relaxed text-gray-800 dark:text-gray-200 font-medium">
       @if (activeTab() === 'slang') {
-      "{{ concept().slangDefinition }}"
+      {{ concept().slangDefinition }}
       } @else {
       {{ concept().interviewDefinition }}
       }

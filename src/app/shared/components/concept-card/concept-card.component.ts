@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, Component, effect, inject, input, PLATFORM_ID, signal } from '@angular/core';
+import { Component, effect, inject, input, PLATFORM_ID, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { Concept } from '../../../core/models/concept.model';
 import { DefinitionType, PreferencesService } from '../../../core/services/preferences.service';
@@ -9,7 +9,6 @@ import { DefinitionType, PreferencesService } from '../../../core/services/prefe
   standalone: true,
   imports: [MatIconModule],
   templateUrl: './concept-card.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConceptCardComponent {
   concept = input.required<Concept>();
