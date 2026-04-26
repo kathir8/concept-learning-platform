@@ -5,6 +5,7 @@ export const dsaConcepts: Concept[] = [
         id: 'time-and-space-complexity',
         title: 'Time & Space Complexity (Big O)',
         category: 'DSA',
+        referenceUrl: 'https://notebook.zoho.in/app/index.html#/shared/notecards/74tdof620b85a0c1f412aa7ffc03fce87b5ff',
         slangDefinition: `Time Complexity na "code epdi fast-a run aagudhu" nu measure pannuvom — input size perukum pothu execution time epdi grow aagudhu nu solvom. Space Complexity na "code epdi memory use pannudhu" nu measure pannuvom. Big O notation use panni worst case scenario express pannuvom. O(1) na input size matter pannaamal always same time — best. O(n) na input size-ku proportional — okay. O(n²) na nested loops — slow. Simple-a solla: "Input perukum pothu, code epdi behave pannudhu nu predict pannuvom" — adhu dhaan Big O.`,
         interviewDefinition: `Time Complexity measures how the execution time of an algorithm grows relative to input size. Space Complexity measures how much memory an algorithm uses relative to input size. Both are expressed using Big O notation which describes the worst-case growth rate. O(1) — constant, O(log n) — logarithmic, O(n) — linear, O(n log n) — linearithmic, O(n²) — quadratic, O(2ⁿ) — exponential. Big O ignores constants and lower-order terms — we care about how the algorithm scales, not exact milliseconds. Understanding complexity helps choose the right algorithm and data structure for a given problem.`,
         example: `
