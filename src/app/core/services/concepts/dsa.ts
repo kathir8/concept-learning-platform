@@ -1022,7 +1022,7 @@ console.log(bfs(graph, 'A'))  // ['A', 'B', 'C', 'D', 'E', 'F'] ✅
     id: 'ds-circular-queue',
     title: 'Circular Queue',
     category: 'DSA',
-    slangDefinition: `Circular Queue na normal queue-oda problem fix pannudhu. Normal array-based queue-la dequeue panna front move aagadhu — left side-la empty spaces waste aagudhu. Circular Queue-la last position-ku aparam first position-ku wrap around aagudhu — circle maari. What: Fixed size array-la front and rear pointers circle-a move pannuvom. Where: CPU scheduling, memory buffering, streaming data, printer queue. When: Fixed size buffer vennum pothu, memory waste avoid pannanum pothu. Why: Space reuse pannuvom — O(1) enqueue and dequeue. How: rear = (rear + 1) % size formula use panni wrap around pannuvom.`,
+    slangDefinition: `Circular Queue na normal queue-oda problem fix pannudhu. Normal array-based queue-la dequeue panna front move aagadhu — left side-la empty spaces waste aagudhu. Circular Queue-la last position-ku aparam first position-ku wrap around aagudhu — circle maari. What: Fixed size array-la front and rear pointers circle-a move pannuvom. Where: CPU scheduling, memory buffering, streaming data, printer queue. When: Fixed size buffer venum pothu, memory waste avoid pannanum pothu. Why: Space reuse pannuvom — O(1) enqueue and dequeue. How: rear = (rear + 1) % size formula use panni wrap around pannuvom.`,
     interviewDefinition: `A Circular Queue (Ring Buffer) is a linear data structure that connects the last position back to the first position, forming a circle. It solves the space wastage problem of linear queues where dequeued slots cannot be reused. It uses front and rear pointers with modulo arithmetic — (index + 1) % capacity — to wrap around. All operations (enqueue, dequeue, peek) are O(1). It is full when (rear + 1) % capacity === front, and empty when front === rear. Used in CPU scheduling, network buffers, audio/video streaming, and producer-consumer problems.`,
     example: `// ══════════════════════════════════════════
 // PROBLEM WITH NORMAL QUEUE
@@ -1266,7 +1266,7 @@ console.log(videoBuffer.read())  // Frame 2 ✅
     id: 'ds-deque',
     title: 'Deque (Double Ended Queue)',
     category: 'DSA',
-    slangDefinition: `Deque na Double Ended Queue — both ends-la insert and delete panna mudiyudhu. What: Queue + Stack combo — front and rear rendu-liyum push/pop panna mudiyudhu. Where: Browser history (back/forward), sliding window problems, undo/redo, palindrome check. When: Both ends-la fast insert/delete vennum pothu. Why: All operations O(1) — front and rear both-la work pannuvom. How: Doubly Linked List use panna best — prev + next pointers use panni both ends O(1). Normal queue = only rear-la add, front-la remove. Deque = anywhere add/remove.`,
+    slangDefinition: `Deque na Double Ended Queue — both ends-la insert and delete panna mudiyudhu. What: Queue + Stack combo — front and rear rendu-liyum push/pop panna mudiyudhu. Where: Browser history (back/forward), sliding window problems, undo/redo, palindrome check. When: Both ends-la fast insert/delete venum pothu. Why: All operations O(1) — front and rear both-la work pannuvom. How: Doubly Linked List use panna best — prev + next pointers use panni both ends O(1). Normal queue = only rear-la add, front-la remove. Deque = anywhere add/remove.`,
     interviewDefinition: `A Deque (Double-Ended Queue) is a linear data structure that allows insertion and deletion from both front and rear ends. It generalizes both Stack and Queue. addFront, removeFront, addRear, removeRear are all O(1) when implemented using a Doubly Linked List. Array-based deque has O(n) for front operations. Deque is used in sliding window maximum/minimum problems, palindrome checking, browser history navigation, and task stealing algorithms. JavaScript arrays can simulate a deque using push/pop (rear) and unshift/shift (front) but front operations are O(n).`,
     example: `// ══════════════════════════════════════════
 // WHAT — Deque
@@ -1554,7 +1554,7 @@ browser.back()   // Back to: google.com ✅
     id: 'ds-max-heap',
     title: 'Max Heap',
     category: 'DSA',
-    slangDefinition: `Max Heap na complete binary tree — parent always children-a vida perusa irukku. What: Root-la always maximum element irukku — "biggest boss on top". Where: Priority Queue, heap sort, find top K elements. When: Maximum element fast-a access vennum pothu, priority based processing vennum pothu. Why: Max element O(1) access, insert/delete O(log n). How: Array use panni represent pannuvom — parent index i-ku children 2i+1 and 2i+2. Insert panna bottom-la add panni bubble up pannuvom. Delete panna root remove panni last element root-la vachi bubble down pannuvom.`,
+    slangDefinition: `Max Heap na complete binary tree — parent always children-a vida perusa irukku. What: Root-la always maximum element irukku — "biggest boss on top". Where: Priority Queue, heap sort, find top K elements. When: Maximum element fast-a access venum pothu, priority based processing venum pothu. Why: Max element O(1) access, insert/delete O(log n). How: Array use panni represent pannuvom — parent index i-ku children 2i+1 and 2i+2. Insert panna bottom-la add panni bubble up pannuvom. Delete panna root remove panni last element root-la vachi bubble down pannuvom.`,
     interviewDefinition: `A Max Heap is a complete binary tree where every parent node is greater than or equal to its children. The maximum element is always at the root, accessible in O(1). It is stored as an array where for a node at index i, left child is at 2i+1, right child at 2i+2, and parent at Math.floor((i-1)/2). Insertion adds at the end and bubbles up (heapify up) — O(log n). Deletion removes the root, places the last element at root, and bubbles down (heapify down) — O(log n). Used in Priority Queues, heap sort, and finding K largest elements.`,
     example: `// ══════════════════════════════════════════
 // WHAT — Max Heap Array Representation
@@ -1793,7 +1793,7 @@ console.log(findKLargest([3, 1, 5, 12, 2, 11, 8], 3))
     id: 'ds-min-heap',
     title: 'Min Heap',
     category: 'DSA',
-    slangDefinition: `Min Heap na Max Heap opposite — parent always children-a vida small values. What: Root-la always minimum element irukku — "smallest boss on top". Where: Dijkstra shortest path, hospital triage (less wait time first), scheduling, K smallest elements find panna. When: Minimum element fast-a access vennum pothu. Why: Min element O(1) access. How: Max Heap-a vida comparison logic reverse pannuvom — parent > child aana swap pannuvom (max heap-la parent < child aana swap). Everything same logic, just comparison flip.`,
+    slangDefinition: `Min Heap na Max Heap opposite — parent always children-a vida small values. What: Root-la always minimum element irukku — "smallest boss on top". Where: Dijkstra shortest path, hospital triage (less wait time first), scheduling, K smallest elements find panna. When: Minimum element fast-a access venum pothu. Why: Min element O(1) access. How: Max Heap-a vida comparison logic reverse pannuvom — parent > child aana swap pannuvom (max heap-la parent < child aana swap). Everything same logic, just comparison flip.`,
     interviewDefinition: `A Min Heap is a complete binary tree where every parent node is less than or equal to its children. The minimum element is always at the root, accessible in O(1). Implementation is identical to Max Heap with one change — comparison is reversed. During bubble up, swap if parent > child. During bubble down, swap with the smaller child. Min Heaps are used in Dijkstra's shortest path algorithm, Prim's MST, scheduling by earliest deadline, finding K smallest elements, and merge K sorted lists.`,
     example: `// ══════════════════════════════════════════
 // WHAT — Min Heap Array Representation
@@ -4118,7 +4118,7 @@ console.log(insertionSortByName(names).map(p => p.name))
     id: 'ds-merge-sort',
     title: 'Merge Sort',
     category: 'DSA',
-    slangDefinition: `Merge Sort na divide and conquer — array-a half pannuvom, each half sort pannuvom, merge pannuvom. Recursively array-a single elements vara varaikkum split pannuvom — single element always sorted. Aparam sorted arrays-a merge panna compare panni sorted order-la combine pannuvom. Pros: Always O(n log n) — best worst average same, stable sort, large data-ku reliable. Cons: O(n) extra space — new arrays create pannuvom (in-place illa). Used on: Large datasets, stable sort vennum pothu, external sorting (disk-based), linked list sorting (no extra space needed!).`,
+    slangDefinition: `Merge Sort na divide and conquer — array-a half pannuvom, each half sort pannuvom, merge pannuvom. Recursively array-a single elements vara varaikkum split pannuvom — single element always sorted. Aparam sorted arrays-a merge panna compare panni sorted order-la combine pannuvom. Pros: Always O(n log n) — best worst average same, stable sort, large data-ku reliable. Cons: O(n) extra space — new arrays create pannuvom (in-place illa). Used on: Large datasets, stable sort venum pothu, external sorting (disk-based), linked list sorting (no extra space needed!).`,
     interviewDefinition: `Merge Sort is a divide-and-conquer algorithm that recursively splits the array into halves until single elements remain, then merges them back in sorted order. Time complexity is O(n log n) in all cases — best, average, and worst. Space complexity is O(n) for the auxiliary array used during merging. It is stable — equal elements maintain relative order. Preferred over Quick Sort when stability is required or worst-case O(n log n) is needed. Used in Java's Arrays.sort() for objects, Python's TimSort, and external sorting of large files.`,
     example: `// ══════════════════════════════════════════
 // HOW IT WORKS
@@ -4490,5 +4490,1688 @@ console.log(quickSortByAge([...people]).map(p => p.name))
 // Worst   → O(n²) bad pivot (use random pivot to avoid)
 // Space   → O(log n) call stack ✅
 // Stable  → No ❌`
+  },
+
+  {
+    id: 'ds-two-pointers',
+    title: 'Two Pointers Technique',
+    category: 'DSA',
+    slangDefinition: `Two Pointers na array/string-la rendu pointer use pannuvom — same time-la rendu positions track pannuvom. O(n²) nested loop-a O(n) single pass-la solve pannuvom. Patterns: Left+Right (both ends-la irunthu middle-ku move), Slow+Fast (same direction — different speed). Pros: O(n) time, O(1) space — very efficient. Cons: Sorted array venum pothu (left+right pattern), problem specific — all problems-ku work aagaathu. Use pannuvom: Pair sum, palindrome check, remove duplicates, container with most water, linked list cycle detect.`,
+    interviewDefinition: `Two Pointers is an algorithmic technique that uses two index pointers to traverse a data structure simultaneously, reducing time complexity from O(n²) to O(n). Two main patterns: Left-Right Pointers (start from both ends, move toward center — used for sorted arrays, palindrome) and Slow-Fast Pointers (same direction, different speeds — used for linked list cycle, find middle, remove duplicates). Space complexity is O(1) — no extra data structure needed. Common in array, string, and linked list problems.`,
+    example: `// ══════════════════════════════════════════
+// PATTERN 1 — LEFT + RIGHT POINTERS
+// "Both ends-la irunthu middle-ku move pannuvom"
+// ══════════════════════════════════════════
+
+// ✅ Problem 1: Two Sum (Sorted Array)
+// "Two numbers sum = target find pannuvom"
+function twoSumSorted(arr, target) {
+  let left  = 0
+  let right = arr.length - 1
+
+  while (left < right) {
+    const sum = arr[left] + arr[right]
+
+    if (sum === target) {
+      return [left, right]           // Found ✅
+    } else if (sum < target) {
+      left++                         // Sum chinna — left move right ✅
+    } else {
+      right--                        // Sum perusa — right move left ✅
+    }
+  }
+  return []
+}
+
+const sorted = [1, 2, 3, 4, 6, 8, 9]
+console.log(twoSumSorted(sorted, 10))   // [1, 5] → 2+8=10 ✅
+console.log(twoSumSorted(sorted, 7))    // [2, 3] → 3+4=7 ✅
+console.log(twoSumSorted(sorted, 100))  // [] not found
+
+
+// ✅ Problem 2: Palindrome Check
+// "String forward and backward same-a irukka?"
+function isPalindrome(str) {
+  let left  = 0
+  let right = str.length - 1
+
+  while (left < right) {
+    if (str[left] !== str[right]) {
+      return false             // Mismatch — not palindrome ❌
+    }
+    left++
+    right--
+  }
+  return true                  // Palindrome ✅
+}
+
+console.log(isPalindrome('racecar'))    // true  ✅
+console.log(isPalindrome('hello'))      // false ❌
+console.log(isPalindrome('madam'))      // true  ✅
+console.log(isPalindrome('A'))          // true  ✅
+
+
+// ✅ Problem 3: Reverse Array In-place
+function reverseArray(arr) {
+  const nums = [...arr]
+  let left   = 0
+  let right  = nums.length - 1
+
+  while (left < right) {
+    [nums[left], nums[right]] = [nums[right], nums[left]]  // Swap ✅
+    left++
+    right--
+  }
+  return nums
+}
+
+console.log(reverseArray([1, 2, 3, 4, 5]))  // [5, 4, 3, 2, 1] ✅
+console.log(reverseArray([1, 2, 3, 4]))     // [4, 3, 2, 1] ✅
+
+
+// ✅ Problem 4: Container With Most Water
+// "Max water hold panna kondu two lines select pannuvom"
+function maxWater(heights) {
+  let left    = 0
+  let right   = heights.length - 1
+  let maxArea = 0
+
+  while (left < right) {
+    const width  = right - left
+    const height = Math.min(heights[left], heights[right])
+    const area   = width * height
+
+    maxArea = Math.max(maxArea, area)        // Max area update ✅
+
+    // Shorter side move pannuvom — taller side-la hope irukku
+    if (heights[left] < heights[right]) {
+      left++
+    } else {
+      right--
+    }
+  }
+  return maxArea
+}
+
+console.log(maxWater([1, 8, 6, 2, 5, 4, 8, 3, 7]))  // 49 ✅
+console.log(maxWater([1, 1]))                         // 1  ✅
+
+
+// ✅ Problem 5: Three Sum (Sort + Two Pointers)
+// "Three numbers sum = 0 find pannuvom"
+function threeSum(nums) {
+  const result = []
+  nums.sort((a, b) => a - b)   // Sort first ✅
+
+  for (let i = 0; i < nums.length - 2; i++) {
+    if (i > 0 && nums[i] === nums[i - 1]) continue  // Skip duplicates
+
+    let left  = i + 1
+    let right = nums.length - 1
+
+    while (left < right) {
+      const sum = nums[i] + nums[left] + nums[right]
+
+      if (sum === 0) {
+        result.push([nums[i], nums[left], nums[right]])  // Found ✅
+        while (left < right && nums[left]  === nums[left  + 1]) left++
+        while (left < right && nums[right] === nums[right - 1]) right--
+        left++
+        right--
+      } else if (sum < 0) {
+        left++
+      } else {
+        right--
+      }
+    }
+  }
+  return result
+}
+
+console.log(threeSum([-1, 0, 1, 2, -1, -4]))
+// [[-1,-1,2], [-1,0,1]] ✅
+
+console.log(threeSum([0, 0, 0]))
+// [[0,0,0]] ✅
+
+
+// ✅ Problem 6: Squaring Sorted Array
+// "Sorted array square panni sorted-a return pannuvom"
+// [-4, -1, 0, 3, 10] → [0, 1, 9, 16, 100]
+function sortedSquares(nums) {
+  const result = new Array(nums.length)
+  let left     = 0
+  let right    = nums.length - 1
+  let pos      = nums.length - 1  // Fill from end ✅
+
+  while (left <= right) {
+    const leftSq  = nums[left]  * nums[left]
+    const rightSq = nums[right] * nums[right]
+
+    if (leftSq > rightSq) {
+      result[pos--] = leftSq    // Larger square — end-la place ✅
+      left++
+    } else {
+      result[pos--] = rightSq
+      right--
+    }
+  }
+  return result
+}
+
+console.log(sortedSquares([-4, -1, 0, 3, 10]))  // [0,1,9,16,100] ✅
+console.log(sortedSquares([-7, -3, 2, 3, 11]))  // [4,9,9,49,121] ✅
+
+
+// ══════════════════════════════════════════
+// PATTERN 2 — SLOW + FAST POINTERS
+// "Same direction, different speeds"
+// ══════════════════════════════════════════
+
+// ✅ Problem 7: Remove Duplicates (Sorted Array)
+// "In-place duplicates remove pannuvom"
+function removeDuplicates(nums) {
+  if (nums.length === 0) return 0
+
+  let slow = 0   // Last unique element position
+
+  for (let fast = 1; fast < nums.length; fast++) {
+    if (nums[fast] !== nums[slow]) {
+      slow++                          // Move slow forward
+      nums[slow] = nums[fast]         // Unique element place pannuvom ✅
+    }
+    // fast always move — slow only when unique found
+  }
+
+  return slow + 1   // Unique count
+}
+
+const dupeArr = [1, 1, 2, 2, 3, 4, 4, 5]
+const uniqueCount = removeDuplicates(dupeArr)
+console.log(dupeArr.slice(0, uniqueCount))  // [1, 2, 3, 4, 5] ✅
+console.log(uniqueCount)                    // 5
+
+
+// ✅ Problem 8: Move Zeros to End
+// "Non-zero elements maintain order, zeros end-ku move"
+function moveZeros(nums) {
+  const arr  = [...nums]
+  let slow   = 0    // Non-zero position
+
+  for (let fast = 0; fast < arr.length; fast++) {
+    if (arr[fast] !== 0) {
+      arr[slow++] = arr[fast]   // Non-zero → slow position ✅
+    }
+  }
+
+  while (slow < arr.length) {
+    arr[slow++] = 0             // Remaining → zero fill ✅
+  }
+
+  return arr
+}
+
+console.log(moveZeros([0, 1, 0, 3, 12]))  // [1, 3, 12, 0, 0] ✅
+console.log(moveZeros([0, 0, 1]))          // [1, 0, 0] ✅
+
+
+// ✅ Problem 9: Remove Element In-place
+// "Specific value-a array-la irunthu remove pannuvom"
+function removeElement(nums, val) {
+  let slow = 0
+
+  for (let fast = 0; fast < nums.length; fast++) {
+    if (nums[fast] !== val) {
+      nums[slow++] = nums[fast]   // Keep non-val elements ✅
+    }
+    // val match aana fast skip pannudhu
+  }
+  return slow   // New length
+}
+
+const testArr = [3, 2, 2, 3, 4, 3, 5]
+const newLen  = removeElement(testArr, 3)
+console.log(testArr.slice(0, newLen))  // [2, 2, 4, 5] ✅
+
+
+// ✅ Problem 10: Find Middle of Linked List
+// "Slow one step, fast two steps — fast end-ku reach aana slow middle-la"
+class ListNode {
+  constructor(val) {
+    this.val  = val
+    this.next = null
+  }
+}
+
+function findMiddle(head) {
+  let slow = head
+  let fast = head
+
+  while (fast !== null && fast.next !== null) {
+    slow = slow.next          // One step ✅
+    fast = fast.next.next     // Two steps ✅
+  }
+
+  return slow    // Fast end-la — slow middle-la ✅
+}
+
+// 1 → 2 → 3 → 4 → 5
+const n1 = new ListNode(1); const n2 = new ListNode(2)
+const n3 = new ListNode(3); const n4 = new ListNode(4)
+const n5 = new ListNode(5)
+n1.next = n2; n2.next = n3; n3.next = n4; n4.next = n5
+
+console.log(findMiddle(n1).val)   // 3 ✅
+
+// Even: 1 → 2 → 3 → 4
+n4.next = null
+console.log(findMiddle(n1).val)   // 3 ✅ (second middle)
+
+
+// ✅ Problem 11: Linked List Cycle Detection (Floyd's Algorithm)
+function hasCycle(head) {
+  let slow = head
+  let fast = head
+
+  while (fast !== null && fast.next !== null) {
+    slow = slow.next          // One step
+    fast = fast.next.next     // Two steps
+
+    if (slow === fast) {
+      return true             // Cycle! Same node-la meet ✅
+    }
+  }
+  return false                // No cycle
+}
+
+// Cycle: 1 → 2 → 3 → 4 → 2
+const c1 = new ListNode(1); const c2 = new ListNode(2)
+const c3 = new ListNode(3); const c4 = new ListNode(4)
+c1.next = c2; c2.next = c3; c3.next = c4
+c4.next = c2   // Cycle! ✅
+
+console.log(hasCycle(c1))   // true  ✅
+console.log(hasCycle(n1))   // false ✅
+
+
+// ✅ Problem 12: Happy Number
+// "Digits square sum repeatedly panna 1-ku reach aagudha?"
+// Cycle irundha happy number illa
+function isHappy(n) {
+  function sumOfSquares(num) {
+    let sum = 0
+    while (num > 0) {
+      const digit = num % 10
+      sum += digit * digit
+      num = Math.floor(num / 10)
+    }
+    return sum
+  }
+
+  let slow = n
+  let fast = n
+
+  do {
+    slow = sumOfSquares(slow)             // One step
+    fast = sumOfSquares(sumOfSquares(fast)) // Two steps
+
+    if (fast === 1) return true           // Happy number ✅
+  } while (slow !== fast)
+
+  return false   // Cycle — not happy ❌
+}
+
+console.log(isHappy(19))   // true  ✅ (1²+9²=82 → 8²+2²=68 → ... → 1)
+console.log(isHappy(2))    // false ❌ (cycle)
+
+
+// ══════════════════════════════════════════
+// PROS AND CONS
+// ══════════════════════════════════════════
+
+// ✅ PROS:
+// O(n) time — O(n²) nested loop-a replace pannuvom 🚀
+// O(1) space — no extra data structure needed ✅
+// Simple implement panna — once pattern clear aana
+// Interview-la very common — must know
+
+// ❌ CONS:
+// Left+Right — sorted array venum pothu
+// Pattern recognize panna time edukku initially
+// All problems-ku work aagaathu — specific patterns mattum
+
+
+// ══════════════════════════════════════════
+// WHERE IT IS USED
+// ══════════════════════════════════════════
+// ✅ Pair/triplet sum — sorted array
+// ✅ Palindrome check — string/array
+// ✅ Reverse array/string in-place
+// ✅ Remove duplicates — sorted array
+// ✅ Move zeros — array rearrange
+// ✅ Container with most water
+// ✅ Linked list — cycle detect, find middle
+// ✅ Happy number — cycle detect
+
+
+// 📌 Pattern Summary:
+// Left + Right  → Both ends → middle
+//                 sorted array pair problems
+//                 palindrome, reverse, container water
+//                 three sum, sorted squares
+//
+// Slow + Fast   → Same direction, different speed
+//                 Remove duplicates, move zeros
+//                 Linked list cycle, find middle
+//                 Happy number cycle detect
+//
+// Time  → O(n) single pass ✅
+// Space → O(1) no extra memory ✅`
+  },
+
+  {
+    id: 'ds-sliding-window',
+    title: 'Sliding Window',
+    category: 'DSA',
+    slangDefinition: `Sliding Window na array/string-la oru window maintain pannuvom — window slide pannudhu, each step-la oru element add, oru element remove pannuvom. O(n²) nested loop-a O(n)-la solve pannuvom. Fixed window — size fixed-a irukku (k elements). Variable window — condition based-a window grow/shrink aagudhu. Pros: O(n) time, O(1) space, subarray/substring problems-ku perfect. Cons: Array/string-ku mattum, specific pattern — all problems-ku work aagaathu. Use pannuvom: Max sum subarray, longest unique substring, min window substring, anagram find panna.`,
+    interviewDefinition: `Sliding Window is a technique that maintains a window (subarray/substring) that slides over the data, adding elements on the right and removing from the left. It reduces O(n²) brute force to O(n). Fixed Window — size k is constant, slide one step at a time. Variable Window — window expands when condition is met and shrinks when violated. Uses two pointers (left, right) with a HashMap or counter for tracking. Space complexity O(1) for fixed, O(k) for variable with HashMap. Used in maximum/minimum subarray, longest/shortest substring, and anagram problems.`,
+    example: `// ══════════════════════════════════════════
+// FIXED WINDOW
+// "Window size k — fixed, slide pannuvom"
+// ══════════════════════════════════════════
+
+// ✅ Max Sum Subarray of size k
+function maxSumSubarray(arr, k) {
+  let windowSum = 0
+  let maxSum    = 0
+
+  // First window
+  for (let i = 0; i < k; i++) {
+    windowSum += arr[i]
+  }
+  maxSum = windowSum
+
+  // Slide — add new element, remove old element
+  for (let i = k; i < arr.length; i++) {
+    windowSum += arr[i]         // Right-la new add ✅
+    windowSum -= arr[i - k]     // Left-la old remove ✅
+    maxSum = Math.max(maxSum, windowSum)
+  }
+  return maxSum
+}
+
+console.log(maxSumSubarray([2, 1, 5, 1, 3, 2], 3))  // 9 ✅ (5+1+3)
+console.log(maxSumSubarray([2, 3, 4, 1, 5], 2))      // 7 ✅ (3+4)
+
+
+// ✅ Average of all subarrays of size k
+function avgSubarrays(arr, k) {
+  const result  = []
+  let windowSum = 0
+
+  for (let i = 0; i < k; i++) windowSum += arr[i]
+  result.push(windowSum / k)
+
+  for (let i = k; i < arr.length; i++) {
+    windowSum += arr[i] - arr[i - k]    // Add new, remove old — O(1) ✅
+    result.push(windowSum / k)
+  }
+  return result
+}
+
+console.log(avgSubarrays([1, 3, 2, 6, -1, 4, 1, 8, 2], 5))
+// [2.2, 2.8, 2.4, 3.6, 2.8] ✅
+
+
+// ✅ Max of each window (Fixed)
+function maxSlidingWindow(nums, k) {
+  const result = []
+
+  for (let i = 0; i <= nums.length - k; i++) {
+    let max = nums[i]
+    for (let j = i + 1; j < i + k; j++) {
+      max = Math.max(max, nums[j])
+    }
+    result.push(max)
+  }
+  return result
+}
+
+console.log(maxSlidingWindow([1, 3, -1, -3, 5, 3, 6, 7], 3))
+// [3, 3, 5, 5, 6, 7] ✅
+
+
+// ══════════════════════════════════════════
+// VARIABLE WINDOW
+// "Condition met aana expand, violated aana shrink"
+// ══════════════════════════════════════════
+
+// ✅ Longest Substring Without Repeating Characters
+function longestUniqueSubstring(s) {
+  const charMap = new Map()    // Char → last seen index
+  let left      = 0
+  let maxLen    = 0
+
+  for (let right = 0; right < s.length; right++) {
+    const char = s[right]
+
+    // Char already window-la irukka? Left move pannuvom
+    if (charMap.has(char) && charMap.get(char) >= left) {
+      left = charMap.get(char) + 1  // Window shrink ✅
+    }
+
+    charMap.set(char, right)
+    maxLen = Math.max(maxLen, right - left + 1)
+  }
+  return maxLen
+}
+
+console.log(longestUniqueSubstring('abcabcbb'))  // 3 (abc) ✅
+console.log(longestUniqueSubstring('bbbbb'))     // 1 (b)   ✅
+console.log(longestUniqueSubstring('pwwkew'))    // 3 (wke) ✅
+
+
+// ✅ Longest Substring with K Distinct Characters
+function longestKDistinct(s, k) {
+  const charCount = new Map()
+  let left        = 0
+  let maxLen      = 0
+
+  for (let right = 0; right < s.length; right++) {
+    const char = s[right]
+    charCount.set(char, (charCount.get(char) || 0) + 1)
+
+    // Distinct chars > k? Shrink from left
+    while (charCount.size > k) {
+      const leftChar = s[left]
+      charCount.set(leftChar, charCount.get(leftChar) - 1)
+      if (charCount.get(leftChar) === 0) charCount.delete(leftChar)
+      left++
+    }
+
+    maxLen = Math.max(maxLen, right - left + 1)
+  }
+  return maxLen
+}
+
+console.log(longestKDistinct('araaci', 2))   // 4 (araa) ✅
+console.log(longestKDistinct('cbbebi', 3))   // 5 (cbbeb) ✅
+
+
+// ✅ Minimum Size Subarray Sum >= target
+function minSubarrayLen(target, nums) {
+  let left    = 0
+  let sum     = 0
+  let minLen  = Infinity
+
+  for (let right = 0; right < nums.length; right++) {
+    sum += nums[right]
+
+    // Condition met — shrink from left
+    while (sum >= target) {
+      minLen = Math.min(minLen, right - left + 1)  // Window size ✅
+      sum   -= nums[left]
+      left++
+    }
+  }
+  return minLen === Infinity ? 0 : minLen
+}
+
+console.log(minSubarrayLen(7, [2, 3, 1, 2, 4, 3]))  // 2 ✅ (4+3)
+console.log(minSubarrayLen(4, [1, 4, 4]))             // 1 ✅ (4)
+
+
+// ✅ Find All Anagrams in String
+function findAnagrams(s, p) {
+  const result  = []
+  const pCount  = new Array(26).fill(0)
+  const sCount  = new Array(26).fill(0)
+  const aCode   = 'a'.charCodeAt(0)
+
+  for (const c of p) pCount[c.charCodeAt(0) - aCode]++
+
+  for (let right = 0; right < s.length; right++) {
+    sCount[s[right].charCodeAt(0) - aCode]++
+
+    // Window size > p.length? Remove left
+    if (right >= p.length) {
+      sCount[s[right - p.length].charCodeAt(0) - aCode]--
+    }
+
+    // Counts match? Anagram found ✅
+    if (JSON.stringify(pCount) === JSON.stringify(sCount)) {
+      result.push(right - p.length + 1)
+    }
+  }
+  return result
+}
+
+console.log(findAnagrams('cbaebabacd', 'abc'))  // [0, 6] ✅
+console.log(findAnagrams('abab', 'ab'))          // [0, 1, 2] ✅
+
+
+// ✅ Minimum Window Substring
+function minWindowSubstring(s, t) {
+  if (!s || !t || s.length < t.length) return ''
+
+  const need     = new Map()
+  for (const c of t) need.set(c, (need.get(c) || 0) + 1)
+
+  let left       = 0
+  let formed     = 0
+  const required = need.size
+  const window   = new Map()
+  let minLen     = Infinity
+  let minStart   = 0
+
+  for (let right = 0; right < s.length; right++) {
+    const char = s[right]
+    window.set(char, (window.get(char) || 0) + 1)
+
+    if (need.has(char) && window.get(char) === need.get(char)) formed++
+
+    while (formed === required && left <= right) {
+      if (right - left + 1 < minLen) {
+        minLen   = right - left + 1
+        minStart = left
+      }
+      const lChar = s[left]
+      window.set(lChar, window.get(lChar) - 1)
+      if (need.has(lChar) && window.get(lChar) < need.get(lChar)) formed--
+      left++
+    }
+  }
+  return minLen === Infinity ? '' : s.substring(minStart, minStart + minLen)
+}
+
+console.log(minWindowSubstring('ADOBECODEBANC', 'ABC'))  // 'BANC' ✅
+console.log(minWindowSubstring('a', 'a'))                 // 'a'    ✅
+
+
+// ══════════════════════════════════════════
+// PROS AND CONS
+// ══════════════════════════════════════════
+// ✅ PROS:
+// O(n) time — brute force O(n²) → O(n) ✅
+// O(1) fixed window, O(k) variable window
+// Subarray/substring problems-ku perfect
+
+// ❌ CONS:
+// Array/string-ku mattum work aagudhu
+// Pattern recognize panna time edukku
+// Variable window — condition define panna tricky
+
+// 📌 Summary:
+// Fixed Window   → size k constant, slide one step
+//                  max sum, average, max of window
+// Variable Window → expand right, shrink left
+//                   longest unique, min subarray, anagram
+// Time  → O(n) ✅
+// Space → O(1) fixed / O(k) variable`
+  },
+
+  {
+    id: 'ds-kadane-algorithm',
+    title: "Kadane's Algorithm",
+    category: 'DSA',
+    slangDefinition: `Kadane's Algorithm na maximum subarray sum find panna use pannuvom. Each position-la rendu choice irukku — current element-a previous sum-la add pannuvomа, illa fresh start pannuvoma? Prev sum + current perusa-na continue, current alone perusa-na fresh start. Running max maintain pannuvom — at each step global max update pannuvom. Pros: O(n) time, O(1) space — very elegant solution. Cons: Only sum find pannuvom, indices venum na extra tracking. Use pannuvom: Stock profit, max subarray, game score problems.`,
+    interviewDefinition: `Kadane's Algorithm finds the maximum sum contiguous subarray in O(n) time and O(1) space. At each index, it decides whether to extend the current subarray or start fresh — currentMax = max(arr[i], currentMax + arr[i]). The global maximum is updated at each step. It handles all-negative arrays by tracking the maximum single element. Can be extended to return start/end indices of the subarray. Foundation for many DP array problems. Named after Jay Kadane who proposed it in 1984.`,
+    example: `// ══════════════════════════════════════════
+// HOW IT WORKS
+// ══════════════════════════════════════════
+// Array: [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+//
+// idx 0: curr = max(-2, 0+(-2)) = -2, global = -2
+// idx 1: curr = max(1,  -2+1)   = 1,  global = 1
+// idx 2: curr = max(-3, 1+(-3)) = -2, global = 1
+// idx 3: curr = max(4,  -2+4)   = 4,  global = 4
+// idx 4: curr = max(-1, 4+(-1)) = 3,  global = 4
+// idx 5: curr = max(2,  3+2)    = 5,  global = 5
+// idx 6: curr = max(1,  5+1)    = 6,  global = 6  ✅
+// idx 7: curr = max(-5, 6+(-5)) = 1,  global = 6
+// idx 8: curr = max(4,  1+4)    = 5,  global = 6
+// Max Sum = 6 (subarray [4,-1,2,1]) ✅
+
+
+// ✅ Basic Kadane's Algorithm
+function maxSubarraySum(arr) {
+  let currentMax = arr[0]
+  let globalMax  = arr[0]
+
+  for (let i = 1; i < arr.length; i++) {
+    // Continue previous subarray or start fresh?
+    currentMax = Math.max(arr[i], currentMax + arr[i])
+    globalMax  = Math.max(globalMax, currentMax)
+  }
+  return globalMax
+}
+
+console.log(maxSubarraySum([-2, 1, -3, 4, -1, 2, 1, -5, 4]))  // 6  ✅
+console.log(maxSubarraySum([1, 2, 3, 4, 5]))                    // 15 ✅
+console.log(maxSubarraySum([-1, -2, -3, -4]))                   // -1 ✅ (least negative)
+console.log(maxSubarraySum([5, -3, 5]))                          // 7  ✅
+
+
+// ✅ Return subarray indices also
+function maxSubarrayWithIndices(arr) {
+  let currentMax = arr[0]
+  let globalMax  = arr[0]
+  let start      = 0
+  let end        = 0
+  let tempStart  = 0
+
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] > currentMax + arr[i]) {
+      currentMax = arr[i]
+      tempStart  = i          // Fresh start index track ✅
+    } else {
+      currentMax = currentMax + arr[i]
+    }
+
+    if (currentMax > globalMax) {
+      globalMax = currentMax
+      start     = tempStart   // Best start update ✅
+      end       = i           // Best end update ✅
+    }
+  }
+
+  return {
+    maxSum:   globalMax,
+    subarray: arr.slice(start, end + 1),
+    start,
+    end
+  }
+}
+
+console.log(maxSubarrayWithIndices([-2, 1, -3, 4, -1, 2, 1, -5, 4]))
+// { maxSum: 6, subarray: [4,-1,2,1], start: 3, end: 6 } ✅
+
+
+// ✅ Maximum Product Subarray (Kadane variant)
+// Negative * Negative = Positive — track both min and max
+function maxProductSubarray(nums) {
+  let maxProd  = nums[0]
+  let minProd  = nums[0]
+  let globalMax = nums[0]
+
+  for (let i = 1; i < nums.length; i++) {
+    if (nums[i] < 0) {
+      [maxProd, minProd] = [minProd, maxProd]  // Swap on negative ✅
+    }
+
+    maxProd   = Math.max(nums[i], maxProd * nums[i])
+    minProd   = Math.min(nums[i], minProd * nums[i])
+    globalMax = Math.max(globalMax, maxProd)
+  }
+  return globalMax
+}
+
+console.log(maxProductSubarray([2, 3, -2, 4]))      // 6  ✅ (2*3)
+console.log(maxProductSubarray([-2, 0, -1]))         // 0  ✅
+console.log(maxProductSubarray([-2, 3, -4]))         // 24 ✅ (-2*3*-4)
+
+
+// ✅ Circular Subarray Maximum Sum (Kadane variant)
+function maxCircularSubarraySum(nums) {
+  // Case 1: Normal max subarray (no wrap)
+  const normalMax = maxSubarraySum(nums)
+
+  // Case 2: Circular wrap — total - minimum subarray
+  const totalSum  = nums.reduce((a, b) => a + b, 0)
+  const minSum    = minSubarraySum(nums)
+  const circularMax = totalSum - minSum
+
+  // All negative case — return normalMax
+  if (circularMax === 0) return normalMax
+
+  return Math.max(normalMax, circularMax)
+}
+
+function minSubarraySum(arr) {
+  let currentMin = arr[0]
+  let globalMin  = arr[0]
+
+  for (let i = 1; i < arr.length; i++) {
+    currentMin = Math.min(arr[i], currentMin + arr[i])
+    globalMin  = Math.min(globalMin, currentMin)
+  }
+  return globalMin
+}
+
+console.log(maxCircularSubarraySum([1, -2, 3, -2]))   // 3  ✅
+console.log(maxCircularSubarraySum([5, -3, 5]))        // 10 ✅ (wrap: 5+5)
+
+
+// ✅ Real World — Stock Max Profit (Kadane variant)
+function maxProfit(prices) {
+  let maxProfit   = 0
+  let currentGain = 0
+
+  for (let i = 1; i < prices.length; i++) {
+    const diff  = prices[i] - prices[i - 1]  // Daily change
+    currentGain = Math.max(0, currentGain + diff)
+    maxProfit   = Math.max(maxProfit, currentGain)
+  }
+  return maxProfit
+}
+
+console.log(maxProfit([7, 1, 5, 3, 6, 4]))  // 5 ✅ (buy 1, sell 6)
+console.log(maxProfit([7, 6, 4, 3, 1]))      // 0 ✅ (no profit)
+
+
+// ══════════════════════════════════════════
+// PROS AND CONS
+// ══════════════════════════════════════════
+// ✅ PROS:
+// O(n) time — single pass ✅
+// O(1) space — elegant ✅
+// All-negative arrays handle pannudhu ✅
+// Many variants — product, circular, 2D
+
+// ❌ CONS:
+// Only contiguous subarray — non-contiguous vennam na DP use pannanum
+// Indices track panna extra logic venum
+
+// 📌 Summary:
+// Core idea   → currentMax = max(arr[i], currentMax + arr[i])
+// Time        → O(n) ✅
+// Space       → O(1) ✅
+// Variants    → Max product, circular, stock profit`
+  },
+
+  {
+    id: 'ds-greedy',
+    title: 'Greedy Algorithm',
+    category: 'DSA',
+    slangDefinition: `Greedy na each step-la locally best choice pannuvom — future consider pannuvom illa. "Ippo best choice panna overall best result varum" nu assume pannuvom. Restaurant-la buffet-la expensive items first eduppa maari — immediate best choice pannuvom. Pros: Simple, fast — usually O(n) or O(n log n), optimal-a irukku certain problems-ku. Cons: Always optimal illa — globally best result guarantee illa, problem-specific (coin change — arbitrary coins-la fail pannudhu), backtrack panna vendivaraa. Use pannuvom: Activity selection, Huffman coding, Dijkstra, fractional knapsack, jump game.`,
+    interviewDefinition: `Greedy Algorithm makes the locally optimal choice at each step with the hope of finding the global optimum. It never reconsiders previous choices — no backtracking. Greedy works when the problem has Greedy Choice Property (local optimal leads to global optimal) and Optimal Substructure (optimal solution contains optimal sub-solutions). Works correctly for: activity selection, Huffman encoding, Dijkstra shortest path, fractional knapsack. Fails for: 0/1 knapsack, coin change with arbitrary denominations (needs DP). Time complexity usually O(n) or O(n log n) with sorting.`,
+    example: `// ══════════════════════════════════════════
+// BASIC GREEDY — Coin Change (Standard coins)
+// ══════════════════════════════════════════
+// Greedy works for standard coin systems (1,5,10,25)
+// Largest coin first use pannuvom
+function coinChangeGreedy(amount, coins) {
+  const sortedCoins = [...coins].sort((a, b) => b - a)  // Largest first
+  const result      = []
+  let remaining     = amount
+
+  for (const coin of sortedCoins) {
+    while (remaining >= coin) {
+      result.push(coin)
+      remaining -= coin
+    }
+  }
+
+  return remaining === 0
+    ? { coins: result, count: result.length }
+    : { error: 'Cannot make exact change' }
+}
+
+console.log(coinChangeGreedy(30, [1, 5, 10, 25]))
+// { coins: [25, 5], count: 2 } ✅
+
+console.log(coinChangeGreedy(11, [1, 5, 10, 25]))
+// { coins: [10, 1], count: 2 } ✅
+
+// ⚠️ Greedy FAILS for arbitrary coins
+// Amount: 6, Coins: [1, 3, 4]
+// Greedy: 4+1+1 = 3 coins ❌
+// Optimal: 3+3  = 2 coins ✅ (DP needed)
+
+
+// ✅ Activity Selection — Maximum non-overlapping activities
+function activitySelection(activities) {
+  // Sort by end time — earliest finish first ✅
+  const sorted = [...activities].sort((a, b) => a.end - b.end)
+  const result = [sorted[0]]
+  let lastEnd  = sorted[0].end
+
+  for (let i = 1; i < sorted.length; i++) {
+    // Current activity start >= last selected end?
+    if (sorted[i].start >= lastEnd) {
+      result.push(sorted[i])    // Select activity ✅
+      lastEnd = sorted[i].end
+    }
+  }
+  return result
+}
+
+const activities = [
+  { name: 'A', start: 1,  end: 4  },
+  { name: 'B', start: 3,  end: 5  },
+  { name: 'C', start: 0,  end: 6  },
+  { name: 'D', start: 5,  end: 7  },
+  { name: 'E', start: 8,  end: 9  },
+  { name: 'F', start: 5,  end: 9  },
+]
+
+console.log(activitySelection(activities).map(a => a.name))
+// ['A', 'D', 'E'] ✅ — maximum non-overlapping
+
+
+// ✅ Jump Game — Can reach last index?
+function canJump(nums) {
+  let maxReach = 0    // Farthest index we can reach
+
+  for (let i = 0; i < nums.length; i++) {
+    if (i > maxReach) return false    // Current index unreachable ❌
+
+    maxReach = Math.max(maxReach, i + nums[i])  // Update max reach ✅
+
+    if (maxReach >= nums.length - 1) return true
+  }
+  return true
+}
+
+console.log(canJump([2, 3, 1, 1, 4]))  // true  ✅
+console.log(canJump([3, 2, 1, 0, 4]))  // false ❌
+
+
+// ✅ Jump Game II — Minimum jumps to reach end
+function minJumps(nums) {
+  let jumps    = 0
+  let curEnd   = 0    // Current jump's farthest reach
+  let farthest = 0    // Overall farthest reach
+
+  for (let i = 0; i < nums.length - 1; i++) {
+    farthest = Math.max(farthest, i + nums[i])
+
+    if (i === curEnd) {        // Current jump exhausted
+      jumps++                  // Must jump again ✅
+      curEnd = farthest
+    }
+  }
+  return jumps
+}
+
+console.log(minJumps([2, 3, 1, 1, 4]))  // 2 ✅ (0→1→4)
+console.log(minJumps([2, 3, 0, 1, 4]))  // 2 ✅
+
+
+// ✅ Fractional Knapsack
+function fractionalKnapsack(items, capacity) {
+  // Value/weight ratio-a sort pannuvom — best ratio first ✅
+  const sorted = [...items].sort((a, b) =>
+    (b.value / b.weight) - (a.value / a.weight)
+  )
+
+  let totalValue = 0
+  let remaining  = capacity
+  const taken    = []
+
+  for (const item of sorted) {
+    if (remaining <= 0) break
+
+    if (item.weight <= remaining) {
+      // Full item take pannuvom
+      taken.push({ ...item, fraction: 1 })
+      totalValue += item.value
+      remaining  -= item.weight
+    } else {
+      // Partial item take pannuvom
+      const fraction = remaining / item.weight
+      taken.push({ ...item, fraction: fraction.toFixed(2) })
+      totalValue += item.value * fraction
+      remaining   = 0
+    }
+  }
+
+  return { totalValue: totalValue.toFixed(2), taken }
+}
+
+const items = [
+  { name: 'Gold',   weight: 10, value: 60 },
+  { name: 'Silver', weight: 20, value: 100 },
+  { name: 'Bronze', weight: 30, value: 120 },
+]
+console.log(fractionalKnapsack(items, 50))
+// totalValue: 240, taken all ✅
+
+
+// ✅ Meeting Rooms — Minimum rooms needed
+function minMeetingRooms(intervals) {
+  const starts = intervals.map(i => i[0]).sort((a, b) => a - b)
+  const ends   = intervals.map(i => i[1]).sort((a, b) => a - b)
+
+  let rooms    = 0
+  let maxRooms = 0
+  let j        = 0
+
+  for (let i = 0; i < starts.length; i++) {
+    if (starts[i] < ends[j]) {
+      rooms++                    // New room needed ✅
+    } else {
+      j++                        // Room freed ✅
+    }
+    maxRooms = Math.max(maxRooms, rooms)
+  }
+  return maxRooms
+}
+
+console.log(minMeetingRooms([[0,30],[5,10],[15,20]]))  // 2 ✅
+console.log(minMeetingRooms([[7,10],[2,4]]))            // 1 ✅
+
+
+// ══════════════════════════════════════════
+// PROS AND CONS
+// ══════════════════════════════════════════
+// ✅ PROS:
+// Simple and fast — O(n) or O(n log n)
+// No extra space — O(1) mostly
+// Easy to implement
+
+// ❌ CONS:
+// Not always optimal — problem specific
+// Arbitrary coin change fail pannudhu
+// No backtracking — wrong choice correct panna mudiyathu
+// Proof of correctness needed
+
+// 📌 Summary:
+// Core idea  → Locally best choice at each step
+// Works      → Activity selection, fractional knapsack, jump game
+// Fails      → 0/1 knapsack, arbitrary coins (use DP)
+// Time       → O(n) or O(n log n) with sorting`
+  },
+
+  {
+    id: 'ds-dynamic-programming',
+    title: 'Dynamic Programming (DP)',
+    category: 'DSA',
+    slangDefinition: `Dynamic Programming na overlapping subproblems-a solve panni result cache pannuvom — same calculation repeat pannuvom illa. Recursion + Memoization = Top-Down DP. Iterative + Tabulation = Bottom-Up DP. Simple-a solla: "Puriya pannadha calculate pannala, store pannu — repeat aana store-la irunthu eduthu use pannu". Fibonacci-a recursion-la O(2ⁿ) — DP use panna O(n). Pros: Exponential → polynomial reduce pannudhu, overlapping problems-ku perfect. Cons: Space trade-off, problem pattern recognize panna time edukku. Use pannuvom: Fibonacci, knapsack, longest common subsequence, edit distance, coin change.`,
+    interviewDefinition: `Dynamic Programming solves complex problems by breaking them into overlapping subproblems, solving each once, and storing results. Two approaches: Top-Down (Memoization) — recursive with cache, natural to write; Bottom-Up (Tabulation) — iterative, fill table from base cases, better space. DP applies when problem has Optimal Substructure (optimal solution built from optimal sub-solutions) and Overlapping Subproblems (same subproblem solved multiple times). Reduces exponential time to polynomial. Common patterns: 1D DP (fibonacci, climbing stairs), 2D DP (grid paths, LCS), Knapsack, Interval DP.`,
+    example: `// ══════════════════════════════════════════
+// FIBONACCI — DP vs Naive Recursion
+// ══════════════════════════════════════════
+
+// ❌ Naive Recursion — O(2ⁿ)
+function fibNaive(n) {
+  if (n <= 1) return n
+  return fibNaive(n - 1) + fibNaive(n - 2)   // Repeat calculations ❌
+}
+// fib(5) = fib(4) + fib(3)
+// fib(4) = fib(3) + fib(2)  ← fib(3) calculated twice!
+
+// ✅ Top-Down DP (Memoization)
+function fibMemo(n, memo = {}) {
+  if (n in memo) return memo[n]     // Cache hit ✅
+  if (n <= 1)    return n
+
+  memo[n] = fibMemo(n - 1, memo) + fibMemo(n - 2, memo)
+  return memo[n]
+}
+
+console.log(fibMemo(10))   // 55  ✅
+console.log(fibMemo(50))   // 12586269025 — instant! ✅
+
+// ✅ Bottom-Up DP (Tabulation)
+function fibTab(n) {
+  if (n <= 1) return n
+  const dp = [0, 1]
+
+  for (let i = 2; i <= n; i++) {
+    dp[i] = dp[i - 1] + dp[i - 2]   // Build from base case ✅
+  }
+  return dp[n]
+}
+
+// ✅ Space Optimized — O(1) space
+function fibOptimized(n) {
+  if (n <= 1) return n
+  let prev2 = 0, prev1 = 1
+
+  for (let i = 2; i <= n; i++) {
+    const curr = prev1 + prev2
+    prev2 = prev1
+    prev1 = curr
+  }
+  return prev1
+}
+
+console.log(fibOptimized(10))  // 55  ✅
+console.log(fibOptimized(50))  // 12586269025 ✅
+
+
+// ✅ Climbing Stairs
+// "n stairs-ku reach panna — 1 or 2 steps at a time — ways count pannuvom"
+function climbStairs(n) {
+  if (n <= 2) return n
+  const dp = [0, 1, 2]
+
+  for (let i = 3; i <= n; i++) {
+    dp[i] = dp[i - 1] + dp[i - 2]   // Fibonacci pattern ✅
+  }
+  return dp[n]
+}
+
+console.log(climbStairs(2))   // 2  ✅ (1+1, 2)
+console.log(climbStairs(3))   // 3  ✅ (1+1+1, 1+2, 2+1)
+console.log(climbStairs(5))   // 8  ✅
+
+
+// ✅ Coin Change — Minimum coins (DP — Greedy fail pothu)
+function coinChangeDP(amount, coins) {
+  const dp = new Array(amount + 1).fill(Infinity)
+  dp[0]    = 0                     // Base case — 0 amount = 0 coins
+
+  for (let i = 1; i <= amount; i++) {
+    for (const coin of coins) {
+      if (coin <= i && dp[i - coin] + 1 < dp[i]) {
+        dp[i] = dp[i - coin] + 1   // Minimum coins update ✅
+      }
+    }
+  }
+  return dp[amount] === Infinity ? -1 : dp[amount]
+}
+
+console.log(coinChangeDP(11, [1, 5, 6, 9]))  // 2 ✅ (5+6) not Greedy's 3
+console.log(coinChangeDP(11, [1, 5, 10]))     // 2 ✅ (10+1)
+console.log(coinChangeDP(3, [2]))             // -1 (impossible)
+
+
+// ✅ 0/1 Knapsack
+function knapsack(weights, values, capacity) {
+  const n  = weights.length
+  const dp = Array.from({ length: n + 1 }, () =>
+    new Array(capacity + 1).fill(0)
+  )
+
+  for (let i = 1; i <= n; i++) {
+    for (let w = 0; w <= capacity; w++) {
+      // Don't take item i
+      dp[i][w] = dp[i - 1][w]
+
+      // Take item i (if it fits)
+      if (weights[i - 1] <= w) {
+        dp[i][w] = Math.max(
+          dp[i][w],
+          values[i - 1] + dp[i - 1][w - weights[i - 1]]  // ✅
+        )
+      }
+    }
+  }
+  return dp[n][capacity]
+}
+
+const weights = [2, 3, 4, 5]
+const values  = [3, 4, 5, 6]
+console.log(knapsack(weights, values, 8))  // 10 ✅
+
+
+// ✅ Longest Common Subsequence (LCS)
+function lcs(s1, s2) {
+  const m  = s1.length
+  const n  = s2.length
+  const dp = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0))
+
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      if (s1[i - 1] === s2[j - 1]) {
+        dp[i][j] = dp[i - 1][j - 1] + 1    // Match — extend ✅
+      } else {
+        dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1])  // No match
+      }
+    }
+  }
+  return dp[m][n]
+}
+
+console.log(lcs('ABCBDAB', 'BDCAB'))   // 4 ✅ (BCAB or BDAB)
+console.log(lcs('AGGTAB', 'GXTXAYB')) // 4 ✅ (GTAB)
+
+
+// ✅ Longest Increasing Subsequence (LIS)
+function lis(nums) {
+  const n  = nums.length
+  const dp = new Array(n).fill(1)   // Each element is LIS of length 1
+
+  for (let i = 1; i < n; i++) {
+    for (let j = 0; j < i; j++) {
+      if (nums[j] < nums[i]) {
+        dp[i] = Math.max(dp[i], dp[j] + 1)   // Extend ✅
+      }
+    }
+  }
+  return Math.max(...dp)
+}
+
+console.log(lis([10, 9, 2, 5, 3, 7, 101, 18]))  // 4 ✅ (2,3,7,101)
+console.log(lis([0, 1, 0, 3, 2, 3]))             // 4 ✅
+
+
+// ✅ Grid Path — Unique paths in m×n grid
+function uniquePaths(m, n) {
+  const dp = Array.from({ length: m }, () => new Array(n).fill(1))
+
+  for (let i = 1; i < m; i++) {
+    for (let j = 1; j < n; j++) {
+      dp[i][j] = dp[i - 1][j] + dp[i][j - 1]   // From top + from left ✅
+    }
+  }
+  return dp[m - 1][n - 1]
+}
+
+console.log(uniquePaths(3, 7))   // 28  ✅
+console.log(uniquePaths(3, 2))   // 3   ✅
+
+
+// ══════════════════════════════════════════
+// PROS AND CONS
+// ══════════════════════════════════════════
+// ✅ PROS:
+// Exponential → polynomial — huge improvement 🚀
+// Overlapping subproblems handle pannudhu
+// Optimal solution guaranteed
+
+// ❌ CONS:
+// Extra space — O(n) or O(n²) table
+// State definition tricky — practice needed
+// Pattern recognize panna time edukku
+
+// 📌 Summary:
+// Top-Down  → Recursion + Memoization (cache)
+// Bottom-Up → Iterative + Tabulation (table)
+// Time      → O(n) to O(n²) depending on problem
+// Space     → O(n) to O(n²), sometimes O(1) optimized
+// Use       → Fibonacci, knapsack, LCS, coin change, grid paths`
+  },
+
+  {
+    id: 'ds-recursion',
+    title: 'Recursion',
+    category: 'DSA',
+    slangDefinition: `Recursion na function calling itself — problem smaller version-a solve panna. Oru base case venum (stopping condition), oru recursive case venum (smaller problem). Russian dolls maari — doll open pannа inside same doll irukku — last doll empty (base case). Pros: Elegant, tree/graph traversal-ku natural, divide and conquer easy write panna. Cons: Stack overflow risk, O(n) space call stack, iterative-a vida slow (function call overhead). Use pannuvom: Tree traversal, factorial, fibonacci, merge sort, backtracking, DFS.`,
+    interviewDefinition: `Recursion is when a function calls itself to solve smaller instances of the same problem. It requires a Base Case (termination condition — prevents infinite recursion) and a Recursive Case (calls itself with smaller input). Each call adds a stack frame — deep recursion causes stack overflow. Tail recursion optimization (TCO) eliminates stack growth in some languages. Time complexity depends on number of recursive calls and work per call — T(n) = aT(n/b) + f(n) (Master Theorem). Space complexity is O(recursion depth). Recursion is natural for tree/graph problems, divide and conquer, and backtracking.`,
+    example: `// ══════════════════════════════════════════
+// BASIC RECURSION STRUCTURE
+// ══════════════════════════════════════════
+
+function recursiveFunction(input) {
+  // Base case — stopping condition ✅
+  if (baseCondition) return baseValue
+
+  // Recursive case — smaller problem ✅
+  return recursiveFunction(smallerInput)
+}
+
+
+// ✅ Factorial
+function factorial(n) {
+  if (n <= 1) return 1              // Base case ✅
+  return n * factorial(n - 1)       // Recursive case ✅
+}
+
+// Call stack visualization for factorial(4):
+// factorial(4) = 4 * factorial(3)
+//              = 4 * 3 * factorial(2)
+//              = 4 * 3 * 2 * factorial(1)
+//              = 4 * 3 * 2 * 1 = 24 ✅
+
+console.log(factorial(5))   // 120 ✅
+console.log(factorial(0))   // 1   ✅
+
+
+// ✅ Power — x^n
+function power(x, n) {
+  if (n === 0) return 1             // Base case ✅
+  if (n < 0)  return 1 / power(x, -n)
+
+  // Optimized — O(log n) instead of O(n)
+  if (n % 2 === 0) {
+    const half = power(x, n / 2)   // Calculate once ✅
+    return half * half
+  }
+  return x * power(x, n - 1)
+}
+
+console.log(power(2, 10))   // 1024 ✅
+console.log(power(2, -2))   // 0.25 ✅
+
+
+// ✅ Sum of Array
+function sumArray(arr, index = 0) {
+  if (index === arr.length) return 0   // Base case ✅
+  return arr[index] + sumArray(arr, index + 1)
+}
+
+console.log(sumArray([1, 2, 3, 4, 5]))  // 15 ✅
+
+
+// ✅ Binary Search Recursive
+function binarySearchRec(arr, target, left = 0, right = arr.length - 1) {
+  if (left > right) return -1          // Base case — not found
+
+  const mid = Math.floor((left + right) / 2)
+
+  if (arr[mid] === target) return mid                              // Found ✅
+  if (arr[mid] < target)   return binarySearchRec(arr, target, mid + 1, right)
+  return binarySearchRec(arr, target, left, mid - 1)
+}
+
+console.log(binarySearchRec([1,3,5,7,9,11], 7))  // 3 ✅
+
+
+// ✅ Tree Traversals — Recursion natural use case
+class TreeNode {
+  constructor(val) {
+    this.val   = val
+    this.left  = null
+    this.right = null
+  }
+}
+
+function inorder(node, result = []) {
+  if (!node) return result           // Base case ✅
+  inorder(node.left, result)
+  result.push(node.val)
+  inorder(node.right, result)
+  return result
+}
+
+function treeHeight(node) {
+  if (!node) return 0                // Base case ✅
+  return 1 + Math.max(
+    treeHeight(node.left),
+    treeHeight(node.right)
+  )
+}
+
+// Build tree:  1
+//             / \
+//            2   3
+//           / \
+//          4   5
+const root = new TreeNode(1)
+root.left  = new TreeNode(2)
+root.right = new TreeNode(3)
+root.left.left  = new TreeNode(4)
+root.left.right = new TreeNode(5)
+
+console.log(inorder(root))      // [4, 2, 5, 1, 3] ✅
+console.log(treeHeight(root))   // 3 ✅
+
+
+// ✅ Flatten Nested Array
+function flattenArray(arr) {
+  const result = []
+
+  for (const item of arr) {
+    if (Array.isArray(item)) {
+      result.push(...flattenArray(item))  // Recursive flatten ✅
+    } else {
+      result.push(item)
+    }
+  }
+  return result
+}
+
+console.log(flattenArray([1, [2, [3, [4]], 5]]))  // [1,2,3,4,5] ✅
+
+
+// ✅ Generate All Subsets
+function generateSubsets(nums, index = 0, current = [], result = []) {
+  result.push([...current])              // Add current subset ✅
+
+  for (let i = index; i < nums.length; i++) {
+    current.push(nums[i])                // Include element
+    generateSubsets(nums, i + 1, current, result)
+    current.pop()                        // Exclude element (backtrack)
+  }
+  return result
+}
+
+console.log(generateSubsets([1, 2, 3]))
+// [[], [1], [1,2], [1,2,3], [1,3], [2], [2,3], [3]] ✅
+
+
+// ✅ Deep Clone Object
+function deepClone(obj) {
+  if (obj === null || typeof obj !== 'object') return obj   // Base case
+
+  if (Array.isArray(obj)) {
+    return obj.map(item => deepClone(item))                 // Array ✅
+  }
+
+  const cloned = {}
+  for (const key in obj) {
+    cloned[key] = deepClone(obj[key])   // Recursive clone ✅
+  }
+  return cloned
+}
+
+const original = { a: 1, b: { c: 2, d: [3, 4] } }
+const cloned   = deepClone(original)
+cloned.b.c     = 99
+console.log(original.b.c)  // 2 — original safe ✅
+console.log(cloned.b.c)     // 99 ✅
+
+
+// ══════════════════════════════════════════
+// PROS AND CONS
+// ══════════════════════════════════════════
+// ✅ PROS:
+// Elegant, readable code
+// Natural for tree/graph/divide-conquer
+// Complex problems simple-a express pannalaam
+
+// ❌ CONS:
+// Stack overflow — deep recursion ❌
+// O(n) space call stack
+// Function call overhead — iterative-a vida slow
+// Debug panna kasta
+
+// 📌 Summary:
+// Base case    → Termination condition — mandatory ✅
+// Recursive    → Smaller problem call
+// Space        → O(n) call stack
+// Convert      → Iterative + stack = recursion avoid pannalaam
+// Use          → Tree, graph, divide-conquer, backtracking`
+  },
+
+  {
+    id: 'ds-backtracking',
+    title: 'Backtracking',
+    category: 'DSA',
+    slangDefinition: `Backtracking na try panni fail aana undo pannuvom — next option try pannuvom. Maze solve panna maari — oru path try pannuvom, dead end-a irundha back pannuvom, vera path try pannuvom. Brute force-a vida smart — invalid choices early prune pannuvom (backtrack). Pros: All solutions find panna, pruning use panna fast. Cons: Worst case exponential O(2ⁿ) or O(n!), large inputs-la slow. Use pannuvom: N-Queens, Sudoku solver, permutations, combinations, word search, subset sum.`,
+    interviewDefinition: `Backtracking is an algorithmic technique that explores all potential solutions by building candidates incrementally and abandoning (backtracking) a candidate as soon as it determines it cannot lead to a valid solution. It is a depth-first search with pruning. The template is: Choose → Explore → Unchoose (backtrack). More efficient than brute force because invalid paths are pruned early. Time complexity is typically O(2ⁿ) for subsets or O(n!) for permutations. Used when: finding all solutions, constraint satisfaction problems, optimization with choices.`,
+    example: `// ══════════════════════════════════════════
+// BACKTRACKING TEMPLATE
+// ══════════════════════════════════════════
+
+function backtrack(state, choices) {
+  // Base case — solution found
+  if (isComplete(state)) {
+    addToResults(state)
+    return
+  }
+
+  for (const choice of choices) {
+    if (isValid(choice, state)) {
+      makeChoice(choice, state)      // Choose ✅
+      backtrack(state, newChoices)   // Explore ✅
+      undoChoice(choice, state)      // Unchoose (Backtrack) ✅
+    }
+  }
+}
+
+
+// ✅ Generate All Permutations
+function permutations(nums) {
+  const result = []
+
+  function backtrack(current, remaining) {
+    if (remaining.length === 0) {
+      result.push([...current])    // Complete permutation ✅
+      return
+    }
+
+    for (let i = 0; i < remaining.length; i++) {
+      current.push(remaining[i])                    // Choose ✅
+      backtrack(current, [
+        ...remaining.slice(0, i),
+        ...remaining.slice(i + 1)
+      ])
+      current.pop()                                 // Unchoose ✅
+    }
+  }
+
+  backtrack([], nums)
+  return result
+}
+
+console.log(permutations([1, 2, 3]))
+// [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]] ✅
+
+
+// ✅ Generate All Combinations (k elements from n)
+function combinations(n, k) {
+  const result = []
+
+  function backtrack(start, current) {
+    if (current.length === k) {
+      result.push([...current])    // k elements found ✅
+      return
+    }
+
+    for (let i = start; i <= n; i++) {
+      current.push(i)                  // Choose ✅
+      backtrack(i + 1, current)        // Explore (next number only)
+      current.pop()                    // Unchoose ✅
+    }
+  }
+
+  backtrack(1, [])
+  return result
+}
+
+console.log(combinations(4, 2))
+// [[1,2],[1,3],[1,4],[2,3],[2,4],[3,4]] ✅
+
+
+// ✅ Combination Sum — target sum reach panna numbers find pannuvom
+function combinationSum(candidates, target) {
+  const result = []
+  candidates.sort((a, b) => a - b)
+
+  function backtrack(remaining, current, start) {
+    if (remaining === 0) {
+      result.push([...current])    // Target reached ✅
+      return
+    }
+
+    for (let i = start; i < candidates.length; i++) {
+      if (candidates[i] > remaining) break    // Pruning ✅
+
+      current.push(candidates[i])
+      backtrack(remaining - candidates[i], current, i)  // Same element reuse ✅
+      current.pop()
+    }
+  }
+
+  backtrack(target, [], 0)
+  return result
+}
+
+console.log(combinationSum([2, 3, 6, 7], 7))
+// [[2,2,3],[7]] ✅
+
+
+// ✅ N-Queens Problem
+function solveNQueens(n) {
+  const result  = []
+  const board   = Array.from({ length: n }, () => new Array(n).fill('.'))
+
+  function isValid(row, col) {
+    // Column check
+    for (let i = 0; i < row; i++) {
+      if (board[i][col] === 'Q') return false
+    }
+
+    // Upper-left diagonal
+    for (let i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {
+      if (board[i][j] === 'Q') return false
+    }
+
+    // Upper-right diagonal
+    for (let i = row - 1, j = col + 1; i >= 0 && j < n; i--, j++) {
+      if (board[i][j] === 'Q') return false
+    }
+
+    return true
+  }
+
+  function backtrack(row) {
+    if (row === n) {
+      result.push(board.map(r => r.join('')))  // All queens placed ✅
+      return
+    }
+
+    for (let col = 0; col < n; col++) {
+      if (isValid(row, col)) {
+        board[row][col] = 'Q'         // Place queen ✅
+        backtrack(row + 1)            // Next row
+        board[row][col] = '.'         // Remove queen (backtrack) ✅
+      }
+    }
+  }
+
+  backtrack(0)
+  return result
+}
+
+console.log(solveNQueens(4).length)  // 2 solutions ✅
+console.log(solveNQueens(4)[0])
+// ['.Q..', '...Q', 'Q...', '..Q.'] ✅
+
+
+// ✅ Sudoku Solver
+function solveSudoku(board) {
+  function isValid(board, row, col, num) {
+    // Row check
+    if (board[row].includes(num)) return false
+
+    // Column check
+    for (let i = 0; i < 9; i++) {
+      if (board[i][col] === num) return false
+    }
+
+    // 3×3 box check
+    const boxRow = Math.floor(row / 3) * 3
+    const boxCol = Math.floor(col / 3) * 3
+    for (let i = boxRow; i < boxRow + 3; i++) {
+      for (let j = boxCol; j < boxCol + 3; j++) {
+        if (board[i][j] === num) return false
+      }
+    }
+    return true
+  }
+
+  function backtrack() {
+    for (let row = 0; row < 9; row++) {
+      for (let col = 0; col < 9; col++) {
+        if (board[row][col] === '.') {
+          for (let num = '1'; num <= '9'; num++) {
+            if (isValid(board, row, col, num)) {
+              board[row][col] = num        // Place number ✅
+              if (backtrack()) return true
+              board[row][col] = '.'        // Backtrack ✅
+            }
+          }
+          return false  // No valid number — backtrack
+        }
+      }
+    }
+    return true  // All cells filled ✅
+  }
+
+  backtrack()
+  return board
+}
+
+
+// ✅ Word Search in Grid
+function wordSearch(board, word) {
+  const rows = board.length
+  const cols = board[0].length
+
+  function backtrack(row, col, index) {
+    if (index === word.length) return true   // Word found ✅
+
+    if (row < 0 || row >= rows ||
+        col < 0 || col >= cols ||
+        board[row][col] !== word[index]) return false
+
+    const temp      = board[row][col]
+    board[row][col] = '#'              // Mark visited ✅
+
+    const found = (
+      backtrack(row + 1, col, index + 1) ||  // Down
+      backtrack(row - 1, col, index + 1) ||  // Up
+      backtrack(row, col + 1, index + 1) ||  // Right
+      backtrack(row, col - 1, index + 1)     // Left
+    )
+
+    board[row][col] = temp             // Unmark (backtrack) ✅
+    return found
+  }
+
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      if (backtrack(r, c, 0)) return true
+    }
+  }
+  return false
+}
+
+const grid = [
+  ['A','B','C','E'],
+  ['S','F','C','S'],
+  ['A','D','E','E']
+]
+console.log(wordSearch(grid, 'ABCCED'))  // true  ✅
+console.log(wordSearch(grid, 'SEE'))     // true  ✅
+console.log(wordSearch(grid, 'ABCB'))    // false ❌
+
+
+// ✅ Subset Sum
+function subsetSum(nums, target) {
+  const result = []
+
+  function backtrack(index, current, remaining) {
+    if (remaining === 0) {
+      result.push([...current])    // Found ✅
+      return
+    }
+
+    for (let i = index; i < nums.length; i++) {
+      if (nums[i] > remaining) continue  // Prune ✅
+
+      current.push(nums[i])
+      backtrack(i + 1, current, remaining - nums[i])
+      current.pop()                       // Backtrack ✅
+    }
+  }
+
+  backtrack(0, [], target)
+  return result
+}
+
+console.log(subsetSum([3, 1, 4, 2, 2], 6))
+// [[3,1,2],[3,1,2],[3,2,1]... wait [[3,1,2],[4,2],[1,3,2]] ✅
+
+
+// ══════════════════════════════════════════
+// PROS AND CONS
+// ══════════════════════════════════════════
+// ✅ PROS:
+// All valid solutions find pannuvom
+// Pruning use panna — brute force-a vida fast
+// Constraint satisfaction problems-ku perfect
+// Simple template — Choose, Explore, Unchoose
+
+// ❌ CONS:
+// Worst case O(2ⁿ) or O(n!) — exponential
+// Large inputs-la very slow
+// Stack overflow — deep recursion
+// Pruning logic tricky
+
+// ══════════════════════════════════════════
+// RECURSION vs BACKTRACKING
+// ══════════════════════════════════════════
+// Recursion    → Problem smaller version-ku solve
+//                One path explore
+//                No undo needed
+
+// Backtracking → Multiple paths explore
+//                Wrong path-la undo (backtrack) pannuvom
+//                State restore panna venum ✅
+
+
+// 📌 Summary:
+// Template   → Choose → Explore → Unchoose
+// Pruning    → Invalid choices early reject — faster ✅
+// Time       → O(2ⁿ) subsets / O(n!) permutations
+// Space      → O(n) recursion depth
+// Use        → Permutations, combinations, N-Queens,
+//               Sudoku, word search, subset sum`
   },
 ];
