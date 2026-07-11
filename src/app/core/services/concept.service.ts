@@ -11,6 +11,7 @@ import { nodeConcepts } from './concepts/node';
 import { cssConcepts } from './concepts/css';
 import { jasmineKarmaConcepts } from './concepts/jasmine-karma';
 import { dsaConcepts } from './concepts/dsa';
+import { oopsConcepts } from './concepts/oops';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,8 @@ export class ConceptService {
     { name: 'SCSS', referenceUrl: 'https://notebook.zoho.in/app/index.html#/shared/notecards/74tdo9d0e3ca5e6754fa89261cf9b01ec38d9' },
     { name: 'RxJS', referenceUrl: 'https://notebook.zoho.in/app/index.html#/shared/notecards/74tdo6de2284eb4094849927b2ce917ac5781' },
     { name: 'Jasmine-Karma', referenceUrl: 'https://chatgpt.com/g/g-p-69ebeb3dcbf88191ac99a7704523b0ed-unit-testing/project' },
-    { name: 'DSA', referenceUrl: 'https://kathir-learn-dsa.vercel.app/' }
+    { name: 'DSA', referenceUrl: 'https://kathir-learn-dsa.vercel.app/' },
+    { name: 'OOPS' }
   ]);
 
   private readonly mockConcepts: ConceptSearch[] = [
@@ -41,7 +43,8 @@ export class ConceptService {
     ...rxjsConcepts,
     ...nodeConcepts,
     ...jasmineKarmaConcepts,
-    ...dsaConcepts
+    ...dsaConcepts,
+    ...oopsConcepts
   ].map(c => ({
     ...c,
     _category: c.category.toLowerCase(),
