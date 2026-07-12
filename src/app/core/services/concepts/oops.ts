@@ -2,6 +2,18 @@ import { Concept } from "../../models/concept.model";
 
 export const oopsConcepts: Concept[] = [
     {
+        id: 'oops-overview',
+        title: 'What is OOPS?',
+        category: 'OOPS',
+        slangDefinition: `OOPS (Object-Oriented Programming System) na code-a "objects" vachi organize pannura programming style. Real world entities (Patient, Doctor, Nurse) maadhiri class/object vachi data (properties) and behavior (methods) rendaiyum order idatula vekkirom. Idhu code reuse panna, maintain panna, and real-world problems-a easy-a model panna help pannum. OOPS-la 4 main pillars irukku: Encapsulation (data + methods oru unit-la bundle pannradhu, access control vachi protect pannradhu), Abstraction (unnecessary details hide panni, important features mattum expose pannradhu), Inheritance (oru class vera class-oda properties/methods-a reuse pannradhu, parent-child relationship), Polymorphism (same method name, but different objects-ku different behavior - runtime-la decide aagum).`,
+        interviewDefinition: `Object-Oriented Programming (OOP) is a programming paradigm based on the concept of "objects," which bundle data (properties/fields) and behavior (methods) together, typically modeled around real-world entities. It promotes code reusability, modularity, and easier maintenance. OOP is built on four core pillars: Encapsulation (bundling data and methods within a class while restricting direct access using access modifiers), Abstraction (hiding implementation details and exposing only essential features), Inheritance (allowing a class to acquire properties and behavior from a parent class, establishing a parent-child relationship), and Polymorphism (allowing the same method or interface to exhibit different behavior depending on the actual object type, resolved at compile-time or runtime).`,
+        example: `// The 4 Pillars of OOPS:
+// 1. Encapsulation - bundling data + methods, controlling access
+// 2. Abstraction    - hiding complexity, exposing only what's needed
+// 3. Inheritance    - reusing parent class properties/methods in child class
+// 4. Polymorphism   - same method, different behavior based on object type`
+    },
+    {
         id: 'class',
         title: 'Class',
         category: 'OOPS',
@@ -1077,5 +1089,899 @@ PatientRepository (talks to the database)
 SQL Server (databsase)
 
 `
+    },
+    {
+        id: 'abstract',
+        title: 'Abstract Class',
+        category: 'OOPS',
+        slangDefinition: `Abstract class na common implementation-a share pannikittu, "sila methods na ovvoru child class thanoda own way-la implement pannanum" nu force pannura mechanism. Patient, Doctor, Nurse - moonu services-layum Save() same code-a copy panni vechurundhom nu vachikkonga. Interface use panni paatha ("IService" nu Save() method mattum declare panni), duplicate code problem solve aagalaye - ovvoru class-um "public void Save() { Console.WriteLine(...) }" nu andha same code-a thirumbavum type panna vendiyadhu than. Adha thavirkka, Abstract class-la common code-a (Log(), Audit()) already vechitu, ovvoru class-um automatic-a inherit pannikkum - duplicate illa. Aana "ovvoru service-um thana Save()-a vera vera-a implement pannanum" nu business rule irundha, "public abstract void Save();" nu oru Abstract Method potuvom - idhu compulsory task, andha abstract class-a inherit panra ovvoru child class-um IMANDATORY-a andha method-a override pannitu implement pannanum, illana compile error varum. C# oru class-ku ONE base class mattum thaan allow pannum, adhanala multiple unrelated capabilities venumna Interface use pannanum (Interface unlimited implement panna mudiyum), aana real shared code venumna Abstract use pannanum.`,
+        interviewDefinition: `An abstract class is a class that cannot be instantiated directly and can contain both shared, concrete implementation (regular methods) and abstract methods (method signatures with no implementation) that derived classes are mandatorily required to override. It solves a problem that plain interfaces (historically) cannot: sharing actual common implementation across multiple related classes without duplicating code. If several classes need identical shared behavior (like logging or auditing) but also require class-specific implementations of certain operations (like Save()), an abstract class lets the shared code live once in the base class while forcing each derived class to supply its own required implementation via an abstract method - if a class inherits an abstract class, it MUST implement every abstract method before it can be used, or the code won't compile. This differs fundamentally from interfaces: interfaces describe a pure capability contract with no shared code (every implementing class rewrites everything), while abstract classes provide real shared implementation plus enforced customization points. A key constraint is that C# supports only single inheritance from one abstract/base class, whereas a class can implement unlimited interfaces - so abstract classes are used when there's genuine shared implementation to provide (e.g., ASP.NET Core's ControllerBase supplying Ok(), BadRequest(), NotFound()), while interfaces are used to describe capabilities (e.g., ICanSave, ICanExport) that may span otherwise unrelated classes.`,
+        example: `// ==========================================
+// 1. REAL COMPANY PROBLEM
+// ==========================================
+// Hospital system: Patient, Doctor, Nurse services all need Save(), Delete(), Validate()
+
+public class PatientService
+{
+    public void Save() { Console.WriteLine("Saving..."); }
+}
+public class DoctorService
+{
+    public void Save() { Console.WriteLine("Saving..."); }
+}
+public class NurseService
+{
+    public void Save() { Console.WriteLine("Saving..."); }
+}
+// Three classes, IDENTICAL code. Client says: "Every Save should Log -> Save -> Audit."
+// Now modify PatientService, DoctorService, NurseService... again, again, again.
+
+// ==========================================
+// 2. BAD APPROACH (Interface alone - doesn't remove duplication)
+// ==========================================
+public interface IService
+{
+    void Save();
+}
+
+public class PatientServiceI : IService
+{
+    public void Save() { Console.WriteLine("Saving..."); }   // still duplicated!
+}
+public class DoctorServiceI : IService
+{
+    public void Save() { Console.WriteLine("Saving..."); }   // still duplicated!
+}
+// Interface only guarantees a method NAME exists - it forces NO shared code.
+// Every class still writes the same body itself. Duplication NOT solved.
+
+// ==========================================
+// 3. BETTER APPROACH (Abstract Class - shared code + compulsory overrides)
+// ==========================================
+public abstract class BaseService
+{
+    // SHARED implementation - inherited automatically, written ONCE
+    public void Log()
+    {
+        Console.WriteLine("Log");
+    }
+
+    public void Audit()
+    {
+        Console.WriteLine("Audit");
+    }
+
+    // ABSTRACT METHOD = a compulsory task every child MUST complete
+    // before it can be used. No default body here - each child decides its own way.
+    public abstract void Save();
+}
+
+public class PatientService : BaseService
+{
+    public override void Save()   // MANDATORY - won't compile without this
+    {
+        Console.WriteLine("Patient Saved");
+    }
+}
+
+public class DoctorService : BaseService
+{
+    public override void Save()   // MANDATORY - Doctor's own version
+    {
+        Console.WriteLine("Doctor Saved");
+    }
+}
+// Log() and Audit() -> shared, written once, inherited automatically.
+// Save() -> each child is FORCED to implement it their own way.
+// If a class inherits BaseService but forgets to override Save() -> compile error.
+
+// ==========================================
+// 4. ACTUAL COMPANY CODE (ASP.NET Core ControllerBase - real-world example)
+// ==========================================
+// You've already seen this pattern everywhere:
+public abstract class ControllerBaseExample
+{
+    // Ok(), BadRequest(), NotFound(), Created() - already implemented by Microsoft
+    protected object Ok(object value) => value;
+    protected object NotFound() => null;
+}
+
+public class PatientController : ControllerBaseExample
+{
+    public object GetPatient(int id)
+    {
+        var patient = id; // fetch logic
+        return patient != null ? Ok(patient) : NotFound();
+        // PatientController never rewrote Ok()/NotFound() - inherited automatically
+    }
+}
+
+// Another real example: BaseRepository sharing CreatedDate, ModifiedDate, CreatedBy
+public abstract class BaseRepository
+{
+    public DateTime CreatedDate { get; set; }
+    public DateTime ModifiedDate { get; set; }
+    public string CreatedBy { get; set; }
+}
+public class PatientRepository : BaseRepository { }
+public class DoctorRepository : BaseRepository { }
+// Every repository automatically inherits these - zero duplication.
+
+// ==========================================
+// 5. WHY NOT ANOTHER APPROACH?
+// ==========================================
+
+// Why not just use an Interface with Log() and Save() both declared?
+public interface IServiceFull
+{
+    void Log();
+    void Save();
+}
+public class PatientServiceFull : IServiceFull
+{
+    public void Log() { Console.WriteLine("Log"); }     // duplicated across EVERY class
+    public void Save() { Console.WriteLine("Patient Saved"); }
+}
+// Interface CANNOT share real implementation - every implementing class
+// must rewrite Log() itself. Defeats the purpose of removing duplication.
+
+// Why not use Abstract class for EVERYTHING then?
+// Because C# allows only ONE base class per class:
+// public class PatientService : BaseService, LoggingBase   // ❌ ILLEGAL - only one base class
+// But a class CAN implement unlimited interfaces:
+// public class PatientService : BaseService, IDisposable, IPatientService, ILogger  // ✅ fine
+
+// Real company rule:
+// Use INTERFACE when describing a CAPABILITY (Can Save, Can Print, Can Export)
+// Use ABSTRACT when you want to SHARE real implementation (Log, Audit, Ok(), BadRequest())
+
+// CONCLUSION:
+// Before Abstract: duplicate implementation copy-pasted across every class
+// After Abstract : shared code lives once in the base class, and abstract
+//                   methods act as a compulsory contract - every child class
+//                   MUST implement them before it can be used, ensuring
+//                   consistency while still allowing class-specific behavior
+`
+    },
+    {
+        id: 'inheritance-vs-interface-vs-abstract',
+        title: 'Inheritance vs Interface vs Abstract Class',
+        category: 'OOPS',
+        slangDefinition: `Moonu concepts-um "code reuse pannalam" nu solra madhiri thonum, aana ovvoruthukum vera vera purpose irukku. Inheritance na "IS-A" relationship - Doctor IS A Person, so Doctor Person oda properties/behavior share pannikkum. Interface na "CAN DO" capability mattum - "Someone CAN Save" nu sollum, aana EPADI save pannanum nu assumption edhuvum irukaadhu, implementation ovvoru class-um thana pannanum. Abstract class na "everyone does it differently, but some parts are exactly the same" - example-ku, PatientService, DoctorService rendume Save() panradhu vera vera-a irukkalam, aana Log() pannuradhu ellarukkum same-a irukkum, so Log()-a abstract class-la share pannitu, Save()-a mattum ovvoru child thana define pannikkum. Wrong-a use pannina - Invoice-a Person-nu inherit pannradhu, illa shared code venum-nu interface use pannradhu (adhu duplicate code-a lead pannum) - romba problems varum.`,
+        interviewDefinition: `While Inheritance, Interface, and Abstract Class can all appear to enable "code reuse," they solve fundamentally different design problems and should be chosen based on the actual relationship being modeled. Inheritance models a true IS-A relationship (e.g., "Doctor IS A Person"), sharing both data and behavior between a base and derived class, and should only be used when that relationship genuinely holds. An Interface describes a pure capability contract - "someone CAN Save" - with no assumption about how that capability is implemented; every implementing class supplies its own implementation, and a class can implement unlimited interfaces. An Abstract Class sits between the two: it's used when multiple classes need to share identical implementation for some members (e.g., logging, auditing) while being required to provide their own distinct implementation for others (e.g., Save()) - but a class can inherit from only one abstract/base class. Choosing the wrong tool leads to real problems: using inheritance without a true IS-A relationship creates nonsensical hierarchies (e.g., "Invoice IS A Person"), while using only an interface when shared implementation is needed results in duplicated code across every implementing class.`,
+        example: `// ==========================================
+// 1. REAL COMPANY PROBLEM
+// ==========================================
+// Hospital system has: Person-like entities (Patient, Doctor), services that
+// need a "Save" capability, and services that share some behavior but differ
+// in others. Which tool do you reach for in each case?
+
+// ==========================================
+// 2. BAD APPROACH (Using the wrong tool for the wrong relationship)
+// ==========================================
+
+// MISUSE 1: Using inheritance where there's no real IS-A relationship
+public class Person { public string Name { get; set; } }
+// public class Invoice : Person   // ❌ "Invoice IS A Person"? Makes no sense.
+
+// MISUSE 2: Using ONLY an interface when shared implementation is actually needed
+public interface IService
+{
+    void Log();
+    void Save();
+}
+public class PatientServiceBad : IService
+{
+    public void Log() { Console.WriteLine("Log"); }     // duplicated...
+    public void Save() { Console.WriteLine("Patient Saved"); }
+}
+public class DoctorServiceBad : IService
+{
+    public void Log() { Console.WriteLine("Log"); }     // ...again, and again
+    public void Save() { Console.WriteLine("Doctor Saved"); }
+}
+// Log() is IDENTICAL in both classes but has to be rewritten every time.
+// Interface guarantees WHAT exists, never HOW - zero shared code.
+
+// ==========================================
+// 3. BETTER APPROACH (Right tool for the right relationship)
+// ==========================================
+
+// INHERITANCE - true IS-A relationship, shares data + behavior
+public class PersonGood
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+}
+public class Doctor : PersonGood      // Doctor IS A Person ✅
+{
+    public string Specialization { get; set; }
+}
+public class Patient : PersonGood     // Patient IS A Person ✅
+{
+}
+
+// INTERFACE - pure capability, no implementation assumptions
+public interface ICanSave
+{
+    void Save();   // "Someone CAN Save" - HOW is entirely up to the implementer
+}
+
+// ABSTRACT CLASS - shared implementation + enforced customization
+public abstract class BaseService
+{
+    public void Log()                    // Everyone logs the SAME way - shared
+    {
+        Console.WriteLine("Log");
+    }
+
+    public abstract void Save();         // Everyone saves DIFFERENTLY - must override
+}
+
+// ==========================================
+// 4. ACTUAL COMPANY CODE (All three working together)
+// ==========================================
+public class PatientService : BaseService, ICanSave
+{
+    public override void Save()          // required by BaseService (abstract)
+    {
+        Console.WriteLine("Patient Saved");
+    }
+}
+
+public class DoctorService : BaseService, ICanSave
+{
+    public override void Save()          // required by BaseService (abstract)
+    {
+        Console.WriteLine("Doctor Saved");
+    }
+}
+// Log() -> inherited once from BaseService (Abstract Class solves duplication)
+// Save() -> each class's own implementation (Abstract Method enforces the contract)
+// ICanSave -> declares the capability separately, so other unrelated classes
+//             (e.g., a ReportExporter) could ALSO implement ICanSave without
+//             needing to inherit BaseService at all.
+
+// Real-world example you've already seen: ASP.NET Core's ControllerBase
+public abstract class ControllerBase
+{
+    // Ok(), NotFound(), BadRequest() - shared implementation, inherited by everyone
+}
+public class PatientController : ControllerBase   // shares implementation
+{
+}
+
+// ==========================================
+// 5. WHY NOT ANOTHER APPROACH?
+// ==========================================
+
+// Why not just always use Inheritance since it "gives the most for free"?
+// Because C# allows only ONE base class:
+// public class PatientService : BaseService, LoggingBase   // ❌ ILLEGAL
+// If PatientService also needs LoggingBase AND CachingBase, inheritance alone can't do it.
+
+// Why not just always use Interfaces since they're unlimited?
+// public class PatientService : BaseService, IDisposable, ICanSave, ILogger  // ✅ fine
+// But interfaces carry NO shared implementation - if 10 classes need identical
+// logging logic, an interface-only design means writing that logic 10 times.
+
+// Why not always use Abstract Class instead of Interface?
+// Because sometimes you genuinely only want to describe a CAPABILITY across
+// otherwise UNRELATED classes (e.g., both a PatientService and a ReportExporter
+// "CAN Save", but they share nothing else in common) - forcing them under one
+// abstract base class would create a false, unnecessary relationship.
+
+// DECISION RULE:
+// Doctor IS A Person              -> Inheritance
+// Someone CAN Save                -> Interface
+// Everyone saves differently,
+//   but everyone logs the same way -> Abstract Class
+`
+    },
+    {
+        id: 'abstract-vs-interface',
+        title: 'Abstract Class vs Interface',
+        category: 'OOPS',
+        slangDefinition: `Abstract class um Interface um rendume "child class idha implement pannanum" nu solra madhiri thonum, aana core difference enna kudukkardhu-la irukku. Company-la Cash, Card, UPI - moonu payment methods irundha vachikkonga. Interface use panna ("IPaymentService" with Pay()), adhu variables-um illa, methods implementation-um illa, common code-um illa - "everyone should have Pay()" nu mattum sollum, EPADI pay pannanum nu ovvoru class-um thaana ezhudhanum. Abstract class use panna ("PaymentService" with Log() + abstract Pay()), Log() already IMPLEMENT panni kudukkum - CashPaymentService, CardPaymentService rendume Log()-a free-a receive pannikkum, Pay() mattum thaana implement pannanum. Chumma sollanumna: Interface = "I'll give you nothing, just a promise." Abstract = "I'll give you some ready-made stuff, plus a promise for the rest."`,
+        interviewDefinition: `While both Interface and Abstract Class define contracts that implementing/derived classes must fulfill, the fundamental difference lies in what they provide. An Interface provides absolutely nothing concrete - no fields, no implemented methods, no shared logic - it only declares that a method with a given signature must exist (e.g., "everyone should have Pay()"); every implementing class writes its own full implementation from scratch. An Abstract Class, by contrast, can provide real, ready-to-use implementation (e.g., a Log() method) alongside abstract members that still must be overridden (e.g., Pay()) - derived classes inherit the concrete functionality for free and only need to implement the parts that genuinely differ. In short: an Interface says "I'll give you nothing, just a promise you must keep," while an Abstract Class says "I'll give you some working code, plus a promise for the rest."`,
+        example: `// ==========================================
+// 1. REAL COMPANY PROBLEM
+// ==========================================
+// Company has three payment methods: Cash, Card, UPI - all need to "Pay()"
+
+// ==========================================
+// 2. OPTION A - Interface (gives NOTHING but a promise)
+// ==========================================
+public interface IPaymentService
+{
+    void Pay();   // just a signature - no body, no logic
+}
+
+public class CashPaymentService : IPaymentService
+{
+    public void Pay()
+    {
+        Console.WriteLine("Cash payment received");   // written from scratch
+    }
+}
+
+public class CardPaymentService : IPaymentService
+{
+    public void Pay()
+    {
+        Console.WriteLine("Card payment processed");  // written from scratch, AGAIN
+    }
+}
+
+// Question: Does the interface give the child anything?
+// Variables?      ❌ No
+// Methods?        ❌ No
+// Implementation? ❌ No
+// Common code?    ❌ No
+// It ONLY says: "Everyone must have a Pay() method." That's it.
+
+// ==========================================
+// 3. OPTION B - Abstract Class (gives SOME real implementation)
+// ==========================================
+public abstract class PaymentService
+{
+    public void Log()                     // ALREADY implemented - shared, free
+    {
+        Console.WriteLine("Logging...");
+    }
+
+    public abstract void Pay();           // still a compulsory promise, no body
+}
+
+public class CashPaymentServiceAbs : PaymentService
+{
+    public override void Pay()
+    {
+        Console.WriteLine("Cash payment received");
+    }
+    // Log() was NEVER rewritten - it came for free from PaymentService
+}
+
+public class CardPaymentServiceAbs : PaymentService
+{
+    public override void Pay()
+    {
+        Console.WriteLine("Card payment processed");
+    }
+    // Log() came for free here too
+}
+
+// Question: What did the child actually GET this time?
+// Log() -> already implemented, inherited, ready to use immediately.
+// Pay()  -> still must be implemented individually (genuinely different per method)
+
+// ==========================================
+// 4. ACTUAL COMPANY CODE (Using both together, each for its own purpose)
+// ==========================================
+public interface IPaymentService
+{
+    void Pay();               // capability contract - "CAN pay"
+}
+
+public abstract class PaymentServiceBase : IPaymentService
+{
+    public void Log(string message)       // shared implementation
+    {
+        Console.WriteLine($"[LOG] {message}");
+    }
+
+    public abstract void Pay();           // each payment type differs
+}
+
+public class UpiPaymentService : PaymentServiceBase
+{
+    public override void Pay()
+    {
+        Log("Initiating UPI payment");    // reused, not rewritten
+        Console.WriteLine("UPI payment successful");
+    }
+}
+// UpiPaymentService gets Log() for free (from abstract class) AND satisfies
+// IPaymentService's capability contract (Pay() exists) at the same time.
+
+// ==========================================
+// 5. WHY NOT ANOTHER APPROACH?
+// ==========================================
+
+// Why not use ONLY interface, even when there's shared logic like Log()?
+public interface IPaymentServiceOnly
+{
+    void Log();
+    void Pay();
+}
+public class CashOnlyInterface : IPaymentServiceOnly
+{
+    public void Log() { Console.WriteLine("Logging..."); }   // duplicated
+    public void Pay() { }
+}
+public class CardOnlyInterface : IPaymentServiceOnly
+{
+    public void Log() { Console.WriteLine("Logging..."); }   // duplicated AGAIN
+    public void Pay() { }
+}
+// Log() is IDENTICAL in every class, yet has to be manually rewritten each time.
+// Interface literally cannot share implementation - that's not what it's for.
+
+// Why not use ONLY abstract class, skipping the interface entirely?
+// Works fine here, but if some completely unrelated class also needs "Pay()"
+// capability (say, a RefundProcessor that has nothing else in common with
+// PaymentServiceBase), forcing it to inherit PaymentServiceBase just to get
+// Pay() would create a fake, unnecessary relationship. Interface alone would
+// describe that capability more honestly, without dragging in unrelated shared code.
+
+// CONCLUSION:
+    // Abstract Class -> I'll give you some things.
+    // Interface      -> I'll give you nothing.
+        -----------------------------------------
+    // Abstract Class -> I'll give you common code and common data, but I also expect you to complete the parts I can't implement.
+    // Interface      -> I won't give you anything. I only define what you must do.
+`
+    },
+    {
+        id: 'polymorphism',
+        title: 'Polymorphism',
+        category: 'OOPS',
+        slangDefinition: `Polymorphism na "same method call, but different actual behavior" nu solra concept - oru common type (interface/base class) variable vechitu, adhukulla vera vera actual objects vechi, same method call panna, ovvoru object-um adhoda own way-la respond pannum. Hospital-la notification-ku Email mattum irundhapo, "NotificationService.Send()" nu simple-a irundhudhu. SMS, WhatsApp add pannachu na, "if(type=="Email") ... else if(type=="SMS") ..." nu Controller-layae ella conditions-um ezhudhanum, next year Push, Teams, Slack, Telegram add pannachu na, Controller 100 lines aayidum, puthu type varum bothellam Controller-a modify pannikittu irukanum. Adha thavirkka, "INotificationService" nu oru interface create pannitu, EmailService, SmsService, WhatsappService - ellame andha interface implement pannuvom. Appo "INotificationService service" nu oru variable-ku EmailService-yum vekkalaam, SmsService-yum vekkalaam, WhatsappService-yum vekkalaam - SAME variable type, DIFFERENT actual objects. "service.Send()" nu call pannumbodhu, .NET andha variable-la actual-a enna object irukko (EmailService-a, SmsService-a) nu paathu, andha object oda Send()-a run pannum. Idhu thaan Polymorphism - Controller-ku "enna object" nu therinjikkave venaam, adhu just "Send()" nu call pannikittu irukkum.`,
+        interviewDefinition: `Polymorphism is the ability of a single reference type (an interface or base class) to point to different concrete object types, such that calling the same method on that reference executes different behavior depending on the actual object at runtime. It solves the problem of Controllers or calling code needing to know about every specific implementation type and branch on it explicitly (if/else if chains checking a "type" string), which becomes unmanageable as the number of variants grows - every new notification channel (Email, SMS, WhatsApp, Push, Teams, Slack, Telegram) would otherwise require modifying the Controller's conditional logic. By introducing a common interface (e.g., INotificationService with a Send() method), each concrete implementation (EmailService, SmsService, WhatsappService) provides its own version of Send(), and the Controller depends only on the interface type. The same variable (INotificationService notification) can hold any of these concrete objects, and calling notification.Send() executes whichever implementation the object actually is at runtime - the Controller never needs conditional branching or knowledge of which specific class it's using. This is typically combined with Dependency Injection (registering the desired concrete implementation in Program.cs), so the Controller's code never changes even as new notification types are added.`,
+        example: `// ==========================================
+// 1. REAL COMPANY PROBLEM
+// ==========================================
+// Hospital system needs to send notifications. Initially, only Email.
+
+public class NotificationService
+{
+    public void Send(string message)
+    {
+        Console.WriteLine("Email Sent");
+    }
+}
+
+NotificationService service = new NotificationService();
+service.Send("Patient Saved");
+// Works fine... for now.
+
+// ==========================================
+// 2. BAD APPROACH (If/else branching on type, growing forever)
+// ==========================================
+// Client adds SMS and WhatsApp:
+public class NotificationServiceBad
+{
+    public void SendEmail() { Console.WriteLine("Email"); }
+    public void SendSms() { Console.WriteLine("SMS"); }
+    public void SendWhatsapp() { Console.WriteLine("WhatsApp"); }
+}
+
+// Controller has to know EVERY type and branch on it:
+string type = "SMS";
+var service2 = new NotificationServiceBad();
+if (type == "Email")
+{
+    service2.SendEmail();
+}
+else if (type == "SMS")
+{
+    service2.SendSms();
+}
+else
+{
+    service2.SendWhatsapp();
+}
+// Looks manageable... for now.
+
+// A year later: Push Notification, Teams, Slack, Telegram also needed.
+// if / else if / else if / else if / else if ... 100 lines.
+// EVERY new notification channel means modifying the Controller directly.
+// Controller now "knows" about every single notification type. Huge maintenance burden.
+
+// ==========================================
+// 3. BETTER APPROACH (Interface + Polymorphism)
+// ==========================================
+// Controller should just say: "I don't care HOW you send. I only want Send()."
+
+public interface INotificationService
+{
+    void Send(string message);
+}
+
+public class EmailService : INotificationService
+{
+    public void Send(string message) => Console.WriteLine("Email");
+}
+
+public class SmsService : INotificationService
+{
+    public void Send(string message) => Console.WriteLine("SMS");
+}
+
+public class WhatsappService : INotificationService
+{
+    public void Send(string message) => Console.WriteLine("WhatsApp");
+}
+
+// THE MAGIC - same variable TYPE, different actual OBJECTS:
+INotificationService notificationService;
+
+notificationService = new EmailService();      // ✅ allowed
+notificationService.Send("Hello");              // Output: Email
+
+notificationService = new SmsService();         // ✅ allowed - SAME variable
+notificationService.Send("Hello");              // Output: SMS
+
+notificationService = new WhatsappService();    // ✅ allowed - SAME variable
+notificationService.Send("Hello");              // Output: WhatsApp
+
+// THIS is Polymorphism: one reference type (INotificationService), many
+// possible actual objects, same method call, different behavior each time.
+
+// ==========================================
+// 4. ACTUAL COMPANY CODE (Combined with Dependency Injection)
+// ==========================================
+// Program.cs - decide the actual implementation in ONE place:
+// builder.Services.AddScoped<INotificationService, EmailService>();
+
+public class PatientController
+{
+    private readonly INotificationService notification;
+
+    public PatientController(INotificationService notification)
+    {
+        this.notification = notification;   // could be EmailService, SmsService, etc.
+    }
+
+    public void NotifyPatientSaved()
+    {
+        notification.Send("Patient Saved");   // no idea WHICH implementation this is
+    }
+}
+// Output today: "Email"
+// Tomorrow, switch Program.cs to:
+// builder.Services.AddScoped<INotificationService, SmsService>();
+// Output becomes: "SMS" - PatientController's code is UNTOUCHED.
+
+// Adding Push, Teams, Slack, Telegram later? Just add new classes implementing
+// INotificationService and register the one you want. Zero Controller changes.
+
+// ==========================================
+// 5. WHY NOT ANOTHER APPROACH?
+// ==========================================
+
+// Why not keep the if/else chain but just organize it better (e.g., switch statement)?
+string type2 = "WhatsApp";
+var svc = new NotificationServiceBad();
+switch (type2)
+{
+    case "Email": svc.SendEmail(); break;
+    case "SMS": svc.SendSms(); break;
+    case "WhatsApp": svc.SendWhatsapp(); break;
+    // Every new channel still means editing THIS switch statement.
+}
+// Cleaner syntax, but the core problem remains: Controller/caller still needs
+// to know about and branch on every single type. Doesn't scale.
+
+// Why not just create a separate variable for each notification type?
+EmailService emailSvc = new EmailService();
+SmsService smsSvc = new SmsService();
+WhatsappService whatsappSvc = new WhatsappService();
+// Now the caller needs to know WHICH variable to use for WHICH situation -
+// defeats the purpose. Polymorphism's value is having ONE variable/reference
+// that can transparently represent ANY of them.
+
+// CONCLUSION:
+// Before Polymorphism: Controller branches on type explicitly, grows with
+//                        every new variant, tightly coupled to every implementation
+// After Polymorphism : Controller depends on ONE interface type, calls ONE
+//                        method (Send()), and the ACTUAL behavior is decided
+//                        by whichever concrete object is behind that reference
+//                        at runtime - new types added with zero Controller changes
+`
+    },
+    {
+        id: 'interface-vs-polymorphism',
+        title: 'Interface vs Polymorphism',
+        category: 'OOPS',
+        slangDefinition: `Interface um Polymorphism um rendu vera vera concepts, aana together work pannum. Interface na oru RULE mattum - "IPatientService"-nu declare pannina, "yaaru IPatientService nu solli kolluravanga ellarukkum Save() method irukkanum" nu contract sollum, adhu implementation edhuvum illa. "PatientService : IPatientService" nu class ezhudhina, PatientService andha rule-a follow panna agree pannudhu - idhu innum Interface usage thaan. Controller-la "IPatientService service" nu type vecha, "naan specific class-a therinjikka maaten" nu solradhu - idhuvum Interface usage thaan, polymorphism illa. Program.cs-la DI register panradhu ("AddScoped<IPatientService, PatientService>") - ASP.NET Core "yaaru IPatientService kekkaraanga, PatientService kudu" nu solradhu - idhuvum polymorphism illa, Dependency Injection mattum thaan. REAL polymorphism na - "service.Save()" nu call panra andha exact moment - variable oda TYPE "IPatientService" aana, ADHUKKULLA irukkura ACTUAL OBJECT "PatientService". .NET runtime-la, "compile-time type IPatientService, aana runtime-la actual object PatientService" nu therinjikittu, PatientService oda Save() method-a thaan execute pannudhu. Idhu thaan Polymorphism - same interface reference, but different actual objects run different code.`,
+        interviewDefinition: `Interface and Polymorphism are related but distinct concepts. An Interface is purely a contract/rule declaration - it states that any class claiming to be that interface type must implement certain members (e.g., "anyone who is an IPatientService must have a Save() method"), but defines zero behavior itself. When a class declares "PatientService : IPatientService", that's still just the class agreeing to follow the interface's rules - not polymorphism. Similarly, a Controller depending on the interface type ("IPatientService service") rather than a concrete class, and ASP.NET Core's Dependency Injection registration (AddScoped<IPatientService, PatientService>) telling the framework which concrete type to supply - both of these are still just interface usage and DI, not polymorphism. Polymorphism actually occurs at the moment a method is called through the interface reference (service.Save()): the variable's compile-time type is IPatientService, but the actual object in memory at runtime is a PatientService instance. The runtime resolves the call based on the ACTUAL object type, not the declared reference type, and executes PatientService's specific implementation of Save(). This is the essence of polymorphism - the same interface reference can, depending on what concrete object it actually holds at runtime, execute different implementations.`,
+        example: `// ==========================================
+// 1. REAL COMPANY PROBLEM
+// ==========================================
+// Distinguish: where does "Interface" end and "Polymorphism" actually begin?
+
+public interface IPatientService
+{
+    void Save();
+}
+
+public class PatientService : IPatientService
+{
+    public void Save()
+    {
+        Console.WriteLine("Patient Saved");
+    }
+}
+
+public class PatientController
+{
+    private readonly IPatientService service;
+
+    public PatientController(IPatientService service)
+    {
+        this.service = service;
+    }
+
+    public void SavePatient()
+    {
+        service.Save();
+    }
+}
+
+// ==========================================
+// 2. BAD APPROACH (Assuming every line above is "polymorphism")
+// ==========================================
+// A beginner might say: "This whole thing IS polymorphism."
+// That's imprecise. Let's walk through it step by step and see EXACTLY
+// where interface usage ends and polymorphism begins.
+
+// STEP 1: The interface itself
+public interface IPatientServiceStep
+{
+    void Save();   // just a RULE: "whoever is this type MUST have Save()"
+}
+// This defines the rule only. Nothing runs. This is Interface. Not polymorphism.
+
+// STEP 2: A class agreeing to the rule
+public class PatientServiceStep : IPatientServiceStep
+{
+    public void Save()   // MUST write this, or compiler error
+    {
+        Console.WriteLine("Patient Saved");
+    }
+}
+// "PatientServiceStep : IPatientServiceStep" reads as:
+// "I agree to follow IPatientServiceStep's rules."
+// Still just Interface usage. No polymorphism yet.
+
+// STEP 3: Depending on the interface type, not the concrete class
+public class PatientControllerStep
+{
+    private readonly IPatientServiceStep service;   // NOT "PatientServiceStep service"
+
+    public PatientControllerStep(IPatientServiceStep service)
+    {
+        this.service = service;
+    }
+}
+// Controller says "I don't want to depend on ONE specific class."
+// Still Interface usage. Still no polymorphism.
+
+// STEP 4: Program.cs - Dependency Injection
+// builder.Services.AddScoped<IPatientServiceStep, PatientServiceStep>();
+// ASP.NET Core says: "Whenever someone asks for IPatientServiceStep, give PatientServiceStep."
+// This is Dependency Injection. Still NOT polymorphism.
+
+// ==========================================
+// 3. BETTER APPROACH (Pinpointing the EXACT polymorphism moment)
+// ==========================================
+// STEP 5 - THE important line:
+IPatientServiceStep service2 = new PatientServiceStep();
+service2.Save();
+// service2's DECLARED (compile-time) type -> IPatientServiceStep
+// service2's ACTUAL (runtime) object      -> PatientServiceStep
+// .NET looks at the ACTUAL object at runtime and executes
+// PatientServiceStep's Save() - THIS moment, right here, is Polymorphism.
+
+// ==========================================
+// 4. ACTUAL COMPANY CODE (Polymorphism paying off with multiple implementations)
+// ==========================================
+public class OraclePatientService : IPatientServiceStep
+{
+    public void Save()
+    {
+        Console.WriteLine("Patient Saved to Oracle DB");
+    }
+}
+
+public class MongoPatientService : IPatientServiceStep
+{
+    public void Save()
+    {
+        Console.WriteLine("Patient Saved to MongoDB");
+    }
+}
+
+// Program.cs - just change WHICH concrete type is registered:
+// builder.Services.AddScoped<IPatientServiceStep, OraclePatientService>();
+// or
+// builder.Services.AddScoped<IPatientServiceStep, MongoPatientService>();
+
+// Controller code NEVER changes:
+public class PatientControllerFinal
+{
+    private readonly IPatientServiceStep service;
+
+    public PatientControllerFinal(IPatientServiceStep service)
+    {
+        this.service = service;
+    }
+
+    public void SavePatient()
+    {
+        service.Save();   // Same line of code, but executes DIFFERENT logic
+                           // depending on which concrete object was actually injected.
+                           // That's polymorphism doing real work.
+    }
+}
+
+// ==========================================
+// 5. WHY NOT ANOTHER APPROACH?
+// ==========================================
+
+// Why not just call the concrete class directly and skip the interface entirely?
+public class DirectController
+{
+    private readonly PatientServiceStep service = new PatientServiceStep();
+    public void SavePatient() => service.Save();
+}
+// This technically "runs the right code" too, but there's no polymorphism here -
+// the reference type and actual object type are the SAME. There's no runtime
+// decision being made, and swapping implementations means changing this class directly.
+
+// Why does polymorphism specifically NEED the interface (or base class) reference?
+// Polymorphism relies on having ONE reference TYPE (IPatientServiceStep) that can
+// point to MANY possible ACTUAL types (PatientServiceStep, OraclePatientService,
+// MongoPatientService). Without the shared interface/base type, there'd be no
+// common reference to call service.Save() through in the first place - each
+// concrete class would need its own separately-typed variable and separate call.
+
+// CONCLUSION:
+// Interface     -> defines the RULE ("must have Save()") - purely compile-time contract
+// DI            -> decides WHICH concrete object gets created and handed over
+// Polymorphism  -> happens at the CALL ("service.Save()") - runtime resolves to
+//                   the ACTUAL object's implementation, not the declared reference type
+`
+    },
+    {
+        id: 'oops-real-world-example',
+        title: 'Real-World OOPS Example',
+        category: 'OOPS',
+        slangDefinition: `Idhu oru complete real-world example - Patient save panra flow-la ella OOPS concepts-um together eppudi use aagudhu nu kaamikkirom. **Class & Object**: Patient oru class, "new Patient{...}" nu create panradhu object. **Property**: Age property-la get/set vachi validation add pannirukom (negative age throw exception). **Interface**: IPatientService, IPatientRepository - "what to do" nu define pannum, "how" nu implement pannradhu class-la. **Abstract Class**: BaseService-la Validate() abstract method (implementation illa, child class mandatory override pannanum), Log() concrete method (direct use pannalam), SendNotification() virtual method (default implementation irukku, aana override optional). **Inheritance**: PatientService, BaseService-a inherit pannudhu (: BaseService), so Log() automatic-a kidaikkum. **Polymorphism**: PatientController-la "service.Save(patient)" nu call panrom - IPatientService interface reference vachi, aana actual-a PatientService object than run aagudhu (runtime-la decide aagudhu, override methods call aagudhu). **Dependency Injection**: Program.cs-la AddScoped() vachi interface-a concrete class-oda register pannirukom, Controller/Service-la constructor vachi inject pannirukom (tightly coupled aagama, testing easy-a irukkum).`,
+        interviewDefinition: `This example demonstrates how multiple OOP concepts work together in a real ASP.NET Core patient-save flow. **Class & Object**: Patient is a class; "new Patient{...}" creates an object instance of it. **Property**: The Age property uses get/set accessors to add validation logic (throwing an exception for negative values), which a plain field cannot do. **Interface**: IPatientService and IPatientRepository define contracts ("what" a class must do), while the implementing classes define "how". **Abstract Class**: BaseService contains an abstract method Validate() (no implementation, must be overridden by derived classes), a concrete method Log() (used directly by all subclasses), and a virtual method SendNotification() (has a default implementation but can optionally be overridden). **Inheritance**: PatientService inherits from BaseService, gaining access to Log() without redefining it. **Polymorphism**: In PatientController, calling "service.Save(patient)" through the IPatientService interface reference resolves to the actual PatientService implementation at runtime, and any overridden methods (Validate, SendNotification) execute their derived-class behavior. **Dependency Injection**: In Program.cs, interfaces are registered with their concrete implementations via AddScoped(), and dependencies are injected through constructors in the Controller and Service, promoting loose coupling and testability.`,
+        example: `// Program.cs
+// Dependency Injection
+builder.Services.AddScoped<IPatientService, PatientService>();
+builder.Services.AddScoped<IPatientRepository, PatientRepository>();
+
+
+// Model (Class + Property)
+public class Patient
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+
+    private string _age;
+
+    public string Age
+    {
+        get
+        {
+            return _age;
+        }
+
+        set
+        {
+           if (value < 0)
+            {
+                throw new Exception("Age cannot be negative.");
+            }
+
+            _age = value;
+        }
+    }
+}
+
+// Controller
+public class PatientController
+{
+    private readonly IPatientService service;
+
+    // Constructor Injection
+    public PatientController(IPatientService service)
+    {
+        this.service = service;
+    }
+
+    public void SavePatient()
+    {
+        // Object
+        Patient patient = new Patient
+        {
+            Id = 1,
+            Name = "Kathir",
+            Age = 26
+        };
+
+        // Polymorphism
+        service.Save(patient);
+    }
+}
+
+// Interface
+public interface IPatientService
+{
+    void Save(Patient patient);
+}
+
+
+// Service
+// Inheritance
+// Interface
+public class PatientService : BaseService, IPatientService
+{
+    private readonly IPatientRepository repository;
+
+    // Constructor
+    public PatientService(IPatientRepository repository)
+    {
+        this.repository = repository;
+    }
+
+    // Override Abstract Method
+    public override void Validate(Patient patient)
+    {
+        Console.WriteLine("Patient Validated");
+    }
+
+    // Override Virtual Method
+    public override void SendNotification()
+    {
+        Console.WriteLine("SMS Notification Sent");
+    }
+
+    // Interface Method
+    public void Save(Patient patient)
+    {
+        Log();
+        Validate(patient);
+        repository.Save(patient);
+        SendNotification();
+    }
+}
+
+// Abstract Class
+public abstract class BaseService
+{
+    public void Log()
+    {
+        Console.WriteLine("Log Created");
+    }
+
+    public abstract void Validate(Patient patient);
+
+    public virtual void SendNotification()
+    {
+        Console.WriteLine("Default Notification");
+    }
+}
+
+
+// Repository Interface
+public interface IPatientRepository
+{
+    void Save(Patient patient);
+}
+
+
+// Repository
+public class PatientRepository : IPatientRepository
+{
+    public void Save(Patient patient)
+    {
+        Console.WriteLine("Patient Saved to SQL");
+    }
+}`
     },
 ]
