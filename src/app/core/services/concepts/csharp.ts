@@ -679,4 +679,593 @@ refC.Log();   // Output: "Base Log" - reference type decides, not actual object
 //                              polymorphism works correctly through any reference type
 `
     },
+    {
+        id: 'models-vs-entities-vs-dto',
+        title: 'Models vs Entities vs DTOs',
+        category: 'C#',
+        slangDefinition: `Mூnnu different purposes-ku use aagura classes - confuse pannama vera vera-a puriyanum. **Entity** na Database table-a direct-a represent pannura class - EF Core (Entity Framework) vachi DB table structure-oda match aagum, [Table], [Key] maadhiri attributes irukkum, DB operations (CRUD) direct-a idha vachi than pannuவோம். **Model** na business logic-oda work panra class - Entity-oda close-a irukkalam, aana app-oda internal logic/validation/computed properties irukkum, DB structure exact-a follow aaganum nu kidayadhu. **DTO (Data Transfer Object)** na API request/response-ku mattum use pannura class - client-ku evlo data venuma adha mattum expose pannுவோம் (sensitive fields like password, internal IDs hide pannuவோம்), over-fetching/under-fetching avoid pannalam, frontend requirement-ku according shape pannalam. Real project-la: PatientEntity (DB) -> PatientModel (business logic) -> PatientDto (API response, only Name & Age expose, SSN hide).`,
+        interviewDefinition: `These three class types serve distinct architectural purposes and should not be used interchangeably. An **Entity** directly represents a database table, typically mapped via an ORM like Entity Framework Core, and is used for CRUD operations against the database. A **Model** represents business/domain logic within the application - it may closely resemble the Entity but can include computed properties, validation, or logic not tied to the database schema. A **DTO (Data Transfer Object)** is used specifically to shape data sent to or received from an API - it exposes only the fields the client needs, hides sensitive or internal data (like passwords or internal IDs), and helps prevent over-fetching or under-fetching of data. A typical flow is: PatientEntity (database) -> PatientModel (business logic) -> PatientDto (API response, exposing only necessary fields).`,
+        example: `// Entity - maps directly to DB table (using EF Core)
+[Table("Patients")]
+public class PatientEntity
+{
+    [Key]
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public string SSN { get; set; }       // sensitive, stored in DB
+    public string PasswordHash { get; set; }
+    public DateTime CreatedAt { get; set; }
+}
+
+// Model - business/domain logic layer
+public class PatientModel
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public int Age { get; set; }
+
+    // computed / business logic property
+    public bool IsSenior => Age >= 60;
+}
+
+// DTO - shape exposed to API clients only
+public class PatientDto
+{
+    public string Name { get; set; }
+    public int Age { get; set; }
+    // SSN, PasswordHash, Id intentionally NOT exposed
+}
+
+// Usage in Controller
+[HttpGet("{id}")]
+public PatientDto GetPatient(int id)
+{
+    PatientEntity entity = repository.GetById(id);   // from DB
+
+    PatientDto dto = new PatientDto
+    {
+        Name = entity.Name,
+        Age = CalculateAge(entity)
+    };
+
+    return dto; // only safe, required fields sent to client
+}`
+    },
+    {
+        id: 'configuration',
+        title: 'Configuration (appsettings & IConfiguration)',
+        category: 'C#',
+        slangDefinition: `Configuration na app-oda settings (DB connection string, API keys, logging level, feature flags) code-la hardcode pannama, vera oru file-la (appsettings.json) store pannradhu. Idhu vachi environment change aana (Dev, Staging, Production) code touch pannama, just config file change panni deploy pannalam. appsettings.json main file, appsettings.Development.json / appsettings.Production.json nu environment-specific override files-um irukkum. C#-la IConfiguration interface vachi idha read pannuவோம் (Program.cs-la already register aayiruchu), illa strongly-typed-a venumna IOptions<T> pattern use pannுவோம் - config section-a class-oda bind pannitu, DI vachi inject pannikalam. Idhu security-kum useful - production secrets (passwords, API keys) Azure Key Vault illa environment variables-la vachi, appsettings.json-la placeholder mattum vekalam.`,
+        interviewDefinition: `Configuration refers to externalizing application settings - such as database connection strings, API keys, logging levels, and feature flags - outside of source code, typically into files like appsettings.json. This allows different environments (Development, Staging, Production) to use different settings without modifying or recompiling code; ASP.NET Core supports environment-specific override files like appsettings.Development.json and appsettings.Production.json. Configuration values are accessed via the IConfiguration interface, which is registered automatically in the application's dependency injection container. For stronger type safety, the IOptions<T> pattern is commonly used - it binds a configuration section to a strongly-typed C# class, which can then be injected via constructor injection. This approach also supports better security practices, since sensitive values (passwords, API keys) can be stored in environment variables or secret managers (e.g., Azure Key Vault) rather than committed directly into appsettings.json.`,
+        example: `// appsettings.json
+{
+  "ConnectionStrings": {
+    "PatientDb": "Server=localhost;Database=PatientDB;Trusted_Connection=True;"
+  },
+  "NotificationSettings": {
+    "SmsProvider": "Twilio",
+    "MaxRetryCount": 3
+  }
+}
+
+// Option 1: Read directly via IConfiguration
+public class PatientRepository
+{
+    private readonly string connectionString;
+
+    public PatientRepository(IConfiguration configuration)
+    {
+        connectionString = configuration.GetConnectionString("PatientDb");
+    }
+}
+
+// Option 2: Strongly-typed via IOptions<T> (preferred, more maintainable)
+public class NotificationSettings
+{
+    public string SmsProvider { get; set; }
+    public int MaxRetryCount { get; set; }
+}
+
+// Program.cs - bind config section to class
+builder.Services.Configure<NotificationSettings>(
+    builder.Configuration.GetSection("NotificationSettings"));
+
+// Usage in Service (via constructor injection)
+public class PatientService
+{
+    private readonly NotificationSettings settings;
+
+    public PatientService(IOptions<NotificationSettings> options)
+    {
+        settings = options.Value;
+    }
+
+    public void Notify()
+    {
+        Console.WriteLine($"Sending via {settings.SmsProvider}, retries: {settings.MaxRetryCount}");
+    }
+}`
+    },
+    {
+        id: 'helper-class',
+        title: 'Helper Class',
+        category: 'C#',
+        slangDefinition: `Helper class na oru specific business entity-oda sambandham illama, app engayume use pannalaam-nu common/reusable logic vachi irukra static class. Example-ku date format panradhu, string validate panradhu, encryption/decryption panradhu, file operations - ivanga entha particular Patient/Doctor logic-oda bandham illama, "utility" maadhiri use aagum. Static class-a define pannuவோம் (object create pannradhu vendaam), static methods vachi direct-a ClassName.MethodName() nu call pannalam. Idhu code duplication avoid pannum - same logic pala places-la copy-paste pannama, oru central place-la vachi reuse pannalam. Business logic (Service layer) vera, Helper (utility logic) vera - Helper-la DB call illa dependency injection generally irukkadhu, pure standalone functions than irukkum.`,
+        interviewDefinition: `A Helper class is a static class that contains common, reusable utility logic not tied to any specific business entity or domain model. Typical examples include date formatting, string validation, encryption/decryption, and file operations. Helper classes are usually defined as static (so no instantiation is needed) with static methods, allowing them to be called directly as ClassName.MethodName(). Their main purpose is to avoid code duplication by centralizing common logic used across multiple parts of the application. Unlike Service classes, which typically contain business logic and may depend on repositories or other injected services, Helper classes are generally pure, standalone functions with no external dependencies or database access.`,
+        example: `public static class DateHelper
+{
+    public static string FormatToDisplayDate(DateTime date)
+    {
+        return date.ToString("dd-MMM-yyyy");
+    }
+
+    public static int CalculateAge(DateTime dateOfBirth)
+    {
+        int age = DateTime.Now.Year - dateOfBirth.Year;
+        if (DateTime.Now.DayOfYear < dateOfBirth.DayOfYear)
+        {
+            age--;
+        }
+        return age;
+    }
+}
+
+public static class StringHelper
+{
+    public static bool IsValidEmail(string email)
+    {
+        return !string.IsNullOrWhiteSpace(email) && email.Contains("@");
+    }
+}
+
+// Usage - no object creation needed, called directly on the class
+public class PatientService
+{
+    public void Register(Patient patient)
+    {
+        string dob = DateHelper.FormatToDisplayDate(patient.DateOfBirth);
+        int age = DateHelper.CalculateAge(patient.DateOfBirth);
+
+        if (!StringHelper.IsValidEmail(patient.Email))
+        {
+            throw new Exception("Invalid email address.");
+        }
+
+        Console.WriteLine($"{patient.Name}, DOB: {dob}, Age: {age}");
+    }
+}`
+    },
+    {
+        id: 'middleware',
+        title: 'Middleware',
+        category: 'C#',
+        slangDefinition: `Middleware na ASP.NET Core-la HTTP request ஒரு pipeline maadhiri pass aagum bodhu, ovvoru stage-layum konjam processing pannura component. Request client-la irundhu varum bodhu middleware pipeline-a pass pannitu than Controller-ku pogum, response Controller-la irundhu client-ku poga munnadi middleware pipeline-a thirumba pass pannum. Common use cases: Authentication (user login check pannradhu), Logging (request/response details log pannradhu), Exception Handling (error-a catch panni proper response kudukradhu), CORS, Rate Limiting. Ovvoru middleware-um "next()" nu call pannanum, adhu than pipeline-la next middleware-ku control pass pannum - next() call pannalana, pipeline andha place-laye stop aagidum (short-circuit). Program.cs-la app.Use...() vachi order-a register pannuவோம், andha order than execution order-a decide pannum.`,
+        interviewDefinition: `Middleware in ASP.NET Core is a component that sits in the HTTP request processing pipeline, handling requests and responses as they flow through the application. Each incoming request passes through the middleware pipeline before reaching the Controller (or endpoint), and the response passes back through the same pipeline (in reverse order) before returning to the client. Common use cases include Authentication, Logging, centralized Exception Handling, CORS, and Rate Limiting. Each middleware component can either process the request and call the next() delegate to pass control to the next middleware, or short-circuit the pipeline by not calling next() (e.g., returning an error response early). Middleware is registered in Program.cs using app.Use...() methods, and the order of registration determines the execution order.`,
+        example: `// Custom Middleware - Exception Handling
+public class ExceptionHandlingMiddleware
+{
+    private readonly RequestDelegate next;
+
+    public ExceptionHandlingMiddleware(RequestDelegate next)
+    {
+        this.next = next;
+    }
+
+    public async Task InvokeAsync(HttpContext context)
+    {
+        try
+        {
+            await next(context); // pass control to next middleware
+        }
+        catch (Exception ex)
+        {
+            context.Response.StatusCode = 500;
+            await context.Response.WriteAsync($"Error: {ex.Message}");
+        }
+    }
+}
+
+// Custom Middleware - Request Logging
+public class RequestLoggingMiddleware
+{
+    private readonly RequestDelegate next;
+
+    public RequestLoggingMiddleware(RequestDelegate next)
+    {
+        this.next = next;
+    }
+
+    public async Task InvokeAsync(HttpContext context)
+    {
+        Console.WriteLine($"Incoming request: {context.Request.Path}");
+        await next(context);
+        Console.WriteLine($"Outgoing response: {context.Response.StatusCode}");
+    }
+}
+
+// Program.cs - registering middleware (order matters!)
+app.UseMiddleware<ExceptionHandlingMiddleware>();
+app.UseMiddleware<RequestLoggingMiddleware>();
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapControllers();`
+    },
+    {
+        id: 'program-cs',
+        title: 'Program.cs',
+        category: 'C#',
+        slangDefinition: `Program.cs na .NET application-oda entry point - app run aagum bodhu first execute aagura file idhu than. Modern ASP.NET Core (.NET 6+) la, Program.cs oru single file-la app-oda ellame setup pannuவோம் - services register pannradhu (Dependency Injection), middleware pipeline configure pannradhu, routing setup pannradhu, app-a run pannradhu. Munnadi (older .NET versions) Program.cs + Startup.cs nu rendu files-la split panniருந்தோம் (Program.cs app start pannum, Startup.cs services/middleware configure pannum) - aana .NET 6-la irundhu ellame Program.cs oru file-lame combine pannirukanga (minimal hosting model). Why use pannuவோம்: DB connection setup pannanum, Controllers/Services register pannanum, Authentication/Authorization enable pannanum, Swagger enable pannanum - ivangalam Program.cs-la than pannுவோம். When: app project create panra bodhu automatic-a generate aagum, adha edit panni namma requirement-ku customize pannுவோம்.`,
+        interviewDefinition: `Program.cs is the entry point of a .NET application - it is the first file executed when the application starts. In modern ASP.NET Core (.NET 6 and above), Program.cs uses the minimal hosting model, where application setup - registering services for Dependency Injection, configuring the middleware pipeline, setting up routing, and running the app - is all done in a single file. In earlier .NET versions, this was split across two files: Program.cs (started the app) and Startup.cs (configured services and middleware via ConfigureServices() and Configure() methods). Program.cs is used to register services (like DbContext, Repositories, custom Services), enable Authentication/Authorization, configure middleware (like exception handling, CORS), and enable tools like Swagger. It is automatically generated when a new ASP.NET Core project is created, and developers customize it based on the application's requirements.`,
+        example: `// Program.cs (.NET 6+ minimal hosting model)
+
+var builder = WebApplication.CreateBuilder(args);
+
+// 1. Register services (Dependency Injection)
+builder.Services.AddControllers();
+builder.Services.AddDbContext<PatientDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("PatientDb")));
+
+builder.Services.AddScoped<IPatientService, PatientService>();
+builder.Services.AddScoped<IPatientRepository, PatientRepository>();
+
+builder.Services.AddSwaggerGen();
+
+var app = builder.Build();
+
+// 2. Configure middleware pipeline (order matters)
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapControllers();
+
+// 3. Run the app
+app.Run();`
+    },
+    {
+        id: 'project-structure',
+        title: 'Project Structure (Hospital.API)',
+        category: 'C#',
+        slangDefinition: `Idhu oru typical layered ASP.NET Core project structure - ovvoru folder-um oru specific responsibility handle pannum, so code organized-a, maintain panna easy-a irukkum. Request flow: Controller -> Service -> Repository -> DB, idha support panna Models/Entities/DTO/Interfaces/Configurations/Helpers/Middlewares separate-a vைrukkanga.`,
+        interviewDefinition: `This represents a typical layered architecture for an ASP.NET Core project, where each folder has a single, clear responsibility, keeping the codebase organized and maintainable. The general request flow follows Controller -> Service -> Repository -> Database, supported by separate layers for Models, Entities, DTOs, Interfaces, Configurations, Helpers, and Middlewares.`,
+        example: `Hospital.API
+├── Controllers        // handles HTTP requests/responses
+│     PatientController.cs
+│
+├── Services           // business logic
+│     PatientService.cs
+│
+├── Repositories        // DB access logic
+│     PatientRepository.cs
+│
+├── Models              // in-app/business models (e.g. search/filter models)
+│     PatientSearchModel.cs
+│
+├── Entities             // DB table mappings
+│     Patient.cs
+│
+├── DTO                  // API request/response shapes
+│     PatientDto.cs
+│
+├── Interfaces            // contracts for Services/Repositories
+│     IPatientService.cs
+│     IPatientRepository.cs
+│
+├── Configurations         // strongly-typed app settings
+│     JwtConfiguration.cs
+│
+├── Helpers                 // reusable utility/static logic
+│     AgeHelper.cs
+│
+├── Middlewares              // request/response pipeline components
+│     ExceptionMiddleware.cs
+│
+└── Program.cs                // app entry point, DI + middleware setup`
+    },
+    {
+        id: 'request-response-flow',
+        title: 'Request-Response Flow (Angular to SQL Server)',
+        category: 'C#',
+        slangDefinition: `Idhu oru typical full-stack request flow - Angular-la irundhu SQL Server varaikkum, apparam thirumba Angular-kum data return aagum path idhu. Request Angular-la irundhu API call pannum bodhu, adhu first Middleware pipeline pass pannum (Auth check, Exception handling, Logging), apparam Controller-ku pogum (HTTP request receive pannum), Controller andha request-a Service-ku pass pannum (business logic run aagum), Service Repository-a call pannum (data access logic), Repository DbContext (EF Core) vachi SQL Server-oda communicate pannum. Response path reverse-a varum: SQL Server -> Repository (raw data) -> Service (business logic apply pannum) -> DTO-ku convert pannum (client-ku venum fields mattum) -> Controller (HTTP response-a wrap pannum) -> Angular (UI-la display pannum). Ovvoru layer-um adhoda specific responsibility mattum handle pannum, idhu than separation of concerns.`,
+        interviewDefinition: `This represents a typical end-to-end request-response flow in a layered ASP.NET Core + Angular application. A request from Angular first passes through the Middleware pipeline (authentication, exception handling, logging), then reaches the Controller, which delegates to the Service layer for business logic. The Service calls the Repository for data access, and the Repository uses DbContext (EF Core) to communicate with SQL Server. The response follows the reverse path: SQL Server returns raw data to the Repository, the Service applies any business logic, the data is mapped to a DTO (exposing only client-required fields), and the Controller returns the HTTP response back to Angular for rendering. Each layer has a single, well-defined responsibility, reflecting the separation of concerns principle.`,
+        example: `Angular (HTTP request)
+   ↓
+Middleware        // Auth check, Exception handling, Logging
+   ↓
+Controller        // receives HTTP request
+   ↓
+Service           // business logic
+   ↓
+Repository        // data access logic
+   ↓
+DbContext         // EF Core - translates to SQL
+   ↓
+SQL Server        // actual data storage
+   ↓
+Repository        // returns raw entity data
+   ↓
+Service           // applies business logic / calculations
+   ↓
+DTO               // maps entity to client-safe shape
+   ↓
+Controller        // wraps DTO in HTTP response
+   ↓
+Angular           // renders data in UI`
+    },
+    {
+        id: 'iactionresult-vs-actionresult',
+        title: 'IActionResult vs ActionResult<T>',
+        category: 'C#',
+        slangDefinition: `Rendume Controller action methods-oda return type-ku use pannுவோம், rendukum konjam difference irukku. **IActionResult** na interface - Ok(), NotFound(), BadRequest() maadhiri pala types of results return panna use pannுவோம், aana return type-a specific-a mention pannradhu illa (compiler-ku exact data type theriyadhu), so Swagger documentation-la response type clear-a varadhu. **ActionResult<T>** na generic version - Ok(data), NotFound() rendume return pannalam (IActionResult-oda flexibility irukku), aana kooda T type-a specify pannuவோம் (example: ActionResult<Patient>), so Swagger-la exact response type clear-a show aagum, compile-time-la type safety-um kidaikkum. Adhanala modern .NET-la mostly ActionResult<T> than recommend pannுவோம் - especially data return pannum APIs-ku (GET requests), IActionResult na simple actions-ku (Delete, Post confirmation) use pannலாம்.`,
+        interviewDefinition: `Both IActionResult and ActionResult<T> are used as return types for Controller action methods, but they differ in type specificity. IActionResult is an interface that allows returning various result types (Ok(), NotFound(), BadRequest(), etc.), but it does not specify the actual data type being returned, which means Swagger/OpenAPI documentation cannot infer the exact response shape. ActionResult<T> is a generic wrapper that provides the same flexibility (can still return Ok(), NotFound(), etc.) while also specifying the concrete return type T, giving compile-time type safety and accurate Swagger documentation of the response shape. As a result, ActionResult<T> is generally the recommended choice for endpoints that return data (like GET requests), while plain IActionResult is often sufficient for actions that don't return a specific data payload (like Delete or simple confirmation responses).`,
+        example: `// IActionResult - no specific return type declared
+[HttpGet("{id}")]
+public IActionResult GetPatient(int id)
+{
+    var patient = repository.GetById(id);
+    if (patient == null)
+        return NotFound();
+
+    return Ok(patient);
+    // Swagger doesn't know the exact shape of "patient"
+}
+
+// ActionResult<T> - specific return type declared
+[HttpGet("{id}")]
+public ActionResult<PatientDto> GetPatient(int id)
+{
+    var patient = repository.GetById(id);
+    if (patient == null)
+        return NotFound();
+
+    return Ok(patient);
+    // Swagger correctly shows response type as PatientDto
+}
+
+// Simple action with no data payload - IActionResult is fine
+[HttpDelete("{id}")]
+public IActionResult DeletePatient(int id)
+{
+    repository.Delete(id);
+    return NoContent();
+}`
+    },
+    {
+        id: 'folder-vs-class-library',
+        title: 'Folder vs Class Library',
+        category: 'C#',
+        slangDefinition: `Folder na same project-kulla than oru logical grouping - Controllers, Services, Repositories maadhiri folders vachi code-a organize pannுவோம், aana ellame same .csproj (same assembly/DLL) kulla than compile aagும். Class Library na completely vera oru project (.csproj) - thani-a compile aagi thani DLL create pannும், idha namma main project (or vேra projects-um) reference vachi use pannலாம். Ne when folder use pannanum: same project-kulla, small-medium app, reuse veLiya vேண்டாம்-na folder podhum. When class library use pannanum: code-a multiple projects-la share pannanum-na (example: Common validation logic, Entities rendu API projects-um use pannும்), independent-a version pannanum-na, build time reduce pannanum-na (unchanged library recompile aagாது), illa NuGet package-a publish pannanum-na. Real project-la: Hospital.API (main), Hospital.Common (class library - shared DTOs, Helpers), Hospital.Data (class library - Entities, DbContext) - idhu maadhiri separate pannுவோம்.`,
+        interviewDefinition: `A Folder is simply a logical grouping of files within the same project (e.g., Controllers, Services, Repositories) - all code inside these folders compiles into the same assembly (.dll) as the rest of the project. A Class Library is a separate, standalone project (its own .csproj) that compiles into its own independent assembly (.dll), which can then be referenced and reused by one or more other projects. Folders are appropriate when code only needs to be organized within a single project and doesn't need to be shared elsewhere. A Class Library is preferred when code needs to be shared across multiple projects (e.g., common DTOs, validation logic, or Entities used by multiple APIs), needs to be versioned or built independently, needs to reduce overall build time (an unchanged library doesn't need to be recompiled), or needs to be published as a reusable NuGet package. In a real-world solution, this often looks like: Hospital.API (main project), Hospital.Common (class library for shared DTOs/Helpers), and Hospital.Data (class library for Entities/DbContext).`,
+        example: `// Folder approach - everything inside one project (Hospital.API.csproj)
+Hospital.API
+├── Controllers
+├── Services
+├── Repositories
+├── Entities
+└── Program.cs
+// All folders compile into a single Hospital.API.dll
+
+// Class Library approach - split across multiple projects
+Hospital.sln
+├── Hospital.API            (project - references the libraries below)
+│     ├── Controllers
+│     └── Program.cs
+│
+├── Hospital.Common         (class library - Hospital.Common.dll)
+│     ├── DTO
+│     └── Helpers
+│
+└── Hospital.Data           (class library - Hospital.Data.dll)
+      ├── Entities
+      └── PatientDbContext.cs
+
+// Hospital.API.csproj references the class libraries:
+// <ProjectReference Include="..\Hospital.Common\Hospital.Common.csproj" />
+// <ProjectReference Include="..\Hospital.Data\Hospital.Data.csproj" />
+
+// Now Hospital.Common and Hospital.Data can be reused
+// by another project (e.g., Hospital.BackgroundJobs) without duplication`
+    },
+    {
+        id: 'dependency-injection',
+        title: 'Dependency Injection',
+        category: 'C#',
+        slangDefinition: `Dependency Injection (DI) na oru class-ku venum dependency (example: IPatientRepository) andha class internal-a "new" pannama, outside-la irundhu inject pannradhu (constructor vachi kudukradhu). Idhu vachi classes loosely coupled-a irukkும் - PatientService, IPatientRepository interface mattum theriyum, actual implementation (PatientRepository, SQL vera, MongoDB vera edhu vandhalum) idha பாதிக்காது. .NET-la built-in DI container irukku (IServiceCollection) - Program.cs-la AddScoped(), AddSingleton(), AddTransient() vachi register pannுவோம், app run aagும் bodhu automatic-a required dependencies resolve pannி constructor-la pass pannிடும். Testing-ku romba useful - unit test ezhudhum bodhu real DB-a hit pannாம, fake/mock repository inject pannி test pannலாம்.`,
+        interviewDefinition: `Dependency Injection (DI) is a design pattern where a class receives its dependencies (e.g., IPatientRepository) from an external source, typically via its constructor, rather than creating them internally with "new". This results in loosely coupled code - a class like PatientService only depends on an interface, remaining unaware of the concrete implementation (whether it's backed by SQL Server, MongoDB, or a mock for testing). ASP.NET Core has a built-in DI container (IServiceCollection); services are registered in Program.cs using AddScoped(), AddSingleton(), or AddTransient(), and the framework automatically resolves and injects the required dependencies at runtime. DI is especially valuable for unit testing, since a fake or mock implementation of a dependency can be injected instead of hitting a real database.`,
+        example: `// Interface - defines the contract
+public interface IPatientRepository
+{
+    Patient GetById(int id);
+}
+
+// Concrete implementation
+public class PatientRepository : IPatientRepository
+{
+    public Patient GetById(int id)
+    {
+        // fetch from SQL Server
+        return new Patient { Id = id, Name = "Kathiravan" };
+    }
+}
+
+// Service depends on the interface, NOT the concrete class
+public class PatientService
+{
+    private readonly IPatientRepository repository;
+
+    // Constructor Injection - dependency is "injected" from outside
+    public PatientService(IPatientRepository repository)
+    {
+        this.repository = repository;
+    }
+
+    public Patient GetPatient(int id)
+    {
+        return repository.GetById(id);
+    }
+}
+
+// Program.cs - register with DI container
+builder.Services.AddScoped<IPatientRepository, PatientRepository>();
+builder.Services.AddScoped<PatientService>();
+
+// .NET automatically resolves and injects PatientRepository
+// wherever IPatientRepository is required (e.g., PatientController)
+
+// Types of lifetimes:
+// AddTransient  -> new instance every time it's requested
+// AddScoped     -> one instance per HTTP request
+// AddSingleton  -> one instance for the entire application lifetime`
+    },
+    {
+        id: 'linq-vs-js',
+        title: 'LINQ Methods vs JavaScript Array Methods',
+        category: 'C#',
+        slangDefinition: `LINQ (Language Integrated Query) na C#-la collections (List, Array) query panna use pannura methods - JS-la namma array methods use panra maadhiri than, syntax konjam different. Where() na JS-oda filter() maadhiri - condition match aagra items mattum return pannும். Select() na JS-oda map() maadhiri - each item-a transform pannி new shape return pannும். First() na JS-oda find()[0] maadhiri, aana match illana Exception throw pannும் (empty-a return pannாது). FirstOrDefault() na match illana null/default return pannும் (safe-a use pannலாம், real-time-la First() velaikkum FirstOrDefault() than mostly use pannுவோம்). Any() na JS-oda some() maadhiri - condition match aagra element irukka nu boolean return pannும். All() na JS-oda every() maadhiri - ella elements-um condition match aaganum. OrderBy() na JS-oda sort() maadhiri - ascending order-la sort pannும் (OrderByDescending() descending-ku). GroupBy() na JS-la reduce() vachi manual-a group pannுவோம் (JS-la direct method illa), C#-la key vachi automatic-a group pannிடும். Join() na JS-oda equivalent illa - SQL JOIN maadhiri rendu collections-a common key vachi combine pannும்.`,
+        interviewDefinition: `LINQ (Language Integrated Query) provides a set of methods to query and manipulate collections in C#, conceptually similar to JavaScript's array methods but with different syntax and behavior. Where() filters elements based on a condition, equivalent to JavaScript's filter(). Select() projects/transforms each element into a new shape, equivalent to map(). First() returns the first matching element but throws an exception if no match is found, whereas FirstOrDefault() returns the default value (null for reference types) instead of throwing - making it the safer, more commonly used choice. Any() checks whether at least one element satisfies a condition, equivalent to some(). All() checks whether every element satisfies a condition, equivalent to every(). OrderBy() sorts elements in ascending order (OrderByDescending() for descending), similar to sort(). GroupBy() groups elements by a key, which JavaScript does not provide natively (typically implemented manually using reduce()). Join() combines two collections based on a matching key, conceptually similar to a SQL JOIN, with no single direct JavaScript equivalent.`,
+        example: `List<Patient> patients = new List<Patient>
+{
+    new Patient { Id = 1, Name = "Kathir", Age = 26, Dept = "Cardiology" },
+    new Patient { Id = 2, Name = "John", Age = 45, Dept = "Neurology" },
+    new Patient { Id = 3, Name = "David", Age = 32, Dept = "Cardiology" }
+};
+
+// Where() -> filter()
+var adults = patients.Where(p => p.Age >= 18).ToList();
+// JS: patients.filter(p => p.age >= 18)
+
+// Select() -> map()
+var names = patients.Select(p => p.Name).ToList();
+// JS: patients.map(p => p.name)
+
+// First() -> throws if no match
+var first = patients.First(p => p.Age > 40);
+// JS: patients.find(p => p.age > 40) -> but find() returns undefined, not throw
+
+// FirstOrDefault() -> safe, returns null if no match
+var firstOrNull = patients.FirstOrDefault(p => p.Age > 100);
+// JS: patients.find(p => p.age > 100) -> undefined
+
+// Any() -> some()
+bool hasSenior = patients.Any(p => p.Age >= 60);
+// JS: patients.some(p => p.age >= 60)
+
+// All() -> every()
+bool allAdults = patients.All(p => p.Age >= 18);
+// JS: patients.every(p => p.age >= 18)
+
+// OrderBy() -> sort()
+var sorted = patients.OrderBy(p => p.Age).ToList();
+// JS: patients.sort((a, b) => a.age - b.age)`
+    },
+    {
+        id: 'linq-groupby',
+        title: 'GroupBy()',
+        category: 'C#',
+        slangDefinition: `GroupBy() na oru collection-a oru key vachi group pannradhu - same key irukra items ella ஒரே group-la varும். Result na IEnumerable<IGrouping<TKey, TSource>> nu varும் - ஒவ்வொரு group-kum "Key" (group panna use panna value) and andha group-kula irukra items ellame irukும். JS-la idhu maadhiri direct method illa, reduce() vachi manual-a implement pannணும். Real-time-la Department vachi Patients group pannradhu, Status vachi Orders group pannradhu maadhiri use pannுவோம் - dashboard, report generate panna romba useful.`,
+        interviewDefinition: `GroupBy() groups elements of a collection based on a specified key selector, returning an IEnumerable<IGrouping<TKey, TSource>> where each group has a Key property (the grouping value) and contains all matching elements from the original collection. JavaScript has no direct built-in equivalent - grouping is typically implemented manually using reduce(). GroupBy() is commonly used in real-world scenarios like grouping patients by department or orders by status, which is especially useful for generating dashboards and reports.`,
+        example: `// Input
+List<Patient> patients = new List<Patient>
+{
+    new Patient { Id = 1, Name = "Kathir", Dept = "Cardiology" },
+    new Patient { Id = 2, Name = "John", Dept = "Neurology" },
+    new Patient { Id = 3, Name = "David", Dept = "Cardiology" },
+    new Patient { Id = 4, Name = "Priya", Dept = "Neurology" }
+};
+
+// Code
+var groupedByDept = patients.GroupBy(p => p.Dept);
+
+// Output (conceptual shape - Key = Dept, items = matching patients)
+{
+    "Cardiology":
+    [
+        {
+            Id: 1,
+            Name: "Kathir",
+            Dept: "Cardiology"
+        },
+        {
+            Id: 3,
+            Name: "David",
+            Dept: "Cardiology"
+        }
+    ],
+    "Neurology":
+    [
+        {
+            Id: 2,
+            Name: "John",
+            Dept: "Neurology"
+        },
+        {
+            Id: 4,
+            Name: "Priya",
+            Dept: "Neurology"
+        }
+    ]
+}`
+    },
+    {
+        id: 'linq-join',
+        title: 'Join()',
+        category: 'C#',
+        slangDefinition: `Join() na rendu different collections-a common key vachi combine pannradhu - SQL-la INNER JOIN pannura maadhiri than. Rendu lists-um irukanum (example: Patients, Departments), oru common field vachi match pannி (Dept name = Department name) rendu-oda data-a merge panni oru new shape create pannுவோம். Match aagாma irukra items automatic-a skip aagும் (INNER JOIN behavior). JS-la idhukku direct method illa, filter() + map() combine panni manual-a pannணும். Real-time-la Patient-oda Department details join pannradhu, Order-oda Customer details join pannradhu maadhiri use pannுவோம்.`,
+        interviewDefinition: `Join() combines two collections based on a matching key, similar to an INNER JOIN in SQL. It takes an outer collection, an inner collection, key selectors for both, and a result selector that defines the shape of the combined output. Elements that do not have a matching key in both collections are excluded from the result, consistent with inner-join behavior. JavaScript has no direct built-in equivalent - this is typically implemented manually using a combination of filter() and map(). Join() is commonly used in real-world scenarios like combining Patient records with their Department details, or Order records with Customer details.`,
+        example: `// Input
+List<Patient> patients = new List<Patient>
+{
+    new Patient { Id = 1, Name = "Kathir", Dept = "Cardiology" },
+    new Patient { Id = 2, Name = "John", Dept = "Neurology" },
+    new Patient { Id = 3, Name = "David", Dept = "Cardiology" }
+};
+
+List<Department> departments = new List<Department>
+{
+    new Department { Name = "Cardiology", Floor = 3 },
+    new Department { Name = "Neurology", Floor = 5 }
+};
+
+// Code
+var result = patients.Join(
+    departments,
+    p => p.Dept,          // key from outer collection (patients)
+    d => d.Name,           // key from inner collection (departments)
+    (p, d) => new
+    {
+        p.Id,
+        p.Name,
+        p.Dept,
+        Floor = d.Floor
+    });
+
+// Output
+[
+    {
+        Id: 1,
+        Name: "Kathir",
+        Dept: "Cardiology",
+        Floor: 3
+    },
+    {
+        Id: 2,
+        Name: "John",
+        Dept: "Neurology",
+        Floor: 5
+    },
+    {
+        Id: 3,
+        Name: "David",
+        Dept: "Cardiology",
+        Floor: 3
+    }
+]`
+    },
 ];

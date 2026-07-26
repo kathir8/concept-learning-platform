@@ -807,13 +807,13 @@ ngOnInit() {
 // Service       → Complex/persistent data sharing`
   },
   {
-  id: 'web-worker-angular',
-  title: 'Web Workers in Angular',
-  category: 'Angular',
-  referenceUrl:'https://notebook.zoho.in/app/index.html#/shared/notecards/9wn9o590fa24e73744b9c822d3e0bd10e248c',
-  slangDefinition: `Web Worker na browser-la background thread-la heavy task run panna use panrom. JavaScript single-threaded — oru time-la orae work daan pannum (synchronous and Sigle thread). Heavy calculation pannum bodhu UI freeze aagum. Web Worker use panna heavy task background-la run aagum, UI smooth-ஆ iruku. Main thread-ku Worker separate thread — postMessage() use panni communicate pannuvom. Angular CLI-la ng generate web-worker command use panni create pannalam. DOM access, window object ellam Worker-la use panna mudiyadhu — only pure computation.`,
-  interviewDefinition: `Web Workers allow JavaScript to run scripts in background threads, separate from the main UI thread. Since JavaScript is single-threaded, heavy computations block the UI causing freezes. Web Workers solve this by running CPU-intensive tasks (large data processing, image manipulation, complex calculations) in a separate thread without blocking the main thread. Communication between main thread and worker happens via postMessage() and onmessage events. In Angular, Web Workers are generated using Angular CLI and typically used in services. Workers cannot access the DOM, window, or document objects.`,
-  example: `// ══════════════════════════════════════════════
+    id: 'web-worker-angular',
+    title: 'Web Workers in Angular',
+    category: 'Angular',
+    referenceUrl: 'https://notebook.zoho.in/app/index.html#/shared/notecards/9wn9o590fa24e73744b9c822d3e0bd10e248c',
+    slangDefinition: `Web Worker na browser-la background thread-la heavy task run panna use panrom. JavaScript single-threaded — oru time-la orae work daan pannum (synchronous and Sigle thread). Heavy calculation pannum bodhu UI freeze aagum. Web Worker use panna heavy task background-la run aagum, UI smooth-ஆ iruku. Main thread-ku Worker separate thread — postMessage() use panni communicate pannuvom. Angular CLI-la ng generate web-worker command use panni create pannalam. DOM access, window object ellam Worker-la use panna mudiyadhu — only pure computation.`,
+    interviewDefinition: `Web Workers allow JavaScript to run scripts in background threads, separate from the main UI thread. Since JavaScript is single-threaded, heavy computations block the UI causing freezes. Web Workers solve this by running CPU-intensive tasks (large data processing, image manipulation, complex calculations) in a separate thread without blocking the main thread. Communication between main thread and worker happens via postMessage() and onmessage events. In Angular, Web Workers are generated using Angular CLI and typically used in services. Workers cannot access the DOM, window, or document objects.`,
+    example: `// ══════════════════════════════════════════════
 // STEP 1: Generate Web Worker using Angular CLI
 // ══════════════════════════════════════════════
 
@@ -1057,5 +1057,463 @@ export class ParallelWorkerService {
 //              crypto, complex sorting, file parsing
 // Cleanup    → worker.terminate() in ngOnDestroy() ✅
 // Parallel   → Multiple workers = faster processing 🔥`
-},
+  },
+  {
+    id: 'access-token-vs-refresh-token',
+    title: 'Access Token vs Refresh Token',
+    category: 'Angular',
+    slangDefinition: `Access Token na short-lived token — API calls-ku use pannuvom, expire aana new one vennum. Refresh Token na long-lived token — access token expire aana new access token get panna use pannuvom. Simple-a solla: Access token = movie ticket (2 hours valid, expire aana useless), Refresh token = membership card (long valid, new ticket get panna use pannuvom). Access token expire aana — user logout panna vendam, refresh token use panni silently new access token get pannuvom. Refresh token-um expire aana — user re-login pannanum.`,
+    interviewDefinition: `Access Token is a short-lived JWT (typically 15 minutes to 1 hour) sent with every API request in the Authorization header. When it expires, the client uses the Refresh Token (long-lived, typically 7-30 days) to silently obtain a new Access Token from the auth server without requiring the user to re-login. This two-token strategy balances security (short-lived access token limits exposure) and UX (refresh token prevents frequent re-logins). In Angular, HTTP Interceptors handle token attachment and refresh logic transparently. Refresh tokens are stored securely (httpOnly cookie preferred) and rotated on each use.`,
+    example: `// ══════════════════════════════════════════
+// FLOW OVERVIEW
+// ══════════════════════════════════════════
+
+// 1. User login pannuvaan
+// 2. Server → Access Token (15min) + Refresh Token (7days) return pannudhu
+// 3. Every API call → Access Token header-la attach pannuvom
+// 4. Access Token expire aana → 401 varudhu
+// 5. Refresh Token use panni → new Access Token silently get pannuvom
+// 6. Refresh Token-um expire aana → User re-login pannanum
+
+// ══════════════════════════════════════════
+// TOKEN SERVICE
+// ══════════════════════════════════════════
+import { Injectable } from '@angular/core'
+import { HttpClient } from '@angular/common/http'
+import { BehaviorSubject, Observable, throwError } from 'rxjs'
+import { tap, catchError, switchMap, filter, take } from 'rxjs/operators'
+
+@Injectable({ providedIn: 'root' })
+export class TokenService {
+  private readonly ACCESS_TOKEN_KEY  = 'access_token'
+  private readonly REFRESH_TOKEN_KEY = 'refresh_token'
+
+  // ✅ Store tokens
+  setTokens(accessToken: string, refreshToken: string) {
+    localStorage.setItem(this.ACCESS_TOKEN_KEY, accessToken)
+    localStorage.setItem(this.REFRESH_TOKEN_KEY, refreshToken)
+    // ⚠️ Production-la httpOnly cookie prefer pannuvom — XSS safe
+  }
+
+  // ✅ Get tokens
+  getAccessToken(): string | null {
+    return localStorage.getItem(this.ACCESS_TOKEN_KEY)
+  }
+
+  getRefreshToken(): string | null {
+    return localStorage.getItem(this.REFRESH_TOKEN_KEY)
+  }
+
+  // ✅ Clear tokens (logout)
+  clearTokens() {
+    localStorage.removeItem(this.ACCESS_TOKEN_KEY)
+    localStorage.removeItem(this.REFRESH_TOKEN_KEY)
+  }
+
+  // ✅ Check if access token expired
+  isAccessTokenExpired(): boolean {
+    const token = this.getAccessToken()
+    if (!token) return true
+
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]))  // JWT decode
+      const expiry  = payload.exp * 1000                    // Convert to ms
+      return Date.now() >= expiry                            // Expired? ✅
+    } catch {
+      return true
+    }
+  }
+
+  // ✅ Get token expiry time
+  getTokenExpiry(): Date | null {
+    const token = this.getAccessToken()
+    if (!token) return null
+
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]))
+      return new Date(payload.exp * 1000)
+    } catch {
+      return null
+    }
+  }
+}
+
+
+// ══════════════════════════════════════════
+// AUTH SERVICE — Login, Logout, Refresh
+// ══════════════════════════════════════════
+@Injectable({ providedIn: 'root' })
+export class AuthService {
+  private apiUrl = 'https://api.example.com'
+
+  // ✅ Refresh in progress track pannuvom — multiple calls handle panna
+  private isRefreshing  = false
+  private refreshSubject = new BehaviorSubject<string | null>(null)
+
+  constructor(
+    private http:         HttpClient,
+    private tokenService: TokenService,
+    private router:       Router
+  ) {}
+
+  // ✅ Login — Both tokens receive pannuvom
+  login(credentials: { email: string, password: string }) {
+    return this.http.post<{
+      accessToken:  string
+      refreshToken: string
+      user:         any
+    }>(\`\${this.apiUrl}/auth/login\`, credentials).pipe(
+      tap(response => {
+        // Both tokens store pannuvom ✅
+        this.tokenService.setTokens(
+          response.accessToken,
+          response.refreshToken
+        )
+        console.log('Login successful!')
+        console.log('Access Token expires:', this.tokenService.getTokenExpiry())
+      })
+    )
+  }
+
+  // ✅ Refresh Access Token using Refresh Token
+  refreshAccessToken(): Observable<string> {
+    const refreshToken = this.tokenService.getRefreshToken()
+
+    if (!refreshToken) {
+      this.logout()
+      return throwError(() => new Error('No refresh token'))
+    }
+
+    return this.http.post<{
+      accessToken:  string
+      refreshToken: string   // Rotation — new refresh token also return pannudhu ✅
+    }>(\`\${this.apiUrl}/auth/refresh\`, { refreshToken }).pipe(
+      tap(response => {
+        // New tokens store pannuvom (refresh token rotation) ✅
+        this.tokenService.setTokens(
+          response.accessToken,
+          response.refreshToken
+        )
+        console.log('Token refreshed silently ✅')
+      }),
+      switchMap(response => [response.accessToken]),
+      catchError(error => {
+        // Refresh token-um expire aana — logout pannuvom
+        this.logout()
+        return throwError(() => error)
+      })
+    )
+  }
+
+  // ✅ Handle token refresh with queue (multiple 401s handle panna)
+  handleTokenRefresh(): Observable<string> {
+    if (this.isRefreshing) {
+      // Already refreshing — wait for new token ✅
+      return this.refreshSubject.pipe(
+        filter(token => token !== null),
+        take(1),
+        switchMap(token => [token!])
+      )
+    }
+
+    this.isRefreshing = true
+    this.refreshSubject.next(null)
+
+    return this.refreshAccessToken().pipe(
+      tap(newToken => {
+        this.isRefreshing = false
+        this.refreshSubject.next(newToken)  // Waiting requests-ku notify ✅
+      }),
+      catchError(error => {
+        this.isRefreshing = false
+        this.refreshSubject.next(null)
+        return throwError(() => error)
+      })
+    )
+  }
+
+  // ✅ Logout — Tokens clear pannuvom
+  logout() {
+    // Server-la refresh token invalidate pannuvom (optional)
+    const refreshToken = this.tokenService.getRefreshToken()
+    if (refreshToken) {
+      this.http.post(\`\${this.apiUrl}/auth/logout\`, { refreshToken })
+        .subscribe()
+    }
+
+    this.tokenService.clearTokens()
+    this.router.navigate(['/login'])
+    console.log('Logged out!')
+  }
+
+  isLoggedIn(): boolean {
+    return !!this.tokenService.getAccessToken()
+  }
+}
+
+
+// ══════════════════════════════════════════
+// HTTP INTERCEPTOR — Auto attach + Auto refresh
+// "Every request-la token attach pannuvom
+//  401 vandha auto refresh pannuvom"
+// ══════════════════════════════════════════
+import {
+  HttpInterceptor,
+  HttpRequest,
+  HttpHandler,
+  HttpEvent,
+  HttpErrorResponse
+} from '@angular/common/http'
+
+@Injectable()
+export class AuthInterceptor implements HttpInterceptor {
+
+  constructor(
+    private tokenService: TokenService,
+    private authService:  AuthService
+  ) {}
+
+  intercept(
+    request: HttpRequest<any>,
+    next:    HttpHandler
+  ): Observable<HttpEvent<any>> {
+
+    // ✅ Skip auth endpoints — infinite loop avoid pannuvom
+    if (this.isAuthEndpoint(request.url)) {
+      return next.handle(request)
+    }
+
+    // ✅ Access token attach pannuvom
+    const requestWithToken = this.addToken(request)
+
+    return next.handle(requestWithToken).pipe(
+      catchError((error: HttpErrorResponse) => {
+
+        // ✅ 401 Unauthorized — Token expired?
+        if (error.status === 401) {
+          return this.handle401Error(request, next)
+        }
+
+        // ✅ 403 Forbidden — No permission
+        if (error.status === 403) {
+          console.error('Access denied!')
+          this.authService.logout()
+          return throwError(() => error)
+        }
+
+        return throwError(() => error)
+      })
+    )
+  }
+
+  // ✅ Add token to request
+  private addToken(request: HttpRequest<any>): HttpRequest<any> {
+    const token = this.tokenService.getAccessToken()
+
+    if (!token) return request
+
+    return request.clone({
+      setHeaders: {
+        Authorization: \`Bearer \${token}\`   // Bearer token attach ✅
+      }
+    })
+  }
+
+  // ✅ Handle 401 — Silent token refresh
+  private handle401Error(
+    request: HttpRequest<any>,
+    next:    HttpHandler
+  ): Observable<HttpEvent<any>> {
+
+    return this.authService.handleTokenRefresh().pipe(
+      switchMap(newToken => {
+        // New token-la original request retry pannuvom ✅
+        const retryRequest = request.clone({
+          setHeaders: {
+            Authorization: \`Bearer \${newToken}\`
+          }
+        })
+        return next.handle(retryRequest)
+      }),
+      catchError(error => {
+        // Refresh fail aana — logout
+        this.authService.logout()
+        return throwError(() => error)
+      })
+    )
+  }
+
+  // ✅ Auth endpoints skip pannuvom
+  private isAuthEndpoint(url: string): boolean {
+    const authUrls = ['/auth/login', '/auth/refresh', '/auth/logout']
+    return authUrls.some(authUrl => url.includes(authUrl))
+  }
+}
+
+// ✅ Register interceptor in app.module.ts
+// providers: [
+//   {
+//     provide:  HTTP_INTERCEPTORS,
+//     useClass: AuthInterceptor,
+//     multi:    true
+//   }
+// ]
+
+
+// ══════════════════════════════════════════
+// PROACTIVE REFRESH — Token expire munnade refresh
+// "Expire aana wait panna vendam — early refresh"
+// ══════════════════════════════════════════
+@Injectable({ providedIn: 'root' })
+export class ProactiveRefreshService implements OnDestroy {
+  private refreshTimer: any
+
+  constructor(
+    private tokenService: TokenService,
+    private authService:  AuthService
+  ) {}
+
+  // ✅ Token expire aagura 1 minute munnade refresh pannuvom
+  scheduleRefresh() {
+    const expiry = this.tokenService.getTokenExpiry()
+    if (!expiry) return
+
+    const now           = Date.now()
+    const expiryTime    = expiry.getTime()
+    const refreshTime   = expiryTime - now - (60 * 1000) // 1 minute before ✅
+
+    if (refreshTime <= 0) {
+      // Already expired or about to — refresh now
+      this.authService.refreshAccessToken().subscribe()
+      return
+    }
+
+    // Schedule refresh
+    this.refreshTimer = setTimeout(() => {
+      console.log('Proactive token refresh...')
+      this.authService.refreshAccessToken().pipe(
+        tap(() => this.scheduleRefresh())  // Next refresh schedule ✅
+      ).subscribe()
+    }, refreshTime)
+  }
+
+  cancelRefresh() {
+    if (this.refreshTimer) {
+      clearTimeout(this.refreshTimer)
+    }
+  }
+
+  ngOnDestroy() {
+    this.cancelRefresh()
+  }
+}
+
+
+// ══════════════════════════════════════════
+// AUTH GUARD — Protected routes
+// ══════════════════════════════════════════
+@Injectable({ providedIn: 'root' })
+export class AuthGuard implements CanActivate {
+
+  constructor(
+    private authService:  AuthService,
+    private tokenService: TokenService,
+    private router:       Router
+  ) {}
+
+  canActivate(): Observable<boolean> | boolean {
+    // Already logged in? ✅
+    if (this.authService.isLoggedIn()) {
+
+      // Access token expired? Try refresh
+      if (this.tokenService.isAccessTokenExpired()) {
+        return this.authService.refreshAccessToken().pipe(
+          switchMap(() => [true]),
+          catchError(() => {
+            this.router.navigate(['/login'])
+            return [false]
+          })
+        )
+      }
+      return true
+    }
+
+    // Not logged in — redirect
+    this.router.navigate(['/login'])
+    return false
+  }
+}
+
+
+// ══════════════════════════════════════════
+// USAGE — Component
+// ══════════════════════════════════════════
+@Component({ selector: 'app-login', template: '' })
+export class LoginComponent {
+
+  constructor(
+    private authService:        AuthService,
+    private proactiveRefresh:   ProactiveRefreshService
+  ) {}
+
+  login() {
+    this.authService.login({
+      email:    'anjali@example.com',
+      password: 'password123'
+    }).subscribe({
+      next: (response) => {
+        console.log('Logged in!', response.user)
+        this.proactiveRefresh.scheduleRefresh()  // Start proactive refresh ✅
+        this.router.navigate(['/dashboard'])
+      },
+      error: (err) => {
+        console.error('Login failed', err)
+      }
+    })
+  }
+
+  logout() {
+    this.proactiveRefresh.cancelRefresh()  // Stop refresh timer ✅
+    this.authService.logout()
+  }
+}
+
+
+// ══════════════════════════════════════════
+// SECURITY BEST PRACTICES
+// ══════════════════════════════════════════
+
+// ✅ Access Token:
+// Short expiry — 15 min to 1 hour
+// Store in memory (most secure) or localStorage
+// Authorization: Bearer <token> header-la send
+// Never in URL — logs-la expose aagudhu ❌
+
+// ✅ Refresh Token:
+// Long expiry — 7 to 30 days
+// Store in httpOnly cookie (XSS safe) ✅
+// Rotate on every use — old token invalidate pannuvom
+// Revoke list maintain pannuvom server-la
+
+// ❌ Never do:
+// Refresh token localStorage-la store panna — XSS risk
+// Access token cookie-la store panna — CSRF risk
+// Token URL-la pass panna — logs expose
+// Long-lived access tokens — security risk
+
+
+// 📌 Summary:
+// Access Token  → Short-lived (15min-1hr), API calls-ku use
+//                 Bearer header-la send
+//                 Expire → 401 varudhu → Refresh token use pannuvom
+//
+// Refresh Token → Long-lived (7-30 days), new access token get panna
+//                 httpOnly cookie-la store (secure) ✅
+//                 Expire → User re-login pannanum
+//                 Rotate on use — old token invalid
+//
+// Interceptor   → Auto attach + Auto refresh — transparent to components ✅
+// Proactive     → Expire munnade refresh — better UX ✅
+// Guard         → Protected routes — token check pannuvom`
+  },
 ];
