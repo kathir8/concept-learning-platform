@@ -6,6 +6,7 @@ export interface Concept {
   interviewDefinition: string;
   example: string;
   referenceUrl?: string;
+  imageUrl?: string;
 }
 
 export interface Category {
