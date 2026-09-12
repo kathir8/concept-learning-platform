@@ -228,4 +228,141 @@ if (email.Contains("F-R-E-E") || email.Contains("FREEE") || email.Contains("FREE
 // This shift = "Agentic AI"
 // AI moved from a simple Q&A tool -> an independent, task-executing agent`
   },
+  {
+    id: 'ai-search-engines-vs-llms',
+    title: 'Search Engines vs LLMs',
+    category: 'AI',
+    slangDefinition: `Search Engines (Google) and LLMs (ChatGPT) rendume different-a work pannum, aana pothu-a rendume "answer" tharudhu nu confuse aaguvom. Google-la flow enna na: Question kudukurom -> adhu oru index-a search pannum (already existing web pages) -> relevant documents-a rank pannum -> results return pannum. Idhu "Retrieve" pannradhu than - already irukra data-la irundhu best match-a kandu pidichu kaatuvom. ChatGPT-la flow vera maadhiri: Prompt kudukurom -> model training-la learnt panna patterns use pannum -> next word/text-a predict pannum -> pudhusa oru response generate pannum. Idhu "Generate" pannradhu than - pudhusa content create pannuvom, existing document-a retrieve panradhu illa.`,
+    interviewDefinition: `Search Engines and LLMs both appear to "answer" a query, but they work fundamentally differently. A search engine like Google follows this flow: a Question is received -> it searches an existing index of web pages -> ranks the relevant documents -> and returns the results. This is a Retrieval process - the engine finds and surfaces the best matching content that already exists. An LLM like ChatGPT follows a different flow: a Prompt is received -> the model applies patterns learned during training -> it predicts the next word/token in sequence -> and generates a new response. This is a Generation process - the model creates new content rather than retrieving existing documents.`,
+    example: `// Search Engines (Google)
+// Question -> Search an Index -> Rank Relevant Documents -> Return Results
+
+// LLMs (ChatGPT)
+// Prompt -> Learnt Patterns -> Predict Next Text -> Generate Response
+
+// Core Difference:
+// Search Engines -> Retrieve (finds existing content)
+// LLMs           -> Generate (creates new content)`
+  },
+  {
+    id: 'how-search-engines-find-information',
+    title: 'How Search Engines Find Information',
+    category: 'AI',
+    slangDefinition: `Internet-la irukra websites-a Crawlers/Spiders nu solra bots continuous-a visit pannitu irukum, andha pages-a padichi Index nu oru periya database-la store pannum (idha "library catalog" maadhiri). Namba search pannumbodhu, andha index-a search pannitu, Ranked documents-a return pannum - first place-la enna varum nu decide panna pala factors paakum: domain authority (andha site trust aana site-a), page speed (site fast-a load aaguma), keywords (search term match aaguthaa), avg. time spent (users andha page-la evlo neram irukanga), backlinks (vera sites andha page-a link pannirukangaa), meta tags, date (content freshness) - ellame combine panni ranking decide pannum.`,
+    interviewDefinition: `Search engines find information through a multi-step process. Crawlers/Spiders (automated bots) continuously visit websites across the Internet and read their content. This content is then stored in an Index, essentially a massive, organized database similar to a library catalog. When a user searches, the search engine queries this index and returns Ranked documents. The ranking is determined by multiple factors, including domain authority (how trustworthy the site is), page speed (how fast the site loads), keyword relevance (how well the content matches the search term), average time spent by users on the page, backlinks (other sites linking to the page), meta tags, and content freshness (date). These factors are combined to determine the final ranking of results.`,
+    example: `// How Search Engines Find Information
+
+// 1. Crawlers/Spiders continuously scan the Internet
+//    (visiting websites and reading their content)
+
+// 2. Content gets stored in an Index
+//    (a large, organized database of web pages)
+
+// 3. User searches -> Index is queried -> Returns Ranked documents
+
+// Ranking factors:
+// - Domain authority
+// - Page speed
+// - Keywords
+// - Avg. time spent
+// - Backlinks
+// - Meta tags
+// - Date (freshness)`
+  },
+  {
+    id: 'search-engine-pros-and-cons',
+    title: 'Pros and Cons of Search Engines',
+    category: 'AI',
+    slangDefinition: `Cons: truth guarantee pannadhu (search result-la vandhadhu ellame correct-a irukanum-nu illa), outdated-a irukalam (old information kooda kaatalam), rankings imperfect-a irukalam (best content mattum top-la varanum-nu illa), misleading-a irukalam. Pros : eppovum "a trail back to source" tharum - andha information original-a evaru publish pannangaa nu check pannalam, date paakalam (idhu recent-a irukka pazhaya-a irukka nu theriyum), and multiple results compare pannalam - so namba manually verify pannikalam.`,
+    interviewDefinition: `Flaws include: they do not guarantee truth (top results aren't necessarily accurate), information can be outdated, rankings can be imperfect (the best content may not always rank highest), and results can sometimes be misleading. However, search engines have key advantages: they always provide a trail back to the source, allowing users to check who published the information, see the publish date to judge how current it is, and compare multiple results before drawing conclusions - enabling manual verification.`,
+    example: `// Flaws of Search Engines:
+// - Does not guarantee truth
+// - Can be outdated
+// - Rankings can be imperfect
+// - Misleading
+
+// But, Pros:
+// - A trail back to source
+// - Check who published it
+// - You can see the date
+// - Compare multiple results`
+  },
+  {
+    id: 'is-llm-just-autocomplete',
+    title: 'Is an LLM Just an Autocomplete?',
+    category: 'AI',
+    slangDefinition: `Common doubt varum - "ChatGPT randomly words-a guess pannudha? LLM na oru fancy autocomplete than-aa?" nu. Idha understand panna, "The capital of India is ___" nu kudutha, model ella possible words-kum probability kudukum - Delhi 90%, Punjab 1%, Lucknow 0.5% - so idhu autocomplete maadhiri than "next word predict" pannuthu, correct. Aana modern LLM romba periya context use pannum, and romba complex patterns learn pannirukum - Grammar, Programming, Reasoning, Facts, Language, Stories, Maths, and people/places/events/ideas-oda association ellame purinjirukum. Adhanala idhu simple autocomplete illa - deep patterns and relationships understand pannitu than next word predict pannuthu.`,
+    interviewDefinition: `A common question is whether ChatGPT is just randomly guessing words, or whether an LLM is essentially just an autocomplete system. Technically, when given a prompt like "The capital of India is ___", the model does assign probabilities to possible next words (e.g., Delhi 90%, Punjab 1%, Lucknow 0.5%) - so at a mechanical level, it is predicting the next word, similar to autocomplete. However, a modern LLM uses a much larger context window and has learned extremely complex patterns, including Grammar, Programming, Reasoning, Facts, Language, Stories, Maths, and the associations between people, places, events, and ideas. So while the underlying mechanism is next-word prediction, the depth of patterns learned makes it far more capable than a simple autocomplete system.`,
+    example: `// Is ChatGPT just randomly guessing words?
+// Is an LLM just an autocomplete?
+
+// Example: "The capital of India is ___"
+// Delhi   -> 90%
+// Punjab  -> 1%
+// Lucknow -> 0.5%
+// (model predicts next word based on probability)
+
+// But modern LLMs use much larger context
+// and have learned extremely complex patterns:
+// - Grammar
+// - Programming
+// - Reasoning
+// - Facts
+// - Language
+// - Stories
+// - Maths
+// - Association between people, places, events, ideas`
+  },
+  {
+    id: 'base-model-vs-ai-assistants',
+    title: 'Base Model vs AI Assistants',
+    category: 'AI',
+    slangDefinition: `Base Model na core than - idhu primarily text predict panna train pannirukra model, adhu mattum than irukum, vera onnum illa. Aana ChatGPT maadhiri AI Assistant paathaal, andha Base Model-a center-la vachi, mela extra layers add pannirukanga - Instruction tuning (user commands purinjikuran maadhiri train pannradhu), Human Feedback (RLHF - human feedback vachi improve pannradhu), Safety Training, System Instructions, Tool Access, Web Search, Files, Memory, Retrieval, Content Filters, GuardRails, Security, Auth, Conversation Management. Idhu ellame add pannina apparam than, oru raw text-predictor model, oru safe, useful, tool-using AI Assistant-a maarum. Analogy: Car & its Engine - Base Model na Engine (core power), aana AI Assistant na full Car (steering, brakes, safety features, AC - everything added around the engine to make it usable and safe).`,
+    interviewDefinition: `A Base Model is a model trained primarily to predict text - it exists in its raw form, without additional layers of refinement. An AI Assistant like ChatGPT, however, wraps this Base Model with many additional layers: Instruction tuning (training the model to follow user commands), Human Feedback (RLHF, refining behavior using human preferences), Safety Training, System Instructions, Tool Access, Web Search, File handling, Memory, Retrieval, Content Filters, GuardRails, Security, Authentication, and Conversation Management. These layers transform a raw text-prediction model into a safe, useful, tool-capable assistant. A helpful analogy is a Car and its Engine: the Base Model is the Engine (the core power source), while the AI Assistant is the complete Car - with steering, brakes, safety features, and more built around that engine to make it usable and safe in the real world.`,
+    example: `// Base Model
+// - Trained primarily to predict text
+// - Just the raw prediction engine
+
+// AI Assistant (e.g., ChatGPT) = Base Model + additional layers:
+// - Instruction tuning
+// - Human Feedback (RLHF)
+// - Safety Training
+// - System Instructions
+// - Tool Access
+// - Web Search
+// - Files
+// - Memory
+// - Retrieval
+// - Content Filters
+// - GuardRails
+// - Security
+// - Auth
+// - Conversation Management
+
+// Analogy: Car & its Engine
+// Base Model    -> Engine (core power)
+// AI Assistant  -> Full Car (engine + steering, brakes, safety, comfort)`
+  },
+  {
+    id: 'training-vs-inference',
+    title: 'Training vs Inference',
+    category: 'AI',
+    slangDefinition: `Training na model-a "teach" panra process - romba periya amount of data (text, images) model-ku kudukurom, adhu andha data-la irukra patterns-a learn pannikum, adhu based-a andha model-oda internal parameters (weights) adjust aagum. Idhu romba expensive process - weeks/months time edukkum, massive GPU compute venum, oru thadava mattum than (illa periodic-a) pannuvom. Inference na already train pannina model-a "use" panra process - namba oru prompt kuduthaal, model andha learnt patterns vachi output generate pannikodukkum. Idhu fast-a and cheap-a nadakkum, real-time-la namba ChatGPT-la message anuppumbodhu ellame Inference than nadakkuthu. Simple-a solradhunna: Training = Studying for exam (once, takes long time), Inference = Writing the exam (using what you learned, quick, repeated every time).`,
+    interviewDefinition: `Training is the process of teaching a model by exposing it to massive amounts of data (text, images, etc.), allowing it to learn underlying patterns and adjust its internal parameters (weights) accordingly. Training is computationally expensive and time-consuming - it can take weeks or months and requires significant GPU compute - and is typically done once (or periodically, for updates), not on every use. Inference is the process of using an already-trained model to generate output - given a prompt, the model applies its learned patterns to produce a response. Inference is comparatively fast and cheap, and happens every time a user interacts with the model (e.g., sending a message to ChatGPT). In short: Training is like studying for an exam (done once, takes a long time), while Inference is like writing the exam (using what was learned, quick, and repeated every time).`,
+    example: `// TRAINING
+// - Model learns patterns from massive datasets
+// - Adjusts internal parameters (weights)
+// - Expensive: weeks/months, massive GPU compute
+// - Done once (or periodically for retraining)
+
+// INFERENCE
+// - Using the already-trained model to generate output
+// - Given a prompt -> model produces a response
+// - Fast & cheap, happens every time you use the model
+// - Example: sending a message to ChatGPT = Inference
+
+// Analogy:
+// Training  -> Studying for an exam (once, time-consuming)
+// Inference -> Writing the exam (using what you learned, quick, repeated)`
+  },
 ]
