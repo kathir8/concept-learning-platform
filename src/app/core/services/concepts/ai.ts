@@ -365,4 +365,100 @@ if (email.Contains("F-R-E-E") || email.Contains("FREEE") || email.Contains("FREE
 // Training  -> Studying for an exam (once, time-consuming)
 // Inference -> Writing the exam (using what you learned, quick, repeated)`
   },
+  {
+    id: 'ai-hallucination',
+    title: 'AI Hallucination',
+    category: 'AI',
+    slangDefinition: `Hallucination na LLM confidently oru wrong or made-up answer generate pannradhu - fact-la illama irundhaalum, model romba sure-a solra maadhiri irukum. Idhu yean varum nu paathaal pala reasons irukku: Insufficient Info (model-ku training-la podhuma data illama irundha), Ambiguous Info (question clear-a illama irundha, model guess pannum), Outdated Knowledge (model training cutoff-ku apparam nadanda events theriyaadhu), False assumptions (wrong context-a base panni answer kudukum), Unreliable patterns (training data-la irundha noise/errors-a andha maadhiri patterns learn pannikum), Models are optimised to Answer (model "I don't know" solradha vida, edhavadhu answer generate panna than train pannirukanga), Generation is probabilistic (model ovvoru word-um probability vachi than predict pannum, so sometimes wrong path-a select pannum).`,
+    interviewDefinition: `Hallucination refers to an LLM confidently generating incorrect or fabricated information, often presenting it as fact even when it isn't. This happens due to several reasons: Insufficient Info (the model lacks enough relevant training data on the topic), Ambiguous Info (unclear input leads the model to guess), Outdated Knowledge (the model has no awareness of events after its training cutoff), False assumptions (the model reasons from incorrect premises), Unreliable patterns (noisy or incorrect patterns picked up during training), Models are optimised to Answer (models are generally trained to produce a response rather than admit uncertainty), and Generation is probabilistic (since each word is predicted based on probability, the model can occasionally select an incorrect path).`,
+    example: `// Why does Hallucination happen?
+
+// - Insufficient Info      -> not enough training data on the topic
+// - Ambiguous Info          -> unclear question, model guesses
+// - Outdated Knowledge      -> no awareness of events after training cutoff
+// - False assumptions        -> reasoning built on wrong premises
+// - Unreliable patterns        -> noisy/incorrect patterns learned during training
+// - Models are optimised to Answer -> trained to respond, not say "I don't know"
+// - Generation is probabilistic     -> next-word prediction can pick a wrong path`
+  },
+  {
+  id: 'how-tools-extend-the-models',
+  title: 'How Tools Extend the Models',
+  category: 'AI',
+  slangDefinition: `LLM oru base model-a irundha, adhu training data-la irundha mattum answer tharum - real-time information, calculations, or external actions panna mudiyadhu. Idha overcome panna Tools add pannuvom, idhu model-ku "Super Powers" kudukra maadhiri than. Tools examples: Web Search (current information fetch pannradhu), Calculator (accurate math pannradhu), Code Execution (code run panni result kudukradhu), Weather (real-time weather check pannradhu), Location, Calendar (events check/create pannradhu), Email (send/read pannradhu), Database (query pannradhu), Internal Docs (company-specific info access pannradhu), Files (upload/read pannradhu) - and innum pala. Idhu ellame add pannina apparam than, model oru "static knowledge-only" system-la irundhu, oru "real-world actions panna mudiyara" powerful assistant-a maarum.`,
+  interviewDefinition: `A base LLM can only respond using knowledge from its training data - it cannot access real-time information, perform precise calculations, or take external actions on its own. Tools extend a model's capabilities beyond this limitation, effectively giving it "superpowers." Common tools include Web Search (fetching current information), Calculator (performing accurate math), Code Execution (running code and returning results), Weather (checking real-time weather), Location, Calendar (checking or creating events), Email (sending or reading messages), Database (querying data), Internal Docs (accessing company-specific knowledge), and Files (uploading or reading documents), among many others. By integrating these tools, a model transforms from a static, knowledge-only system into a powerful assistant capable of taking real-world actions.`,
+  example: `// How Tools Extend the Models
+// LLM alone -> limited to training data, no real-time or external actions
+
+// Tools give the model "Super Powers":
+// - Web Search
+// - Calculator
+// - Code Execution
+// - Weather
+// - Location
+// - Calendar
+// - Email
+// - Database
+// - Internal Docs
+// - Files
+// - ...and much much more`
+},
+{
+  id: 'rag-retrieval-augmented-generation',
+  title: 'RAG (Retrieval Augmented Generation)',
+  category: 'AI',
+  slangDefinition: `RAG na Web Search (Retrieval) + LLMs (Generation) rendaiyum combine pannradhu. Retrieval na external evidence kudukkum - real-time-a relevant information-a fetch pannitu tharum (web search vachi illa document database vachi). Generation na andha retrieved information-a eduthu, oru useful, well-structured response-a convert pannikodukkum. Rendaiyum combine pannina apparam, model just training data mattum relay aagama, latest, accurate external data vachi answer tharum - idhu than RAG (Retrieval Augmented Generation). NOTE: Tools (RAG included) errors-a completely eliminate pannaadhu - hallucination chance kammiya iruku, aana zero-a illama pogaadhu.`,
+  interviewDefinition: `RAG (Retrieval Augmented Generation) combines Retrieval (e.g., Web Search) with Generation (LLMs). Retrieval provides external evidence by fetching relevant, often real-time, information (from a web search or a document database). Generation then takes this retrieved information and converts it into a useful, coherent response. Together, this allows the model to answer using accurate, up-to-date external data instead of relying solely on its static training data - this combined approach is called Retrieval Augmented Generation (RAG). Note: tools like RAG reduce hallucination risk significantly but do not completely eliminate errors.`,
+  example: `// RAG = Web Search (Retrieval) + LLMs (Generation)
+
+// Retrieval  -> gives external evidence (fetches relevant info)
+// Generation -> converts retrieved info into a useful response
+
+// Together: Retrieval Augmented Generation (RAG)
+
+// NOTE:
+// Tools (including RAG) do NOT completely eliminate errors
+// - hallucination risk is reduced, but not zero`
+},
+{
+  id: 'token',
+  title: 'Token',
+  category: 'AI',
+  slangDefinition: `Token nu solradhu oru text-oda chinna chinna unit, idha Tokenizer nu oru component dhan decide pannudhu evlo periya piece ah irukanumnu. Sometimes full word oru token aagum, sometimes oru word rendu illa moonu tokens ah split aagum. Idhu enna reason na, model ku vocabulary size kammiya vecha, puthu words kooda already irukura sub-parts vachi understand pannikalaam.`,
+  interviewDefinition: `A Token is the smallest unit of text that a language model processes, and it is determined by a component called a Tokenizer. Depending on the tokenization strategy, a token can be a whole word, part of a word, or even a single character or punctuation mark. This subword tokenization helps the model handle a large vocabulary efficiently and understand unfamiliar or complex words by breaking them into known smaller pieces.`,
+  example: `Explore at: https://platform.openai.com/tokenizer`
+},
+{
+  id: 'words-vs-characters-vs-tokens',
+  title: 'Words vs Characters vs Tokens',
+  category: 'AI',
+  slangDefinition: `Words, Characters, Tokens moonum vera vera unit dhan text ah split panna. Word nu solradhu namma usual ah pesra word, "Namaste" full ah oru word. Character nu solradhu oru letter, "N", "a", "m" ilaam individual character. Aana Token nu solradhu tokenizer decide pannura piece, idhu word ah irukalam, illa oru word rendu three pieces ah split aagalam. Example ku "Namaste AI is Amazing" nu eduthukalam, idhula "Namaste" rendu tokens ah split aagudhu, "AI" innoru token, "is" innoru token, "Amazing" innoru token. Ippo final ah indha tokens ellam numbers ah convert aagudhu, adhaan namma [45, 321, 4594, 9552, 318, 4998] nu paakurom. Idhu enna reason na, model ku text puriyadhu, model ku numbers dhan puriyum, so tokenizer text ah tokens ah split panni, apparam antha tokens ah unique numbers ah map pannudhu.`,
+  interviewDefinition: `Words, Characters, and Tokens are three different ways to break down text, and they are not the same thing. A word is a natural language unit like "Namaste". A character is a single letter or symbol like "N", "a", "m". A token, however, is a unit defined by the tokenizer, and it may or may not match a full word. A single word can be split into multiple tokens depending on how common or complex it is. For example, "Namaste AI is Amazing" can be broken into tokens like "Namaste" (split into two tokens), "AI", "is", and "Amazing", which are then converted into numeric IDs such as [45, 321, 4594, 9552, 318, 4998]. This happens because language models do not understand raw text, they only understand numbers, so the tokenizer's job is to convert text into tokens and then map those tokens into unique numeric IDs.`,
+  example: `// Words vs Characters vs Tokens
+
+const sentence = "Namaste AI is Amazing";
+
+// 1. Words (split by spaces)
+const words = sentence.split(" ");
+console.log(words);
+// Output: ["Namaste", "AI", "is", "Amazing"]
+
+// 2. Characters (split by letters)
+const characters = sentence.replace(" ", "").split("");
+console.log(characters);
+// Output: ["N","a","m","a","s","t","e","A","I","i","s","A","m","a","z","i","n","g"]
+
+// 3. Tokens (decided by a Tokenizer, not always equal to words)
+// A tokenizer might split "Namaste" into 2 tokens,
+// while "AI", "is", "Amazing" remain single tokens
+
+const tokens = ["N", "am", "aste", "AI", "is", "Amazing"];
+console.log(tokens);
+// Output: ["N", "am", "aste", "AI", "is", "Amazing"]
+
+// 4. Tokens are converted into numeric IDs before sending to the model
+const tokenIds = [45, 321, 4594, 9552, 318, 4998];
+console.log(tokenIds);
+// Output: [45, 321, 4594, 9552, 318, 4998]`
+},
 ]
