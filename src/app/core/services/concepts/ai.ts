@@ -461,4 +461,62 @@ const tokenIds = [45, 321, 4594, 9552, 318, 4998];
 console.log(tokenIds);
 // Output: [45, 321, 4594, 9552, 318, 4998]`
 },
+{
+  id: 'vocabulary-and-token-id',
+  title: 'Vocabulary & Token ID',
+  category: 'AI',
+  slangDefinition: `Vocabulary nu solradhu oru tokenizer ku theriyura ella tokens oda collection. Ovvoru tokenizer ku oru fixed vocabulary irukum, adhula irukura tokens mattum dhan antha tokenizer directly represent panna mudiyum. Ovvoru token ku oru unique number assign panniruppanga, adha Token ID nu solvom. Example ku "the" nu token ku ID 10, " is" nu token ku ID 11, "Java" nu token ku ID 12, "Script" nu token ku ID 13 nu maadhiri irukum. Idhu enna reason na, model ku text puriyadhu, so vocabulary vachi tokenizer text ah numbers ah convert pannudhu, apparam antha numbers ah dhan model process pannudhu. Idhu ku use aagura popular technique oru "Byte Pair Encoding" nu solvom, short ah BPE.`,
+  interviewDefinition: `Every tokenizer has a vocabulary, which is the fixed collection of tokens that the tokenizer knows how to represent directly. Each token in this vocabulary is mapped to a unique numeric identifier called a Token ID. For example, a simplified vocabulary might map "the" to 10, " is" to 11, "Java" to 12, "Script" to 13, "." to 14, and "ing" to 15. When text is tokenized, each resulting token is looked up in this vocabulary and converted into its corresponding Token ID, which is what the model actually processes. A common algorithm used to build such vocabularies is Byte Pair Encoding (BPE), which iteratively merges frequently occurring character or subword pairs to form the vocabulary.`,
+  example: `// Vocabulary & Token ID
+
+// A simplified tokenizer vocabulary
+const vocabulary = {
+  "the": 10,
+  " is": 11,
+  "Java": 12,
+  "Script": 13,
+  ".": 14,
+  "ing": 15
+};
+
+// Tokenizing a piece of text using this vocabulary
+function tokenize(tokens) {
+  return tokens.map(token => vocabulary[token]);
+}
+
+const tokens = ["Java", "Script", " is", "the", "."];
+const tokenIds = tokenize(tokens);
+
+console.log(tokenIds);
+// Output: [12, 13, 11, 10, 14]
+
+// This mapping (token -> id) is exactly what a
+// Byte Pair Encoding (BPE) based vocabulary provides.`
+},
+{
+  id: 'special-tokens',
+  title: 'Special Tokens',
+  category: 'AI',
+  slangDefinition: `Namma model ku kudukura question mattum pogadhu, adhoda kooda konjo "Special Tokens" nu solra extra markers um pogum. Idhu ella conversation ah structure pannikaraadhukku use aagum. Example ku System Instruction nu oru special token irukum, adhu model ku "nee eppadi behave pannanum" nu solli varum. Apparam Start of Message nu oru token irukum, adhu "idhu dhan message start aagudhu" nu mark pannum. Antha maadhiri End of Message nu oru token irukum, adhu "idhu dhan message mudinjidichu" nu solli separate pannum. Tools Output nu vera oru special token irukum, idhu function ah call panni result vandha antha result ah represent panna use aagum. Last Message nu innoru marker irukum, idhu conversation la latest message enna nu identify panna help pannum. Idhu ellam solradhu model ku clear ah conversation structure kaatuvom, adhanala model confuse aagama correct ah respond pannum.`,
+  interviewDefinition: `When a request is sent to a language model, it is not just the user's plain question that gets sent. Along with it, the model receives several Special Tokens that help structure the conversation so the model can correctly interpret roles and boundaries. Common special tokens include a System Instruction token (defines how the model should behave), a Start of Message token (marks where a message begins), an End of Message token (marks where a message ends), a Tools Output token (represents the result returned from a function or tool call), and a Last Message marker (identifies the most recent message in the conversation). These special tokens are part of the vocabulary just like normal word tokens, and they allow the model to distinguish between system instructions, user input, assistant responses, and tool results within a single input sequence.`,
+  example: `// Special Tokens example (conceptual representation)
+
+const conversation = [
+  { type: "SYSTEM_INSTRUCTION", content: "You are a helpful medical assistant." },
+  { type: "START_OF_MESSAGE", content: null },
+  { type: "USER_MESSAGE", content: "What is the normal heart rate for an adult?" },
+  { type: "END_OF_MESSAGE", content: null },
+  { type: "TOOLS_OUTPUT", content: "{ normalRange: '60-100 bpm' }" },
+  { type: "START_OF_MESSAGE", content: null },
+  { type: "ASSISTANT_MESSAGE", content: "The normal heart rate for an adult is 60-100 bpm." },
+  { type: "END_OF_MESSAGE", content: null },
+  { type: "LAST_MESSAGE", content: "ASSISTANT_MESSAGE" }
+];
+
+// Each "type" here represents a special token that gets
+// converted into its own unique Token ID, just like normal words,
+// so the model can understand conversation structure.
+
+console.log(conversation);`
+},
 ]
