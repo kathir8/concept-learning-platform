@@ -94,6 +94,7 @@ if (email.Contains("F-R-E-E") || email.Contains("FREEE") || email.Contains("FREE
     id: 'ml-vs-dl',
     title: 'Machine Learning vs Deep Learning',
     category: 'AI',
+    imageUrl: '/images/ai/ml-vs-dl.png',
     slangDefinition: `Machine Learning (ML) na AI-oda subset - algorithms use panni data analyze panni, learn panni, decisions/predictions pannum. ML-ku smaller datasets podhum, structured data use pannum (tables maadhiri), aana feature extraction manual-a namba pannanum (example: Spam Detection-la "spam words" namba select pannanum). Flow: Input Data -> Feature Extraction (manual) -> ML Algorithm (Decision Tree, Random Forest) -> Output. Deep Learning (DL) na ML-oda specialized subset - Neural Networks (human brain-oda inspired) use pannum. DL-ku vast datasets (Big Data) venum, GPU pola computationally intensive, unstructured data (images, text, audio) handle pannum, features automatic-a learn pannikும் (manual extraction venum illa). Flow: Input Data (unstructured) -> Neural Network (feature learning + classification together) -> Output. Example: ML-la Spam Detection, Housing Price Prediction; DL-la Image Recognition ("CAT" nu classify pannum), NLP (voice command-a intent-a translate panni action eduka vaikkும்).`,
     interviewDefinition: `Machine Learning (ML) is a subset of AI that uses algorithms to analyze data, learn from it, and make decisions or predictions. It typically requires smaller, structured datasets and relies on manual feature engineering, though training is comparatively faster. The typical flow is: Input Data -> Feature Extraction (manual) -> ML Algorithm (e.g., Decision Tree, Random Forest) -> Output (Prediction/Classification). Examples include Spam Detection and Housing Price Prediction. Deep Learning (DL) is a specialized subset of ML based on Artificial Neural Networks (ANNs) inspired by the human brain. It requires vast datasets (Big Data), is computationally intensive (often requiring GPUs), works well with unstructured data (images, text, audio), and performs automated feature learning rather than manual extraction. The typical flow is: Input Data (unstructured) -> Neural Network (feature learning + classification combined) -> Output. Examples include Image Recognition (classifying an image as "CAT") and Natural Language Processing, such as translating a voice command into an intent and triggering an action.`,
     example: `// MACHINE LEARNING (ML)
@@ -137,7 +138,6 @@ if (email.Contains("F-R-E-E") || email.Contains("FREEE") || email.Contains("FREE
 
 // Example 2: Natural Language Processing (NLP)
 // "Play music" -> DL Translation/Intent -> Action: Playing music`,
-    imageUrl: '/images/ai/ml-vs-dl.png'
   },
   {
     id: 'llm',
@@ -382,12 +382,12 @@ if (email.Contains("F-R-E-E") || email.Contains("FREEE") || email.Contains("FREE
 // - Generation is probabilistic     -> next-word prediction can pick a wrong path`
   },
   {
-  id: 'how-tools-extend-the-models',
-  title: 'How Tools Extend the Models',
-  category: 'AI',
-  slangDefinition: `LLM oru base model-a irundha, adhu training data-la irundha mattum answer tharum - real-time information, calculations, or external actions panna mudiyadhu. Idha overcome panna Tools add pannuvom, idhu model-ku "Super Powers" kudukra maadhiri than. Tools examples: Web Search (current information fetch pannradhu), Calculator (accurate math pannradhu), Code Execution (code run panni result kudukradhu), Weather (real-time weather check pannradhu), Location, Calendar (events check/create pannradhu), Email (send/read pannradhu), Database (query pannradhu), Internal Docs (company-specific info access pannradhu), Files (upload/read pannradhu) - and innum pala. Idhu ellame add pannina apparam than, model oru "static knowledge-only" system-la irundhu, oru "real-world actions panna mudiyara" powerful assistant-a maarum.`,
-  interviewDefinition: `A base LLM can only respond using knowledge from its training data - it cannot access real-time information, perform precise calculations, or take external actions on its own. Tools extend a model's capabilities beyond this limitation, effectively giving it "superpowers." Common tools include Web Search (fetching current information), Calculator (performing accurate math), Code Execution (running code and returning results), Weather (checking real-time weather), Location, Calendar (checking or creating events), Email (sending or reading messages), Database (querying data), Internal Docs (accessing company-specific knowledge), and Files (uploading or reading documents), among many others. By integrating these tools, a model transforms from a static, knowledge-only system into a powerful assistant capable of taking real-world actions.`,
-  example: `// How Tools Extend the Models
+    id: 'how-tools-extend-the-models',
+    title: 'How Tools Extend the Models',
+    category: 'AI',
+    slangDefinition: `LLM oru base model-a irundha, adhu training data-la irundha mattum answer tharum - real-time information, calculations, or external actions panna mudiyadhu. Idha overcome panna Tools add pannuvom, idhu model-ku "Super Powers" kudukra maadhiri than. Tools examples: Web Search (current information fetch pannradhu), Calculator (accurate math pannradhu), Code Execution (code run panni result kudukradhu), Weather (real-time weather check pannradhu), Location, Calendar (events check/create pannradhu), Email (send/read pannradhu), Database (query pannradhu), Internal Docs (company-specific info access pannradhu), Files (upload/read pannradhu) - and innum pala. Idhu ellame add pannina apparam than, model oru "static knowledge-only" system-la irundhu, oru "real-world actions panna mudiyara" powerful assistant-a maarum.`,
+    interviewDefinition: `A base LLM can only respond using knowledge from its training data - it cannot access real-time information, perform precise calculations, or take external actions on its own. Tools extend a model's capabilities beyond this limitation, effectively giving it "superpowers." Common tools include Web Search (fetching current information), Calculator (performing accurate math), Code Execution (running code and returning results), Weather (checking real-time weather), Location, Calendar (checking or creating events), Email (sending or reading messages), Database (querying data), Internal Docs (accessing company-specific knowledge), and Files (uploading or reading documents), among many others. By integrating these tools, a model transforms from a static, knowledge-only system into a powerful assistant capable of taking real-world actions.`,
+    example: `// How Tools Extend the Models
 // LLM alone -> limited to training data, no real-time or external actions
 
 // Tools give the model "Super Powers":
@@ -402,14 +402,14 @@ if (email.Contains("F-R-E-E") || email.Contains("FREEE") || email.Contains("FREE
 // - Internal Docs
 // - Files
 // - ...and much much more`
-},
-{
-  id: 'rag-retrieval-augmented-generation',
-  title: 'RAG (Retrieval Augmented Generation)',
-  category: 'AI',
-  slangDefinition: `RAG na Web Search (Retrieval) + LLMs (Generation) rendaiyum combine pannradhu. Retrieval na external evidence kudukkum - real-time-a relevant information-a fetch pannitu tharum (web search vachi illa document database vachi). Generation na andha retrieved information-a eduthu, oru useful, well-structured response-a convert pannikodukkum. Rendaiyum combine pannina apparam, model just training data mattum relay aagama, latest, accurate external data vachi answer tharum - idhu than RAG (Retrieval Augmented Generation). NOTE: Tools (RAG included) errors-a completely eliminate pannaadhu - hallucination chance kammiya iruku, aana zero-a illama pogaadhu.`,
-  interviewDefinition: `RAG (Retrieval Augmented Generation) combines Retrieval (e.g., Web Search) with Generation (LLMs). Retrieval provides external evidence by fetching relevant, often real-time, information (from a web search or a document database). Generation then takes this retrieved information and converts it into a useful, coherent response. Together, this allows the model to answer using accurate, up-to-date external data instead of relying solely on its static training data - this combined approach is called Retrieval Augmented Generation (RAG). Note: tools like RAG reduce hallucination risk significantly but do not completely eliminate errors.`,
-  example: `// RAG = Web Search (Retrieval) + LLMs (Generation)
+  },
+  {
+    id: 'rag-retrieval-augmented-generation',
+    title: 'RAG (Retrieval Augmented Generation)',
+    category: 'AI',
+    slangDefinition: `RAG na Web Search (Retrieval) + LLMs (Generation) rendaiyum combine pannradhu. Retrieval na external evidence kudukkum - real-time-a relevant information-a fetch pannitu tharum (web search vachi illa document database vachi). Generation na andha retrieved information-a eduthu, oru useful, well-structured response-a convert pannikodukkum. Rendaiyum combine pannina apparam, model just training data mattum relay aagama, latest, accurate external data vachi answer tharum - idhu than RAG (Retrieval Augmented Generation). NOTE: Tools (RAG included) errors-a completely eliminate pannaadhu - hallucination chance kammiya iruku, aana zero-a illama pogaadhu.`,
+    interviewDefinition: `RAG (Retrieval Augmented Generation) combines Retrieval (e.g., Web Search) with Generation (LLMs). Retrieval provides external evidence by fetching relevant, often real-time, information (from a web search or a document database). Generation then takes this retrieved information and converts it into a useful, coherent response. Together, this allows the model to answer using accurate, up-to-date external data instead of relying solely on its static training data - this combined approach is called Retrieval Augmented Generation (RAG). Note: tools like RAG reduce hallucination risk significantly but do not completely eliminate errors.`,
+    example: `// RAG = Web Search (Retrieval) + LLMs (Generation)
 
 // Retrieval  -> gives external evidence (fetches relevant info)
 // Generation -> converts retrieved info into a useful response
@@ -419,22 +419,22 @@ if (email.Contains("F-R-E-E") || email.Contains("FREEE") || email.Contains("FREE
 // NOTE:
 // Tools (including RAG) do NOT completely eliminate errors
 // - hallucination risk is reduced, but not zero`
-},
-{
-  id: 'token',
-  title: 'Token',
-  category: 'AI',
-  slangDefinition: `Token nu solradhu oru text-oda chinna chinna unit, idha Tokenizer nu oru component dhan decide pannudhu evlo periya piece ah irukanumnu. Sometimes full word oru token aagum, sometimes oru word rendu illa moonu tokens ah split aagum. Idhu enna reason na, model ku vocabulary size kammiya vecha, puthu words kooda already irukura sub-parts vachi understand pannikalaam.`,
-  interviewDefinition: `A Token is the smallest unit of text that a language model processes, and it is determined by a component called a Tokenizer. Depending on the tokenization strategy, a token can be a whole word, part of a word, or even a single character or punctuation mark. This subword tokenization helps the model handle a large vocabulary efficiently and understand unfamiliar or complex words by breaking them into known smaller pieces.`,
-  example: `Explore at: https://platform.openai.com/tokenizer`
-},
-{
-  id: 'words-vs-characters-vs-tokens',
-  title: 'Words vs Characters vs Tokens',
-  category: 'AI',
-  slangDefinition: `Words, Characters, Tokens moonum vera vera unit dhan text ah split panna. Word nu solradhu namma usual ah pesra word, "Namaste" full ah oru word. Character nu solradhu oru letter, "N", "a", "m" ilaam individual character. Aana Token nu solradhu tokenizer decide pannura piece, idhu word ah irukalam, illa oru word rendu three pieces ah split aagalam. Example ku "Namaste AI is Amazing" nu eduthukalam, idhula "Namaste" rendu tokens ah split aagudhu, "AI" innoru token, "is" innoru token, "Amazing" innoru token. Ippo final ah indha tokens ellam numbers ah convert aagudhu, adhaan namma [45, 321, 4594, 9552, 318, 4998] nu paakurom. Idhu enna reason na, model ku text puriyadhu, model ku numbers dhan puriyum, so tokenizer text ah tokens ah split panni, apparam antha tokens ah unique numbers ah map pannudhu.`,
-  interviewDefinition: `Words, Characters, and Tokens are three different ways to break down text, and they are not the same thing. A word is a natural language unit like "Namaste". A character is a single letter or symbol like "N", "a", "m". A token, however, is a unit defined by the tokenizer, and it may or may not match a full word. A single word can be split into multiple tokens depending on how common or complex it is. For example, "Namaste AI is Amazing" can be broken into tokens like "Namaste" (split into two tokens), "AI", "is", and "Amazing", which are then converted into numeric IDs such as [45, 321, 4594, 9552, 318, 4998]. This happens because language models do not understand raw text, they only understand numbers, so the tokenizer's job is to convert text into tokens and then map those tokens into unique numeric IDs.`,
-  example: `// Words vs Characters vs Tokens
+  },
+  {
+    id: 'token',
+    title: 'Token',
+    category: 'AI',
+    slangDefinition: `Token nu solradhu oru text-oda chinna chinna unit, idha Tokenizer nu oru component dhan decide pannudhu evlo periya piece ah irukanumnu. Sometimes full word oru token aagum, sometimes oru word rendu illa moonu tokens ah split aagum. Idhu enna reason na, model ku vocabulary size kammiya vecha, puthu words kooda already irukura sub-parts vachi understand pannikalaam.`,
+    interviewDefinition: `A Token is the smallest unit of text that a language model processes, and it is determined by a component called a Tokenizer. Depending on the tokenization strategy, a token can be a whole word, part of a word, or even a single character or punctuation mark. This subword tokenization helps the model handle a large vocabulary efficiently and understand unfamiliar or complex words by breaking them into known smaller pieces.`,
+    example: `Explore at: https://platform.openai.com/tokenizer`
+  },
+  {
+    id: 'words-vs-characters-vs-tokens',
+    title: 'Words vs Characters vs Tokens',
+    category: 'AI',
+    slangDefinition: `Words, Characters, Tokens moonum vera vera unit dhan text ah split panna. Word nu solradhu namma usual ah pesra word, "Namaste" full ah oru word. Character nu solradhu oru letter, "N", "a", "m" ilaam individual character. Aana Token nu solradhu tokenizer decide pannura piece, idhu word ah irukalam, illa oru word rendu three pieces ah split aagalam. Example ku "Namaste AI is Amazing" nu eduthukalam, idhula "Namaste" rendu tokens ah split aagudhu, "AI" innoru token, "is" innoru token, "Amazing" innoru token. Ippo final ah indha tokens ellam numbers ah convert aagudhu, adhaan namma [45, 321, 4594, 9552, 318, 4998] nu paakurom. Idhu enna reason na, model ku text puriyadhu, model ku numbers dhan puriyum, so tokenizer text ah tokens ah split panni, apparam antha tokens ah unique numbers ah map pannudhu.`,
+    interviewDefinition: `Words, Characters, and Tokens are three different ways to break down text, and they are not the same thing. A word is a natural language unit like "Namaste". A character is a single letter or symbol like "N", "a", "m". A token, however, is a unit defined by the tokenizer, and it may or may not match a full word. A single word can be split into multiple tokens depending on how common or complex it is. For example, "Namaste AI is Amazing" can be broken into tokens like "Namaste" (split into two tokens), "AI", "is", and "Amazing", which are then converted into numeric IDs such as [45, 321, 4594, 9552, 318, 4998]. This happens because language models do not understand raw text, they only understand numbers, so the tokenizer's job is to convert text into tokens and then map those tokens into unique numeric IDs.`,
+    example: `// Words vs Characters vs Tokens
 
 const sentence = "Namaste AI is Amazing";
 
@@ -460,14 +460,14 @@ console.log(tokens);
 const tokenIds = [45, 321, 4594, 9552, 318, 4998];
 console.log(tokenIds);
 // Output: [45, 321, 4594, 9552, 318, 4998]`
-},
-{
-  id: 'vocabulary-and-token-id',
-  title: 'Vocabulary & Token ID',
-  category: 'AI',
-  slangDefinition: `Vocabulary nu solradhu oru tokenizer ku theriyura ella tokens oda collection. Ovvoru tokenizer ku oru fixed vocabulary irukum, adhula irukura tokens mattum dhan antha tokenizer directly represent panna mudiyum. Ovvoru token ku oru unique number assign panniruppanga, adha Token ID nu solvom. Example ku "the" nu token ku ID 10, " is" nu token ku ID 11, "Java" nu token ku ID 12, "Script" nu token ku ID 13 nu maadhiri irukum. Idhu enna reason na, model ku text puriyadhu, so vocabulary vachi tokenizer text ah numbers ah convert pannudhu, apparam antha numbers ah dhan model process pannudhu. Idhu ku use aagura popular technique oru "Byte Pair Encoding" nu solvom, short ah BPE.`,
-  interviewDefinition: `Every tokenizer has a vocabulary, which is the fixed collection of tokens that the tokenizer knows how to represent directly. Each token in this vocabulary is mapped to a unique numeric identifier called a Token ID. For example, a simplified vocabulary might map "the" to 10, " is" to 11, "Java" to 12, "Script" to 13, "." to 14, and "ing" to 15. When text is tokenized, each resulting token is looked up in this vocabulary and converted into its corresponding Token ID, which is what the model actually processes. A common algorithm used to build such vocabularies is Byte Pair Encoding (BPE), which iteratively merges frequently occurring character or subword pairs to form the vocabulary.`,
-  example: `// Vocabulary & Token ID
+  },
+  {
+    id: 'vocabulary-and-token-id',
+    title: 'Vocabulary & Token ID',
+    category: 'AI',
+    slangDefinition: `Vocabulary nu solradhu oru tokenizer ku theriyura ella tokens oda collection. Ovvoru tokenizer ku oru fixed vocabulary irukum, adhula irukura tokens mattum dhan antha tokenizer directly represent panna mudiyum. Ovvoru token ku oru unique number assign panniruppanga, adha Token ID nu solvom. Example ku "the" nu token ku ID 10, " is" nu token ku ID 11, "Java" nu token ku ID 12, "Script" nu token ku ID 13 nu maadhiri irukum. Idhu enna reason na, model ku text puriyadhu, so vocabulary vachi tokenizer text ah numbers ah convert pannudhu, apparam antha numbers ah dhan model process pannudhu. Idhu ku use aagura popular technique oru "Byte Pair Encoding" nu solvom, short ah BPE.`,
+    interviewDefinition: `Every tokenizer has a vocabulary, which is the fixed collection of tokens that the tokenizer knows how to represent directly. Each token in this vocabulary is mapped to a unique numeric identifier called a Token ID. For example, a simplified vocabulary might map "the" to 10, " is" to 11, "Java" to 12, "Script" to 13, "." to 14, and "ing" to 15. When text is tokenized, each resulting token is looked up in this vocabulary and converted into its corresponding Token ID, which is what the model actually processes. A common algorithm used to build such vocabularies is Byte Pair Encoding (BPE), which iteratively merges frequently occurring character or subword pairs to form the vocabulary.`,
+    example: `// Vocabulary & Token ID
 
 // A simplified tokenizer vocabulary
 const vocabulary = {
@@ -492,14 +492,14 @@ console.log(tokenIds);
 
 // This mapping (token -> id) is exactly what a
 // Byte Pair Encoding (BPE) based vocabulary provides.`
-},
-{
-  id: 'special-tokens',
-  title: 'Special Tokens',
-  category: 'AI',
-  slangDefinition: `Namma model ku kudukura question mattum pogadhu, adhoda kooda konjo "Special Tokens" nu solra extra markers um pogum. Idhu ella conversation ah structure pannikaraadhukku use aagum. Example ku System Instruction nu oru special token irukum, adhu model ku "nee eppadi behave pannanum" nu solli varum. Apparam Start of Message nu oru token irukum, adhu "idhu dhan message start aagudhu" nu mark pannum. Antha maadhiri End of Message nu oru token irukum, adhu "idhu dhan message mudinjidichu" nu solli separate pannum. Tools Output nu vera oru special token irukum, idhu function ah call panni result vandha antha result ah represent panna use aagum. Last Message nu innoru marker irukum, idhu conversation la latest message enna nu identify panna help pannum. Idhu ellam solradhu model ku clear ah conversation structure kaatuvom, adhanala model confuse aagama correct ah respond pannum.`,
-  interviewDefinition: `When a request is sent to a language model, it is not just the user's plain question that gets sent. Along with it, the model receives several Special Tokens that help structure the conversation so the model can correctly interpret roles and boundaries. Common special tokens include a System Instruction token (defines how the model should behave), a Start of Message token (marks where a message begins), an End of Message token (marks where a message ends), a Tools Output token (represents the result returned from a function or tool call), and a Last Message marker (identifies the most recent message in the conversation). These special tokens are part of the vocabulary just like normal word tokens, and they allow the model to distinguish between system instructions, user input, assistant responses, and tool results within a single input sequence.`,
-  example: `// Special Tokens example (conceptual representation)
+  },
+  {
+    id: 'special-tokens',
+    title: 'Special Tokens',
+    category: 'AI',
+    slangDefinition: `Namma model ku kudukura question mattum pogadhu, adhoda kooda konjo "Special Tokens" nu solra extra markers um pogum. Idhu ella conversation ah structure pannikaraadhukku use aagum. Example ku System Instruction nu oru special token irukum, adhu model ku "nee eppadi behave pannanum" nu solli varum. Apparam Start of Message nu oru token irukum, adhu "idhu dhan message start aagudhu" nu mark pannum. Antha maadhiri End of Message nu oru token irukum, adhu "idhu dhan message mudinjidichu" nu solli separate pannum. Tools Output nu vera oru special token irukum, idhu function ah call panni result vandha antha result ah represent panna use aagum. Last Message nu innoru marker irukum, idhu conversation la latest message enna nu identify panna help pannum. Idhu ellam solradhu model ku clear ah conversation structure kaatuvom, adhanala model confuse aagama correct ah respond pannum.`,
+    interviewDefinition: `When a request is sent to a language model, it is not just the user's plain question that gets sent. Along with it, the model receives several Special Tokens that help structure the conversation so the model can correctly interpret roles and boundaries. Common special tokens include a System Instruction token (defines how the model should behave), a Start of Message token (marks where a message begins), an End of Message token (marks where a message ends), a Tools Output token (represents the result returned from a function or tool call), and a Last Message marker (identifies the most recent message in the conversation). These special tokens are part of the vocabulary just like normal word tokens, and they allow the model to distinguish between system instructions, user input, assistant responses, and tool results within a single input sequence.`,
+    example: `// Special Tokens example (conceptual representation)
 
 const conversation = [
   { type: "SYSTEM_INSTRUCTION", content: "You are a helpful medical assistant." },
@@ -518,5 +518,623 @@ const conversation = [
 // so the model can understand conversation structure.
 
 console.log(conversation);`
-},
+  },
+  {
+    id: 'vectorisation',
+    title: 'Vectorisation',
+    category: 'AI',
+    slangDefinition: `Vectorisation nu solradhu edhavadhu information ah numerical vectors ah convert panradhu. Idhu enna reason na, computer ku text, image, user, product ellam directly puriyadhu, aana numbers vachi mathematical operations pannalaam. Example ku simple ah [2, 5] nu oru vector irukalam, illa [3, 8, 7] nu moonu numbers vechi irukalam, illa [0.12, -3.5, 4.20, 1.24, -6.81] nu decimal numbers vechi irukalam. Each value indha vector-la irukura adha "dimension" nu solvom. Example ku fruits ah rank pannanumna, Sweetness, Size, Crunchyness nu moonu properties eduthukalam, apparam Apple ku [0.7, 0.4, 0.8] nu oru vector kudukalam, Banana ku [0.8, 0.6, 0.2] nu vera vector kudukalam. Modern embedding models thousands of dimensions use pannudhu, andha dimensions ellam data-la irundhu automatic ah learn aagudhu, namma manual ah decide panna maatu.`,
+    interviewDefinition: `Vectorisation is the process of converting information into numerical vectors so that computers can perform mathematical operations on it. Text, images, users, products, or virtually any kind of information can be vectorised. A vector can be as simple as [2, 5] or [3, 8, 7], or more complex with decimal values like [0.12, -3.5, 4.20, 1.24, -6.81]. Each individual value within a vector is called a dimension. For example, if we rank fruits on three properties such as Sweetness, Size, and Crunchyness, Apple might be represented as [0.7, 0.4, 0.8] and Banana as [0.8, 0.6, 0.2]. In real-world embedding models, there are thousands of such dimensions, and unlike this simple manual example, those dimensions are not hand-defined, they are automatically learned from data during training.`,
+    example: `// Vectorisation example
+
+// Simple numerical vectors
+const vectorA = [2, 5];
+const vectorB = [3, 8, 7];
+const vectorC = [0.12, -3.5, 4.20, 1.24, -6.81];
+
+// Each number inside a vector is called a "dimension"
+console.log(vectorC.length); // 5 dimensions
+
+// Example: Ranking fruits on 3 properties
+// [Sweetness, Size, Crunchyness]
+
+const fruits = {
+  Apple: [0.7, 0.4, 0.8],
+  Banana: [0.8, 0.6, 0.2],
+  Carrot: [0.2, 0.5, 0.9],
+  Watermelon: [0.6, 0.9, 0.5]
+};
+
+console.log(fruits.Apple);
+// Output: [0.7, 0.4, 0.8]
+
+// Real embedding models use THOUSANDS of dimensions,
+// and those dimension values are learned from data,
+// not manually assigned like this simplified example.`
+  },
+  {
+    id: 'embedding',
+    title: 'Embedding',
+    category: 'AI',
+    slangDefinition: `Embedding nu solradhu oru item-oda "learned numerical representation", idhu antha item ku innoru items kooda irukura useful relationships ah capture pannum. Example ku "king" nu word ku [0.81, 0.32, -0.52, 0.17] nu vector irukalam, "queen" ku [0.79, 0.36, -0.48, 0.22] nu vector irukalam, idhu rendum close ah irukura numbers, so king-um queen-um related words nu model puriyudhu. Aana "banana" ku [-0.24, 0.91, 0.11, -0.63] nu vera madhiri vector irukum, idhu king, queen rendukkum kooda unrelated nu kaatudhu. Idhu romba important point enna na, indha values ah human manual ah kudukala, training process-la model thaan indha values ah learn pannudhu. Model billions of text-la tokens eppadi use aaguthu nu observe pannudhu, similar context-la vara words gradually similar numbers develop pannum. Last ah oru imp point, embedding nu solradhu word-oda "meaning" illa, adhu antha word patha useful patterns ah capture pannura numerical representation mattum dhan.`,
+    interviewDefinition: `An embedding is a learned numerical representation of an item that captures useful relationships with other items. For example, "king" might be represented as [0.81, 0.32, -0.52, 0.17] and "queen" as [0.79, 0.36, -0.48, 0.22], with these vectors being close to each other since the words are related, while "banana" as [-0.24, 0.91, 0.11, -0.63] would be numerically distant from both. Importantly, these values are not assigned by a human. During training, the model learns embedding values by observing how tokens are used across enormous amounts of text, and words that appear in similar linguistic environments gradually develop similar numerical relationships. It is important to note that an embedding is not the meaning of a word, it is a numerical representation that captures useful patterns about that word.`,
+    example: `// Embedding example (conceptual)
+
+const embeddings = {
+  king:   [0.81, 0.32, -0.52, 0.17],
+  queen:  [0.79, 0.36, -0.48, 0.22],
+  banana: [-0.24, 0.91, 0.11, -0.63]
+};
+
+// These values are NOT manually assigned by a human.
+// They are LEARNED during training by observing how
+// words are used across huge amounts of text.
+
+// Related words end up with similar vector values
+console.log(embeddings.king);  // [0.81, 0.32, -0.52, 0.17]
+console.log(embeddings.queen); // [0.79, 0.36, -0.48, 0.22]
+// king & queen vectors are close to each other -> related
+
+// Unrelated words end up with very different values
+console.log(embeddings.banana); // [-0.24, 0.91, 0.11, -0.63]
+// banana vector is far from king/queen -> unrelated
+
+// Note: An embedding is NOT the "meaning" of a word.
+// It's a numerical pattern representation learned from data.`
+  },
+  {
+    id: 'embedding-as-coordinates',
+    title: 'Embedding as Coordinates',
+    category: 'AI',
+    slangDefinition: `Real embeddings la 1000+ dimensions irukum, Embedding ah visualize panna romba easy ah 2D plot vechi paakalaam. Idhula similar meaning words ellam oru area-la cluster aagi irukum. Example ku Apple (1, 2) and Banana (1.5, 2.3) rendum fruits ah irukardhala lower-left-la close ah irukum. JavaScript (4, 8) and Python (4.5, 7.8) rendum programming languages ah irukardhala upper-center-la together irukum. Man (7, 4) and Woman (6.5, 4.2) human roles ah central-right-la irukum. King (8, 7) and Queen (7.5, 7.2) royalty ah upper-right-la irukum. Idhula innum oru interesting pattern irukku, King and Man ku oru diagonal line varudhu, Queen and Woman ku vera oru parallel diagonal line varudhu, idhu "gender" nu oru relationship ah represent pannudhu. Idhu maadhiri pattern ella words ku kooda form aagum. Oru important point, dimensions athigama irunthale model smart aagidum nu artham illa, athiga dimensions complex patterns capture pannum, aana adhukku athiga storage and computation venum, and training mudinja pinnadi indha numbers ellam adjust aagikittu irukum.`,
+    interviewDefinition: `Embeddings can be visualized by plotting them as coordinates, even though real-world embeddings have over 1000 dimensions; for simplicity, we visualize them in just 2 dimensions. These coordinates illustrate semantic clustering and geometric vector relationships. Fruits like Apple (1, 2) and Banana (1.5, 2.3) cluster together in the lower-left region. Programming languages like JavaScript (4, 8) and Python (4.5, 7.8) group near the upper-center. Human roles like Man (7, 4) and Woman (6.5, 4.2) sit centrally on the right. Royalty terms like King (8, 7) and Queen (7.5, 7.2) sit in the upper-right. Interestingly, King and Man form one diagonal line, while Queen and Woman form a parallel diagonal line, representing a consistent "gender" relationship pattern that emerges across the embedding space. Similar geometric patterns form for other related word groups as well. It's important to note that more dimensions do not mean more intelligence; higher dimensions can capture more complex patterns, but they also require more storage and computation, and with each round of training, these numeric values get readjusted.`,
+    example: `// Embedding as Coordinates (2D simplified example)
+
+const wordEmbeddings2D = {
+  Apple:      [1, 2],
+  Banana:     [1.5, 2.3],
+  JavaScript: [4, 8],
+  Python:     [4.5, 7.8],
+  Man:        [7, 4],
+  Woman:      [6.5, 4.2],
+  King:       [8, 7],
+  Queen:      [7.5, 7.2]
+};
+
+// Fruits cluster together (similar region)
+console.log(wordEmbeddings2D.Apple, wordEmbeddings2D.Banana);
+// [1, 2] [1.5, 2.3] -> close together
+
+// Programming languages cluster together
+console.log(wordEmbeddings2D.JavaScript, wordEmbeddings2D.Python);
+// [4, 8] [4.5, 7.8] -> close together
+
+// King-Man and Queen-Woman form parallel diagonal relationships,
+// representing a learned "gender" pattern in the vector space
+// King - Man  =>  [8-7, 7-4]   = [1, 3]
+// Queen - Woman => [7.5-6.5, 7.2-4.2] = [1, 3]
+// Same direction/distance -> consistent relationship pattern
+
+// Note: Real embeddings use 1000+ dimensions, not just 2.
+// More dimensions = more captured patterns, but more
+// storage & computation cost. Values keep adjusting with training.`
+  },
+  {
+    id: 'why-many-dimensions-needed',
+    title: 'Why Embeddings Need Many Dimensions',
+    category: 'AI',
+    slangDefinition: `Oru person ah describe panna rendu attributes mattum eduthukalam, Height and Weight, idhu namakku oru two-dimensional representation kudukum. Aana rendu properties mattum vechi oru person ah meaningful ah represent panna mudiyadhu, athanala namma innum add pannalaam, Age, Profession, Location, Skills, Interests, Experience, Languages nu ellam. Ovvoru dimension add pannumbodhu, antha representation innum richer ah aagikittu varudhu, person patha innum better ah define pannalaam. Idhu exact ah embeddings ku kooda apply aagudhu, language nu solradhu romba complex ah irukardhala, embeddings ku rendu moonu dimensions podhadhu, athanala thousands of dimensions venum, different patterns and relationships ah capture panna.`,
+    interviewDefinition: `Imagine describing a person using only two attributes, Height and Weight; this gives a two-dimensional representation. However, people cannot be meaningfully represented using just those two properties. We can add more attributes like Age, Profession, Location, Skills, Interests, Experience, and Languages. As we add more dimensions, the representation becomes richer and more accurate. This same idea applies to embeddings: language is far more complex than a person's physical attributes, so embeddings require many dimensions (often thousands) to capture the different patterns and relationships that exist in language.`,
+    example: `// Why embeddings need many dimensions (conceptual analogy)
+
+// With only 2 attributes, representation is limited
+const personBasic = {
+  height: 175, // cm
+  weight: 70   // kg
+};
+
+// Adding more attributes makes the representation richer
+const personDetailed = {
+  height: 175,
+  weight: 70,
+  age: 28,
+  profession: "Developer",
+  location: "Chennai",
+  skills: ["Angular", "TypeScript"],
+  interests: ["Music", "Gaming"],
+  experience: 5,
+  languages: ["English", "Tamil"]
+};
+
+// Same logic applies to embeddings:
+// Language is far more complex than height/weight,
+// so a real embedding needs THOUSANDS of dimensions
+// to capture different semantic patterns & relationships.
+
+const simplifiedEmbeddingDimensions = 2;      // like height & weight only
+const realEmbeddingDimensions = 1536;         // example: many modern models
+
+console.log(realEmbeddingDimensions > simplifiedEmbeddingDimensions);
+// Output: true -> richer representation captures more meaning`
+  },
+  {
+    id: 'semantic-similarity',
+    title: 'Semantic Similarity',
+    category: 'AI',
+    slangDefinition: `Semantic Similarity nu solradhu rendu text pieces meaning-la evlo close ah irukunu measure pannuradhu. Example ku Query A "How do I centre a div?" nu kekaranga, Query B "How can I align an HTML element in the middle of its parent?" nu kekaranga, rendu different words use pannirundhalum, meaning same dhan. Oru keyword-based system exact word overlap mattum check pannumbodhu idha miss panniduvanga, aana embedding-based system rendu queries ah vectors ah represent panni, antha vectors meaning-la close ah irukunu discover pannidum. Interesting point enna na, oru vector romba long aa irukalam, innoru vector romba short aa irukalam, aana rendum same direction-la point pannina, rendum similar nu solalaam, length mukyam illai direction dhan mukyam. "How do I learn Java?" and "How do I make Java coffee?" rendula "Java" word common ah irundhalum, meaning completely different, so idhu similar illa. Idhu dhan embeddings oda power, exact word match illama broader meaning ah compare panna mudiyum.`,
+    interviewDefinition: `Semantic similarity measures how close two pieces of text are in meaning, rather than how many words they have in common. For example, "How do I centre a div?" and "How can I align an HTML element in the middle of its parent?" use completely different words but mean the same thing. A keyword-based system may struggle here since it relies on exact word overlap, while an embedding-based system represents both queries as vectors and can discover that they are close in meaning. A key concept here is that one vector can have a very different magnitude (length) from another, but as long as both vectors point in a similar direction, they are considered semantically similar, direction matters more than length. Conversely, two sentences can share overlapping words yet have different meanings, such as "How do I learn Java?" versus "How do I make Java coffee?", where the word "Java" appears in both but refers to entirely different concepts. Embeddings allow systems to compare broader meaning rather than only matching identical words.`,
+    example: `// Semantic Similarity example (conceptual)
+
+// Similar meaning, different words -> close vectors
+const queryA = "How do I centre a div?";
+const queryB = "How can I align an HTML element in the middle of its parent?";
+
+// Similar meaning, different words -> close vectors
+const queryC = "How can I reset my password?";
+const queryD = "I forgot my password. How do I create a new one?";
+
+// Different meaning, overlapping word ("Java") -> distant vectors
+const queryE = "How do I learn Java?";
+const queryF = "How do I make Java coffee?";
+
+// Simplified cosine similarity concept:
+// Similarity depends on the DIRECTION of vectors, not their length
+
+function cosineSimilarity(vecA, vecB) {
+  const dotProduct = vecA.reduce((sum, val, i) => sum + val * vecB[i], 0);
+  const magnitudeA = Math.sqrt(vecA.reduce((sum, val) => sum + val * val, 0));
+  const magnitudeB = Math.sqrt(vecB.reduce((sum, val) => sum + val * val, 0));
+  return dotProduct / (magnitudeA * magnitudeB);
+}
+
+// Example vectors (one short, one long, but same direction)
+const shortVector = [1, 2];
+const longVector = [10, 20]; // same direction, different length
+
+console.log(cosineSimilarity(shortVector, longVector));
+// Output: 1 -> perfectly similar, because direction matches
+// even though magnitude (length) is very different`
+  },
+  {
+    id: 'cosine-similarity',
+    title: 'Cosine Similarity',
+    category: 'AI',
+    imageUrl: '/images/ai/cosine-similarity-vectors.jpg',
+    slangDefinition: `Rendu vectors evlo similar nu kandupudika, "Cosine Similarity" nu oru technique use pannuvom, idhu rendu vectors-oda angle ah compare pannum, absolute length ah vida direction ah dhan athiga focus pannum. Example ku angle theta zero-ku close ah irundha, cos(theta) one-ku close ah varum, athu rendu vectors similar nu artham. Angle 90 degree ah irundha, cos(theta) zero ah varum, athu orthogonal vectors, meaning rendukkum nerupa relation illa. Angle 180 degree ah irundha, cos(theta) negative one ah varum, athu completely opposite vectors. Inda concept yean use panranga na, rendu text pieces different amount of detail vechi irundhalum, same general intent ah express panna, cosine similarity rendum close nu kandupudikum. Aana oru important warning irukku, cosine similarity "truth" nu puriyadhu, idhu meaning similarity mattum dhan kaatum. Rendu false statements kooda semantically similar ah irukalam, rendu harmful instructions kooda similar ah irukalam, rendu text topic-la close ah irundhu completely disagree pannalam. Example ku "JavaScript is the best language" and "JavaScript is the worst language" rendum JavaScript patha opinion pesurathala, embeddings similar ah varalam, aana meaning opposite. So embeddings relationships ah capture pannum, aana facts, intent, quality illa safety ah independent ah verify pannadhu.`,
+    interviewDefinition: `Cosine similarity compares the angle between two vectors, focusing more on direction than on absolute length. When the angle (theta) between two vectors is close to 0 degrees, cos(theta) is close to 1, indicating similar vectors. When the angle is close to 90 degrees, cos(theta) is close to 0, indicating orthogonal (unrelated) vectors. When the angle is close to 180 degrees, cos(theta) is close to -1, indicating opposite vectors. This is useful because two pieces of text can contain different amounts of detail but still express the same general intent, and cosine similarity can detect that closeness despite length differences. However, cosine similarity does not "understand" truth, it only measures meaning-level closeness. Two false statements can be semantically similar, two harmful instructions can be semantically similar, and two texts can be close in topic while disagreeing completely. For example, "JavaScript is the best language" and "JavaScript is the worst language" may still have relatively similar embeddings because both discuss opinions about JavaScript, even though their meanings are opposite. Embeddings capture relationships, but they do not independently verify facts, intent, quality, or safety.`,
+    example: `// Cosine Similarity example
+
+function cosineSimilarity(vecA, vecB) {
+  const dotProduct = vecA.reduce((sum, val, i) => sum + val * vecB[i], 0);
+  const magnitudeA = Math.sqrt(vecA.reduce((sum, val) => sum + val * val, 0));
+  const magnitudeB = Math.sqrt(vecB.reduce((sum, val) => sum + val * val, 0));
+  return dotProduct / (magnitudeA * magnitudeB);
+}
+
+// Case 1: Similar vectors (angle close to 0)
+const x1 = [2, 5];
+const y1 = [1, 2.4];
+console.log(cosineSimilarity(x1, y1)); // close to 1 -> similar
+
+// Case 2: Orthogonal vectors (angle close to 90)
+const x2 = [0, 5];
+const y2 = [5, 0];
+console.log(cosineSimilarity(x2, y2)); // close to 0 -> unrelated
+
+// Case 3: Opposite vectors (angle close to 180)
+const x3 = [3, 2];
+const y3 = [-3, -2];
+console.log(cosineSimilarity(x3, y3)); // close to -1 -> opposite
+
+// WARNING: High cosine similarity does NOT mean factual agreement
+const opinionA = "JavaScript is the best language";
+const opinionB = "JavaScript is the worst language";
+// These may have relatively similar embeddings (same topic),
+// even though their actual meaning/opinion is completely opposite.
+// Embeddings capture relationships, NOT truth, intent, or safety.`
+  },
+  {
+    id: 'embeddings-in-semantic-search',
+    title: 'Embeddings in Semantic Search',
+    category: 'AI',
+    slangDefinition: `Traditional keyword search eduthukalam, oru student "How do I centre a div?" nu search pannudhu, aana document-la "Use CSS flexbox to horizontally and vertically align an element" nu irukku, rendu-layum exact words very few dhan share aagudhu. Purely keyword-based system idha struggle pannum, ஏன்னா exact word match illa. Embedding search idha vera maadhiri handle pannum, first user-oda query ah embedding ah convert pannuvanga, Query -> Query Vector, apparam ella documents-ayum embedding ah convert pannuvanga, Document -> Document Vector, apparam query vector ah document vectors kooda compare pannuvanga, last ah evanga highest semantic similarity irukura documents ah return pannuvanga. Idhu meaning-based search, exact word match theva illa. Aana keyword search ellame bad nu artham illa, "Hybrid Search" nu oru approach irukku, idhu rendum combine pannum. Enna na, Product ID, Error Code, important keyword, date, place, legal clauses madhiri things search pannanumna, keyword search exact match-ku romba accurate ah irukum, so idha embedding search-oda combine panna best result kidaikum.`,
+    interviewDefinition: `In traditional keyword search, suppose a student searches "How do I centre a div?" while a document contains "Use CSS flexbox to horizontally and vertically align an element." The query and the document share very few exact words, so a purely keyword-based system may struggle to match them. Embedding search solves this differently: it converts the user's query into an embedding (Query → Query vector), converts every document into an embedding (Document → Document vector), compares the query vector with the document vectors, and returns the documents with the highest semantic similarity, regardless of exact word overlap. However, keyword search is not always bad. "Hybrid Search" combines both approaches, which is especially useful when searching for things like Product IDs, Error Codes, important keywords, dates, places, or legal clauses, where exact keyword matching is more reliable than semantic similarity alone.`,
+    example: `// Embeddings in Semantic Search (conceptual)
+
+// Traditional keyword search (exact word matching)
+const query = "How do I centre a div?";
+const document = "Use CSS flexbox to horizontally and vertically align an element.";
+
+function keywordOverlap(a, b) {
+  const wordsA = new Set(a.toLowerCase().split(" "));
+  const wordsB = new Set(b.toLowerCase().split(" "));
+  return [...wordsA].filter(w => wordsB.has(w));
+}
+
+console.log(keywordOverlap(query, document));
+// Output: very few/no shared exact words -> keyword search struggles
+
+// Embedding search approach
+const queryVector = [0.21, -0.45, 0.78];       // Query -> embedding
+const documentVector = [0.19, -0.42, 0.81];    // Document -> embedding
+
+function cosineSimilarity(vecA, vecB) {
+  const dot = vecA.reduce((sum, val, i) => sum + val * vecB[i], 0);
+  const magA = Math.sqrt(vecA.reduce((s, v) => s + v * v, 0));
+  const magB = Math.sqrt(vecB.reduce((s, v) => s + v * v, 0));
+  return dot / (magA * magB);
+}
+
+console.log(cosineSimilarity(queryVector, documentVector));
+// High similarity score -> semantically relevant, even without exact word match
+
+// Hybrid Search = combine keyword search + embedding search
+// Useful for: Product IDs, Error Codes, exact keywords, dates, places, legal clauses
+// where exact matching matters alongside semantic matching
+function hybridSearch(query, document) {
+  const keywordScore = keywordOverlap(query, document).length;
+  const semanticScore = cosineSimilarity(queryVector, documentVector);
+  return { keywordScore, semanticScore };
+}
+
+console.log(hybridSearch(query, document));`
+  },
+  {
+    id: 'embedding-projector-visualization',
+    title: 'Embedding Projector (N-Dimensional Visualization)',
+    category: 'AI',
+    referenceUrl: 'https://projector.tensorflow.org/',
+    slangDefinition: `Namma humans ku 2D and 3D mattum dhan visually understand panna mudiyum, N-dimensional models (1000+ dimensions) ah namma directly imagine panna mudiyadhu. N dimensions ah 2D illa 3D ah "project" panna, namma understand panra madhiri oru website irukku. but indha 2D/3D visualization antha N-dimensional model-oda "actual" representation illa, idhu namma human visualization ku mattum convert pannadhu. Real relationships and distances high-dimensional space-la dhan exact ah irukum, 2D/3D-ku project panna konjo information loss aagum, aana overall pattern ah understand panna idhu help pannum.`,
+    interviewDefinition: `Humans can only visually perceive up to 2D or 3D space, so we cannot directly understand or imagine N-dimensional embeddings, which often have 1000+ dimensions. To make these high-dimensional embeddings understandable, turn them down into 2D or 3D space for visualization purposes. One website is there. It is important to understand that this 2D/3D visualization is not the actual representation of the N-dimensional model, it is a simplified projection created purely for human visualization. The real relationships, distances, and patterns exist accurately only in the original high-dimensional space; projecting down to 2D/3D inevitably loses some information, but it still helps humans get an intuitive sense of how embeddings relate to each other.`,
+    example: `// Embedding Projector concept (conceptual, not real computation)
+
+// A real embedding vector might have 1000+ dimensions
+const realEmbedding = [0.12, -0.45, 0.78, 0.33, /* ...996 more values... */];
+
+console.log(realEmbedding.length); // e.g. 1000
+
+// Humans cannot visualize 1000 dimensions directly.
+// Tools like the Embedding Projector reduce dimensions
+// (using techniques like PCA or t-SNE) down to 2D/3D
+// ONLY for human visualization purposes.
+
+const projectedTo2D = [4.2, 7.8]; // simplified x, y for visualization
+
+// IMPORTANT:
+// projectedTo2D is NOT the actual embedding.
+// It's an approximation created to help humans
+// visually explore relationships/clusters.
+// Actual semantic relationships live in the
+// full N-dimensional space, not in this 2D view.
+
+Visualization tool: https://projector.tensorflow.org/`
+  },
+  {
+    id: 'embeddings-for-different-data-types',
+    title: 'Embeddings for Different Data Types',
+    category: 'AI',
+    slangDefinition: `Embedding nu solradhu oru word ku mattum limited aana concept illa, romba variety ah different things ku embedding iruka mudiyum. Example ku oru Token ku kooda embedding iruka mudiyum, oru Word ku kooda embedding iruka mudiyum, oru Line ku embedding iruka mudiyum, oru Paragraph full ah ethukum embedding create pannalaam. Idhu text mattum illa, Image ku kooda embedding iruka mudiyum, Audio ku kooda embedding iruka mudiyum, oru full PDF document ku kooda embedding iruka mudiyum. Idhu ella case-layum same concept dhan apply aagudhu, antha item ah numerical vector ah convert panni, adhoda meaning/patterns ah capture pannuradhu, whatever type of data ah irundhalum.`,
+    interviewDefinition: `Embeddings are not limited to just words, they can be generated for many different types of data and at different levels of granularity. A single Token can have an embedding, a Word can have an embedding, a Line of text can have an embedding, and even a full Paragraph can have an embedding. This concept also extends beyond text: an Image can have an embedding, Audio can have an embedding, and even an entire PDF document can have an embedding. In every case, the same underlying idea applies, the item is converted into a numerical vector that captures its meaning or patterns, regardless of whether the input is text, image, audio, or a document.`,
+    example: `// Embeddings can exist for many different data types/levels
+
+const embeddingExamples = {
+  token: {
+    input: "play",
+    embedding: [0.12, 0.45, -0.33] // example vector
+  },
+  word: {
+    input: "JavaScript",
+    embedding: [0.81, -0.22, 0.56]
+  },
+  line: {
+    input: "console.log('Hello World');",
+    embedding: [0.19, 0.67, -0.41, 0.05]
+  },
+  paragraph: {
+    input: "This paragraph explains how closures work in JavaScript...",
+    embedding: [0.33, -0.12, 0.78, 0.44, 0.09]
+  },
+  image: {
+    input: "cat_photo.jpg",
+    embedding: [0.65, -0.34, 0.21, 0.88]
+  },
+  audio: {
+    input: "voice_note.mp3",
+    embedding: [0.14, 0.72, -0.19, 0.53]
+  },
+  pdf: {
+    input: "research_paper.pdf",
+    embedding: [0.29, -0.61, 0.47, 0.18]
+  }
+};
+
+// Same underlying idea for every type:
+// Convert the item into a numerical vector
+// that captures its meaning/patterns.
+
+console.log(embeddingExamples.image);
+// Output: { input: "cat_photo.jpg", embedding: [0.65, -0.34, 0.21, 0.88] }`
+  },
+  {
+    id: 'token-embeddings',
+    title: 'Token Embeddings',
+    category: 'AI',
+    slangDefinition: `Full flow ah paathoma, "Words -> Tokens -> Token IDs -> Embeddings" nu oru process irukku. First step la, "I love Apple" nu text ah tokenizer, small pieces ah break pannum, "I", " love", " App", "le" nu varalam, token nu solradhu always oru full word ah irukanum nu rule illa. ovvoru token ku model vocabulary la irundhu oru number assign pannuvanga, adha Token ID nu solvom, example ku "I" -> 40, " love" -> 892, " App" -> 15432, "le" -> 15 nu varalam. Idhula oru romba important point irukku, Token ID ku edhavum mathematical meaning illa, "love" ku 892 nu irundhalum "hate" ku 451 nu irundhalum, 892-um 451-um numbers-la close ah illa far ah irundhalum, adhukum rendu words relation-ku edhavum sambandham illa, idhu just oru meaningless index mattum dhan. Next step la, model oru "embedding table" nu solra huge lookup table use pannudhu, idhula ovvoru Token ID ku against oru dense vector irukum, example ku Token ID 40 ku [0.12, -0.45, 0.78, ...] nu vector kidaikum. Idhu dhan Token ID ah meaningful dense numerical vector ah convert pannudhu, idha "Embedding Lookup" nu solvom. Final ah namma puriyanum na, Token ID and Embedding rendum vera vera, Token ID nu solradhu just oru index, row number madhiri, Embedding nu solradhu antha row-la irukura actual learned dense numerical vector. Analogy ah paathanga na, Employee Name -> Employee ID -> Employee Record madhiri, ID antha record ah fetch panna help pannum, aana actual useful data irukradhu record-la dhan. Final ah indha vector dhan model ku antha token-oda initial representation ah irukum, aana context process pannumbodhu idhu change aagalam.`,
+    interviewDefinition: `The complete flow from text to embeddings follows these steps: Words → Tokens → Token IDs → Embeddings. First, a tokenizer breaks text like "I love Apple" into smaller pieces called tokens, such as "I", " love", " App", "le", since a token does not necessarily equal a full word. each token is mapped to a Token ID from the model's vocabulary, for example "I" → 40, " love" → 892, " App" → 15432, "le" → 15. Importantly, a Token ID has no inherent mathematical meaning; numerical closeness or distance between IDs (like "love" → 892 and "hate" → 451) does not imply any relationship between the words, it is simply a meaningless index. Third, the model uses an embedding table, essentially a large lookup table, where each Token ID maps to a dense numerical vector. For example, Token ID 40 might map to [0.12, -0.45, 0.78, ...]. This is called an Embedding Lookup, and it replaces the meaningless token ID with a meaningful dense numerical vector. A key distinction is that Token ID ≠ Embedding: the Token ID is just an index telling the model which row to retrieve, while the Embedding is the actual learned vector retrieved from that row, analogous to how an Employee ID points to an Employee Record. This embedding vector becomes the model's initial representation of the token, though this representation may later change as the model processes surrounding context.`,
+    example: `// Complete flow: Words -> Tokens -> Token IDs -> Embeddings
+
+const text = "I love Apple";
+
+// Step 1: Text -> Tokens
+const tokens = ["I", " love", " App", "le"];
+
+// Step 2: Tokens -> Token IDs (just meaningless indexes)
+const tokenIds = [40, 892, 15432, 15];
+
+// Note: Token ID closeness has NO mathematical meaning
+// e.g. "love" -> 892 and "hate" -> 451
+// 892 is not "more related to" 451 just because of number proximity
+
+// Step 3: Token IDs -> Embeddings (via embedding lookup table)
+const embeddingTable = {
+  40:    [0.12, -0.45, 0.78],
+  892:   [0.31, 0.22, -0.19],
+  15432: [-0.51, 0.83, 0.14],
+  15:    [-0.11, -0.13, 0.94]
+};
+
+const embeddings = tokenIds.map(id => embeddingTable[id]);
+console.log(embeddings);
+// Output:
+// [
+//   [0.12, -0.45, 0.78],
+//   [0.31, 0.22, -0.19],
+//   [-0.51, 0.83, 0.14],
+//   [-0.11, -0.13, 0.94]
+// ]
+
+// Analogy: Employee Name -> Employee ID -> Employee Record
+// "Chennai" -> 15432 -> [0.51, 0.83, -0.14, ...]
+// Token ID = index (which row to fetch)
+// Embedding = actual vector retrieved from that row
+
+// This embedding becomes the token's INITIAL representation,
+// but it may change later as the model processes surrounding context.`
+  },
+  {
+    id: 'positional-embedding',
+    title: 'Positional Embedding',
+    category: 'AI',
+    slangDefinition: `"Dog bites man" and "Man bites dog" nu rendu sentences-layum same words dhan irukku, "Dog", "bites", "man", aana meaning completely vera, because word order change aagiduchu. so, Token Embeddings mattum podha dhu, token embedding means antha token enna nu identify pannum, aana antha token sentence-la enda position-la irukunu solladhu. So model ku word order ah puriyanumna, order/position information um venum. Idhukaga model "Positional Embedding" nu oru technique use pannum, idhu ovvoru token-ku adhu sentence-la edhu position-la irukunu oru sense kudukum. Simple ah solanumna, Token Embedding token identity ah represent pannum, Positional Embedding position ah represent pannum. Model ku rendum venum, identity and order rendum sonna dhan correct meaning model ku puriyum.`,
+    interviewDefinition: `Consider the sentences "Dog bites man" and "Man bites dog". Both sentences contain the exact same words, but the meaning is completely different because the word order changes. This demonstrates a key limitation: token embeddings alone identify which tokens are present, but they do not tell the model about the order or position of those tokens within the sentence. To solve this, models incorporate positional information using architecture-specific techniques, commonly known as Positional Embedding. Positional embedding is a technique used by large language models to give words a sense of order and sequence in a sentence. In short, the token embedding tells the model which token is present, while the positional embedding tells the model where that token appears in the sequence. The model needs both identity (token embedding) and order (positional embedding) to correctly understand meaning.`,
+    example: `// Positional Embedding example (conceptual)
+
+const sentence1 = ["Dog", "bites", "man"];
+const sentence2 = ["Man", "bites", "dog"];
+
+// Token embeddings alone (identity only) would look similar
+// since both sentences use the same set of words
+const tokenEmbeddings = {
+  Dog:   [0.21, 0.55, -0.12],
+  Man:   [0.18, 0.49, -0.09],
+  bites: [0.63, -0.21, 0.44]
+};
+
+// Without position info, the model can't tell these apart:
+// ["Dog", "bites", "man"] vs ["Man", "bites", "dog"]
+
+// Positional embeddings add position-specific info
+const positionalEmbeddings = {
+  position0: [0.01, 0.02, 0.00],
+  position1: [0.03, -0.01, 0.02],
+  position2: [-0.02, 0.04, 0.01]
+};
+
+// Final representation = Token Embedding + Positional Embedding
+function finalRepresentation(token, position) {
+  const tokenVec = tokenEmbeddings[token];
+  const posVec = positionalEmbeddings[position];
+  return tokenVec.map((val, i) => val + posVec[i]);
+}
+
+console.log(finalRepresentation("Dog", "position0"));
+// Dog at position 0 -> different final vector than...
+console.log(finalRepresentation("Dog", "position2"));
+// ...Dog at position 2, even though token embedding is same.
+
+// This is how the model distinguishes
+// "Dog bites man" from "Man bites dog".`
+  },
+  {
+    id: 'token-vs-text-embeddings',
+    title: 'Token Embeddings vs Text Embeddings',
+    category: 'AI',
+    slangDefinition: `Token Embedding and Text Embedding rendum completely vera purpose. Token Embedding na, "I love JavaScript" nu sentence eduthukalam, idhu first tokens ah break aagum, "I", "love", "JavaScript" nu, apparam ovvoru token ku thaniya oru vector kidaikum, example [12, 214, 18273] nu token IDs, apparam ovvoru ID ku [0.12, -0.32, 0.08...] madhiri vector. Idhu dhan Token Embedding, ovvoru individual piece ku thaniya vector, idhu model ku sequence ah internally process panna help pannum. Aana Text Embedding na full sentence/paragraph/document ku total aa "one vector" mattum kidaikum, example [0.02, 0.31, -1.81...] nu oru single vector full sentence "I love JavaScript" ku represent pannum. Idhu usually Search, Retrieval, Clustering, Recommendations, Classification, Duplicate detection madhiri tasks ku specifically produce pannuvanga. So "embedding" nu kekumbodhu always kekanum, "embedding of what, and for which task?" nu, token-ku ah illa full text-ku ah nu clarify pannikanum. Summary ah solanumna, Token Embeddings LLM ku individual tokens process panna help pannum, Text Embeddings applications ku periya content pieces ah compare panna retrieve panna help pannum.`,
+    interviewDefinition: `Both Token Embeddings and Text Embeddings serve different purposes. Token Embeddings convert individual pieces of words (tokens) into numbers to help a model read and process a sequence internally. For example, "I love JavaScript" is broken into tokens, converted to Token IDs like [12, 214, 18273], and each ID is mapped to its own vector like [0.12, -0.32, 0.08...]. Text Embeddings, on the other hand, often called sentence or document embeddings, turn an entire sentence, paragraph, or document into a single mathematical summary vector, such as [0.02, 0.31, -1.81...] representing the whole sentence "I love JavaScript" as one vector. Text embeddings are typically produced specifically for tasks such as Search, Retrieval, Clustering, Recommendations, Classification, and Duplicate detection. Since the word "embedding" can refer to both concepts, it's important to always clarify: an embedding of what, and for which task? In summary, token embeddings help an LLM process individual tokens, while text embeddings help applications compare and retrieve larger pieces of content.`,
+    example: `// Token Embeddings vs Text Embeddings
+
+const sentence = "I love JavaScript";
+
+// 1. Token Embeddings (one vector per token)
+const tokens = ["I", "love", "JavaScript"];
+const tokenIds = [12, 214, 18273];
+
+const tokenEmbeddings = [
+  [0.12, -0.32, 0.08],   // embedding for "I"
+  [0.41, 0.73, -0.12],   // embedding for "love"
+  [0.12, 0.43, 0.87]     // embedding for "JavaScript"
+];
+
+console.log(tokenEmbeddings.length); // 3 -> one vector PER token
+// Used internally by the LLM to process the sequence
+
+// 2. Text Embedding (one vector for the ENTIRE sentence)
+const textEmbedding = [0.02, 0.31, -1.81]; // single summary vector
+
+console.log(textEmbedding.length); // represents the WHOLE sentence
+// Used for tasks like search, retrieval, clustering,
+// recommendations, classification, duplicate detection
+
+// Key question to always ask:
+// "An embedding of WHAT, and for WHICH task?"
+// - Token embedding -> helps LLM process individual tokens
+// - Text embedding -> helps applications compare/retrieve content`
+  },
+  {
+    id: 'static-vs-contextual-meaning',
+    title: 'Static vs Contextual Meaning',
+    category: 'AI',
+    slangDefinition: `"I ate an Apple after lunch" and "Apple released a new device", rendu sentences-layum "Apple" word use aagudhu, aana rendu meaning completely vera, onnu fruit, innonu company. Oru simple static embedding system use panna, "apple" word ku oru fixed vector mattum assign pannuvanga, antha single vector rendu meaning-um represent pannanum, idhu problem create pannum. Idhu dhan "polysemy" nu solra concept, oru word ku multiple meanings iruka mudiyum, meaning context mele dhan depend aagum. "contextual representations" nu technique use panni. Idhula oru token-oda representation, adha surrouding words vechi change aagikittu irukum. So same token "Apple" different sentences-la different contextual representations develop pannum, sentence context enna irukunu based ah.`,
+    interviewDefinition: `Consider the sentences "I ate an Apple after lunch" and "Apple released a new device". Both sentences use the word "Apple", but it carries completely different meanings, a fruit in one case and a company in the other. A simple static embedding system may assign one fixed vector to the word "apple", and that single vector would somehow need to represent both meanings, which creates a problem. This happens because words can have multiple meanings depending on context, a phenomenon called polysemy. where the representation of a token changes based on the surrounding words. As a result, the same token can develop different contextual representations depending on the sentence around it.`,
+    example: `// Static vs Contextual Meaning
+
+// Static embedding (WRONG approach for polysemy)
+// One fixed vector for "apple" regardless of context
+const staticEmbedding = {
+  apple: [0.21, 0.55, -0.12] // same vector used everywhere
+};
+
+const sentence1 = "I ate an Apple after lunch";   // fruit meaning
+const sentence2 = "Apple released a new device";  // company meaning
+
+// Problem: staticEmbedding.apple is IDENTICAL for both sentences,
+// even though the meanings are completely different (polysemy).
+
+// Contextual representation (modern approach)
+function getContextualEmbedding(token, surroundingWords) {
+  // In real models, this is computed dynamically using
+  // attention over the surrounding context, not a fixed lookup.
+  if (surroundingWords.includes("ate") || surroundingWords.includes("lunch")) {
+    return [0.21, 0.55, -0.12]; // leans toward "fruit" meaning
+  }
+  if (surroundingWords.includes("released") || surroundingWords.includes("device")) {
+    return [0.78, -0.33, 0.19]; // leans toward "company" meaning
+  }
+}
+
+console.log(getContextualEmbedding("Apple", ["ate", "lunch"]));
+// Output: [0.21, 0.55, -0.12] -> fruit context
+
+console.log(getContextualEmbedding("Apple", ["released", "device"]));
+// Output: [0.78, -0.33, 0.19] -> company context
+
+// Same token "Apple" -> different vectors based on surrounding context`
+  },
+  {
+    id: 'contextualisation',
+    title: 'Contextualisation',
+    category: 'AI',
+    slangDefinition: `"Context modifies representation" nu oru simple line-la summarise pannalaam idha. Example paakalaam, "I deposited money in the bank" and "We sat on the bank of the river" rendu sentences-layum "bank" word irukku, aana meaning vera, financial institution and river edge. Antha maadhiri "bat" word ku kooda "He hit the ball with a bat" and "A bat flew out of the cave" nu rendu vera meanings irukku. "Java" word ku moonu meanings kooda varalaam, programming language, island, illa coffee. Transformer-based language model-la, oru token first oru initial token embedding irukum, apparam model antha token ah adha surrounding other tokens kooda process pannum. Multiple layers process aana apram, antha representation "contextualised" aagidum, meaning antha token-oda final representation sentence-la irukura context mele depend aagum. So "bank" word-oda initial token embedding same ah start aana, "I deposited money in the bank" sentence-la irukura "bank" and "We sat beside the river bank" sentence-la irukura "bank", rendum model process panna aprom different internal representations ah maarum, athanaala model correct ah meaning puriyum.`,
+    interviewDefinition: `Contextualisation refers to how modern LLMs handle words with multiple meanings. Consider examples like "I deposited money in the bank" vs "We sat on the bank of the river" (bank = financial institution vs riverbank), "He hit the ball with a bat" vs "A bat flew out of the cave" (bat = sports equipment vs animal), and "Java is a programming language" vs "Java is an island" vs "I ordered Java at the café" (three different meanings of Java). In a transformer-based language model, a token first receives an initial token embedding, and then the model processes it together with the surrounding tokens. Through multiple layers, this representation becomes contextualised, meaning the representation of "bank" in "I deposited money in the bank" can become different from the representation of "bank" in "We sat beside the river bank". In short, the initial token embedding may start out the same, but after the model processes the complete sentence, its internal representation changes according to the surrounding context, captured in the phrase "context modifies representation".`,
+    example: `// Contextualisation in Transformer-based models (conceptual)
+
+const sentence1 = "I deposited money in the bank";
+const sentence2 = "We sat beside the river bank";
+
+// Step 1: Both start with the SAME initial token embedding
+const initialTokenEmbedding = {
+  bank: [0.25, -0.10, 0.63] // same starting vector in both sentences
+};
+
+// Step 2: Model processes token together with surrounding context
+// through multiple transformer layers (self-attention, etc.)
+
+function contextualize(token, surroundingTokens) {
+  if (surroundingTokens.includes("deposited") || surroundingTokens.includes("money")) {
+    return [0.81, -0.44, 0.12]; // financial institution meaning
+  }
+  if (surroundingTokens.includes("river") || surroundingTokens.includes("sat")) {
+    return [-0.30, 0.52, 0.19]; // riverbank meaning
+  }
+  return initialTokenEmbedding[token];
+}
+
+console.log(contextualize("bank", ["deposited", "money"]));
+// Output: [0.81, -0.44, 0.12] -> financial sense
+
+console.log(contextualize("bank", ["river", "sat"]));
+// Output: [-0.30, 0.52, 0.19] -> riverbank sense
+
+// Initial embedding was the SAME for "bank" in both cases,
+// but after processing through the model's layers with context,
+// the representations DIVERGE based on surrounding words.`
+  },
+  {
+    id: 'embeddings-use-cases',
+    title: 'Embeddings in Recommendation, Clustering & RAG',
+    category: 'AI',
+    slangDefinition: `Embeddings romba different use cases-la use aagum. First, "Recommendation" systems-la use aagum, example ku YouTube Algorithm illa Social Media Timeline, idhula user interests and content ah embeddings ah convert panni, similar items ah recommend pannuvanga. Rendavadhu, "Clustering" la use aagum, example ku thousands of student questions, comments, messages irukum bodhu, idha group panna, support tickets ah grouping panna, illa repeated/duplicate content ah detect panna embeddings help pannum, similar meaning content-ah automatic ah cluster pannidum. Moonavadhu, "RAG" (Retrieval Augmented Generation) nu solra technique-la embeddings use aagum, idhula similarity search chunks-la pannuvanga, meaning relevant document chunks ah embeddings vechi kandupudichu, antha chunks ah model ku context ah kudukuvanga, better answers kudukarathukaga.`,
+    interviewDefinition: `Embeddings are used across several practical applications. In Recommendation systems, such as YouTube's algorithm or social media timelines, embeddings represent user interests and content so that similar items can be recommended. In Clustering, embeddings are used to group thousands of student questions, comments, or messages, group support tickets, or detect repeated/duplicate content by identifying items with similar meaning. In RAG (Retrieval Augmented Generation), embeddings are used to perform similarity search across chunks of text, retrieving the most relevant pieces of content as context to help a model generate better, more grounded answers.`,
+    example: `// Embeddings use cases: Recommendation, Clustering, RAG
+
+// 1. Recommendation (e.g. YouTube algorithm, social media timeline)
+const userInterestEmbedding = [0.42, -0.18, 0.67];
+const videoEmbeddings = {
+  video1: [0.40, -0.20, 0.65], // close to user interest -> recommend
+  video2: [-0.80, 0.55, 0.12]  // far from user interest -> skip
+};
+
+// 2. Clustering (e.g. grouping support tickets, detecting duplicates)
+const ticketEmbeddings = [
+  { id: "T1", text: "App crashes on login", vector: [0.3, 0.5, -0.2] },
+  { id: "T2", text: "Application closes after sign in", vector: [0.31, 0.48, -0.19] }, // near-duplicate
+  { id: "T3", text: "Payment page is slow", vector: [-0.6, 0.1, 0.4] }
+];
+// T1 and T2 cluster together -> likely duplicate/related tickets
+
+// 3. RAG (Retrieval Augmented Generation)
+// Similarity search across document chunks
+const queryEmbedding = [0.21, 0.44, -0.12];
+const documentChunks = [
+  { chunk: "Chunk about refund policy", vector: [0.19, 0.46, -0.10] },
+  { chunk: "Chunk about shipping info", vector: [-0.55, 0.20, 0.33] }
+];
+// Retrieve the chunk closest to queryEmbedding
+// -> feed it as context to the model for a grounded answer`
+  },
+  {
+    id: 'embedding-misconceptions',
+    title: 'Embedding Misconceptions',
+    category: 'AI',
+    slangDefinition: `Embeddings patha romba per oru soru misconceptions vechirupanga, antha ella misconceptions ah correct pannalaam. First misconception, "embedding is a dictionary of tokens" nu nenaikanga, aana actual ah embedding nu solradhu oru numerical representation, antha item ku irukura learned relationships ah capture pannuradhu. Rendavadhu misconception, "each dimension has one clear human meaning" nu nenaikanga, aana meaning oru single dimension-la illa, pala dimensions full-layum distribute ah irukum. Moonavadhu misconception, "similar embeddings mean identical meaning" nu nenaikanga, aana similar embeddings topic similarity, association, opposition, category membership, illa shared context ah kooda indicate pannalaam, exact ah identical meaning solla theva illa. Naalavadhu misconception, "embedding similarity proves a statement is true" nu nenaikanga, aana similarity nu solradhu relatedness ah measure pannum, truth ah illa. Anjavadhu misconception, "one embedding model works equally well for every task" nu nenaikanga, aana performance language, domain, data type, text length, training objective ellam mele depend aagum. Aaravadhu misconception, "visual clusters perfectly represent the original space" nu nenaikanga, aana 2D/3D projections information lose pannidum, exact ah original high-dimensional space ah represent pannadhu. Easavadhu misconception, "a larger embedding dimension is always better" nu nenaikanga, aana larger representations storage, latency, cost, and quality-la trade-offs create pannidum, so always bigger-nu nalladhu nu artham illa.`,
+    interviewDefinition: `There are several common misconceptions about embeddings that are important to clarify. Misconception 1: An embedding is a dictionary of tokens. Reality: An embedding is a numerical representation capturing learned relationships. Misconception 2: Each dimension has one clear human meaning. Reality: Meaning is distributed across many dimensions, not isolated to a single one. Misconception 3: Similar embeddings mean identical meaning. Reality: They may indicate topic similarity, association, opposition, category membership, or shared context, not necessarily identical meaning. Misconception 4: Embedding similarity proves a statement is true. Reality: Similarity measures relatedness, not truth. Misconception 5: One embedding model works equally well for every task. Reality: Performance depends on factors like language, domain, data type, text length, and training objective. Misconception 6: Visual clusters perfectly represent the original space. Reality: Two-dimensional and three-dimensional projections lose information compared to the original high-dimensional space. Misconception 7: A larger embedding dimension is always better. Reality: Larger representations create trade-offs in storage, latency, cost, and quality, so bigger is not automatically better.`,
+    example: `// Common Embedding Misconceptions vs Reality
+
+const embeddingMisconceptions = [
+  {
+    misconception: "An embedding is a dictionary of tokens",
+    reality: "An embedding is a numerical representation capturing learned relationships"
+  },
+  {
+    misconception: "Each dimension has one clear human meaning",
+    reality: "Meaning is distributed across many dimensions"
+  },
+  {
+    misconception: "Similar embeddings mean identical meaning",
+    reality: "They may indicate topic similarity, association, opposition, category membership, or shared context"
+  },
+  {
+    misconception: "Embedding similarity proves a statement is true",
+    reality: "Similarity measures relatedness, not truth"
+  },
+  {
+    misconception: "One embedding model works equally well for every task",
+    reality: "Performance depends on language, domain, data type, text length, training objective, etc."
+  },
+  {
+    misconception: "Visual clusters perfectly represent the original space",
+    reality: "2D/3D projections lose information compared to the original high-dimensional space"
+  },
+  {
+    misconception: "A larger embedding dimension is always better",
+    reality: "Larger representations create trade-offs in storage, latency, cost, and quality"
+  }
+];
+
+embeddingMisconceptions.forEach(item => {
+  console.log("Myth:", item.misconception);
+  console.log("Fact:", item.reality);
+  console.log("---");
+});`
+  },
 ]
