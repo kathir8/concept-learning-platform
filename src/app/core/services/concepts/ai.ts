@@ -94,7 +94,7 @@ if (email.Contains("F-R-E-E") || email.Contains("FREEE") || email.Contains("FREE
     id: 'ml-vs-dl',
     title: 'Machine Learning vs Deep Learning',
     category: 'AI',
-    imageUrl: '/images/ai/ml-vs-dl.png',
+    imageUrl: 'ml-vs-dl.png',
     slangDefinition: `Machine Learning (ML) na AI-oda subset - algorithms use panni data analyze panni, learn panni, decisions/predictions pannum. ML-ku smaller datasets podhum, structured data use pannum (tables maadhiri), aana feature extraction manual-a namba pannanum (example: Spam Detection-la "spam words" namba select pannanum). Flow: Input Data -> Feature Extraction (manual) -> ML Algorithm (Decision Tree, Random Forest) -> Output. Deep Learning (DL) na ML-oda specialized subset - Neural Networks (human brain-oda inspired) use pannum. DL-ku vast datasets (Big Data) venum, GPU pola computationally intensive, unstructured data (images, text, audio) handle pannum, features automatic-a learn pannikும் (manual extraction venum illa). Flow: Input Data (unstructured) -> Neural Network (feature learning + classification together) -> Output. Example: ML-la Spam Detection, Housing Price Prediction; DL-la Image Recognition ("CAT" nu classify pannum), NLP (voice command-a intent-a translate panni action eduka vaikkும்).`,
     interviewDefinition: `Machine Learning (ML) is a subset of AI that uses algorithms to analyze data, learn from it, and make decisions or predictions. It typically requires smaller, structured datasets and relies on manual feature engineering, though training is comparatively faster. The typical flow is: Input Data -> Feature Extraction (manual) -> ML Algorithm (e.g., Decision Tree, Random Forest) -> Output (Prediction/Classification). Examples include Spam Detection and Housing Price Prediction. Deep Learning (DL) is a specialized subset of ML based on Artificial Neural Networks (ANNs) inspired by the human brain. It requires vast datasets (Big Data), is computationally intensive (often requiring GPUs), works well with unstructured data (images, text, audio), and performs automated feature learning rather than manual extraction. The typical flow is: Input Data (unstructured) -> Neural Network (feature learning + classification combined) -> Output. Examples include Image Recognition (classifying an image as "CAT") and Natural Language Processing, such as translating a voice command into an intent and triggering an action.`,
     example: `// MACHINE LEARNING (ML)
@@ -699,7 +699,7 @@ console.log(cosineSimilarity(shortVector, longVector));
     id: 'cosine-similarity',
     title: 'Cosine Similarity',
     category: 'AI',
-    imageUrl: '/images/ai/cosine-similarity-vectors.jpg',
+    imageUrl: 'cosine-similarity-vectors.jpg',
     slangDefinition: `Rendu vectors evlo similar nu kandupudika, "Cosine Similarity" nu oru technique use pannuvom, idhu rendu vectors-oda angle ah compare pannum, absolute length ah vida direction ah dhan athiga focus pannum. Example ku angle theta zero-ku close ah irundha, cos(theta) one-ku close ah varum, athu rendu vectors similar nu artham. Angle 90 degree ah irundha, cos(theta) zero ah varum, athu orthogonal vectors, meaning rendukkum nerupa relation illa. Angle 180 degree ah irundha, cos(theta) negative one ah varum, athu completely opposite vectors. Inda concept yean use panranga na, rendu text pieces different amount of detail vechi irundhalum, same general intent ah express panna, cosine similarity rendum close nu kandupudikum. Aana oru important warning irukku, cosine similarity "truth" nu puriyadhu, idhu meaning similarity mattum dhan kaatum. Rendu false statements kooda semantically similar ah irukalam, rendu harmful instructions kooda similar ah irukalam, rendu text topic-la close ah irundhu completely disagree pannalam. Example ku "JavaScript is the best language" and "JavaScript is the worst language" rendum JavaScript patha opinion pesurathala, embeddings similar ah varalam, aana meaning opposite. So embeddings relationships ah capture pannum, aana facts, intent, quality illa safety ah independent ah verify pannadhu.`,
     interviewDefinition: `Cosine similarity compares the angle between two vectors, focusing more on direction than on absolute length. When the angle (theta) between two vectors is close to 0 degrees, cos(theta) is close to 1, indicating similar vectors. When the angle is close to 90 degrees, cos(theta) is close to 0, indicating orthogonal (unrelated) vectors. When the angle is close to 180 degrees, cos(theta) is close to -1, indicating opposite vectors. This is useful because two pieces of text can contain different amounts of detail but still express the same general intent, and cosine similarity can detect that closeness despite length differences. However, cosine similarity does not "understand" truth, it only measures meaning-level closeness. Two false statements can be semantically similar, two harmful instructions can be semantically similar, and two texts can be close in topic while disagreeing completely. For example, "JavaScript is the best language" and "JavaScript is the worst language" may still have relatively similar embeddings because both discuss opinions about JavaScript, even though their meanings are opposite. Embeddings capture relationships, but they do not independently verify facts, intent, quality, or safety.`,
     example: `// Cosine Similarity example
@@ -1136,5 +1136,196 @@ embeddingMisconceptions.forEach(item => {
   console.log("Fact:", item.reality);
   console.log("---");
 });`
+  },
+  {
+    id: 'llm-next-token-prediction',
+    title: 'LLM as a Next Token Predictor (Neural Network)',
+    category: 'AI',
+    slangDefinition: `Basically LLM nu solradhu oru "next word predictor" dhan. Example ku "The pizza is" nu oru sentence eduthukalam, idhula ovvoru token ku first oru Token ID kidaikum, "The" -> 23, "pizza" -> 46, "is" -> 73 nu. Apparam ovvoru Token ID um oru embedding vector ah convert aagum, example ku [0.1, 0.6, 1.2, -7.5, ...] nu. Indha embedding values ellam input ah oru "Neural Network" ku pogum. Neural Network nu solradhu, embedding values ah eduthukittu next token enna varum nu predict panna use panra algorithm. Idhu already "trained" aana model, so training time-la neraya text paathu patterns learn pannirukum. Neural Network antha input ah process panni, vocabulary-la irukura ella tokens ku oru probability score kudukum, example ku "hot" -> 0.68, "ready" -> 0.75, "delicious" -> 0.56, "round" -> 0.66, "cold" -> 0.40, aana "potato" -> 0.01, "bright" -> 0.02, "lazy" -> 0.08, "fast" -> 0.21 nu varum. Idhula "pizza is" ku apparam "ready", "hot", "delicious" madhiri words ku high score, "potato", "bright" madhiri words ku romba low score irukum, since, antha words context ku match aagadhu, how  hot and ready ku ivlo marks means, inda maadiri sentence naraya training data laa irukum. Finally highest probability irukura token ah next token ah select pannidum, apparam adha adutha input oda serthu mela repeat pannum, apdi dhan oru full sentence generate aagum.`,
+    interviewDefinition: `At its core, an LLM is a next token predictor. Given an input like "The pizza is", each word is first converted into a Token ID (for example, "The" → 23, "pizza" → 46, "is" → 73), and each Token ID is then converted into an embedding vector. These embedding values are fed as input into a neural network, which is the algorithm that processes them to predict the next token. The neural network is already trained on large amounts of text, so it has learned patterns of language. Given the input, it outputs a probability score for every token in its vocabulary, for example "hot" → 0.68, "ready" → 0.75, "delicious" → 0.56, "round" → 0.66, "cold" → 0.40, while unlikely tokens such as "potato" → 0.01, "bright" → 0.02, "lazy" → 0.08, and "fast" → 0.21 receive very low scores. how hot and ready gets highest token means, it heared lot's of times from training data. The most suitable token is then selected as the next token, appended to the input, and the process repeats to generate a complete response one token at a time.`,
+    imageUrl: 'llm-prediction-overview.png',
+    example: `// LLM as a Next Token Predictor (conceptual)
+
+// Step 1: Text -> Token IDs
+const text = "The pizza is";
+const tokenIds = [23, 46, 73];
+
+// Step 2: Token IDs -> Embeddings
+const embeddingTable = {
+  23: [0.1, 0.6, 1.2],
+  46: [-0.46, -0.64, 0.52],
+  73: [0.52, -0.6, 0.8]
+};
+const inputEmbeddings = tokenIds.map(id => embeddingTable[id]);
+
+// Step 3: Embeddings -> Neural Network (already trained)
+// The network processes the input and outputs a probability score
+// for EVERY token in its vocabulary
+function neuralNetwork(embeddings) {
+  return {
+    ready: 0.75,
+    hot: 0.68,
+    round: 0.66,
+    delicious: 0.56,
+    cold: 0.40,
+    fast: 0.21,
+    lazy: 0.08,
+    bright: 0.02,
+    potato: 0.01
+  };
+}
+
+const predictions = neuralNetwork(inputEmbeddings);
+
+// Step 4: Pick the most suitable next token
+const nextToken = Object.entries(predictions)
+  .sort((a, b) => b[1] - a[1])[0][0];
+
+console.log(nextToken);
+// Output: "ready"
+
+// Step 5: Append the predicted token and repeat
+// "The pizza is ready" -> predict next token again...
+// This loop is how an LLM generates a full response, one token at a time.`
+  },
+  {
+    id: 'chatgpt-gpt-meaning',
+    title: 'ChatGPT: What is GPT (Generative Pre-trained Transformer)',
+    category: 'AI',
+    slangDefinition: `ChatGPT-la irukura "GPT" nu solradhu oru short form, G = Generative, P = Pre-trained, T = Transformer. Generative na, idhu pudhusa content generate pannum, text eduthukittu next token predict panni, sentence sentence ah create pannum. Pre-trained na, model ah already periya amount of text data vachi mundhiye train pannitanga, so namma use panra time-la adhu already language patterns ah learn pannirukum. Transformer na oru type of neural network architecture, idhu sequences of information ah "attention" use panni process panna design pannadhu. Idhu 2017-la "Attention Is All You Need" nu oru paper-la introduce pannanga. Transformers-ku munnadi, sequence models-ku RNNs and LSTMs madhiri architectures dhan commonly use pannanga, aana avanga text ah romba sequential ah, oru oru word ah order-la process pannanga. Transformer vandha pinnadi, attention vechi sentence-la irukura words-oda relationship ah better ah handle panna mudinjidhu, adhanaala dhan modern LLMs ellam Transformer base-la irukku.`,
+    interviewDefinition: `GPT stands for Generative Pre-trained Transformer. Generative means the model can generate new content, such as text, by predicting the next token repeatedly. Pre-trained means the model has already been trained on large amounts of data before being used, so it has learned language patterns in advance. Transformer refers to the underlying architecture: a Transformer is a type of neural network architecture designed to process sequences of information using attention. It was introduced in the 2017 paper "Attention Is All You Need". Before Transformers, sequence models commonly used architectures such as RNNs and LSTMs, which processed text more sequentially. Transformers use attention to model relationships between tokens more effectively, which is why most modern LLMs, including ChatGPT, are built on this architecture.`,
+    example: `// GPT = Generative + Pre-trained + Transformer
+
+const gpt = {
+  G: "Generative",   // generates new content (next token by next token)
+  P: "Pre-trained",  // already trained on large data before we use it
+  T: "Transformer"   // neural network architecture that uses attention
+};
+
+console.log(gpt);
+
+// Transformer background
+const transformer = {
+  whatItIs: "A neural network architecture that processes sequences using attention",
+  introducedIn: "2017 paper 'Attention Is All You Need'",
+  before: ["RNN", "LSTM"] // processed text more sequentially
+};
+
+// Conceptual comparison
+function sequentialModel(tokens) {
+  // RNN / LSTM style: one token after another, in strict order
+  tokens.forEach(token => console.log("processing", token));
+}
+
+function transformerModel(tokens) {
+  // Transformer style: attention looks at relationships
+  // between ALL tokens in the sequence together
+  tokens.forEach(token => {
+    console.log("attending", token, "to", tokens.filter(t => t !== token));
+  });
+}
+
+transformerModel(["The", "pizza", "is"]);`
+  },
+  {
+    id: 'attention-and-self-attention',
+    title: 'Attention & Self-Attention',
+    category: 'AI',
+    slangDefinition: `Attention nu solradhu model ku oru question-ku answer kudukura mechanism: "Ippo enna information-ku focus pannanum, and evlo focus pannanum?" nu. Idhu "Attention Is All You Need" paper-la solra main idea. Example ku rendu sentences paarunga, "The cat sat on the mat because it was tired" and "The cat sat on the mat because it was soft". Rendu sentences-layum "it" word irukku, aana first sentence-la "it" na cat, because tired aagradhu cat dhan. Rendavadhu sentence-la "it" na mat, because soft aagradhu mat dhan. Namma human ku idhu easy ah puriyum, aana model ku "it" enda word ah refer pannudhu nu epdi theriyum? Idhukku dhan Attention venum. Model "it" word ah, input-la irukura previous words kooda compare panni, antha words-oda relation ah kandupidichu, edhu word ku athiga importance kudukanum nu decide pannum. "Self-Attention" na, same sequence-la irukura tokens ku naduvula attention nadakkum, meaning each token antha same sentence-la irukura mathu tokens ah paakalam. another example, "I went to the bank to deposit money" and "I sat on the bank of the river" rendu sentences-layum "bank" word irukku, aana meaning vera. Surrounding words ah attention vechi paathaadhan "bank" enna meaning nu model ku puriyum, adhanaala dhan contextual representation possible aagudhu.`,
+    interviewDefinition: `Attention is a mechanism that lets a model decide which pieces of information to focus on at a given moment, and how much weight to give each one. It was the core idea of the 2017 paper "Attention Is All You Need". Consider "The cat sat on the mat because it was tired" versus "The cat sat on the mat because it was soft". In the first sentence "it" refers to the cat, and in the second it refers to the mat. A model must work out which earlier word "it" relates to, and attention solves this by finding the relationship between a token and the other words in the input. Self-attention means attention between tokens of the same sequence: each token can look at the other tokens in that same sentence. Another example. In "I went to the bank to deposit money" and "I sat on the bank of the river", the word "bank" only gets its correct meaning from the surrounding words. Attention lets the model use that context, which makes contextual representations possible.`,
+    example: `// Attention & Self-Attention (conceptual)
+
+const sentence1 = ["The", "cat", "sat", "on", "the", "mat", "because", "it", "was", "tired"];
+const sentence2 = ["The", "cat", "sat", "on", "the", "mat", "because", "it", "was", "soft"];
+
+// Self-attention: the token "it" looks at the other tokens
+// in the SAME sentence and assigns each one an attention weight.
+// (Illustrative numbers, real models learn these weights.)
+
+const attentionForIt_sentence1 = {
+  The: 0.02, cat: 0.62, sat: 0.03, on: 0.01, the: 0.02,
+  mat: 0.10, because: 0.03, was: 0.05, tired: 0.12
+};
+// "tired" fits a cat -> "it" attends most to "cat"
+
+const attentionForIt_sentence2 = {
+  The: 0.02, cat: 0.12, sat: 0.03, on: 0.01, the: 0.02,
+  mat: 0.60, because: 0.03, was: 0.05, soft: 0.12
+};
+// "soft" fits a mat -> "it" attends most to "mat"
+
+function mostAttendedWord(weights) {
+  return Object.entries(weights).sort((a, b) => b[1] - a[1])[0][0];
+}
+
+console.log(mostAttendedWord(attentionForIt_sentence1)); // "cat"
+console.log(mostAttendedWord(attentionForIt_sentence2)); // "mat"
+
+// Same idea resolves ambiguous words like "bank":
+// "I went to the bank to deposit money."  -> attends to "deposit", "money" -> financial bank
+// "I sat on the bank of the river."       -> attends to "sat", "river"     -> river bank`
+  },
+  {
+    id: 'llm-architecture-flow',
+    title: 'LLM Architecture Flow',
+    category: 'AI',
+    slangDefinition: `Idhu oru LLM-kulla input enna ellam step-la process aagi, next token ah output aagudhu nu kaatura flow. "How to predict" nu input varudhu, adhu Token IDs ah maarum, apparam Token Embedding and Positional Embedding rendum add aagum. Adhu Transformer block kulla pogum, adhula layer norm, multi-head causal self-attention, feed forward ellam irukum, rendu idathula residual connection (+) irukum. Last ah layer norm, linear, softmax vazhiya poi next token probabilities varum, adhula highest token select aagi input-oda serthu, intha loop repeat aagum.`,
+    interviewDefinition: `This diagram shows the end-to-end flow inside a Transformer-based LLM. Input text is converted into Token IDs, then Token Embeddings are combined with Positional Embeddings. The result passes through Transformer blocks, each containing layer normalization, multi-head causal self-attention, and a feed-forward network, with residual connections around both sub-layers. The output then goes through a final layer norm, a linear layer, and a softmax, which produces next-token probabilities. The selected token is appended to the input and the loop repeats.`,
+    imageUrl: 'llm-architecture.png',
+    referenceUrl:'https://bbycroft.net/llm',
+    example: `Input: "How to predict"
+                              |
+                              v
+                            Token IDs: [2437, 284, 4331]
+                              |
+                              v
++------------------------------ LLM ------------------------------+
+|                                                                  |
+|               tok embed (Token Embedding)                        |
+|                        |                                         |
+|                        v                                         |
+|           (+) <--- pos embed (Positional Embedding)              |
+|                        |                                         |
+|                        v                                         |
+|   +--------------- Transformer block (i) ---------------+        |
+|   |                                                     |        |
+|   |                 layer norm                          |        |
+|   |                     |                               |        |
+|   |                     v                               |        |
+|   |         multi-head, causal self-attention           |        |
+|   |                     |                               |        |
+|   |                     v                               |        |
+|   |    (+) <--- residual connection (from block input)  |        |
+|   |                     |                               |        |
+|   |                     v                               |        |
+|   |                layer norm                           |        |
+|   |                     |                               |        |
+|   |                     v                               |        |
+|   |               feed forward                          |        |
+|   |                     |                               |        |
+|   |                     v                               |        |
+|   |    (+) <--- residual connection                     |        |
+|   |                                                     |        |
+|   +-----------------------------------------------------+        |
+|                         |                                        |
+|                         v                                        |
+|                     layer norm                                   |
+|                         |                                        |
+|                         v                                        |
+|                       linear                                     |
+|                         |                                        |
+|                         v                                        |
+|                      softmax                                     |
+|                                                                  |
++------------------------------------------------------------------+
+                          |
+                          v
+                  Next token probabilities:
+                    text   -> 2420
+                    tokens -> 16326
+                    words  -> 2456
+                          |
+                          v
+Selected token is appended to the input, and the loop repeats`
   },
 ]

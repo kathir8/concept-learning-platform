@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, effect, inject, input, PLATFORM_ID, signal } from '@angular/core';
+import { Component, computed, effect, inject, input, PLATFORM_ID, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { Concept } from '../../../core/models/concept.model';
 import { DefinitionType, PreferencesService } from '../../../core/services/preferences.service';
@@ -18,6 +18,13 @@ export class ConceptCardComponent {
 
   activeTab = signal<DefinitionType>(this.preferences.defaultDefinitionType());
   copied = signal(false);
+
+  protected readonly imageSrc = computed(() => {
+    const concept = this.concept();
+    return concept.imageUrl
+      ? `/images/${concept.category.toLowerCase()}/${concept.imageUrl}`
+      : '';
+  });
 
   constructor() {
     effect(() => {
