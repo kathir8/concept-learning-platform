@@ -1328,4 +1328,334 @@ console.log(mostAttendedWord(attentionForIt_sentence2)); // "mat"
                           v
 Selected token is appended to the input, and the loop repeats`
   },
+  {
+  id: 'token-plus-positional-embedding',
+  title: 'Token Embedding + Positional Embedding',
+  category: 'AI',
+  slangDefinition: `Transformer ku direct ah Token IDs pogadhu, adhukku munnadi oru important step irukku: Token Embedding + Positional Embedding = Transformer ku anupura data. Example ku "How to predict" nu input eduthukalam. First step la tokens Token IDs ah maarum, [2437, 284, 4331] nu. Rendavadhu step la, ovvoru Token ID ku embedding table-la irundhu oru Token Embedding vector kidaikum, idhu "edhu token" nu solum. Aana Token Embedding la position information illa, so "Dog bites man" and "Man bites dog" difference theriyadhu. Adhanaala moonavadhu step la, ovvoru position ku oru Positional Embedding vector kidaikum, idhu "idhu edhu position-la irukku" nu solum. Naalavadhu step la, ovvoru token-oda Token Embedding vector um, antha position-oda Positional Embedding vector um element by element add aagum, adhu dhan final vector. Indha final vectors ellam serndha data dhan Transformer ku input ah pogum. Simple ah solanumna, Token Embedding identity kudukum, Positional Embedding order kudukum, rendum add aana vector-la rendum irukum, so Transformer ku "enna token, edhu idathula" nu rendum theriyum.`,
+  interviewDefinition: `Before the Transformer blocks process anything, the input goes through an embedding step: Token Embedding + Positional Embedding = the data sent to the Transformer. The input text, for example "How to predict", is first converted into Token IDs such as [2437, 284, 4331]. Each Token ID is looked up in the embedding table to get a Token Embedding, which tells the model which token is present. Since a Token Embedding carries no information about order, a Positional Embedding is generated for each position in the sequence, which tells the model where the token appears. The two vectors are added element by element for each token, and the resulting vectors, one per token, are the input to the Transformer. In short, the Token Embedding provides identity, the Positional Embedding provides order, and their sum gives the Transformer both.`,
+  example: `// Token Embedding + Positional Embedding = data sent to the Transformer
+
+const text = "How to predict";
+
+// Step 1: Text -> Token IDs
+const tokenIds = [2437, 284, 4331];
+
+// Step 2: Token IDs -> Token Embeddings (identity: WHICH token)
+const tokenEmbeddingTable = {
+  2437: [0.12, -0.45, 0.78],  // "How"
+  284:  [0.31, 0.22, -0.19],  // " to"
+  4331: [-0.51, 0.83, 0.14]   // " predict"
+};
+const tokenEmbeddings = tokenIds.map(id => tokenEmbeddingTable[id]);
+
+// Step 3: Positions -> Positional Embeddings (order: WHERE the token is)
+const positionalEmbeddings = [
+  [0.01, 0.02, 0.00],   // position 0
+  [0.03, -0.01, 0.02],  // position 1
+  [-0.02, 0.04, 0.01]   // position 2
+];
+
+// Step 4: Add them element by element
+const transformerInput = tokenEmbeddings.map((tokenVec, position) =>
+  tokenVec.map((value, i) => value + positionalEmbeddings[position][i])
+);
+
+console.log(transformerInput);
+// Output (approx):
+// [
+//   [0.13, -0.43, 0.78],
+//   [0.34, 0.21, -0.17],
+//   [-0.53, 0.87, 0.15]
+// ]
+
+// This transformerInput (Token Embedding + Positional Embedding)
+// is the data sent into the Transformer blocks.
+// Token Embedding = identity, Positional Embedding = order.`
+},
+{
+  id: 'layer-normalization',
+  title: 'Layer Normalization (LayerNorm)',
+  category: 'AI',
+  slangDefinition: `Layer Normalization (LayerNorm) nu solradhu neural network kulla flow aagura numbers ah oru stable scale-la vechukka use panra technique. Problem enna na, data Transformer kulla move aagum bodhu, numbers (weights illa activations) romba periya values aah illa romba chinna values aah maarida vaaipu irukku. Example ku [0.2, -0.34, 0.5, 0.62] nu oru vector start aachu, aana attention, feed forward networks, residual additions ellam thirumba thirumba poga poga, adhu [22, 36, 14, 56] madhiri periya numbers ah maariduchu. scale manage panna kashtam aagum, calculations complex aagum. Adhaan LayerNorm vandhu fix pannum, ovvoru layer kulla irukura numbers ah adjust panni, mean (average) 0 ah, variance (spread) 1 ah varra maari maathum. Normalize pannina aprom antha vector [0.18, -0.26, 0.37, 0.58] inda madhiri maarum. Goal enna na, network break aagama irukkanum, illa romba slow ah learn pannama irukkanum. Simple ah solanumna, LayerNorm Transformer-la numbers ah stable ah vachi, model smooth ah learn panna help pannum, so deep networks training um stable ah irukum.`,
+  interviewDefinition: `Layer Normalization (LayerNorm) is a technique used to keep the numbers flowing through a neural network at a more stable scale. As data moves through a Transformer, the numbers (weights or activations) can become too big or too small. For example, a vector like [0.2, -0.34, 0.5, 0.62] can grow to something like [22, 36, 14, 56] as representations repeatedly pass through attention, feed-forward networks, and residual additions, and such scales become difficult to manage and make calculations complex. Layer normalization fixes this by adjusting the numbers inside each separate layer so they have a mean (average) of 0 and a variance (spread) of 1, giving a well-behaved vector such as [0.18, -0.26, 0.37, 0.58]. The goal is to stop the network from breaking or learning too slowly. Normalization keeps the network's internal representations well behaved, which makes training deep networks more stable and lets the model learn smoothly.`,
+  example: `// Layer Normalization (LayerNorm)
+
+// Problem: numbers can become too big or too small as they
+// flow through attention, feed-forward networks, residual additions etc.
+const startVector = [0.2, -0.34, 0.5, 0.62];
+const afterManyLayers = [22, 36, 14, 56]; // scale is hard to manage
+
+// Fix: LayerNorm adjusts the numbers so that
+// mean (average) = 0 and variance (spread) = 1
+function layerNorm(vector, epsilon = 1e-5) {
+  const mean = vector.reduce((sum, v) => sum + v, 0) / vector.length;
+  const variance =
+    vector.reduce((sum, v) => sum + (v - mean) ** 2, 0) / vector.length;
+  const std = Math.sqrt(variance + epsilon);
+  return vector.map(v => (v - mean) / std);
+}
+
+const normalized = layerNorm(afterManyLayers);
+console.log(normalized.map(v => Number(v.toFixed(2))));
+// Output: [-0.63, 0.25, -1.13, 1.51]
+// -> mean is 0 and variance is 1, so the scale is stable again
+
+// Illustration from the lesson (simplified numbers):
+// [22, 36, 14, 56]  --LayerNorm-->  [0.18, -0.26, 0.37, 0.58]
+// Big, unstable values become small, well behaved values.
+
+// Why it matters:
+// Keeps the network's internal representations well behaved,
+// which makes training deep networks more stable.`
+},
+{
+  id: 'multi-head-attention',
+  title: 'Multi-Head Attention',
+  category: 'AI',
+  slangDefinition: `"The boy ate an apple because he was hungry" nu oru sentence eduthukalam. Inga "he" nu solradhu "boy" a refer pannudhu. Athe madhiri "ate" and "apple" kum oru relationship irukku. Oru single attention mechanism use panna, indha different relationships ellathayum at a time la learn panradhu kashtam. Adhanala Multi-Head Attention-la multiple attention heads parallel ah work pannum, ovvoru head um different relationship ah paakkum. Example ku Head 1 "he" and "boy" relationship ah learn pannalaam, Head 2 words-oda meaning ah learn pannalaam, Head 3 sentence-la irukura grammatical relationships ah learn pannalaam. Idhu oru illustrative example mattum dhan. Actual ah ovvoru head enna relationship learn pannum nu namma fixed ah decide panna mudiyadhu, adhu training la model thaan learn pannum. Ellam heads oda results um serthu, model ku sentence oda understanding kidaikum.`,
+  interviewDefinition: `Multi-Head Attention runs multiple attention heads in parallel instead of relying on a single attention mechanism. Consider the sentence "The boy ate an apple because he was hungry." Here "he" refers to "boy", and "ate" has a relationship with "apple". A single attention mechanism would have difficulty learning all of these different relationships at once. With Multi-Head Attention, each head can focus on a different kind of relationship. For example, Head 1 might learn the relationship between "he" and "boy", Head 2 might learn meaning-based relationships, and Head 3 might learn grammatical relationships within the sentence. This is only an illustrative example: what each head actually learns cannot be decided by us in advance, it is learned automatically during training. The outputs of all heads are then combined to give the model a richer understanding of the sentence.`,
+  example: `// Multi-Head Attention (illustrative example)
+
+const sentence = "The boy ate an apple because he was hungry";
+
+// Single attention: one mechanism has to capture everything
+const singleAttention = {
+  learns: ["he -> boy", "ate -> apple", "grammar", "meaning"] // too much for one
+};
+
+// Multi-Head Attention: multiple heads work in parallel
+const heads = [
+  { head: 1, learns: "'he' and 'boy' relationship (who does 'he' refer to?)" },
+  { head: 2, learns: "meaning relationships (e.g. 'ate' and 'apple')" },
+  { head: 3, learns: "grammatical relationships within the sentence" }
+];
+
+// Each head produces its own attention output
+function runHeadsInParallel(heads) {
+  return heads.map(h => ({ head: h.head, output: "vector for " + h.learns }));
+}
+
+console.log(runHeadsInParallel(heads));
+
+// All head outputs are combined into one richer representation
+// Note: this is ILLUSTRATIVE. What each head actually learns
+// cannot be fixed by us in advance, it is learned during training.`
+},
+{
+  id: 'masked-attention',
+  title: 'Masked Attention',
+  category: 'AI',
+  slangDefinition: `Masking na attention-la entha words ah consider pannalaam, entha words ah consider panna koodathu nu restriction podradhu. Oru attention score matrix irukum, mask apply pannum bodhu certain positions ah block pannuvom. Example ku "I love machine learning" nu eduthukalam, ippo "love" position ku attention calculate panrom. "I" ah attend pannalaam, "love" ah attend pannalaam. Aana "machine" and "learning" ah attend panna allow pannalama illa block pannalama nu, use panra mask type ah depend pannum. So masked attention nu solradhu, mask use panni attention ah restrict panradhu. Future words ah block panradhu mattum masked attention-oda definition illa, adhu oru particular type of masking mattum dhan. Image-la paatha "I love learning" matrix la, "I" row la "I" mattum Allowed, "love" row la "I" and "love" Allowed, "learning" row la ellame Allowed, future positions ellam Blocked. Idhu eppadi work aagudhu na, attention score matrix la block panna vendiya position oda score ah Softmax ku munnadi negative infinity (-∞) nu set pannuvom. Softmax(-∞) = 0, so antha blocked position ku attention weight zero aagidum, meaning model antha word ah paakave maatten.`,
+  interviewDefinition: `Masking means restricting which words (positions) an attention mechanism is allowed to consider. In attention, there is a score matrix, and when a mask is applied, certain positions in it are blocked. For example, in "I love machine learning", when calculating attention for the position "love", it may attend to "I" and "love", while whether it may attend to "machine" and "learning" depends on the type of mask being used. So masked attention simply means restricting attention using a mask. Blocking future words is not the definition of masked attention itself; it is one particular type of masking (causal masking), and other masks can follow different rules. In the illustrative mask for "I love learning", "I" can only attend to itself, "love" can attend to "I" and "love", and "learning" can attend to all three, with future positions blocked. Technically, a blocked position's score is set to negative infinity (-∞) before the Softmax. Since Softmax(-∞) = 0, the attention weight for that blocked position becomes zero.`,
+  example: `// Masked Attention (illustrative)
+
+const tokens = ["I", "love", "learning"];
+
+// Raw attention scores (rows = current token, columns = token being attended)
+const scores = [
+  [2.0, 1.0, 0.5],
+  [1.5, 2.5, 0.8],
+  [0.9, 1.2, 2.2]
+];
+
+// Mask: 1 = Allowed, 0 = Blocked
+// This particular mask blocks future positions (causal mask).
+// Other masks can follow different rules.
+const mask = [
+  [1, 0, 0], // "I" attends only to "I"
+  [1, 1, 0], // "love" attends to "I", "love"
+  [1, 1, 1]  // "learning" attends to all three
+];
+
+// Step 1: Set blocked positions to -Infinity BEFORE softmax
+const maskedScores = scores.map((row, i) =>
+  row.map((score, j) => (mask[i][j] === 1 ? score : -Infinity))
+);
+
+// Step 2: Softmax
+function softmax(row) {
+  const exps = row.map(v => Math.exp(v)); // Math.exp(-Infinity) = 0
+  const sum = exps.reduce((a, b) => a + b, 0);
+  return exps.map(v => Number((v / sum).toFixed(2)));
+}
+
+const attentionWeights = maskedScores.map(softmax);
+console.log(attentionWeights);
+// Output (approx):
+// [
+//   [1.00, 0.00, 0.00],  // "I" -> only itself
+//   [0.27, 0.73, 0.00],  // "love" -> "I" and "love"
+//   [0.18, 0.24, 0.58]   // "learning" -> all three
+// ]
+
+// Softmax(-Infinity) = 0
+// So blocked positions get attention weight zero.`
+},
+{
+  id: 'causal-self-attention',
+  title: 'Causal Self-Attention',
+  category: 'AI',
+  slangDefinition: `Causal Self-Attention na, oru token already available ah irukura previous tokens ah and current token ah mattum attend pannum, future tokens ah paakka mudiyaadhu. Idhu autoregressive language models, GPT-style models including, use panra important mechanism. Example ku "I love machine learning" nu sentence eduthukalam, model next word predict panradhukku training nadakkudhu nu imagine pannunga. "I" position la irukumbodhu, "love", "machine", "learning" ellam future la irukku, so adha paakka mudiyaadhu. "love" position la "I" and "love" ah paakalaam. "machine" position la "I", "love", "machine" ah paakalaam. "learning" position la previous words ellathayum paakalaam. Ippadi dhan model step by step learn pannum. so training-layum, use panra bodhum same rule follow aaganum. Idhu masked attention-oda oru particular type, future positions ah block panra mask dhan causal mask.`,
+  interviewDefinition: `Causal Self-Attention means that a token can attend only to the previous tokens that are already available and to the current token itself; it cannot look at future tokens. It is an important mechanism used in autoregressive language models, including GPT-style models. Take the sentence "I love machine learning" while the model is being trained to predict the next word. At the position of "I", the words "love", "machine", and "learning" are in the future and cannot be seen. At "love", the model can see "I" and "love". At "machine", it can see "I", "love", and "machine". At "learning", it can see all the previous words. This way the model learns step by step, without already knowing the future words it is supposed to predict. Causal self-attention is a particular type of masked attention that uses a causal mask to block future positions.`,
+  example: `// Causal Self-Attention (illustrative)
+
+const tokens = ["I", "love", "machine", "learning"];
+
+// Causal mask: each token sees itself and PREVIOUS tokens only
+// 1 = Allowed, 0 = Blocked (future)
+const causalMask = [
+  // I  love machine learning
+  [1,   0,    0,      0],  // "I" sees only "I"
+  [1,   1,    0,      0],  // "love" sees "I", "love"
+  [1,   1,    1,      0],  // "machine" sees "I", "love", "machine"
+  [1,   1,    1,      1]   // "learning" sees all previous words
+];
+
+function visibleTokens(position) {
+  return tokens.filter((_, j) => causalMask[position][j] === 1);
+}
+
+tokens.forEach((token, i) => {
+  console.log(token, "can see:", visibleTokens(i));
+});
+// Output:
+// I can see: ["I"]
+// love can see: ["I", "love"]
+// machine can see: ["I", "love", "machine"]
+// learning can see: ["I", "love", "machine", "learning"]
+
+// Because future tokens are blocked, the model predicts the next word
+// step by step, without already knowing the answer.
+// This is the key mechanism in autoregressive (GPT-style) models.
+
+
++----------+---------+---------+----------+
+|          | I       | love    | learning |
++----------+---------+---------+----------+
+| I        | Allowed | Blocked | Blocked  |
+| love     | Allowed | Allowed | Blocked  |
+| learning | Allowed | Allowed | Allowed  |
++----------+---------+---------+----------+`
+},
+{
+  id: 'multi-head-vs-masked-vs-causal-attention',
+  title: 'Multi-Head vs Masked vs Causal Self-Attention',
+  category: 'AI',
+  slangDefinition: `Indha moonu concepts-um paakka similar ah theriyum, aana ovvonnukum different purpose irukku. Multi-Head Attention oda main purpose different relationships ah learn panradhu, multiple attention heads parallel ah work pannum. Masked Attention oda main purpose selected positions ah restrict panradhu, attention scores mela oru mask apply pannuvom. Causal Self-Attention oda main purpose future token access ah prevent panradhu, backward paathu and current token ah mattum paakkum. GPT-style Transformer "Multi-Head Causal Self-Attention" use pannum, idhula moonum serndhu irukku. Multi-Head na multiple heads attention ah parallel ah process pannum. Self-Attention na queries, keys, and values ellam same sequence-la irundhu varum. Causal na future tokens ah mask vechi block pannuvom. Short ah solanumna, causal masking oru head entha positions ah attend pannalaam nu control pannum, multi-head attention evlo attention heads parallel ah operate aaganum nu control pannum. So rendum different job, aana serndhu dhan GPT-style model-la work aagum.`,
+  interviewDefinition: `Multi-Head Attention, Masked Attention, and Causal Self-Attention are related but serve different purposes. Multi-Head Attention is used to learn different relationships, with multiple attention heads working in parallel. Masked Attention is used to restrict selected positions by applying a mask to the attention scores. Causal Self-Attention is used to prevent future-token access, so a token looks backward and at the current token only. A GPT-style Transformer can use Multi-Head Causal Self-Attention, which combines all three ideas: Multi-Head means multiple heads process attention in parallel, Self-Attention means the queries, keys, and values come from the same sequence, and Causal means future tokens are blocked using a mask. In other words, causal masking controls which positions a head can attend to, while multi-head attention controls how many attention heads operate in parallel.`,
+  example: `// Multi-Head vs Masked vs Causal Self-Attention
+
+
++-----------------------+------------------------------+----------------------------------------------+
+| Concept               | Main purpose                 | Simple meaning                               |
++-----------------------+------------------------------+----------------------------------------------+
+| Multi-Head Attention  | Learn different relationships| Multiple attention heads work in parallel    |
+| Masked Attention      | Restrict selected positions  | Apply a mask to attention scores             |
+| Causal Self-Attention | Prevent future-token access  | Look backward and at the current token only  |
++-----------------------+------------------------------+----------------------------------------------+
+
+// GPT-style Transformer = Multi-Head Causal Self-Attention
+const gptAttention = {
+  multiHead: "Multiple heads process attention in parallel",
+  selfAttention: "Queries, keys, and values come from the same sequence",
+  causal: "Future tokens are blocked using a mask"
+};
+
+// How they work together (conceptual)
+const tokens = ["I", "love", "learning"];
+const numberOfHeads = 3; // Multi-Head: HOW MANY heads run in parallel
+
+// Causal mask: WHICH positions each head can attend to
+const causalMask = [
+  [1, 0, 0],
+  [1, 1, 0],
+  [1, 1, 1]
+];
+
+for (let head = 1; head <= numberOfHeads; head++) {
+  console.log("Head", head, "uses the same causal mask:", causalMask);
+}
+
+// Causal masking controls WHICH positions a head can attend to.
+// Multi-head attention controls HOW MANY heads operate in parallel.`
+},
+{
+  id: 'query-key-value',
+  title: 'Q, K, V (Query, Key, Value)',
+  category: 'AI',
+  slangDefinition: `Q, K, V nu solradhu Transformer architecture-la romba important concept. First oru real-life example paakalaam, library-la book search panradhu. Neenga library ku poi "JavaScript book irukka?" nu kekureenga nu imagine pannunga. Q = Query, idhu neenga thedura book request. K = Key, idhu ovvoru book oda title, topic, category madhiri matching ku use aagura details, example ku "JavaScript", "Python", "History" nu different categories. V = Value, idhu select panna book kulla irukura actual content, JavaScript concepts, examples, code explanations, idhu concept puriya vekkura analogy mattum dhan. Transformer la Q, K, V nu solradhu manually ezhudhina questions, labels, illa book contents illa, athu ellam token representations la irundhu calculate aagura numerical vectors. Ippo "The boy ate an apple because he was hungry" sentence eduthukalam. Query nu solradhu "enakku enna information venum?" nu kekura question madhiri, example ku "he" token, "naan yaara refer panren?" nu related information ah thedum. Key nu solradhu "enkitta enna information irukku?" nu ovvoru word um vechirukura label madhiri, example ku "boy" oda Key, "he" oda Query ku relevant ah irukalam. Value nu solradhu oru word relevant nu decide pannina aprom, andha word la irundhu actual ah enna information edukanum nu represent pannum, example ku "boy" relevant ah irundha, adhu represent panra information "he" oda updated representation ku contribute pannum. Inga moonu steps nadakkudhu. Step 1, Q x K, endha tokens relevant nu score calculate pannuvom. Step 2, Softmax, scores ah attention weights ah convert pannuvom. Step 3, Weights x V, andha weights use panni Values ah combine pannuvom. Example ku "he" ku "boy" high relevance, "apple" lower relevance, "ate" konjam depend, so final output la "boy" oda Value athiga contribute pannum. Simple ah nyabagam vechukka, Q = "What am I looking for?", K = "How relevant am I?", V = "What information do I contribute?".`,
+  interviewDefinition: `Q, K, V (Query, Key, Value) is one of the most important concepts in the Transformer architecture. A helpful analogy is searching for a book in a library: the Query is your request ("Do you have a JavaScript book?"), the Key is the matching details of each book such as title, topic, and category, and the Value is the actual content of the selected book. This is only an analogy; in a Transformer, Q, K, and V are not manually written questions, labels, or contents, they are numerical vectors calculated from token representations. Using the sentence "The boy ate an apple because he was hungry": a Query represents what information a token is looking for from other tokens (for example, "he" looking for who it refers to). A Key represents the features used to determine how relevant a token is to a Query (the Key of "boy" can be relevant to the Query of "he"). A Value contains the information that is weighted and combined using the attention scores (if "boy" is relevant, the information it represents contributes to the updated representation of "he"). Three steps happen: first Q x K calculates a relevance score for each token, then Softmax converts the scores into attention weights, and finally the weights are multiplied with the Values and combined to produce the output. In short, Q represents the information being sought, K helps calculate relevance to Q, and V supplies the information for the output.`,
+  example: `// 1. Library analogy (concept only)
+
++------+-----------+-------------------------------------------------+
+| Part | Meaning   | Library example                                 |
++------+-----------+-------------------------------------------------+
+| Q    | Query     | "Do you have a JavaScript book?"                |
+| K    | Key       | Title, topic, category: JavaScript, Python...   |
+| V    | Value     | Actual content: concepts, examples, code        |
++------+-----------+-------------------------------------------------+
+// In a Transformer, Q, K, V are NOT written text.
+// They are numerical vectors calculated from token representations.
+
+
+// 2. Q, K, V for the sentence: "The boy ate an apple because he was hungry"
+
++-------+-----------------------------+---------------------------------------------------+
+| Term  | Question it answers         | Example                                           |
++-------+-----------------------------+---------------------------------------------------+
+| Query | What am I looking for?      | "he" looks for who it refers to                   |
+| Key   | What information do I       | Key of "boy" may be relevant to the Query of "he" |
+|       | represent?                  |                                                   |
+| Value | What information can I      | If "boy" is relevant, its information contributes |
+|       | contribute?                 | to the updated representation of "he"             |
++-------+-----------------------------+---------------------------------------------------+
+
+
+// 3. Q: "he" token compared with the Keys of other tokens
+// (illustrative numbers)
+
++-----------+-----------------+------------------+-------------------+
+| Q: "he"   | boy             | apple            | ate               |
++-----------+-----------------+------------------+-------------------+
+| Q x K     | 4.0             | 1.0              | 2.0               |
+| Relevance | High            | Lower            | Depends           |
+| Softmax   | 0.84            | 0.04             | 0.11              |
++-----------+-----------------+------------------+-------------------+
+
+
+// 4. V: combine information
+// Attention weights decide how much each token's Value
+// contributes to the output for "he"
+
++----------------------+---------+---------+---------+
+|                      | boy     | apple   | ate     |
++----------------------+---------+---------+---------+
+| Attention weight     | 0.84    | 0.04    | 0.11    |
+| Value contribution   | Highest | Lowest  | Small   |
++----------------------+---------+---------+---------+
+Output for "he" = (0.84 x V of boy) + (0.04 x V of apple) + (0.11 x V of ate)
+
+
+// 5. The three steps
+
++------+-----------+------------------------------------------------------+
+| Step | Operation | What happens                                         |
++------+-----------+------------------------------------------------------+
+| 1    | Q x K     | Calculate which tokens are relevant (scores)         |
+| 2    | Softmax   | Convert scores into attention weights                |
+| 3    | Weights x V | Combine the Values using those weights             |
++------+-----------+------------------------------------------------------+
+
+
+// 6. Remember it as
+
++------+-----------------------------------+------------------------------------------+
+| Term | Remember it as                    | What it does                             |
++------+-----------------------------------+------------------------------------------+
+| Q    | What am I looking for?            | Represents the information being sought  |
+| K    | How relevant am I?                | Helps calculate relevance to Q           |
+| V    | What information do I contribute? | Supplies information for the output      |
++------+-----------------------------------+------------------------------------------+`
+},
 ]
