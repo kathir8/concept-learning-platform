@@ -95,7 +95,7 @@ if (email.Contains("F-R-E-E") || email.Contains("FREEE") || email.Contains("FREE
     title: 'Machine Learning vs Deep Learning',
     category: 'AI',
     imageUrl: 'ml-vs-dl.png',
-    slangDefinition: `Machine Learning (ML) na AI-oda subset - algorithms use panni data analyze panni, learn panni, decisions/predictions pannum. ML-ku smaller datasets podhum, structured data use pannum (tables maadhiri), aana feature extraction manual-a namba pannanum (example: Spam Detection-la "spam words" namba select pannanum). Flow: Input Data -> Feature Extraction (manual) -> ML Algorithm (Decision Tree, Random Forest) -> Output. Deep Learning (DL) na ML-oda specialized subset - Neural Networks (human brain-oda inspired) use pannum. DL-ku vast datasets (Big Data) venum, GPU pola computationally intensive, unstructured data (images, text, audio) handle pannum, features automatic-a learn pannikும் (manual extraction venum illa). Flow: Input Data (unstructured) -> Neural Network (feature learning + classification together) -> Output. Example: ML-la Spam Detection, Housing Price Prediction; DL-la Image Recognition ("CAT" nu classify pannum), NLP (voice command-a intent-a translate panni action eduka vaikkும்).`,
+    slangDefinition: `Machine Learning (ML) na AI-oda subset - algorithms use panni data analyze panni, learn panni, decisions/predictions pannum. ML-ku smaller datasets podhum, structured data use pannum (tables maadhiri), aana feature extraction manual-a namba pannanum (example: Spam Detection-la "spam words" namba select pannanum). Flow: Input Data -> Feature Extraction (manual) -> ML Algorithm (Decision Tree, Random Forest) -> Output. Deep Learning (DL) na ML-oda specialized subset - Neural Networks (human brain-oda inspired) use pannum. DL-ku vast datasets (Big Data) venum, GPU pola computationally intensive, unstructured data (images, text, audio) handle pannum, features automatic-a learn pannikum (manual extraction venum illa). Flow: Input Data (unstructured) -> Neural Network (feature learning + classification together) -> Output. Example: ML-la Spam Detection, Housing Price Prediction; DL-la Image Recognition ("CAT" nu classify pannum), NLP (voice command-a intent-a translate panni action eduka vaikkum).`,
     interviewDefinition: `Machine Learning (ML) is a subset of AI that uses algorithms to analyze data, learn from it, and make decisions or predictions. It typically requires smaller, structured datasets and relies on manual feature engineering, though training is comparatively faster. The typical flow is: Input Data -> Feature Extraction (manual) -> ML Algorithm (e.g., Decision Tree, Random Forest) -> Output (Prediction/Classification). Examples include Spam Detection and Housing Price Prediction. Deep Learning (DL) is a specialized subset of ML based on Artificial Neural Networks (ANNs) inspired by the human brain. It requires vast datasets (Big Data), is computationally intensive (often requiring GPUs), works well with unstructured data (images, text, audio), and performs automated feature learning rather than manual extraction. The typical flow is: Input Data (unstructured) -> Neural Network (feature learning + classification combined) -> Output. Examples include Image Recognition (classifying an image as "CAT") and Natural Language Processing, such as translating a voice command into an intent and triggering an action.`,
     example: `// MACHINE LEARNING (ML)
 // A subset of AI that uses algorithms to analyze data,
@@ -184,7 +184,7 @@ if (email.Contains("F-R-E-E") || email.Contains("FREEE") || email.Contains("FREE
     id: 'ai-history-timeline',
     title: 'AI History Timeline',
     category: 'AI',
-    slangDefinition: `AI history romba interesting-a evolve aagirukku, 1950-la irundhu 2025 varaikkum. 1950-la Alan Turing "can machine think?" nu oru question ketaru. 1956-la John McCarthy first-a "AI" nu oru word introduce pannaru. 1950s-80s-la Rule Based AI - if-else conditions vachi than intelligence build pannanga. 1997-la Deep Blue (IBM computer) chess-la Garry Kasparov-a defeat pannichu. 90's-la Machine Learning start aachu - rules-ku badhila examples/data vachi learn panna aarambichanga. 2000's-la Deep Learning vandhachu - Neural Networks vachi. 2012-la AlexNet vandhichu - computer vision-la breakthrough, computer-ku "see" panna mudinjachu. 2016-la Google-oda AlphaGo, Lee Sedol-a Go game-la beat pannichu. 2017-la Google "Attention is all you need" paper publish pannangа - Transformers architecture introduce aachu, idhu than LLM-oda foundation. 2022-la ChatGPT vandhichu, public-ku AI romba familiar aachu. 2025+ la Agentic AI - AI thaniya tasks plan pannitu, tools use pannitu, execute pannura stage.`,
+    slangDefinition: `AI history romba interesting-a evolve aagirukku, 1950-la irundhu 2025 varaikkum. 1950-la Alan Turing "can machine think?" nu oru question ketaru. 1956-la John McCarthy first-a "AI" nu oru word introduce pannaru. 1950s-80s-la Rule Based AI - if-else conditions vachi than intelligence build pannanga. 1997-la Deep Blue (IBM computer) chess-la Garry Kasparov-a defeat pannichu. 90's-la Machine Learning start aachu - rules-ku badhila examples/data vachi learn panna aarambichanga. 2000's-la Deep Learning vandhachu - Neural Networks vachi. 2012-la AlexNet vandhichu - computer vision-la breakthrough, computer-ku "see" panna mudinjachu. 2016-la Google-oda AlphaGo, Lee Sedol-a Go game-la beat pannichu. 2017-la Google "Attention is all you need" paper publish pannanga - Transformers architecture introduce aachu, idhu than LLM-oda foundation. 2022-la ChatGPT vandhichu, public-ku AI romba familiar aachu. 2025+ la Agentic AI - AI thaniya tasks plan pannitu, tools use pannitu, execute pannura stage.`,
     interviewDefinition: `The evolution of AI spans over 70 years. In 1950, Alan Turing posed the foundational question "can machines think?" In 1956, John McCarthy formally coined the term "Artificial Intelligence." From the 1950s-80s, Rule Based AI dominated, using if-else logic to simulate intelligence. In 1997, IBM's Deep Blue defeated chess champion Garry Kasparov. The 1990s marked the rise of Machine Learning, where systems began learning from data/examples instead of relying on fixed rules. The 2000s brought Deep Learning, powered by neural networks. In 2012, AlexNet achieved a major breakthrough in computer vision, enabling machines to effectively "see." In 2016, Google's AlphaGo defeated Go champion Lee Sedol. In 2017, Google published "Attention is all you need," introducing the Transformer architecture that became the foundation for modern LLMs. In 2022, ChatGPT brought AI into mainstream public use. From 2025 onward, the field has moved into Agentic AI, where AI systems can autonomously plan tasks, use tools, and execute multi-step actions.`,
     example: `// AI History Timeline
 
@@ -424,6 +424,7 @@ if (email.Contains("F-R-E-E") || email.Contains("FREEE") || email.Contains("FREE
     id: 'token',
     title: 'Token',
     category: 'AI',
+    referenceUrl: 'https://platform.openai.com/tokenizer',
     slangDefinition: `Token nu solradhu oru text-oda chinna chinna unit, idha Tokenizer nu oru component dhan decide pannudhu evlo periya piece ah irukanumnu. Sometimes full word oru token aagum, sometimes oru word rendu illa moonu tokens ah split aagum. Idhu enna reason na, model ku vocabulary size kammiya vecha, puthu words kooda already irukura sub-parts vachi understand pannikalaam.`,
     interviewDefinition: `A Token is the smallest unit of text that a language model processes, and it is determined by a component called a Tokenizer. Depending on the tokenization strategy, a token can be a whole word, part of a word, or even a single character or punctuation mark. This subword tokenization helps the model handle a large vocabulary efficiently and understand unfamiliar or complex words by breaking them into known smaller pieces.`,
     example: `Explore at: https://platform.openai.com/tokenizer`
@@ -737,7 +738,7 @@ const opinionB = "JavaScript is the worst language";
     id: 'embeddings-in-semantic-search',
     title: 'Embeddings in Semantic Search',
     category: 'AI',
-    slangDefinition: `Traditional keyword search eduthukalam, oru student "How do I centre a div?" nu search pannudhu, aana document-la "Use CSS flexbox to horizontally and vertically align an element" nu irukku, rendu-layum exact words very few dhan share aagudhu. Purely keyword-based system idha struggle pannum, ஏன்னா exact word match illa. Embedding search idha vera maadhiri handle pannum, first user-oda query ah embedding ah convert pannuvanga, Query -> Query Vector, apparam ella documents-ayum embedding ah convert pannuvanga, Document -> Document Vector, apparam query vector ah document vectors kooda compare pannuvanga, last ah evanga highest semantic similarity irukura documents ah return pannuvanga. Idhu meaning-based search, exact word match theva illa. Aana keyword search ellame bad nu artham illa, "Hybrid Search" nu oru approach irukku, idhu rendum combine pannum. Enna na, Product ID, Error Code, important keyword, date, place, legal clauses madhiri things search pannanumna, keyword search exact match-ku romba accurate ah irukum, so idha embedding search-oda combine panna best result kidaikum.`,
+    slangDefinition: `Traditional keyword search eduthukalam, oru student "How do I centre a div?" nu search pannudhu, aana document-la "Use CSS flexbox to horizontally and vertically align an element" nu irukku, rendu-layum exact words very few dhan share aagudhu. Purely keyword-based system idha struggle pannum, yean naa exact word match illa. Embedding search idha vera maadhiri handle pannum, first user-oda query ah embedding ah convert pannuvanga, Query -> Query Vector, apparam ella documents-ayum embedding ah convert pannuvanga, Document -> Document Vector, apparam query vector ah document vectors kooda compare pannuvanga, last ah evanga highest semantic similarity irukura documents ah return pannuvanga. Idhu meaning-based search, exact word match theva illa. Aana keyword search ellame bad nu artham illa, "Hybrid Search" nu oru approach irukku, idhu rendum combine pannum. Enna na, Product ID, Error Code, important keyword, date, place, legal clauses madhiri things search pannanumna, keyword search exact match-ku romba accurate ah irukum, so idha embedding search-oda combine panna best result kidaikum.`,
     interviewDefinition: `In traditional keyword search, suppose a student searches "How do I centre a div?" while a document contains "Use CSS flexbox to horizontally and vertically align an element." The query and the document share very few exact words, so a purely keyword-based system may struggle to match them. Embedding search solves this differently: it converts the user's query into an embedding (Query → Query vector), converts every document into an embedding (Document → Document vector), compares the query vector with the document vectors, and returns the documents with the highest semantic similarity, regardless of exact word overlap. However, keyword search is not always bad. "Hybrid Search" combines both approaches, which is especially useful when searching for things like Product IDs, Error Codes, important keywords, dates, places, or legal clauses, where exact keyword matching is more reliable than semantic similarity alone.`,
     example: `// Embeddings in Semantic Search (conceptual)
 
@@ -1025,7 +1026,7 @@ console.log(getContextualEmbedding("Apple", ["released", "device"]));
     title: 'Contextualisation',
     category: 'AI',
     slangDefinition: `"Context modifies representation" nu oru simple line-la summarise pannalaam idha. Example paakalaam, "I deposited money in the bank" and "We sat on the bank of the river" rendu sentences-layum "bank" word irukku, aana meaning vera, financial institution and river edge. Antha maadhiri "bat" word ku kooda "He hit the ball with a bat" and "A bat flew out of the cave" nu rendu vera meanings irukku. "Java" word ku moonu meanings kooda varalaam, programming language, island, illa coffee. Transformer-based language model-la, oru token first oru initial token embedding irukum, apparam model antha token ah adha surrounding other tokens kooda process pannum. Multiple layers process aana apram, antha representation "contextualised" aagidum, meaning antha token-oda final representation sentence-la irukura context mele depend aagum. So "bank" word-oda initial token embedding same ah start aana, "I deposited money in the bank" sentence-la irukura "bank" and "We sat beside the river bank" sentence-la irukura "bank", rendum model process panna aprom different internal representations ah maarum, athanaala model correct ah meaning puriyum.`,
-    interviewDefinition: `Contextualisation refers to how modern LLMs handle words with multiple meanings. Consider examples like "I deposited money in the bank" vs "We sat on the bank of the river" (bank = financial institution vs riverbank), "He hit the ball with a bat" vs "A bat flew out of the cave" (bat = sports equipment vs animal), and "Java is a programming language" vs "Java is an island" vs "I ordered Java at the café" (three different meanings of Java). In a transformer-based language model, a token first receives an initial token embedding, and then the model processes it together with the surrounding tokens. Through multiple layers, this representation becomes contextualised, meaning the representation of "bank" in "I deposited money in the bank" can become different from the representation of "bank" in "We sat beside the river bank". In short, the initial token embedding may start out the same, but after the model processes the complete sentence, its internal representation changes according to the surrounding context, captured in the phrase "context modifies representation".`,
+    interviewDefinition: `Contextualisation refers to how modern LLMs handle words with multiple meanings. Consider examples like "I deposited money in the bank" vs "We sat on the bank of the river" (bank = financial institution vs riverbank), "He hit the ball with a bat" vs "A bat flew out of the cave" (bat = sports equipment vs animal), and "Java is a programming language" vs "Java is an island" vs "I ordered Java at the cafe" (three different meanings of Java). In a transformer-based language model, a token first receives an initial token embedding, and then the model processes it together with the surrounding tokens. Through multiple layers, this representation becomes contextualised, meaning the representation of "bank" in "I deposited money in the bank" can become different from the representation of "bank" in "We sat beside the river bank". In short, the initial token embedding may start out the same, but after the model processes the complete sentence, its internal representation changes according to the surrounding context, captured in the phrase "context modifies representation".`,
     example: `// Contextualisation in Transformer-based models (conceptual)
 
 const sentence1 = "I deposited money in the bank";
@@ -1657,5 +1658,202 @@ Output for "he" = (0.84 x V of boy) + (0.04 x V of apple) + (0.11 x V of ate)
 | K    | How relevant am I?                | Helps calculate relevance to Q           |
 | V    | What information do I contribute? | Supplies information for the output      |
 +------+-----------------------------------+------------------------------------------+`
+},
+{
+  id: 'residual-skip-connection',
+  title: 'Residual / Skip Connection',
+  category: 'AI',
+  slangDefinition: `Residual connection (skip connection) na, layer oda output ah old information ku replace panna vekkama, original input ah layer oda output kooda add panradhu. Architecture diagram la paatha, "+" icon and oru arrow mela irundhu vandhu attach aagum, adhu dhan idhu. Simple ah solanumna, input data oru processing layer ah bypass panni, direct shortcut vazhiya poi layer oda output kooda serndhukum. Example ku attention kulla pogum bodhu token representation x = [1, 2, 3] nu vechukalam. Attention process panna aprom Attention(x) = [0.2, -0.5, 0.7] nu output varum. Idha mattum adutha layer ku anupama, original input ah add pannuvom: x + Attention(x) = [1, 2, 3] + [0.2, -0.5, 0.7] = [1.2, 1.5, 3.7]. Idhu dhan final result. Ovvoru layer ah, representation ah scratch la irundhu pudhusa build panradhu madhiri illa, oru useful update add panradhu madhiri ninaichukalam. Transformer layer ku already therinja information ah thooki potturathu illa, adhu oru update ah learn pannum, andha update ah existing representation mela add pannum.`,
+  interviewDefinition: `A residual connection (also called a skip connection) is a direct shortcut in an AI model that lets input data bypass a processing layer and add itself to the layer's output. Instead of completely replacing the old information with the output of a layer, the original input is added back to the layer's output. In the Transformer architecture diagram, this is the "+" icon with an arrow coming from the top. For example, suppose a token representation entering attention is x = [1, 2, 3], and attention produces Attention(x) = [0.2, -0.5, 0.7]. Instead of passing only [0.2, -0.5, 0.7] forward, the original input is added: x + Attention(x) = [1, 2, 3] + [0.2, -0.5, 0.7] = [1.2, 1.5, 3.7]. Each layer can be thought of as adding a useful update rather than rebuilding the entire representation from scratch. A Transformer layer does not throw away what it already knows; it learns an update and adds that update on top of the existing representation.`,
+  example: `// Residual / Skip Connection
+
+// Token representation entering attention
+const x = [1, 2, 3];
+
+// Attention produces
+const attentionOutput = [0.2, -0.5, 0.7];
+
+// WITHOUT residual connection: old information is replaced
+const withoutResidual = attentionOutput;
+console.log(withoutResidual);
+// Output: [0.2, -0.5, 0.7]  -> original information is lost
+
+// WITH residual connection: add the original input back
+function residualConnection(input, layerOutput) {
+  return input.map((value, i) => Number((value + layerOutput[i]).toFixed(1)));
+}
+
+const withResidual = residualConnection(x, attentionOutput);
+console.log(withResidual);
+// Output: [1.2, 1.5, 3.7]
+
+// x + Attention(x) = [1, 2, 3] + [0.2, -0.5, 0.7] = [1.2, 1.5, 3.7]
+
+// Each layer adds a useful update instead of rebuilding
+// the whole representation from scratch.
+// A Transformer layer doesn't throw away what it already knows.
+// It learns an update and adds it on top of the existing representation.`
+},
+{
+  id: 'feed-forward-network',
+  title: 'Feed Forward Network (FFN)',
+  category: 'AI',
+  slangDefinition: `Self-attention nadakkum bodhu tokens ellam onnodu onnu interact pannikum, example ku "I sat on the bank of a river" nu irundha "bank" word, matha words ah paathu meaning ah kandupidikum. Aana FFN nadakkum bodhu, ovvoru token um independent ah thaniya process aagum. Simple ah solanumna, Attention tokens ah communicate panna vekkum, FFN ovvoru token um adhu learn pannadha think/process panna vekkum. Attention enna pannum na, sentence la irukura words ku idaiyila relationship find panni, relevant information ah combine pannum. Adhukku next ah FFN ovvoru word oda representation ah eduthu, adha innum process panni, useful features ah learn panna help pannum. Innum simple ah, Attention: endha words la irundhu information edukanum? FFN: kidacha information ah eppadi transform panni useful representation ah aakuradhu? Feed Forward Network nu solradhu oru neural network, adhu attention operation ku aprom, ovvoru token representation ku learned linear transformations and oru nonlinear activation function apply pannum. Step 1 Attention: words ku idaiyila relationships and context ah learn pannum. Step 2 FFN: each token representation ah separate ah transform pannum. Step 3 Updated representation: adutha Transformer layer ku pass aagum. Attention context ah combine pannina aprom, FFN antha representation la irukura patterns ah transform panni, model ku better features learn panna help pannum. Oru note, FFN "running" illa "action" nu manually identify pannadhu, training moolama useful numerical patterns ah learn pannum.`,
+  interviewDefinition: `A Feed Forward Network (FFN) is a key building block inside a Transformer model that processes information and helps the model think more deeply about the meaning of words after the attention step. During self-attention, tokens interact with each other; for example, in "I'm sitting on the bank of a river", the word "bank" finds its meaning after looking at the other words. During FFN, each token is processed independently. In short: attention lets tokens communicate, FFN lets each token think/process what it learned. Attention finds relationships between the words in a sentence and combines relevant information, while FFN takes the representation of each word and transforms it further to learn useful features. Formally, a Feed Forward Network is a neural network that applies learned linear transformations and a nonlinear activation function to each token representation after the attention operation. Step 1, Attention learns relationships and context between the words. Step 2, FFN transforms each token representation separately. Step 3, the updated representation is passed to the next Transformer layer. FFN does not explicitly identify "running" or "action" manually; it learns useful numerical patterns through training.`,
+  example: `// Feed Forward Network (FFN)
+
+// Attention vs FFN
+// Attention: tokens interact with each other (which words to take information from?)
+// FFN: each token is processed independently (how to transform that information?)
+
+const sentence = ["The", "boy", "is", "running", "fast"];
+
+// Step 1: Attention output (context already combined for each token)
+const afterAttention = {
+  The:     [0.1, 0.4, -0.2],
+  boy:     [0.6, -0.3, 0.5],
+  is:      [0.2, 0.1, 0.0],
+  running: [0.7, 0.2, -0.4],
+  fast:    [0.5, -0.1, 0.3]
+};
+
+// Step 2: FFN = linear transformation + non-linear activation
+// applied to EACH token separately, using the same learned weights
+const W1 = [
+  [0.5, -0.2, 0.1],
+  [0.3, 0.8, -0.5],
+  [-0.4, 0.2, 0.9]
+]; // weights learned during training
+const b1 = [0.1, 0.0, -0.1];
+
+function linear(vector, weights, bias) {
+  return weights.map((row, i) =>
+    row.reduce((sum, w, j) => sum + w * vector[j], 0) + bias[i]
+  );
+}
+
+function relu(vector) {
+  return vector.map(v => Math.max(0, v)); // non-linear activation
+}
+
+function feedForward(tokenVector) {
+  return relu(linear(tokenVector, W1, b1)).map(v => Number(v.toFixed(2)));
+}
+
+// Each token is processed independently (no interaction between tokens here)
+const afterFFN = {};
+for (const token of sentence) {
+  afterFFN[token] = feedForward(afterAttention[token]);
+}
+
+console.log(afterFFN);
+
+// Step 3: Updated representations are passed to the next Transformer layer
+
+// Note: FFN does NOT manually identify "running" or "action".
+// It learns useful numerical patterns through training.`
+},
+{
+  id: 'attention-vs-ffn',
+  title: 'Attention vs FFN',
+  category: 'AI',
+  slangDefinition: `Transformer layer kulla Attention and FFN rendum irukku, aana rendum vera vera velai pannum. Attention tokens ku idaiyila information exchange pannum, adhavadhu oru token matha tokens kitta irundhu information eduthukum. FFN ah paatha, ovvoru token representation ah thaniya transform pannum. Attention Q, K, V use pannum, FFN usually linear layers and activation use pannum. Attention other tokens oda context ah consider pannum, aana standard FFN ovvoru token ah independent ah process pannum, mathu tokens ah paakadhu. Attention relationship learning ku help pannum, FFN feature transformation ku help pannum. Simple ah nyabagam vechukka, Attention na "endha words kitta irundhu information edukanum?", FFN na "kidacha information ah eppadi transform panni useful representation aakuradhu?". Rendum serndhu dhan Transformer layer complete aagum, first Attention context ah combine pannum, apparam FFN adha process pannum.`,
+  interviewDefinition: `Attention and FFN are two different components inside a Transformer layer with different jobs. Attention exchanges information between tokens, uses Q, K, V, considers the context of other tokens, and helps with relationship learning. A Feed Forward Network (FFN) transforms each token representation, usually uses linear layers and an activation function, processes each token independently in the standard design, and helps with feature transformation. In short, Attention decides which tokens to take information from, while FFN decides how to transform the gathered information into a more useful representation. In a Transformer layer, Attention first combines context across tokens, and then the FFN processes each token's updated representation further.`,
+  example: `// Attention vs FFN
+
++----------------------------------------------+-----------------------------------------------------+
+| Attention                                    | FFN                                                 |
++----------------------------------------------+-----------------------------------------------------+
+| Exchanges information between tokens         | Transforms each token representation                |
+| Uses Q, K, V                                 | Usually uses linear layers and activation           |
+| Considers context of other tokens            | Standard FFN processes each token independently     |
+| Helps with relationship learning             | Helps with feature transformation                   |
++----------------------------------------------+-----------------------------------------------------+
+
+
+// Simple way to remember
+
++-----------+----------------------------------------------------------------------------+
+| Component | Question it answers                                                        |
++-----------+----------------------------------------------------------------------------+
+| Attention | Which tokens should I take information from?                               |
+| FFN       | How do I transform the collected information into a useful representation? |
++-----------+----------------------------------------------------------------------------+
+
+
+// Order inside a Transformer layer
+
++------+-----------+-----------------------------------------------------------+
+| Step | Component | What happens                                              |
++------+-----------+-----------------------------------------------------------+
+| 1    | Attention | Tokens exchange information and combine context           |
+| 2    | FFN       | Each token representation is transformed separately       |
+| 3    | Output    | Updated representation goes to the next Transformer layer |
++------+-----------+-----------------------------------------------------------+`
+},
+{
+  id: 'linear-and-softmax',
+  title: 'Linear & Softmax',
+  category: 'AI',
+  slangDefinition: `Transformer kulla ellam process aana aprom, model next word enna varum nu predict pannanum. Adhukku last la Linear layer and Softmax layer use aagum. Linear layer oru math machine madhiri, information oda size and shape ah maathum. Idhu vocabulary la irukura ovvoru word ku oru raw score kudukum. Example ku cat = 2.0, dog = 1.0, car = 0.2, pizza = -0.5 nu scores varum. Indha scores ku "logits" nu per. Idhu just arbitrary scores, direct ah paathu purinjika kashtam. Adhukku dhan Softmax layer, idhu oru referee madhiri, raw numbers ah percentages ah maathum. Softmax values ellam 0 ku 1 kulla irukum, ellam serthu 1 (100%) aagum. Example ku cat = 0.62, dog = 0.23, car = 0.10, pizza = 0.05, total 1.00. Ippo idha probability distribution ah purinjika mudiyum: cat = 62%, dog = 23%, car = 10%, pizza = 5%. Highest probability irukura word ku dhan entry kidaikum, adhu dhan predicted word, inga "cat".`,
+  interviewDefinition: `After the Transformer layers finish processing, the model must predict the next token, which is done by a Linear layer followed by a Softmax layer. A linear layer acts like a math machine that changes the size and shape of information, producing a raw score for every word in the vocabulary. For example: cat = 2.0, dog = 1.0, car = 0.2, pizza = -0.5. These raw scores are called logits. They are arbitrary scores and difficult to interpret directly. A Softmax layer acts like a referee that turns raw numbers into values between 0 and 1 that sum to 1 (100%). Here, Softmax gives cat = 0.62, dog = 0.23, car = 0.10, pizza = 0.05, a total of 1.00. These can now be interpreted as a probability distribution: cat = 62%, dog = 23%, car = 10%, pizza = 5%. The word with the highest probability is selected as the predicted word, which is "cat" here.`,
+  example: `// Linear & Softmax
+
+// Step 1: Linear layer output = raw scores (logits)
+const logits = {
+  cat: 2.0,
+  dog: 1.0,
+  car: 0.2,
+  pizza: -0.5
+};
+// Arbitrary scores, difficult to interpret directly
+
+// Step 2: Softmax converts logits into probabilities
+function softmax(scores) {
+  const entries = Object.entries(scores);
+  const exps = entries.map(([word, score]) => [word, Math.exp(score)]);
+  const sum = exps.reduce((total, [, value]) => total + value, 0);
+  const result = {};
+  exps.forEach(([word, value]) => {
+    result[word] = Number((value / sum).toFixed(2));
+  });
+  return result;
+}
+
+const probabilities = softmax(logits);
+console.log(probabilities);
+// Output: { cat: 0.62, dog: 0.23, car: 0.1, pizza: 0.05 }
+
+// Values are between 0 and 1, and they sum to 1 (100%)
+const total = Object.values(probabilities).reduce((a, b) => a + b, 0);
+console.log(total.toFixed(2)); // 1.00
+
+// Step 3: Pick the highest probability word
+const predictedWord = Object.entries(probabilities)
+  .sort((a, b) => b[1] - a[1])[0][0];
+console.log(predictedWord); // "cat"
+
+
+// Summary
+
++-------+------+---------+-------------+
+| Word  | Logit| Softmax | Probability |
++-------+------+---------+-------------+
+| cat   |  2.0 | 0.62    | 62%         |
+| dog   |  1.0 | 0.23    | 23%         |
+| car   |  0.2 | 0.10    | 10%         |
+| pizza | -0.5 | 0.05    | 5%          |
++-------+------+---------+-------------+
+| Total |      | 1.00    | 100%        |
++-------+------+---------+-------------+
+
++--------------+--------------------------------------------------------+
+| Layer        | What it does                                           |
++--------------+--------------------------------------------------------+
+| Linear layer | Math machine that changes the size and shape of info   |
+|              | and produces raw scores (logits)                       |
+| Softmax      | Referee that turns raw scores into percentages that    |
+|              | add up to 100%                                         |
++--------------+--------------------------------------------------------+`
 },
 ]

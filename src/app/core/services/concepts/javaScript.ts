@@ -1124,8 +1124,8 @@ console.log(person1 instanceof Person) // true ✅
 // ══════════════════════════════════════════════
 // 2. ENCAPSULATION — Data Hiding 🔒
 // ══════════════════════════════════════════════
-// Patient-ோட medical records direct-a access பண்ண கூடாது
-// Private fields (#) use பண்ணி hide பண்ணலாம்
+// Patient-oda medical records direct-a access panna kooda dhu
+// Private fields (#) use panni hide pannalam
 
 class Patient {
   #medicalRecord  // Private field — outside access ❌
@@ -1185,7 +1185,7 @@ anjali.patientAge = 27             // Setter — validates ✅
 // 3. INHERITANCE — Parent → Child 👨‍👩‍👧
 // ══════════════════════════════════════════════
 // Doctor and Nurse are also Persons — share common properties
-// extends use பண்ணி parent class-ல இருந்து inherit பண்ணலாம்
+// extends use panni parent class-la irundu inherit pannalam
 
 class HospitalStaff extends Person {  // Inherits Person ✅
   constructor(name, age, staffId, department) {
@@ -1292,9 +1292,9 @@ console.log(surgeon.treat_parent(patient))  // Dr. Ramesh (Neurosurgeon) is trea
 // ══════════════════════════════════════════════
 // 5. ABSTRACTION — Hide Complexity 🫥
 // ══════════════════════════════════════════════
-// Abstract class — direct instance create பண்ண முடியாது
-// "Every hospital staff MUST have these methods" — rules define பண்ணலாம்
-// JS-la native abstract class இல்லை — manually implement பண்ணுவோம்
+// Abstract class — direct instance create panna mudiyadhu
+// "Every hospital staff MUST have these methods" — rules define pannalam
+// JS-la native abstract class ila — manually implement pannuvom
 
 class AbstractHospitalStaff {
   constructor(name, age) {
@@ -1333,7 +1333,7 @@ console.log(radiologist.clockIn())       // Meena clocked in at... ✅
 // ══════════════════════════════════════════════
 // 6. STATIC METHODS & PROPERTIES
 // ══════════════════════════════════════════════
-// Hospital-level data — specific instance-ku சொந்தமானது இல்லை
+// Hospital-level data — specific instance-ku sondam aanadu ilai
 
 class Hospital {
   static hospitalName = 'City General Hospital' // Static property
@@ -1380,7 +1380,7 @@ console.log(Hospital.getHospitalInfo())   // 'City General Hospital | Patients: 
     title: 'Mutable Object & Reference Understanding',
     category: 'JavaScript',
     referenceUrl: 'https://notebook.zoho.in/app/index.html#/shared/notecards/e6rfeab6b8103b2a545e5b20b6d1668a7b2c2',
-    slangDefinition: `JavaScript-la objects reference-a store pannudhu — value directly illa, memory address store pannudhu. Indha example-la 'a' oru blue box-a 🟦 point pannudhu, adhu inside-la oru green box-a 🟩 point pannudhu (a.next). 'b = a.next' pannum bodhu b also same green box-a point pannudhu — copy illa, same reference. Aparam 'a.next = null' pannа — "hey a, green box-a point pannatha" nu solludhu. Green box destroy aagala! So b still same green box-a point pannudhu — b.val = 2 kedaikkudhu. Reference concept purinja linked list, tree எல்லாம் easy-a puriyum.`,
+    slangDefinition: `JavaScript-la objects reference-a store pannudhu — value directly illa, memory address store pannudhu. Indha example-la 'a' oru blue box-a 🟦 point pannudhu, adhu inside-la oru green box-a 🟩 point pannudhu (a.next). 'b = a.next' pannum bodhu b also same green box-a point pannudhu — copy illa, same reference. Aparam 'a.next = null' pannа — "hey a, green box-a point pannatha" nu solludhu. Green box destroy aagala! So b still same green box-a point pannudhu — b.val = 2 kedaikkudhu. Reference concept purinja linked list, tree ellam easy-a puriyum.`,
     interviewDefinition: `In JavaScript, objects are stored by reference, not by value. When you assign an object to a variable, the variable holds a memory address pointing to that object, not a copy of it. When multiple variables point to the same object, changing one variable's reference does not affect the other variable's reference. In this example, b = a.next makes b point to the same object as a.next. Setting a.next = null only removes a's pointer to that object — it does not destroy the object itself. Since b still holds a direct reference to { val: 2 }, b.val returns 2.`,
     example: `// ✅ The Code
 let a = { val: 1, next: { val: 2, next: null } };
