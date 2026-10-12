@@ -1856,4 +1856,579 @@ console.log(predictedWord); // "cat"
 |              | add up to 100%                                         |
 +--------------+--------------------------------------------------------+`
 },
+{
+  id: 'learning-and-parameters',
+  title: 'Learning & Parameters',
+  category: 'AI',
+  slangDefinition: `Neural network kulla romba periya adjustable numbers collection irukum, adha dhan "parameters" nu solvom. Training nadakkum bodhu, indha parameters ah thirumba thirumba modify pannuvom, appo dhan model oru particular objective la better aagum. So neural network ku "learning" na, parameters ah adjust panradhu, apo dhan future predictions better aagum. Idhu eppadi nadakkum na, network first random ah guess pannum, neraya mistakes pannum. Every time thappa guess pannina, oru mathematical formula andha guess correct answer la irundhu evlo dhooram irukunu calculate pannum. Apparam network backward ah poi, artificial neurons ku idaiyila irukura internal weights ah adjust pannum. Parameters ah ninaichu paakanumna, AI oda brain kulla irukura millions of chinna knobs and dials madhiri. Network create pannum bodhu indha dials ellam random ah set aagi irukum, adhanala first la poor guesses varum. Practice panna panna mistakes check panni, knobs ah konjam konjam thiruppum. Training mudiyum bodhu, indha parameters la dhan patterns recognize panna, languages translate panna, text generate panna theva padra exact settings and "knowledge" irukum. DJ example eduthukalam: nalla sound kedaikka DJ knobs ah regulate panni perfect setting vechuppanga. Sound box dhan model, adhula namma adjust panra knobs and controls dhan parameters. Aana AI la yaaru indha knobs ah tune pannuvanga? Model dhane, training time la. Size paatha, GPT-3 ku 175,000,000,000 (175B) parameters irukku. GPT-4/5 ku trillions of parameters irukalam. Parameters nu solradhu learned numerical values, model oda behavior ah adhu dhan decide pannum, training la learn pannina patterns and knowledge ellam indha parameters muluvadhum encode aagi irukum. Parameters/weights enga ellam irukum na: Embeddings, Attention (Wq, Wk, Wv, Wo), Layer Norm (gamma, beta), FFN (W1, W2, ...). Token oda embedding, adhavadhu numbers array kooda parameters ah irukalam. Technical ah solanumna, parameters na weights and biases. Weights volume dials madhiri, oru input evlo important nu decide pannum. Biases shifting offsets madhiri, inputs kammiya irundhalum model correct decision edukka help pannum. Rendum serndhu interconnected knobs madhiri, AI correct answers kedaikira varaikkum training la shape maarum.`,
+  interviewDefinition: `A neural network contains a huge collection of adjustable numbers called parameters. During training, these parameters are repeatedly modified so that the model becomes better at a particular objective. For a neural network, learning means adjusting parameters so that future predictions become better. The network starts by guessing answers and initially makes many mistakes. Each time it guesses wrong, a mathematical formula calculates how far off the guess was from the correct answer, and the network then works backward to adjust its internal weights, the connections between its artificial neurons. Parameters can be thought of as millions of tiny knobs and dials inside the AI's brain. When the network is first created they are set randomly, causing poor guesses, and by the end of training they hold the exact settings and "knowledge" the AI needs to recognize patterns, translate languages, or generate text. As an analogy, a DJ adjusts knobs to get the perfect sound: the sound box is the model and the knobs are the parameters, and in a neural network it is the model itself that tunes them during training. For scale, GPT-3 has 175,000,000,000 (175B) parameters, while GPT-4/5 reportedly have trillions. Parameters are the learned numerical values that determine the model's behavior, and the patterns and knowledge learned during training are encoded across them. They exist in several places in a Transformer: Embeddings, Attention (Wq, Wk, Wv, Wo), Layer Norm (gamma, beta), and FFN (W1, W2, ...). Specifically, parameters are weights and biases: weights act like volume dials deciding how important a specific input is, while biases act like shifting offsets that help the model make accurate decisions even when the inputs are low. Together they work like interconnected knobs that change shape during training until the AI gets the right answers.`,
+  example: `// Learning = adjusting parameters so future predictions get better
+
+// A tiny "model" with just 2 parameters: weight and bias
+let weight = 0.1; // volume dial: how important the input is
+let bias = 0.0;   // shifting offset
+
+function predict(input) {
+  return weight * input + bias;
+}
+
+// Training data where the correct rule is: output = 2 * input + 1
+const trainingData = [
+  { input: 1, expected: 3 },
+  { input: 2, expected: 5 },
+  { input: 3, expected: 7 }
+];
+
+const learningRate = 0.05;
+
+for (let step = 0; step < 500; step++) {
+  for (const { input, expected } of trainingData) {
+    const guess = predict(input);
+    const error = guess - expected; // how far off the guess is
+
+    // Work backward: slightly turn the knobs to reduce the error
+    weight -= learningRate * error * input;
+    bias -= learningRate * error;
+  }
+}
+
+console.log(weight.toFixed(2), bias.toFixed(2));
+// Output: close to 2.00 and 1.00 -> the parameters LEARNED the pattern
+
+console.log(predict(10).toFixed(1));
+// Output: close to 21.0 -> better future predictions
+
+// Real models do the same thing, just with billions of parameters.
+
+
+// Where parameters live in a Transformer
+
++------------+-----------------------+----------------------------------------+
+| Component  | Parameters / weights  | Note                                   |
++------------+-----------------------+----------------------------------------+
+| Embeddings | Embedding vectors     | A token's embedding contains parameters|
+| Attention  | Wq, Wk, Wv, Wo        | Query, Key, Value, Output weights      |
+| Layer Norm | gamma, beta           | Scale and shift                        |
+| FFN        | W1, W2, ...           | Feed forward layer weights             |
++------------+-----------------------+----------------------------------------+
+
+
+// Weights vs Biases
+
++---------+----------------------------------------------------------+
+| Type    | Role                                                     |
++---------+----------------------------------------------------------+
+| Weights | Volume dials: decide how important a specific input is   |
+| Biases  | Shifting offsets: help decisions even when inputs are low|
++---------+----------------------------------------------------------+
+
+
+// Scale of parameters
+
++---------+-----------------------------------------------+
+| Model   | Parameters                                    |
++---------+-----------------------------------------------+
+| GPT-3   | 175,000,000,000 (175B)                        |
+| GPT-4/5 | Trillions (not officially confirmed)          |
++---------+-----------------------------------------------+
+
+// Parameters are the learned numerical values that determine
+// the model's behavior. Patterns and knowledge learned during
+// training are encoded across these parameters.`
+},
+{
+  id: 'do-parameters-store-knowledge',
+  title: 'Do Parameters Store Knowledge?',
+  category: 'AI',
+  slangDefinition: `Illa, exact ah illa. Parameters patterns and relationships ah dhan store pannum, aana humans facts ah memory la store panra madhiri knowledge illa memory ah store pannadhu. Example ku human "Chennai Tamil Nadu oda capital" nu oru fact ah nyabagam vechukuvanga, aana parameters apdi oru fact ah oru idathula save pannadhu. Adhukku badhila, training la paartha neraya text la irundhu patterns learn pannitu, adha numbers ah encode pannirukum. Algorithms indha learned parameters and patterns ah use panni, input ah process pannitu, namakku meaningful output kudukum. So parameters oru fact database madhiri illa, learned patterns oda collection madhiri.`,
+  interviewDefinition: `No, not exactly. Parameters store patterns and relationships within themselves, but not knowledge or memory in the way humans store facts. A model does not keep a fact as a stored record in one place; instead, patterns learned during training are encoded across many parameters. The algorithms use these learned parameters and patterns to process input and produce meaningful output. So parameters behave like a collection of learned patterns rather than a database of facts.`,
+  example: `// Do parameters store knowledge? -> No, not exactly.
+
+// A database stores facts explicitly (like human memory of facts)
+const factDatabase = {
+  "capital of Tamil Nadu": "Chennai"
+};
+console.log(factDatabase["capital of Tamil Nadu"]); // "Chennai" (stored fact)
+
+// Parameters do NOT look like this.
+// They are just learned numbers encoding patterns and relationships.
+const parameters = [0.12, -0.45, 0.78, 0.33, -0.91, 0.27 /* ...billions more */];
+
+// No single parameter holds "Chennai" or "capital of Tamil Nadu".
+// The patterns are spread across many parameters,
+// and the algorithm uses them to process input
+// and produce meaningful output.
+
++------------------------+--------------------------------------------------+
+| Concept                | Meaning                                          |
++------------------------+--------------------------------------------------+
+| Human memory / database| Stores facts explicitly                          |
+| Parameters             | Store patterns and relationships (learned)       |
+| Algorithm              | Uses parameters + patterns to process input and  |
+|                        | give meaningful output                           |
++------------------------+--------------------------------------------------+`
+},
+{
+  id: 'training-data-and-forward-pass',
+  title: 'Training Data & Forward Pass',
+  category: 'AI',
+  slangDefinition: `Training data na, oru AI model ku solli kudukka use panra examples oda collection. Idha namma oru pudhu subject padikum bodhu use panra textbooks, flashcards, practice problems madhiri ninaichukalam. parameters neural network kulla irukum, training data dhan neural network ku kudukura feed. Training data nu solradhu, neural network ku kudukka possible ah irukura ella valid information um. Ippo training eppadi nadakkum nu paapom, first step "Forward Pass". Example ku "The Sky is _____" nu oru input kudukuromnu vechukalam. Input multiple layers (attention, FFN, layer norm, linear, softmax) vazhiya poi output varum. Output la banana ku 0.85 nu high probability varudhu nu vechukalam, green 0.61, beautiful 0.55, blue 0.20, best 0.15. Aana namakku theriyum, sky blue, beautiful, illa dark ah irukalam, banana ah irukave mudiyadhu. Correct prediction "blue". Adhanala model illa neural network sariya train aagala nu artham, adhunaala dhan wrong prediction kudukudhu, adhu "untrained" model. So parameters ah adjust pannanum, apo dhan correct output predict aagum, blue ku banana vida higher value kidaikum. green, banana arrow keela pogum (value reduce aaganum), blue, beautiful arrow mela pogum (value increase aaganum).`,
+  interviewDefinition: `Training data is the collection of examples used to teach an artificial intelligence model. Think of it as the textbooks, flashcards, and practice problems you use when learning a new subject. Parameters are inside the neural network, and training data is the feed for the neural network: all the valid information fed to it. Training starts with a Forward Pass. Suppose the input is "The Sky is _____". The input travels forward through the multiple layers of the model (attention, feed-forward, layer norm, linear, softmax) and produces output probabilities. For example, an untrained model might output banana = 0.85, green = 0.61, beautiful = 0.55, blue = 0.20, best = 0.15. The sky can be blue, beautiful, or dark, but not banana, and the correct prediction here is "blue". The high probability for banana shows the neural network is not trained properly. The parameters therefore need to be adjusted so that the correct output is predicted and blue gets a higher value than banana: wrong tokens like banana and green should go down, while correct ones like blue should go up.`,
+  example: `// Training Data & Forward Pass
+
+// Training data: examples used to teach the model
+const trainingData = [
+  { input: "The Sky is", correct: "blue" }
+  // ...many more examples (the "feed" for the neural network)
+];
+
+// Forward Pass: input flows through the untrained model's layers
+function forwardPass(input) {
+  // input -> token embedding + positional embedding
+  //       -> multiple Transformer layers (attention, FFN, layer norm)
+  //       -> linear -> softmax -> probabilities
+  return {
+    banana: 0.85,
+    green: 0.61,
+    beautiful: 0.55,
+    blue: 0.20,
+    best: 0.15
+  };
+}
+
+const output = forwardPass("The Sky is");
+console.log(output);
+
+const prediction = Object.entries(output).sort((a, b) => b[1] - a[1])[0][0];
+console.log(prediction);
+// Output: "banana" -> WRONG, model is untrained
+
+const correct = trainingData[0].correct;
+console.log(correct);
+// Output: "blue"
+
+// Parameters must be adjusted so blue gets a higher value than banana
+
+
++-----------+-------------+----------------------+
+| Token     | Probability | What should happen   |
++-----------+-------------+----------------------+
+| banana    | 0.85        | Go down              |
+| green     | 0.61        | Go down              |
+| beautiful | 0.55        | Go up                |
+| blue      | 0.20        | Go up (correct)      |
+| best      | 0.15        | Go down              |
++-----------+-------------+----------------------+
+
++----------------+---------------------------------------------------------+
+| Term           | Meaning                                                 |
++----------------+---------------------------------------------------------+
+| Parameters     | Inside the neural network                               |
+| Training data  | The feed for the neural network                         |
+| Forward pass   | Input flows through layers to produce a prediction      |
++----------------+---------------------------------------------------------+`
+},
+{
+  id: 'loss-function',
+  title: 'Loss Function',
+  category: 'AI',
+  slangDefinition: `Loss function na, prediction evlo mosama irukunu numerical ah measure panra tool. Idhu prediction oda quality ah oru number ah convert pannum. Correct prediction na small loss, romba thappana prediction na large loss. Idha oru strict aana helpful teacher test paper grade panra madhiri ninaichukalam, AI evlo mistakes pannutho avlo loss score athigam. Example ku "The sky is ____" nu eduthukalam, correct answer "blue". Prediction A la blue 90% nu solluchu na LOSS = LOW. Prediction B la blue 2%, banana 80% nu solluchu na LOSS = HIGH. AI oda ultimate goal indha loss score ah zero ku mudinja varaikum close ah kondu vara. Low loss na model nalla velai pannudhu nu artham. Loss ah vechi dhan knobs, adhavadhu parameters adjust aagum. Idhu oru repeated loop: predict and adjust. Aana oru problem irukku, parameters thousands, millions, illa billions kooda irukalam. Endha parameters dhan indha mistake ku responsible? Ovvoru parameter um eppadi change aaganum? Banana prediction aachu, blue correct nu iruntha, andha wrong prediction ku responsible parameters ah dhan target pannuvom. Forward pass na, input AI model vazhiya poi prediction produce panra journey. Idha oru one-way assembly line madhiri ninaichukalam, input aarambathula kudupu, pala processing stations (layers) vazhiya poi, last la finished product ah varum. "The sky is ___" nu input kudukurom, AI andha words ah numbers ah convert pannum, network vazhiya anuppi learned weights oda multiply panni context analyze pannum, next possible words ku probabilities calculate panni best guess ah output kudukum.`,
+  interviewDefinition: `A loss function is a numerical way to measure how bad a prediction is. It converts the quality of a prediction into a number: a correct prediction gives a small loss, and a very wrong prediction gives a large loss. It is like a strict but helpful teacher grading a test: the more mistakes the AI makes, the higher the loss score. For "The sky is ____" with the correct answer "blue", a prediction giving blue 90% has a low loss, while a prediction giving blue 2% and banana 80% has a high loss. The ultimate goal is to get the loss as close to zero as possible, and low loss means the model is doing well. According to the loss, the parameters (the knobs) are adjusted, in a repeated loop of predict and adjust. The challenge is that there may be thousands, millions, or billions of parameters: which parameters were responsible for the mistake, and how should each one change? A forward pass is the journey data takes through an AI model to produce a prediction, like a one-way assembly line where the input enters at the beginning, travels through various processing stations (layers), and emerges as a finished product at the end. For "The sky is ___", the words are converted into numbers, passed through the network where they are multiplied by learned weights to analyze context, and the network calculates probabilities for the next possible word and outputs its best guess.`,
+  example: `// Loss Function
+
+// Loss measures HOW BAD a prediction is
+// Common choice: cross-entropy loss = -log(probability given to the correct answer)
+function loss(probabilityOfCorrectAnswer) {
+  return Number((-Math.log(probabilityOfCorrectAnswer)).toFixed(2));
+}
+
+// Input: "The sky is ____"   Correct answer: "blue"
+
+// Prediction A: blue = 90%
+const predictionA = { blue: 0.90 };
+console.log(loss(predictionA.blue));
+// Output: 0.11 -> LOSS = LOW
+
+// Prediction B: blue = 2%, banana = 80%
+const predictionB = { blue: 0.02, banana: 0.80 };
+console.log(loss(predictionB.blue));
+// Output: 3.91 -> LOSS = HIGH
+
+// Training loop: predict -> measure loss -> adjust parameters -> repeat
+// Goal: bring the loss as close to zero as possible.
+
+
++--------------+-----------------------------+---------+
+| Prediction   | Probabilities               | Loss    |
++--------------+-----------------------------+---------+
+| A            | blue 90%                    | LOW     |
+| B            | blue 2%, banana 80%         | HIGH    |
++--------------+-----------------------------+---------+
+
++--------------------+--------------+
+| Prediction quality | Loss         |
++--------------------+--------------+
+| Correct            | Small loss   |
+| Very wrong         | Large loss   |
++--------------------+--------------+
+
+
+// Forward pass: one-way assembly line
+// Input -> numbers -> layers (weights) -> probabilities -> best guess
+
++--------+-----------------------------------------------------------+
+| Stage  | What happens                                              |
++--------+-----------------------------------------------------------+
+| Input  | "The sky is ___"                                          |
+| Process| Words become numbers, pass through layers, multiplied by  |
+|        | learned weights to analyze context                        |
+| Output | Probabilities for the next word, best guess: "blue"       |
++--------+-----------------------------------------------------------+
+
+// Open question after computing the loss:
+// There may be thousands, millions, or billions of parameters.
+// Which parameters were responsible for the mistake?
+// And how should each one change?`
+},
+{
+  id: 'back-propagation',
+  title: 'Back Propagation (Backward Pass)',
+  category: 'AI',
+  slangDefinition: `Wrong prediction ku responsible parameters ah kandupidichu, layer by layer pinnaadi poi adjustments pannuvom, adhu dhan Back Propagation. Idhu ovvoru parameter ah change panna loss enna aagum nu calculate pannum. Deep learning la backward pass (backpropagation) na, AI thanoda mistakes la irundhu learn panra vazhi. Oru guessing game madhiri ninaichukalam. Forward Pass: AI "The sky is ___" prompt eduthukittu "Banana" nu guess pannum. Calculate Loss: "Thappu, correct answer Blue, un guess romba dhooram" nu AI ku solluvom, indha error ku dhan loss nu per. Backward Pass: AI thanoda internal network vazhiya pinnaadi poi, internal settings (weights) ah adjust pannum, adhanala adutha thadava "The sky is..." paatha "Banana" ku badhila "Blue" nu guess panna chance athigam aagum. "The sky is" input layer A, B, C vazhiya poi "banana" nu wrong output varudhu. Backpropagation output la irukura error la irundhu aarambichu pinnaadi velai pannum. Layer C evlo contribute pannuchu? Layer C la ovvoru weight um evlo contribute pannuchu? Layer B epdi? B la irukura weights epdi? Layer A kum same maadhiri. Idhu loss ku ovvoru parameter oda sensitivity ah calculate pannum. Mathematical ah indha sensitivities ku "gradients" nu per (technical ah partial derivatives). Backpropagation indha gradients ah efficient ah calculate pannum. output layer la (loss calculate panna aprom) total error ku Layer C parameters evlo contribute pannuchu nu paapom, ovvoru weight um evlo adjust aaganum nu paapom. Apparam pinnaadi poi Layer C oda gradient theriyum bodhu Layer B parameters evlo contribute pannuchu nu paapom. Appadiye Layer B la irundhu A ku, ella munnadi layers kum same process.`,
+  interviewDefinition: `Backpropagation (the backward pass) calculates how changing each parameter would affect the loss. Once we know which parameters caused the wrong prediction, we go back layer by layer and make adjustments. It is how an AI learns from its mistakes. In a guessing game: in the Forward Pass the AI takes the prompt "The sky is ___" and guesses "Banana". In Calculate Loss we tell it the correct answer is Blue and its guess was far off; this error is called the loss. In the Backward Pass the AI travels backward through its internal network and adjusts its weights so that next time it is much more likely to guess "Blue" instead of "Banana". Backpropagation is an algorithm used in machine learning to optimize neural networks. It starts from the error at the output and works backward, layer by layer. How much did Layer C contribute to the total error, and how much did each weight in Layer C contribute? Knowing Layer C's gradient, how much did the parameters of Layer B contribute? And similarly for Layer A and all preceding layers. It calculates the sensitivity of the loss to each parameter (weights and biases). Mathematically, these sensitivities are partial derivatives, called gradients, and backpropagation efficiently calculates them.`,
+  example: `// Back Propagation (Backward Pass)
+
+// Network: input -> Layer A -> Layer B -> Layer C -> output
+// Input: "The sky is"   Wrong prediction: "banana"   Correct: "blue"
+
+// Simplified: output = wA * wB * wC * x
+let wA = 0.8, wB = 0.5, wC = 0.9;
+const x = 1;
+const target = 1;      // the correct answer
+const learningRate = 0.1;
+
+for (let step = 0; step < 50; step++) {
+  // 1. Forward pass
+  const a = wA * x;
+  const b = wB * a;
+  const output = wC * b;
+
+  // 2. Calculate loss (how wrong is the prediction?)
+  const loss = (output - target) ** 2;
+  if (step % 25 === 0) console.log("step", step, "loss", loss.toFixed(4));
+
+  // 3. Backward pass: start from the error at the output, move backward
+  const dLoss_dOutput = 2 * (output - target);
+  const gradC = dLoss_dOutput * b;          // How much did Layer C contribute?
+  const dLoss_dB = dLoss_dOutput * wC;
+  const gradB = dLoss_dB * a;               // Layer B, using what we know from C
+  const dLoss_dA = dLoss_dB * wB;
+  const gradA = dLoss_dA * x;               // Layer A, similarly
+
+  // 4. Adjust each parameter using its gradient
+  wC -= learningRate * gradC;
+  wB -= learningRate * gradB;
+  wA -= learningRate * gradA;
+}
+// Loss keeps decreasing -> predictions get closer to the correct answer
+
+
++----------+-----------------------------------------------------------+
+| Step     | What happens                                              |
++----------+-----------------------------------------------------------+
+| Forward  | "The sky is ___" -> AI guesses "Banana"                   |
+| Loss     | Correct answer is Blue, guess was far off -> large loss   |
+| Backward | Travel backward, adjust weights so "Blue" is more likely  |
++----------+-----------------------------------------------------------+
+
++---------+------------------------------------------------------------+
+| Layer   | Question asked during backpropagation                      |
++---------+------------------------------------------------------------+
+| Layer C | How much did C (and each weight in C) contribute to error? |
+| Layer B | Using C's gradient, how much did B contribute?             |
+| Layer A | Using B's gradient, how much did A contribute?             |
++---------+------------------------------------------------------------+
+
+// Backpropagation calculates the sensitivity of the loss to each parameter.
+// Mathematically, these sensitivities are called gradients (partial derivatives).`
+},
+{
+  id: 'gradient',
+  title: 'Gradient (Sensitivity)',
+  category: 'AI',
+  slangDefinition: `Gradient na, oru parameter (oru knob illa dial madhiri) la konjam change panna AI oda mistakes (loss) evlo increase illa decrease aagum nu measure panra value. AI ah oru game aadura madhiri ninaichukalam, adhu next word guess panna try pannum, ovvoru thappana guess kum points povum. Gradients ah paathu, AI ku exactly edhu "knobs" ah, edhu direction la thirupanum nu theriyum, appo dhan adutha thadava kammiya mistakes pannum. Technical ah solanumna, gradient namakku rendu vishayam solludhu: parameter edhu direction la move aaganum, and antha parameter ku loss evlo sensitive. Example ku oru weight 0.40 nu vechukalam. Gradient "indha weight ah increase panna loss increase aagum" nu solludhu. So adha konjam keela (downward) move pannalaam. Innoru weight mela (upward) move aaga vendiyadhu. Backpropagation indha information ah network full-aa compute pannum. Ippo oru kelvi varum: Backpropagation weights ah fix pannumaa? Answer: illa. Backpropagation thaane weights ah update pannanum nu avasiyam illa, adhu gradients ah dhan calculate pannum. Apparam oru optimization algorithm andha gradients ah use panni parameters ah update pannum.`,
+  interviewDefinition: `Gradients are a measure of how much a change in a specific AI parameter (like a knob or dial) will increase or decrease the AI's mistakes (the loss). A gradient tells us which direction a parameter should move to change the loss and how sensitive the loss is to that parameter. By looking at the gradients, the AI learns exactly which knobs to turn, and in which direction, to make fewer mistakes next time. For example, suppose a particular weight is 0.40. The gradient may tell us that increasing this weight would increase the loss, so perhaps we should move it slightly downward, while another weight may need to move upward. Backpropagation computes this information throughout the network. Does backpropagation fix the weights? No. Backpropagation does not itself necessarily update the weights; it calculates the gradients. Then an optimization algorithm uses those gradients to update the parameters.`,
+  example: `// Gradient (Sensitivity)
+
+// One weight and a simple loss: loss = (weight - 0.25)^2
+// (the "ideal" weight is 0.25, so loss is lowest there)
+let weight = 0.40;
+
+function loss(w) {
+  return (w - 0.25) ** 2;
+}
+
+// Gradient = how sensitive the loss is to this weight, and which direction
+function gradient(w) {
+  return 2 * (w - 0.25);
+}
+
+const g = gradient(weight);
+console.log(g.toFixed(2));
+// Output: 0.30 -> positive: increasing the weight would INCREASE the loss
+// So we should move the weight slightly DOWNWARD.
+
+// Backpropagation only CALCULATES the gradient (above).
+// An optimization algorithm then USES the gradient to update the parameter:
+const learningRate = 0.5;
+weight = weight - learningRate * g;
+console.log(weight.toFixed(2)); // 0.25 -> loss is now lower
+console.log(loss(0.40).toFixed(4), "->", loss(weight).toFixed(4));
+// 0.0225 -> 0.0000
+
+
++---------------------------+------------------------------------------------+
+| Gradient tells us         | Example (weight = 0.40)                        |
++---------------------------+------------------------------------------------+
+| Direction to move         | Increasing it raises the loss -> move down     |
+| Sensitivity of the loss   | How strongly the loss reacts to this weight    |
++---------------------------+------------------------------------------------+
+
++------------------------------+-------------------------------------------+
+| Question                     | Answer                                    |
++------------------------------+-------------------------------------------+
+| Does backpropagation fix     | No, it calculates gradients               |
+| the weights?                 |                                           |
+| Who updates the parameters?  | An optimization algorithm, using the      |
+|                              | gradients                                 |
++------------------------------+-------------------------------------------+`
+},
+{
+  id: 'gradient-descent',
+  title: 'Gradient Descent',
+  category: 'AI',
+  slangDefinition: `Gradient Descent na, oru function ah (error illa loss madhiri) minimize panna use panra iterative optimization algorithm. Gradient oda opposite direction la parameters ah adjust pannuvom. Idhu dhan AI thanoda mistakes la irundhu learn panni better guesses panra vazhi. Example: nee oru foggy mountain la irukka, irutla, kizhe irukura bottom valley ah kandupidikanum. Path theriyaadhu, so un leg laa slope ah feel panni, keela pogura direction la oru chinna step edupa. Thirumba thirumba repeat pannuva. AI la "mountain" na computer panra mistakes oda alavu (error illa loss). Next word prediction la AI "the sky is banana" nu guess panna, adhu sense illa so error romba athigam. Algorithm antha guess evlo thappu nu exact ah calculate panni, AI oda internal settings (weights) ah step by step adjust pannum. Neraya small adjustments aprom, AI mistakes ah minimize panni "the sky is blue" nu correct ah guess pannum. Gradient Descent oda core components moonu: Loss Function, Gradient, Learning Rate. Loss function evlo thappu nu solum, gradient slope direction ah solum, learning rate ovvoru step evlo periya ah edukanum nu decide pannum. Neraya thadava repeat panna aprom model correct answer guess pannum. Optimization algorithms la different types irukku: Batch Gradient Descent, Stochastic Gradient Descent (SGD), Mini-Batch Gradient Descent.`,
+  interviewDefinition: `Gradient descent is an iterative optimization algorithm used to minimize a function (like error or loss) by adjusting parameters in the opposite direction of the gradient. It is how an AI learns from its mistakes to make better guesses. Imagine walking down a foggy mountain in the dark, trying to find the very bottom valley: because you cannot see the path, you feel the slope of the ground with your feet and take a small step in the direction that goes downward, then repeat. In AI, the mountain is the amount of mistakes (error or loss). For next-word prediction, if the AI guesses "the sky is banana", the error is very high because it makes no sense. The algorithm calculates exactly how wrong the guess was and adjusts the AI's internal settings (weights) step by step to reduce the error. After many small adjustments, the AI minimizes its mistakes and correctly guesses that the sky is blue. The core components of gradient descent are the Loss Function (how wrong the prediction is), the Gradient (the slope direction), and the Learning Rate (how big each step is). There are different types of optimization algorithms: Batch Gradient Descent, Stochastic Gradient Descent (SGD), and Mini-Batch Gradient Descent.`,
+  example: `// Gradient Descent
+
+// Goal: find the weight with the lowest loss (bottom of the valley)
+// Loss function: how wrong are we? (lowest at weight = 3)
+function loss(w) {
+  return (w - 3) ** 2;
+}
+
+// Gradient: slope direction at the current position
+function gradient(w) {
+  return 2 * (w - 3);
+}
+
+let weight = 0;            // starting somewhere on the "mountain"
+const learningRate = 0.1;  // size of each small step
+
+for (let step = 1; step <= 25; step++) {
+  const g = gradient(weight);
+  weight = weight - learningRate * g; // move OPPOSITE to the gradient
+  if (step % 5 === 0) {
+    console.log("step", step, "weight", weight.toFixed(3), "loss", loss(weight).toFixed(4));
+  }
+}
+// Output (approx):
+// step 5  weight 1.966 loss 1.0703
+// step 10 weight 2.678 loss 0.1036
+// step 15 weight 2.887 loss 0.0128
+// step 20 weight 2.964 loss 0.0013
+// step 25 weight 2.988 loss 0.0001
+// Small steps, repeated -> loss keeps going down.
+
+
++---------------+-------------------------------------------------+
+| Component     | Role                                            |
++---------------+-------------------------------------------------+
+| Loss Function | Tells how wrong the prediction is               |
+| Gradient      | Tells the slope direction                       |
+| Learning Rate | Decides how big each step is                    |
++---------------+-------------------------------------------------+
+
++-------------------------------+-------------------------------------------+
+| Foggy mountain analogy        | In AI                                     |
++-------------------------------+-------------------------------------------+
+| Mountain                      | Error / loss                              |
+| Slope you feel with your feet | Gradient                                  |
+| Small step downward           | Weight update (using learning rate)       |
+| Bottom of the valley          | Minimum loss ("the sky is blue")          |
++-------------------------------+-------------------------------------------+
+
+Types of Gradient Descent:
+
++--------------------------------------------------+--------------------------------------------------+
+| Main Types:                                      | Challenges:                                      |
++--------------------------------------------------+--------------------------------------------------+
+| Batch Gradient Descent: Uses the entire          | Learning rate too small: Training takes          |
+| dataset to compute the gradient for each         | forever.                                         |
+| step; stable but slow on huge datasets.          |                                                  |
++--------------------------------------------------+--------------------------------------------------+
+| Stochastic Gradient Descent (SGD): Uses a        | Learning rate too large: The algorithm           |
+| single data point per step; fast, but            | overshoots the minimum and fails to              |
+| noisy and fluctuates.                            | converge.                                        |
++--------------------------------------------------+--------------------------------------------------+
+| Mini-batch Gradient Descent: Splits data         | Local minima or saddle points: The system        |
+| into small subsets; strikes the best             | can get stuck where the slope is flat            |
+| balance between speed and stability.             |                                                  |
++--------------------------------------------------+--------------------------------------------------+`
+},
+{
+  id: 'training-loop',
+  title: 'Training Loop (Sharpening the Brain)',
+  category: 'AI',
+  slangDefinition: `Ippo ellathayum serthu paatha, training oru loop madhiri nadakkum. First sample data eduthukuvom. Apparam Forward Pass nadakkum, model edhavadhu predict pannum. Adhukku aprom Loss calculate pannuvom, prediction evlo thappu nu paapom. Next Back Propagation nadakkum, gradients calculate aagum. Apparam Optimiser, adhavadhu Gradient Descent, andha gradients use panni parameters ah update pannum. Final ah model konjam better aagum. Idhu dhan training la nadakkudhu, idha thirumba thirumba, romba romba periya amount of training data ku repeat pannuvom. Idha dhan "Sharpening the Brain" nu solluvom. Ellame patterns dhan. Neraya text inputs kudukkuvom, model output guess pannum, words oda sequence ah recognize panna aarambikum. So adhu automatic ah learn pannum, konjam iterations aprom, sila tasks la humans-aa vida better answers kooda generate panna mudiyum.`,
+  interviewDefinition: `To sum up, training is a repeated loop: sample data goes in, the forward pass makes a prediction, the loss is calculated, backpropagation computes the gradients, and an optimiser such as gradient descent uses them to update the parameters, producing a better model. This is repeated again and again over a huge amount of training data, which can be described as "sharpening the brain". It is all about patterns: multiple text inputs are given, the model guesses the output, and it starts recognizing the sequence of words. It learns automatically, and after enough iterations it can generate better answers than humans in some tasks.`,
+  example: `// Training Loop
+
+// Sample data -> Forward Pass -> Calculate Loss
+// -> Back Propagation -> Optimiser (Gradient Descent) -> Better Model
+
+// Tiny model: prediction = weight * input
+let weight = 0.0;
+const learningRate = 0.05;
+
+// Sample data (the pattern to learn: output = 2 * input)
+const trainingData = [
+  { input: 1, expected: 2 },
+  { input: 2, expected: 4 },
+  { input: 3, expected: 6 }
+];
+
+for (let epoch = 1; epoch <= 100; epoch++) {          // repeat again and again
+  for (const { input, expected } of trainingData) {   // sample data
+    const prediction = weight * input;                // 1. Forward Pass
+    const loss = (prediction - expected) ** 2;        // 2. Calculate Loss
+    const gradient = 2 * (prediction - expected) * input; // 3. Back Propagation
+    weight = weight - learningRate * gradient;        // 4. Optimiser (Gradient Descent)
+  }
+}
+
+console.log(weight.toFixed(2));
+// Output: 2.00 -> better model: it learned the pattern automatically
+
+
++----------------------------+
+| Sample data                |
++----------------------------+
+              |
+              v
++----------------------------+
+| Forward Pass               |
++----------------------------+
+              |
+              v
++----------------------------+
+| Calculate Loss             |
++----------------------------+
+              |
+              v
++----------------------------+
+| Back Propagation           |
++----------------------------+
+              |
+              v
++----------------------------+
+| Optimiser                  |
+| Gradient Descent           |
++----------------------------+
+              |
+              v
++----------------------------+
+| Better Model               |
++----------------------------+
+
+// Repeat again and again for a huge amount of training data
+// -> "Sharpening the Brain"`
+},
+{
+  id: 'training-at-scale',
+  title: 'Training at Scale',
+  category: 'AI',
+  slangDefinition: `Models ah billions illa trillions of samples ku train pannuvom. Slowly and steadily, model neraya vishayam recognise pannum. first, serndhu varra words oda sequence ah recognise pannum. Apparam grammar, sentence structure, and long text inputs la words ku nadula irukura relationship ellam learn pannum. Neraya mathematical calculations aprom, model last la output generate panna aarambikum. Aana indha full process ku romba athigam computational power and GPUs venum, yenna na idhu thirumba thirumba nadakkura repeated process. Adhanala dhan periya models train panna company kitta periya compute resources irukanum.`,
+  interviewDefinition: `Models are trained on billions or trillions of samples. Slowly and steadily, the model learns to recognise sequences of words that come together, grammar, sentence structure, and relationships between words in long text inputs. After a very large number of mathematical calculations, models finally generate outputs. This whole process takes a lot of compute and power (GPUs), because training is a repeated process that runs the same loop of forward pass, loss, backpropagation, and optimisation again and again over a huge amount of data.`,
+  example: `
++------------------------------------------------------------------------+
+| We train models for Billions/Trillions of samples.                     |
++------------------------------------------------------------------------+
+| Slowly and steadily, the model learns:                                 |
+|   - To recognise sequences of words that come together                 |
+|   - Grammar                                                            |
+|   - Sentence structure                                                 |
+|   - Relationships between words in long text inputs                    |
++------------------------------------------------------------------------+
+| After lots and lots of mathematical calculations, models finally       |
+| generate outputs (sometimes even better than humans).                  |
++------------------------------------------------------------------------+
+| This whole process takes a lot of compute/power (GPUs), because it     |
+| is a repeated process.                                                 |
++------------------------------------------------------------------------+`
+},
+{
+  id: 'self-supervised-learning-and-training-terminologies',
+  title: 'Self-Supervised Learning & Training Terminologies',
+  category: 'AI',
+  slangDefinition: `Self-supervised learning na, model thaane learn pannikum, namma yaaraavadhu manually ovvoru sentence ah label panna theva illa. Normal ah oru person images ah "cat" illa "dog" nu mark pannuvaanga, aana inga system raw, unlabeled data (millions of internet sentences, images) paathu, adhula konjam part ah hide pannum. Apparam andha missing pieces ah guess panna try pannum, example ku sentence la next word predict panradhu. Inga next token dhan "target" aagum, so label thaane data kulla irundhu kidaichidum. Indha guessing game ah billions of times practice panna, AI thaane patterns, structures, meanings ellam figure out pannikum. Oru important point, neural networks usually oru magical update la oru concept ah learn pannadhu, repeated optimisation moolama dhan useful behaviour varum. Ippo training terminologies paapom. Dataset na ella training examples um. Batch na serthu process panra oru group of examples. Example ku example -> update, example -> update nu oru oru example ku thaniya update panradhuku badhila, batch of examples -> average loss calculate -> parameters update nu process pannuvom. GPUs parallel processing panna mudiyum, adhanala batches la process pannuvom, sequential ah pannina romba neram aagum. Training step na oru optimisation update, forward and backward pass nyabagam irukku la, adhu dhan. Epoch na training dataset full-aa oru thadava poradhu, adhu batch kooda vera. Epoch ah oru exam ku textbook padikara madhiri ninaichukalam, book ah cover to cover oru thadava padicha adhu oru epoch. AI models oru thadava paathu ellathayum learn pannadhu, so dozens illa hundreds of epochs same dataset vazhiya poganum. Ovvoru epoch la model data analyze panni, mistakes pannitu, internal settings ah adjust panni, adutha round ku smarter and more accurate aagum.`,
+  interviewDefinition: `Self-supervised learning is a type of machine learning where a model teaches itself without humans manually labeling data. Instead of a person marking images as "cat" or "dog", the system looks at raw, unlabeled data, such as millions of internet sentences or pictures, hides parts of it, and tries to guess the missing pieces, for example predicting the next word in a sentence. For language models, the next token becomes the "target", so the labels come from the data itself. By practicing this guessing game billions of times, the model learns the underlying patterns, structures, and meanings on its own. Neural networks usually do not learn a concept from one magical update; useful behaviour emerges through repeated optimisation. Key training terminologies: a Dataset is all the training examples. A Batch is a group of examples processed together; instead of example -> update for each example, we process a batch of examples, calculate the average loss, and update parameters. GPUs support parallel processing, so processing in batches is much faster than processing sequentially. A Training Step is one optimisation update (a forward pass, loss calculation, backward pass, and parameter update). An Epoch is one complete pass through the training dataset, which is different from a batch. It is like reading a whole textbook cover to cover once. Models cannot learn everything from one look, so they usually go through the same dataset for dozens or hundreds of epochs, analyzing the data, making mistakes, and adjusting internal settings to become more accurate each round.`,
+  example: `// Self-supervised learning: the next token becomes the "target"
+// No manual labeling needed, labels come from the data itself
+
+const sentence = ["The", "sky", "is", "blue"];
+
+const trainingExamples = [];
+for (let i = 1; i < sentence.length; i++) {
+  trainingExamples.push({
+    input: sentence.slice(0, i),
+    target: sentence[i]
+  });
+}
+console.log(trainingExamples);
+// [
+//   { input: ["The"], target: "sky" },
+//   { input: ["The", "sky"], target: "is" },
+//   { input: ["The", "sky", "is"], target: "blue" }
+// ]
+
+
+// Dataset, Batch, Training Step, Epoch
+const dataset = [1, 2, 3, 4, 5, 6, 7, 8]; // all training examples
+const batchSize = 4;
+const epochs = 3;
+let trainingSteps = 0;
+
+for (let epoch = 1; epoch <= epochs; epoch++) {          // Epoch: one pass through the dataset
+  for (let i = 0; i < dataset.length; i += batchSize) {
+    const batch = dataset.slice(i, i + batchSize);        // Batch: group of examples
+    // calculate average loss for the batch -> update parameters
+    trainingSteps++;                                      // Training step: one optimisation update
+  }
+}
+console.log(trainingSteps);
+// Output: 6 (2 batches per epoch x 3 epochs)
+
+
++---------------+-----------------------------------------------------------+
+| Term          | Meaning                                                   |
++---------------+-----------------------------------------------------------+
+| Dataset       | All training examples                                     |
+| Batch         | A group of examples processed together                    |
+| Training step | One optimisation update                                   |
+| Epoch         | One pass through the training dataset                     |
++---------------+-----------------------------------------------------------+
+
++--------------------------------------+------------------------------------------------+
+| Instead of (one by one)              | We often process (batch)                       |
++--------------------------------------+------------------------------------------------+
+| example -> update                    | batch of examples                              |
+| example -> update                    |   -> calculate average loss                    |
+| example -> update                    |   -> update parameters                         |
++--------------------------------------+------------------------------------------------+
+
+// GPUs support parallel processing, so we process data in batches.
+// Neural networks usually do not learn a concept from one magical update.
+// Useful behaviour emerges through repeated optimisation.`
+},
 ]
