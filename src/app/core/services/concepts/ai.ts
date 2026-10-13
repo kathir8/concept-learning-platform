@@ -1273,7 +1273,7 @@ console.log(mostAttendedWord(attentionForIt_sentence2)); // "mat"
     slangDefinition: `Idhu oru LLM-kulla input enna ellam step-la process aagi, next token ah output aagudhu nu kaatura flow. "How to predict" nu input varudhu, adhu Token IDs ah maarum, apparam Token Embedding and Positional Embedding rendum add aagum. Adhu Transformer block kulla pogum, adhula layer norm, multi-head causal self-attention, feed forward ellam irukum, rendu idathula residual connection (+) irukum. Last ah layer norm, linear, softmax vazhiya poi next token probabilities varum, adhula highest token select aagi input-oda serthu, intha loop repeat aagum.`,
     interviewDefinition: `This diagram shows the end-to-end flow inside a Transformer-based LLM. Input text is converted into Token IDs, then Token Embeddings are combined with Positional Embeddings. The result passes through Transformer blocks, each containing layer normalization, multi-head causal self-attention, and a feed-forward network, with residual connections around both sub-layers. The output then goes through a final layer norm, a linear layer, and a softmax, which produces next-token probabilities. The selected token is appended to the input and the loop repeats.`,
     imageUrl: 'llm-architecture.png',
-    referenceUrl:'https://bbycroft.net/llm',
+    referenceUrl: 'https://bbycroft.net/llm',
     example: `Input: "How to predict"
                               |
                               v
@@ -1330,12 +1330,12 @@ console.log(mostAttendedWord(attentionForIt_sentence2)); // "mat"
 Selected token is appended to the input, and the loop repeats`
   },
   {
-  id: 'token-plus-positional-embedding',
-  title: 'Token Embedding + Positional Embedding',
-  category: 'AI',
-  slangDefinition: `Transformer ku direct ah Token IDs pogadhu, adhukku munnadi oru important step irukku: Token Embedding + Positional Embedding = Transformer ku anupura data. Example ku "How to predict" nu input eduthukalam. First step la tokens Token IDs ah maarum, [2437, 284, 4331] nu. Rendavadhu step la, ovvoru Token ID ku embedding table-la irundhu oru Token Embedding vector kidaikum, idhu "edhu token" nu solum. Aana Token Embedding la position information illa, so "Dog bites man" and "Man bites dog" difference theriyadhu. Adhanaala moonavadhu step la, ovvoru position ku oru Positional Embedding vector kidaikum, idhu "idhu edhu position-la irukku" nu solum. Naalavadhu step la, ovvoru token-oda Token Embedding vector um, antha position-oda Positional Embedding vector um element by element add aagum, adhu dhan final vector. Indha final vectors ellam serndha data dhan Transformer ku input ah pogum. Simple ah solanumna, Token Embedding identity kudukum, Positional Embedding order kudukum, rendum add aana vector-la rendum irukum, so Transformer ku "enna token, edhu idathula" nu rendum theriyum.`,
-  interviewDefinition: `Before the Transformer blocks process anything, the input goes through an embedding step: Token Embedding + Positional Embedding = the data sent to the Transformer. The input text, for example "How to predict", is first converted into Token IDs such as [2437, 284, 4331]. Each Token ID is looked up in the embedding table to get a Token Embedding, which tells the model which token is present. Since a Token Embedding carries no information about order, a Positional Embedding is generated for each position in the sequence, which tells the model where the token appears. The two vectors are added element by element for each token, and the resulting vectors, one per token, are the input to the Transformer. In short, the Token Embedding provides identity, the Positional Embedding provides order, and their sum gives the Transformer both.`,
-  example: `// Token Embedding + Positional Embedding = data sent to the Transformer
+    id: 'token-plus-positional-embedding',
+    title: 'Token Embedding + Positional Embedding',
+    category: 'AI',
+    slangDefinition: `Transformer ku direct ah Token IDs pogadhu, adhukku munnadi oru important step irukku: Token Embedding + Positional Embedding = Transformer ku anupura data. Example ku "How to predict" nu input eduthukalam. First step la tokens Token IDs ah maarum, [2437, 284, 4331] nu. Rendavadhu step la, ovvoru Token ID ku embedding table-la irundhu oru Token Embedding vector kidaikum, idhu "edhu token" nu solum. Aana Token Embedding la position information illa, so "Dog bites man" and "Man bites dog" difference theriyadhu. Adhanaala moonavadhu step la, ovvoru position ku oru Positional Embedding vector kidaikum, idhu "idhu edhu position-la irukku" nu solum. Naalavadhu step la, ovvoru token-oda Token Embedding vector um, antha position-oda Positional Embedding vector um element by element add aagum, adhu dhan final vector. Indha final vectors ellam serndha data dhan Transformer ku input ah pogum. Simple ah solanumna, Token Embedding identity kudukum, Positional Embedding order kudukum, rendum add aana vector-la rendum irukum, so Transformer ku "enna token, edhu idathula" nu rendum theriyum.`,
+    interviewDefinition: `Before the Transformer blocks process anything, the input goes through an embedding step: Token Embedding + Positional Embedding = the data sent to the Transformer. The input text, for example "How to predict", is first converted into Token IDs such as [2437, 284, 4331]. Each Token ID is looked up in the embedding table to get a Token Embedding, which tells the model which token is present. Since a Token Embedding carries no information about order, a Positional Embedding is generated for each position in the sequence, which tells the model where the token appears. The two vectors are added element by element for each token, and the resulting vectors, one per token, are the input to the Transformer. In short, the Token Embedding provides identity, the Positional Embedding provides order, and their sum gives the Transformer both.`,
+    example: `// Token Embedding + Positional Embedding = data sent to the Transformer
 
 const text = "How to predict";
 
@@ -1373,14 +1373,14 @@ console.log(transformerInput);
 // This transformerInput (Token Embedding + Positional Embedding)
 // is the data sent into the Transformer blocks.
 // Token Embedding = identity, Positional Embedding = order.`
-},
-{
-  id: 'layer-normalization',
-  title: 'Layer Normalization (LayerNorm)',
-  category: 'AI',
-  slangDefinition: `Layer Normalization (LayerNorm) nu solradhu neural network kulla flow aagura numbers ah oru stable scale-la vechukka use panra technique. Problem enna na, data Transformer kulla move aagum bodhu, numbers (weights illa activations) romba periya values aah illa romba chinna values aah maarida vaaipu irukku. Example ku [0.2, -0.34, 0.5, 0.62] nu oru vector start aachu, aana attention, feed forward networks, residual additions ellam thirumba thirumba poga poga, adhu [22, 36, 14, 56] madhiri periya numbers ah maariduchu. scale manage panna kashtam aagum, calculations complex aagum. Adhaan LayerNorm vandhu fix pannum, ovvoru layer kulla irukura numbers ah adjust panni, mean (average) 0 ah, variance (spread) 1 ah varra maari maathum. Normalize pannina aprom antha vector [0.18, -0.26, 0.37, 0.58] inda madhiri maarum. Goal enna na, network break aagama irukkanum, illa romba slow ah learn pannama irukkanum. Simple ah solanumna, LayerNorm Transformer-la numbers ah stable ah vachi, model smooth ah learn panna help pannum, so deep networks training um stable ah irukum.`,
-  interviewDefinition: `Layer Normalization (LayerNorm) is a technique used to keep the numbers flowing through a neural network at a more stable scale. As data moves through a Transformer, the numbers (weights or activations) can become too big or too small. For example, a vector like [0.2, -0.34, 0.5, 0.62] can grow to something like [22, 36, 14, 56] as representations repeatedly pass through attention, feed-forward networks, and residual additions, and such scales become difficult to manage and make calculations complex. Layer normalization fixes this by adjusting the numbers inside each separate layer so they have a mean (average) of 0 and a variance (spread) of 1, giving a well-behaved vector such as [0.18, -0.26, 0.37, 0.58]. The goal is to stop the network from breaking or learning too slowly. Normalization keeps the network's internal representations well behaved, which makes training deep networks more stable and lets the model learn smoothly.`,
-  example: `// Layer Normalization (LayerNorm)
+  },
+  {
+    id: 'layer-normalization',
+    title: 'Layer Normalization (LayerNorm)',
+    category: 'AI',
+    slangDefinition: `Layer Normalization (LayerNorm) nu solradhu neural network kulla flow aagura numbers ah oru stable scale-la vechukka use panra technique. Problem enna na, data Transformer kulla move aagum bodhu, numbers (weights illa activations) romba periya values aah illa romba chinna values aah maarida vaaipu irukku. Example ku [0.2, -0.34, 0.5, 0.62] nu oru vector start aachu, aana attention, feed forward networks, residual additions ellam thirumba thirumba poga poga, adhu [22, 36, 14, 56] madhiri periya numbers ah maariduchu. scale manage panna kashtam aagum, calculations complex aagum. Adhaan LayerNorm vandhu fix pannum, ovvoru layer kulla irukura numbers ah adjust panni, mean (average) 0 ah, variance (spread) 1 ah varra maari maathum. Normalize pannina aprom antha vector [0.18, -0.26, 0.37, 0.58] inda madhiri maarum. Goal enna na, network break aagama irukkanum, illa romba slow ah learn pannama irukkanum. Simple ah solanumna, LayerNorm Transformer-la numbers ah stable ah vachi, model smooth ah learn panna help pannum, so deep networks training um stable ah irukum.`,
+    interviewDefinition: `Layer Normalization (LayerNorm) is a technique used to keep the numbers flowing through a neural network at a more stable scale. As data moves through a Transformer, the numbers (weights or activations) can become too big or too small. For example, a vector like [0.2, -0.34, 0.5, 0.62] can grow to something like [22, 36, 14, 56] as representations repeatedly pass through attention, feed-forward networks, and residual additions, and such scales become difficult to manage and make calculations complex. Layer normalization fixes this by adjusting the numbers inside each separate layer so they have a mean (average) of 0 and a variance (spread) of 1, giving a well-behaved vector such as [0.18, -0.26, 0.37, 0.58]. The goal is to stop the network from breaking or learning too slowly. Normalization keeps the network's internal representations well behaved, which makes training deep networks more stable and lets the model learn smoothly.`,
+    example: `// Layer Normalization (LayerNorm)
 
 // Problem: numbers can become too big or too small as they
 // flow through attention, feed-forward networks, residual additions etc.
@@ -1409,14 +1409,14 @@ console.log(normalized.map(v => Number(v.toFixed(2))));
 // Why it matters:
 // Keeps the network's internal representations well behaved,
 // which makes training deep networks more stable.`
-},
-{
-  id: 'multi-head-attention',
-  title: 'Multi-Head Attention',
-  category: 'AI',
-  slangDefinition: `"The boy ate an apple because he was hungry" nu oru sentence eduthukalam. Inga "he" nu solradhu "boy" a refer pannudhu. Athe madhiri "ate" and "apple" kum oru relationship irukku. Oru single attention mechanism use panna, indha different relationships ellathayum at a time la learn panradhu kashtam. Adhanala Multi-Head Attention-la multiple attention heads parallel ah work pannum, ovvoru head um different relationship ah paakkum. Example ku Head 1 "he" and "boy" relationship ah learn pannalaam, Head 2 words-oda meaning ah learn pannalaam, Head 3 sentence-la irukura grammatical relationships ah learn pannalaam. Idhu oru illustrative example mattum dhan. Actual ah ovvoru head enna relationship learn pannum nu namma fixed ah decide panna mudiyadhu, adhu training la model thaan learn pannum. Ellam heads oda results um serthu, model ku sentence oda understanding kidaikum.`,
-  interviewDefinition: `Multi-Head Attention runs multiple attention heads in parallel instead of relying on a single attention mechanism. Consider the sentence "The boy ate an apple because he was hungry." Here "he" refers to "boy", and "ate" has a relationship with "apple". A single attention mechanism would have difficulty learning all of these different relationships at once. With Multi-Head Attention, each head can focus on a different kind of relationship. For example, Head 1 might learn the relationship between "he" and "boy", Head 2 might learn meaning-based relationships, and Head 3 might learn grammatical relationships within the sentence. This is only an illustrative example: what each head actually learns cannot be decided by us in advance, it is learned automatically during training. The outputs of all heads are then combined to give the model a richer understanding of the sentence.`,
-  example: `// Multi-Head Attention (illustrative example)
+  },
+  {
+    id: 'multi-head-attention',
+    title: 'Multi-Head Attention',
+    category: 'AI',
+    slangDefinition: `"The boy ate an apple because he was hungry" nu oru sentence eduthukalam. Inga "he" nu solradhu "boy" a refer pannudhu. Athe madhiri "ate" and "apple" kum oru relationship irukku. Oru single attention mechanism use panna, indha different relationships ellathayum at a time la learn panradhu kashtam. Adhanala Multi-Head Attention-la multiple attention heads parallel ah work pannum, ovvoru head um different relationship ah paakkum. Example ku Head 1 "he" and "boy" relationship ah learn pannalaam, Head 2 words-oda meaning ah learn pannalaam, Head 3 sentence-la irukura grammatical relationships ah learn pannalaam. Idhu oru illustrative example mattum dhan. Actual ah ovvoru head enna relationship learn pannum nu namma fixed ah decide panna mudiyadhu, adhu training la model thaan learn pannum. Ellam heads oda results um serthu, model ku sentence oda understanding kidaikum.`,
+    interviewDefinition: `Multi-Head Attention runs multiple attention heads in parallel instead of relying on a single attention mechanism. Consider the sentence "The boy ate an apple because he was hungry." Here "he" refers to "boy", and "ate" has a relationship with "apple". A single attention mechanism would have difficulty learning all of these different relationships at once. With Multi-Head Attention, each head can focus on a different kind of relationship. For example, Head 1 might learn the relationship between "he" and "boy", Head 2 might learn meaning-based relationships, and Head 3 might learn grammatical relationships within the sentence. This is only an illustrative example: what each head actually learns cannot be decided by us in advance, it is learned automatically during training. The outputs of all heads are then combined to give the model a richer understanding of the sentence.`,
+    example: `// Multi-Head Attention (illustrative example)
 
 const sentence = "The boy ate an apple because he was hungry";
 
@@ -1442,14 +1442,14 @@ console.log(runHeadsInParallel(heads));
 // All head outputs are combined into one richer representation
 // Note: this is ILLUSTRATIVE. What each head actually learns
 // cannot be fixed by us in advance, it is learned during training.`
-},
-{
-  id: 'masked-attention',
-  title: 'Masked Attention',
-  category: 'AI',
-  slangDefinition: `Masking na attention-la entha words ah consider pannalaam, entha words ah consider panna koodathu nu restriction podradhu. Oru attention score matrix irukum, mask apply pannum bodhu certain positions ah block pannuvom. Example ku "I love machine learning" nu eduthukalam, ippo "love" position ku attention calculate panrom. "I" ah attend pannalaam, "love" ah attend pannalaam. Aana "machine" and "learning" ah attend panna allow pannalama illa block pannalama nu, use panra mask type ah depend pannum. So masked attention nu solradhu, mask use panni attention ah restrict panradhu. Future words ah block panradhu mattum masked attention-oda definition illa, adhu oru particular type of masking mattum dhan. Image-la paatha "I love learning" matrix la, "I" row la "I" mattum Allowed, "love" row la "I" and "love" Allowed, "learning" row la ellame Allowed, future positions ellam Blocked. Idhu eppadi work aagudhu na, attention score matrix la block panna vendiya position oda score ah Softmax ku munnadi negative infinity (-∞) nu set pannuvom. Softmax(-∞) = 0, so antha blocked position ku attention weight zero aagidum, meaning model antha word ah paakave maatten.`,
-  interviewDefinition: `Masking means restricting which words (positions) an attention mechanism is allowed to consider. In attention, there is a score matrix, and when a mask is applied, certain positions in it are blocked. For example, in "I love machine learning", when calculating attention for the position "love", it may attend to "I" and "love", while whether it may attend to "machine" and "learning" depends on the type of mask being used. So masked attention simply means restricting attention using a mask. Blocking future words is not the definition of masked attention itself; it is one particular type of masking (causal masking), and other masks can follow different rules. In the illustrative mask for "I love learning", "I" can only attend to itself, "love" can attend to "I" and "love", and "learning" can attend to all three, with future positions blocked. Technically, a blocked position's score is set to negative infinity (-∞) before the Softmax. Since Softmax(-∞) = 0, the attention weight for that blocked position becomes zero.`,
-  example: `// Masked Attention (illustrative)
+  },
+  {
+    id: 'masked-attention',
+    title: 'Masked Attention',
+    category: 'AI',
+    slangDefinition: `Masking na attention-la entha words ah consider pannalaam, entha words ah consider panna koodathu nu restriction podradhu. Oru attention score matrix irukum, mask apply pannum bodhu certain positions ah block pannuvom. Example ku "I love machine learning" nu eduthukalam, ippo "love" position ku attention calculate panrom. "I" ah attend pannalaam, "love" ah attend pannalaam. Aana "machine" and "learning" ah attend panna allow pannalama illa block pannalama nu, use panra mask type ah depend pannum. So masked attention nu solradhu, mask use panni attention ah restrict panradhu. Future words ah block panradhu mattum masked attention-oda definition illa, adhu oru particular type of masking mattum dhan. Image-la paatha "I love learning" matrix la, "I" row la "I" mattum Allowed, "love" row la "I" and "love" Allowed, "learning" row la ellame Allowed, future positions ellam Blocked. Idhu eppadi work aagudhu na, attention score matrix la block panna vendiya position oda score ah Softmax ku munnadi negative infinity (-∞) nu set pannuvom. Softmax(-∞) = 0, so antha blocked position ku attention weight zero aagidum, meaning model antha word ah paakave maatten.`,
+    interviewDefinition: `Masking means restricting which words (positions) an attention mechanism is allowed to consider. In attention, there is a score matrix, and when a mask is applied, certain positions in it are blocked. For example, in "I love machine learning", when calculating attention for the position "love", it may attend to "I" and "love", while whether it may attend to "machine" and "learning" depends on the type of mask being used. So masked attention simply means restricting attention using a mask. Blocking future words is not the definition of masked attention itself; it is one particular type of masking (causal masking), and other masks can follow different rules. In the illustrative mask for "I love learning", "I" can only attend to itself, "love" can attend to "I" and "love", and "learning" can attend to all three, with future positions blocked. Technically, a blocked position's score is set to negative infinity (-∞) before the Softmax. Since Softmax(-∞) = 0, the attention weight for that blocked position becomes zero.`,
+    example: `// Masked Attention (illustrative)
 
 const tokens = ["I", "love", "learning"];
 
@@ -1492,14 +1492,14 @@ console.log(attentionWeights);
 
 // Softmax(-Infinity) = 0
 // So blocked positions get attention weight zero.`
-},
-{
-  id: 'causal-self-attention',
-  title: 'Causal Self-Attention',
-  category: 'AI',
-  slangDefinition: `Causal Self-Attention na, oru token already available ah irukura previous tokens ah and current token ah mattum attend pannum, future tokens ah paakka mudiyaadhu. Idhu autoregressive language models, GPT-style models including, use panra important mechanism. Example ku "I love machine learning" nu sentence eduthukalam, model next word predict panradhukku training nadakkudhu nu imagine pannunga. "I" position la irukumbodhu, "love", "machine", "learning" ellam future la irukku, so adha paakka mudiyaadhu. "love" position la "I" and "love" ah paakalaam. "machine" position la "I", "love", "machine" ah paakalaam. "learning" position la previous words ellathayum paakalaam. Ippadi dhan model step by step learn pannum. so training-layum, use panra bodhum same rule follow aaganum. Idhu masked attention-oda oru particular type, future positions ah block panra mask dhan causal mask.`,
-  interviewDefinition: `Causal Self-Attention means that a token can attend only to the previous tokens that are already available and to the current token itself; it cannot look at future tokens. It is an important mechanism used in autoregressive language models, including GPT-style models. Take the sentence "I love machine learning" while the model is being trained to predict the next word. At the position of "I", the words "love", "machine", and "learning" are in the future and cannot be seen. At "love", the model can see "I" and "love". At "machine", it can see "I", "love", and "machine". At "learning", it can see all the previous words. This way the model learns step by step, without already knowing the future words it is supposed to predict. Causal self-attention is a particular type of masked attention that uses a causal mask to block future positions.`,
-  example: `// Causal Self-Attention (illustrative)
+  },
+  {
+    id: 'causal-self-attention',
+    title: 'Causal Self-Attention',
+    category: 'AI',
+    slangDefinition: `Causal Self-Attention na, oru token already available ah irukura previous tokens ah and current token ah mattum attend pannum, future tokens ah paakka mudiyaadhu. Idhu autoregressive language models, GPT-style models including, use panra important mechanism. Example ku "I love machine learning" nu sentence eduthukalam, model next word predict panradhukku training nadakkudhu nu imagine pannunga. "I" position la irukumbodhu, "love", "machine", "learning" ellam future la irukku, so adha paakka mudiyaadhu. "love" position la "I" and "love" ah paakalaam. "machine" position la "I", "love", "machine" ah paakalaam. "learning" position la previous words ellathayum paakalaam. Ippadi dhan model step by step learn pannum. so training-layum, use panra bodhum same rule follow aaganum. Idhu masked attention-oda oru particular type, future positions ah block panra mask dhan causal mask.`,
+    interviewDefinition: `Causal Self-Attention means that a token can attend only to the previous tokens that are already available and to the current token itself; it cannot look at future tokens. It is an important mechanism used in autoregressive language models, including GPT-style models. Take the sentence "I love machine learning" while the model is being trained to predict the next word. At the position of "I", the words "love", "machine", and "learning" are in the future and cannot be seen. At "love", the model can see "I" and "love". At "machine", it can see "I", "love", and "machine". At "learning", it can see all the previous words. This way the model learns step by step, without already knowing the future words it is supposed to predict. Causal self-attention is a particular type of masked attention that uses a causal mask to block future positions.`,
+    example: `// Causal Self-Attention (illustrative)
 
 const tokens = ["I", "love", "machine", "learning"];
 
@@ -1538,14 +1538,14 @@ tokens.forEach((token, i) => {
 | love     | Allowed | Allowed | Blocked  |
 | learning | Allowed | Allowed | Allowed  |
 +----------+---------+---------+----------+`
-},
-{
-  id: 'multi-head-vs-masked-vs-causal-attention',
-  title: 'Multi-Head vs Masked vs Causal Self-Attention',
-  category: 'AI',
-  slangDefinition: `Indha moonu concepts-um paakka similar ah theriyum, aana ovvonnukum different purpose irukku. Multi-Head Attention oda main purpose different relationships ah learn panradhu, multiple attention heads parallel ah work pannum. Masked Attention oda main purpose selected positions ah restrict panradhu, attention scores mela oru mask apply pannuvom. Causal Self-Attention oda main purpose future token access ah prevent panradhu, backward paathu and current token ah mattum paakkum. GPT-style Transformer "Multi-Head Causal Self-Attention" use pannum, idhula moonum serndhu irukku. Multi-Head na multiple heads attention ah parallel ah process pannum. Self-Attention na queries, keys, and values ellam same sequence-la irundhu varum. Causal na future tokens ah mask vechi block pannuvom. Short ah solanumna, causal masking oru head entha positions ah attend pannalaam nu control pannum, multi-head attention evlo attention heads parallel ah operate aaganum nu control pannum. So rendum different job, aana serndhu dhan GPT-style model-la work aagum.`,
-  interviewDefinition: `Multi-Head Attention, Masked Attention, and Causal Self-Attention are related but serve different purposes. Multi-Head Attention is used to learn different relationships, with multiple attention heads working in parallel. Masked Attention is used to restrict selected positions by applying a mask to the attention scores. Causal Self-Attention is used to prevent future-token access, so a token looks backward and at the current token only. A GPT-style Transformer can use Multi-Head Causal Self-Attention, which combines all three ideas: Multi-Head means multiple heads process attention in parallel, Self-Attention means the queries, keys, and values come from the same sequence, and Causal means future tokens are blocked using a mask. In other words, causal masking controls which positions a head can attend to, while multi-head attention controls how many attention heads operate in parallel.`,
-  example: `// Multi-Head vs Masked vs Causal Self-Attention
+  },
+  {
+    id: 'multi-head-vs-masked-vs-causal-attention',
+    title: 'Multi-Head vs Masked vs Causal Self-Attention',
+    category: 'AI',
+    slangDefinition: `Indha moonu concepts-um paakka similar ah theriyum, aana ovvonnukum different purpose irukku. Multi-Head Attention oda main purpose different relationships ah learn panradhu, multiple attention heads parallel ah work pannum. Masked Attention oda main purpose selected positions ah restrict panradhu, attention scores mela oru mask apply pannuvom. Causal Self-Attention oda main purpose future token access ah prevent panradhu, backward paathu and current token ah mattum paakkum. GPT-style Transformer "Multi-Head Causal Self-Attention" use pannum, idhula moonum serndhu irukku. Multi-Head na multiple heads attention ah parallel ah process pannum. Self-Attention na queries, keys, and values ellam same sequence-la irundhu varum. Causal na future tokens ah mask vechi block pannuvom. Short ah solanumna, causal masking oru head entha positions ah attend pannalaam nu control pannum, multi-head attention evlo attention heads parallel ah operate aaganum nu control pannum. So rendum different job, aana serndhu dhan GPT-style model-la work aagum.`,
+    interviewDefinition: `Multi-Head Attention, Masked Attention, and Causal Self-Attention are related but serve different purposes. Multi-Head Attention is used to learn different relationships, with multiple attention heads working in parallel. Masked Attention is used to restrict selected positions by applying a mask to the attention scores. Causal Self-Attention is used to prevent future-token access, so a token looks backward and at the current token only. A GPT-style Transformer can use Multi-Head Causal Self-Attention, which combines all three ideas: Multi-Head means multiple heads process attention in parallel, Self-Attention means the queries, keys, and values come from the same sequence, and Causal means future tokens are blocked using a mask. In other words, causal masking controls which positions a head can attend to, while multi-head attention controls how many attention heads operate in parallel.`,
+    example: `// Multi-Head vs Masked vs Causal Self-Attention
 
 
 +-----------------------+------------------------------+----------------------------------------------+
@@ -1580,14 +1580,14 @@ for (let head = 1; head <= numberOfHeads; head++) {
 
 // Causal masking controls WHICH positions a head can attend to.
 // Multi-head attention controls HOW MANY heads operate in parallel.`
-},
-{
-  id: 'query-key-value',
-  title: 'Q, K, V (Query, Key, Value)',
-  category: 'AI',
-  slangDefinition: `Q, K, V nu solradhu Transformer architecture-la romba important concept. First oru real-life example paakalaam, library-la book search panradhu. Neenga library ku poi "JavaScript book irukka?" nu kekureenga nu imagine pannunga. Q = Query, idhu neenga thedura book request. K = Key, idhu ovvoru book oda title, topic, category madhiri matching ku use aagura details, example ku "JavaScript", "Python", "History" nu different categories. V = Value, idhu select panna book kulla irukura actual content, JavaScript concepts, examples, code explanations, idhu concept puriya vekkura analogy mattum dhan. Transformer la Q, K, V nu solradhu manually ezhudhina questions, labels, illa book contents illa, athu ellam token representations la irundhu calculate aagura numerical vectors. Ippo "The boy ate an apple because he was hungry" sentence eduthukalam. Query nu solradhu "enakku enna information venum?" nu kekura question madhiri, example ku "he" token, "naan yaara refer panren?" nu related information ah thedum. Key nu solradhu "enkitta enna information irukku?" nu ovvoru word um vechirukura label madhiri, example ku "boy" oda Key, "he" oda Query ku relevant ah irukalam. Value nu solradhu oru word relevant nu decide pannina aprom, andha word la irundhu actual ah enna information edukanum nu represent pannum, example ku "boy" relevant ah irundha, adhu represent panra information "he" oda updated representation ku contribute pannum. Inga moonu steps nadakkudhu. Step 1, Q x K, endha tokens relevant nu score calculate pannuvom. Step 2, Softmax, scores ah attention weights ah convert pannuvom. Step 3, Weights x V, andha weights use panni Values ah combine pannuvom. Example ku "he" ku "boy" high relevance, "apple" lower relevance, "ate" konjam depend, so final output la "boy" oda Value athiga contribute pannum. Simple ah nyabagam vechukka, Q = "What am I looking for?", K = "How relevant am I?", V = "What information do I contribute?".`,
-  interviewDefinition: `Q, K, V (Query, Key, Value) is one of the most important concepts in the Transformer architecture. A helpful analogy is searching for a book in a library: the Query is your request ("Do you have a JavaScript book?"), the Key is the matching details of each book such as title, topic, and category, and the Value is the actual content of the selected book. This is only an analogy; in a Transformer, Q, K, and V are not manually written questions, labels, or contents, they are numerical vectors calculated from token representations. Using the sentence "The boy ate an apple because he was hungry": a Query represents what information a token is looking for from other tokens (for example, "he" looking for who it refers to). A Key represents the features used to determine how relevant a token is to a Query (the Key of "boy" can be relevant to the Query of "he"). A Value contains the information that is weighted and combined using the attention scores (if "boy" is relevant, the information it represents contributes to the updated representation of "he"). Three steps happen: first Q x K calculates a relevance score for each token, then Softmax converts the scores into attention weights, and finally the weights are multiplied with the Values and combined to produce the output. In short, Q represents the information being sought, K helps calculate relevance to Q, and V supplies the information for the output.`,
-  example: `// 1. Library analogy (concept only)
+  },
+  {
+    id: 'query-key-value',
+    title: 'Q, K, V (Query, Key, Value)',
+    category: 'AI',
+    slangDefinition: `Q, K, V nu solradhu Transformer architecture-la romba important concept. First oru real-life example paakalaam, library-la book search panradhu. Neenga library ku poi "JavaScript book irukka?" nu kekureenga nu imagine pannunga. Q = Query, idhu neenga thedura book request. K = Key, idhu ovvoru book oda title, topic, category madhiri matching ku use aagura details, example ku "JavaScript", "Python", "History" nu different categories. V = Value, idhu select panna book kulla irukura actual content, JavaScript concepts, examples, code explanations, idhu concept puriya vekkura analogy mattum dhan. Transformer la Q, K, V nu solradhu manually ezhudhina questions, labels, illa book contents illa, athu ellam token representations la irundhu calculate aagura numerical vectors. Ippo "The boy ate an apple because he was hungry" sentence eduthukalam. Query nu solradhu "enakku enna information venum?" nu kekura question madhiri, example ku "he" token, "naan yaara refer panren?" nu related information ah thedum. Key nu solradhu "enkitta enna information irukku?" nu ovvoru word um vechirukura label madhiri, example ku "boy" oda Key, "he" oda Query ku relevant ah irukalam. Value nu solradhu oru word relevant nu decide pannina aprom, andha word la irundhu actual ah enna information edukanum nu represent pannum, example ku "boy" relevant ah irundha, adhu represent panra information "he" oda updated representation ku contribute pannum. Inga moonu steps nadakkudhu. Step 1, Q x K, endha tokens relevant nu score calculate pannuvom. Step 2, Softmax, scores ah attention weights ah convert pannuvom. Step 3, Weights x V, andha weights use panni Values ah combine pannuvom. Example ku "he" ku "boy" high relevance, "apple" lower relevance, "ate" konjam depend, so final output la "boy" oda Value athiga contribute pannum. Simple ah nyabagam vechukka, Q = "What am I looking for?", K = "How relevant am I?", V = "What information do I contribute?".`,
+    interviewDefinition: `Q, K, V (Query, Key, Value) is one of the most important concepts in the Transformer architecture. A helpful analogy is searching for a book in a library: the Query is your request ("Do you have a JavaScript book?"), the Key is the matching details of each book such as title, topic, and category, and the Value is the actual content of the selected book. This is only an analogy; in a Transformer, Q, K, and V are not manually written questions, labels, or contents, they are numerical vectors calculated from token representations. Using the sentence "The boy ate an apple because he was hungry": a Query represents what information a token is looking for from other tokens (for example, "he" looking for who it refers to). A Key represents the features used to determine how relevant a token is to a Query (the Key of "boy" can be relevant to the Query of "he"). A Value contains the information that is weighted and combined using the attention scores (if "boy" is relevant, the information it represents contributes to the updated representation of "he"). Three steps happen: first Q x K calculates a relevance score for each token, then Softmax converts the scores into attention weights, and finally the weights are multiplied with the Values and combined to produce the output. In short, Q represents the information being sought, K helps calculate relevance to Q, and V supplies the information for the output.`,
+    example: `// 1. Library analogy (concept only)
 
 +------+-----------+-------------------------------------------------+
 | Part | Meaning   | Library example                                 |
@@ -1658,14 +1658,14 @@ Output for "he" = (0.84 x V of boy) + (0.04 x V of apple) + (0.11 x V of ate)
 | K    | How relevant am I?                | Helps calculate relevance to Q           |
 | V    | What information do I contribute? | Supplies information for the output      |
 +------+-----------------------------------+------------------------------------------+`
-},
-{
-  id: 'residual-skip-connection',
-  title: 'Residual / Skip Connection',
-  category: 'AI',
-  slangDefinition: `Residual connection (skip connection) na, layer oda output ah old information ku replace panna vekkama, original input ah layer oda output kooda add panradhu. Architecture diagram la paatha, "+" icon and oru arrow mela irundhu vandhu attach aagum, adhu dhan idhu. Simple ah solanumna, input data oru processing layer ah bypass panni, direct shortcut vazhiya poi layer oda output kooda serndhukum. Example ku attention kulla pogum bodhu token representation x = [1, 2, 3] nu vechukalam. Attention process panna aprom Attention(x) = [0.2, -0.5, 0.7] nu output varum. Idha mattum adutha layer ku anupama, original input ah add pannuvom: x + Attention(x) = [1, 2, 3] + [0.2, -0.5, 0.7] = [1.2, 1.5, 3.7]. Idhu dhan final result. Ovvoru layer ah, representation ah scratch la irundhu pudhusa build panradhu madhiri illa, oru useful update add panradhu madhiri ninaichukalam. Transformer layer ku already therinja information ah thooki potturathu illa, adhu oru update ah learn pannum, andha update ah existing representation mela add pannum.`,
-  interviewDefinition: `A residual connection (also called a skip connection) is a direct shortcut in an AI model that lets input data bypass a processing layer and add itself to the layer's output. Instead of completely replacing the old information with the output of a layer, the original input is added back to the layer's output. In the Transformer architecture diagram, this is the "+" icon with an arrow coming from the top. For example, suppose a token representation entering attention is x = [1, 2, 3], and attention produces Attention(x) = [0.2, -0.5, 0.7]. Instead of passing only [0.2, -0.5, 0.7] forward, the original input is added: x + Attention(x) = [1, 2, 3] + [0.2, -0.5, 0.7] = [1.2, 1.5, 3.7]. Each layer can be thought of as adding a useful update rather than rebuilding the entire representation from scratch. A Transformer layer does not throw away what it already knows; it learns an update and adds that update on top of the existing representation.`,
-  example: `// Residual / Skip Connection
+  },
+  {
+    id: 'residual-skip-connection',
+    title: 'Residual / Skip Connection',
+    category: 'AI',
+    slangDefinition: `Residual connection (skip connection) na, layer oda output ah old information ku replace panna vekkama, original input ah layer oda output kooda add panradhu. Architecture diagram la paatha, "+" icon and oru arrow mela irundhu vandhu attach aagum, adhu dhan idhu. Simple ah solanumna, input data oru processing layer ah bypass panni, direct shortcut vazhiya poi layer oda output kooda serndhukum. Example ku attention kulla pogum bodhu token representation x = [1, 2, 3] nu vechukalam. Attention process panna aprom Attention(x) = [0.2, -0.5, 0.7] nu output varum. Idha mattum adutha layer ku anupama, original input ah add pannuvom: x + Attention(x) = [1, 2, 3] + [0.2, -0.5, 0.7] = [1.2, 1.5, 3.7]. Idhu dhan final result. Ovvoru layer ah, representation ah scratch la irundhu pudhusa build panradhu madhiri illa, oru useful update add panradhu madhiri ninaichukalam. Transformer layer ku already therinja information ah thooki potturathu illa, adhu oru update ah learn pannum, andha update ah existing representation mela add pannum.`,
+    interviewDefinition: `A residual connection (also called a skip connection) is a direct shortcut in an AI model that lets input data bypass a processing layer and add itself to the layer's output. Instead of completely replacing the old information with the output of a layer, the original input is added back to the layer's output. In the Transformer architecture diagram, this is the "+" icon with an arrow coming from the top. For example, suppose a token representation entering attention is x = [1, 2, 3], and attention produces Attention(x) = [0.2, -0.5, 0.7]. Instead of passing only [0.2, -0.5, 0.7] forward, the original input is added: x + Attention(x) = [1, 2, 3] + [0.2, -0.5, 0.7] = [1.2, 1.5, 3.7]. Each layer can be thought of as adding a useful update rather than rebuilding the entire representation from scratch. A Transformer layer does not throw away what it already knows; it learns an update and adds that update on top of the existing representation.`,
+    example: `// Residual / Skip Connection
 
 // Token representation entering attention
 const x = [1, 2, 3];
@@ -1693,14 +1693,14 @@ console.log(withResidual);
 // the whole representation from scratch.
 // A Transformer layer doesn't throw away what it already knows.
 // It learns an update and adds it on top of the existing representation.`
-},
-{
-  id: 'feed-forward-network',
-  title: 'Feed Forward Network (FFN)',
-  category: 'AI',
-  slangDefinition: `Self-attention nadakkum bodhu tokens ellam onnodu onnu interact pannikum, example ku "I sat on the bank of a river" nu irundha "bank" word, matha words ah paathu meaning ah kandupidikum. Aana FFN nadakkum bodhu, ovvoru token um independent ah thaniya process aagum. Simple ah solanumna, Attention tokens ah communicate panna vekkum, FFN ovvoru token um adhu learn pannadha think/process panna vekkum. Attention enna pannum na, sentence la irukura words ku idaiyila relationship find panni, relevant information ah combine pannum. Adhukku next ah FFN ovvoru word oda representation ah eduthu, adha innum process panni, useful features ah learn panna help pannum. Innum simple ah, Attention: endha words la irundhu information edukanum? FFN: kidacha information ah eppadi transform panni useful representation ah aakuradhu? Feed Forward Network nu solradhu oru neural network, adhu attention operation ku aprom, ovvoru token representation ku learned linear transformations and oru nonlinear activation function apply pannum. Step 1 Attention: words ku idaiyila relationships and context ah learn pannum. Step 2 FFN: each token representation ah separate ah transform pannum. Step 3 Updated representation: adutha Transformer layer ku pass aagum. Attention context ah combine pannina aprom, FFN antha representation la irukura patterns ah transform panni, model ku better features learn panna help pannum. Oru note, FFN "running" illa "action" nu manually identify pannadhu, training moolama useful numerical patterns ah learn pannum.`,
-  interviewDefinition: `A Feed Forward Network (FFN) is a key building block inside a Transformer model that processes information and helps the model think more deeply about the meaning of words after the attention step. During self-attention, tokens interact with each other; for example, in "I'm sitting on the bank of a river", the word "bank" finds its meaning after looking at the other words. During FFN, each token is processed independently. In short: attention lets tokens communicate, FFN lets each token think/process what it learned. Attention finds relationships between the words in a sentence and combines relevant information, while FFN takes the representation of each word and transforms it further to learn useful features. Formally, a Feed Forward Network is a neural network that applies learned linear transformations and a nonlinear activation function to each token representation after the attention operation. Step 1, Attention learns relationships and context between the words. Step 2, FFN transforms each token representation separately. Step 3, the updated representation is passed to the next Transformer layer. FFN does not explicitly identify "running" or "action" manually; it learns useful numerical patterns through training.`,
-  example: `// Feed Forward Network (FFN)
+  },
+  {
+    id: 'feed-forward-network',
+    title: 'Feed Forward Network (FFN)',
+    category: 'AI',
+    slangDefinition: `Self-attention nadakkum bodhu tokens ellam onnodu onnu interact pannikum, example ku "I sat on the bank of a river" nu irundha "bank" word, matha words ah paathu meaning ah kandupidikum. Aana FFN nadakkum bodhu, ovvoru token um independent ah thaniya process aagum. Simple ah solanumna, Attention tokens ah communicate panna vekkum, FFN ovvoru token um adhu learn pannadha think/process panna vekkum. Attention enna pannum na, sentence la irukura words ku idaiyila relationship find panni, relevant information ah combine pannum. Adhukku next ah FFN ovvoru word oda representation ah eduthu, adha innum process panni, useful features ah learn panna help pannum. Innum simple ah, Attention: endha words la irundhu information edukanum? FFN: kidacha information ah eppadi transform panni useful representation ah aakuradhu? Feed Forward Network nu solradhu oru neural network, adhu attention operation ku aprom, ovvoru token representation ku learned linear transformations and oru nonlinear activation function apply pannum. Step 1 Attention: words ku idaiyila relationships and context ah learn pannum. Step 2 FFN: each token representation ah separate ah transform pannum. Step 3 Updated representation: adutha Transformer layer ku pass aagum. Attention context ah combine pannina aprom, FFN antha representation la irukura patterns ah transform panni, model ku better features learn panna help pannum. Oru note, FFN "running" illa "action" nu manually identify pannadhu, training moolama useful numerical patterns ah learn pannum.`,
+    interviewDefinition: `A Feed Forward Network (FFN) is a key building block inside a Transformer model that processes information and helps the model think more deeply about the meaning of words after the attention step. During self-attention, tokens interact with each other; for example, in "I'm sitting on the bank of a river", the word "bank" finds its meaning after looking at the other words. During FFN, each token is processed independently. In short: attention lets tokens communicate, FFN lets each token think/process what it learned. Attention finds relationships between the words in a sentence and combines relevant information, while FFN takes the representation of each word and transforms it further to learn useful features. Formally, a Feed Forward Network is a neural network that applies learned linear transformations and a nonlinear activation function to each token representation after the attention operation. Step 1, Attention learns relationships and context between the words. Step 2, FFN transforms each token representation separately. Step 3, the updated representation is passed to the next Transformer layer. FFN does not explicitly identify "running" or "action" manually; it learns useful numerical patterns through training.`,
+    example: `// Feed Forward Network (FFN)
 
 // Attention vs FFN
 // Attention: tokens interact with each other (which words to take information from?)
@@ -1752,14 +1752,14 @@ console.log(afterFFN);
 
 // Note: FFN does NOT manually identify "running" or "action".
 // It learns useful numerical patterns through training.`
-},
-{
-  id: 'attention-vs-ffn',
-  title: 'Attention vs FFN',
-  category: 'AI',
-  slangDefinition: `Transformer layer kulla Attention and FFN rendum irukku, aana rendum vera vera velai pannum. Attention tokens ku idaiyila information exchange pannum, adhavadhu oru token matha tokens kitta irundhu information eduthukum. FFN ah paatha, ovvoru token representation ah thaniya transform pannum. Attention Q, K, V use pannum, FFN usually linear layers and activation use pannum. Attention other tokens oda context ah consider pannum, aana standard FFN ovvoru token ah independent ah process pannum, mathu tokens ah paakadhu. Attention relationship learning ku help pannum, FFN feature transformation ku help pannum. Simple ah nyabagam vechukka, Attention na "endha words kitta irundhu information edukanum?", FFN na "kidacha information ah eppadi transform panni useful representation aakuradhu?". Rendum serndhu dhan Transformer layer complete aagum, first Attention context ah combine pannum, apparam FFN adha process pannum.`,
-  interviewDefinition: `Attention and FFN are two different components inside a Transformer layer with different jobs. Attention exchanges information between tokens, uses Q, K, V, considers the context of other tokens, and helps with relationship learning. A Feed Forward Network (FFN) transforms each token representation, usually uses linear layers and an activation function, processes each token independently in the standard design, and helps with feature transformation. In short, Attention decides which tokens to take information from, while FFN decides how to transform the gathered information into a more useful representation. In a Transformer layer, Attention first combines context across tokens, and then the FFN processes each token's updated representation further.`,
-  example: `// Attention vs FFN
+  },
+  {
+    id: 'attention-vs-ffn',
+    title: 'Attention vs FFN',
+    category: 'AI',
+    slangDefinition: `Transformer layer kulla Attention and FFN rendum irukku, aana rendum vera vera velai pannum. Attention tokens ku idaiyila information exchange pannum, adhavadhu oru token matha tokens kitta irundhu information eduthukum. FFN ah paatha, ovvoru token representation ah thaniya transform pannum. Attention Q, K, V use pannum, FFN usually linear layers and activation use pannum. Attention other tokens oda context ah consider pannum, aana standard FFN ovvoru token ah independent ah process pannum, mathu tokens ah paakadhu. Attention relationship learning ku help pannum, FFN feature transformation ku help pannum. Simple ah nyabagam vechukka, Attention na "endha words kitta irundhu information edukanum?", FFN na "kidacha information ah eppadi transform panni useful representation aakuradhu?". Rendum serndhu dhan Transformer layer complete aagum, first Attention context ah combine pannum, apparam FFN adha process pannum.`,
+    interviewDefinition: `Attention and FFN are two different components inside a Transformer layer with different jobs. Attention exchanges information between tokens, uses Q, K, V, considers the context of other tokens, and helps with relationship learning. A Feed Forward Network (FFN) transforms each token representation, usually uses linear layers and an activation function, processes each token independently in the standard design, and helps with feature transformation. In short, Attention decides which tokens to take information from, while FFN decides how to transform the gathered information into a more useful representation. In a Transformer layer, Attention first combines context across tokens, and then the FFN processes each token's updated representation further.`,
+    example: `// Attention vs FFN
 
 +----------------------------------------------+-----------------------------------------------------+
 | Attention                                    | FFN                                                 |
@@ -1790,14 +1790,14 @@ console.log(afterFFN);
 | 2    | FFN       | Each token representation is transformed separately       |
 | 3    | Output    | Updated representation goes to the next Transformer layer |
 +------+-----------+-----------------------------------------------------------+`
-},
-{
-  id: 'linear-and-softmax',
-  title: 'Linear & Softmax',
-  category: 'AI',
-  slangDefinition: `Transformer kulla ellam process aana aprom, model next word enna varum nu predict pannanum. Adhukku last la Linear layer and Softmax layer use aagum. Linear layer oru math machine madhiri, information oda size and shape ah maathum. Idhu vocabulary la irukura ovvoru word ku oru raw score kudukum. Example ku cat = 2.0, dog = 1.0, car = 0.2, pizza = -0.5 nu scores varum. Indha scores ku "logits" nu per. Idhu just arbitrary scores, direct ah paathu purinjika kashtam. Adhukku dhan Softmax layer, idhu oru referee madhiri, raw numbers ah percentages ah maathum. Softmax values ellam 0 ku 1 kulla irukum, ellam serthu 1 (100%) aagum. Example ku cat = 0.62, dog = 0.23, car = 0.10, pizza = 0.05, total 1.00. Ippo idha probability distribution ah purinjika mudiyum: cat = 62%, dog = 23%, car = 10%, pizza = 5%. Highest probability irukura word ku dhan entry kidaikum, adhu dhan predicted word, inga "cat".`,
-  interviewDefinition: `After the Transformer layers finish processing, the model must predict the next token, which is done by a Linear layer followed by a Softmax layer. A linear layer acts like a math machine that changes the size and shape of information, producing a raw score for every word in the vocabulary. For example: cat = 2.0, dog = 1.0, car = 0.2, pizza = -0.5. These raw scores are called logits. They are arbitrary scores and difficult to interpret directly. A Softmax layer acts like a referee that turns raw numbers into values between 0 and 1 that sum to 1 (100%). Here, Softmax gives cat = 0.62, dog = 0.23, car = 0.10, pizza = 0.05, a total of 1.00. These can now be interpreted as a probability distribution: cat = 62%, dog = 23%, car = 10%, pizza = 5%. The word with the highest probability is selected as the predicted word, which is "cat" here.`,
-  example: `// Linear & Softmax
+  },
+  {
+    id: 'linear-and-softmax',
+    title: 'Linear & Softmax',
+    category: 'AI',
+    slangDefinition: `Transformer kulla ellam process aana aprom, model next word enna varum nu predict pannanum. Adhukku last la Linear layer and Softmax layer use aagum. Linear layer oru math machine madhiri, information oda size and shape ah maathum. Idhu vocabulary la irukura ovvoru word ku oru raw score kudukum. Example ku cat = 2.0, dog = 1.0, car = 0.2, pizza = -0.5 nu scores varum. Indha scores ku "logits" nu per. Idhu just arbitrary scores, direct ah paathu purinjika kashtam. Adhukku dhan Softmax layer, idhu oru referee madhiri, raw numbers ah percentages ah maathum. Softmax values ellam 0 ku 1 kulla irukum, ellam serthu 1 (100%) aagum. Example ku cat = 0.62, dog = 0.23, car = 0.10, pizza = 0.05, total 1.00. Ippo idha probability distribution ah purinjika mudiyum: cat = 62%, dog = 23%, car = 10%, pizza = 5%. Highest probability irukura word ku dhan entry kidaikum, adhu dhan predicted word, inga "cat".`,
+    interviewDefinition: `After the Transformer layers finish processing, the model must predict the next token, which is done by a Linear layer followed by a Softmax layer. A linear layer acts like a math machine that changes the size and shape of information, producing a raw score for every word in the vocabulary. For example: cat = 2.0, dog = 1.0, car = 0.2, pizza = -0.5. These raw scores are called logits. They are arbitrary scores and difficult to interpret directly. A Softmax layer acts like a referee that turns raw numbers into values between 0 and 1 that sum to 1 (100%). Here, Softmax gives cat = 0.62, dog = 0.23, car = 0.10, pizza = 0.05, a total of 1.00. These can now be interpreted as a probability distribution: cat = 62%, dog = 23%, car = 10%, pizza = 5%. The word with the highest probability is selected as the predicted word, which is "cat" here.`,
+    example: `// Linear & Softmax
 
 // Step 1: Linear layer output = raw scores (logits)
 const logits = {
@@ -1855,14 +1855,14 @@ console.log(predictedWord); // "cat"
 | Softmax      | Referee that turns raw scores into percentages that    |
 |              | add up to 100%                                         |
 +--------------+--------------------------------------------------------+`
-},
-{
-  id: 'learning-and-parameters',
-  title: 'Learning & Parameters',
-  category: 'AI',
-  slangDefinition: `Neural network kulla romba periya adjustable numbers collection irukum, adha dhan "parameters" nu solvom. Training nadakkum bodhu, indha parameters ah thirumba thirumba modify pannuvom, appo dhan model oru particular objective la better aagum. So neural network ku "learning" na, parameters ah adjust panradhu, apo dhan future predictions better aagum. Idhu eppadi nadakkum na, network first random ah guess pannum, neraya mistakes pannum. Every time thappa guess pannina, oru mathematical formula andha guess correct answer la irundhu evlo dhooram irukunu calculate pannum. Apparam network backward ah poi, artificial neurons ku idaiyila irukura internal weights ah adjust pannum. Parameters ah ninaichu paakanumna, AI oda brain kulla irukura millions of chinna knobs and dials madhiri. Network create pannum bodhu indha dials ellam random ah set aagi irukum, adhanala first la poor guesses varum. Practice panna panna mistakes check panni, knobs ah konjam konjam thiruppum. Training mudiyum bodhu, indha parameters la dhan patterns recognize panna, languages translate panna, text generate panna theva padra exact settings and "knowledge" irukum. DJ example eduthukalam: nalla sound kedaikka DJ knobs ah regulate panni perfect setting vechuppanga. Sound box dhan model, adhula namma adjust panra knobs and controls dhan parameters. Aana AI la yaaru indha knobs ah tune pannuvanga? Model dhane, training time la. Size paatha, GPT-3 ku 175,000,000,000 (175B) parameters irukku. GPT-4/5 ku trillions of parameters irukalam. Parameters nu solradhu learned numerical values, model oda behavior ah adhu dhan decide pannum, training la learn pannina patterns and knowledge ellam indha parameters muluvadhum encode aagi irukum. Parameters/weights enga ellam irukum na: Embeddings, Attention (Wq, Wk, Wv, Wo), Layer Norm (gamma, beta), FFN (W1, W2, ...). Token oda embedding, adhavadhu numbers array kooda parameters ah irukalam. Technical ah solanumna, parameters na weights and biases. Weights volume dials madhiri, oru input evlo important nu decide pannum. Biases shifting offsets madhiri, inputs kammiya irundhalum model correct decision edukka help pannum. Rendum serndhu interconnected knobs madhiri, AI correct answers kedaikira varaikkum training la shape maarum.`,
-  interviewDefinition: `A neural network contains a huge collection of adjustable numbers called parameters. During training, these parameters are repeatedly modified so that the model becomes better at a particular objective. For a neural network, learning means adjusting parameters so that future predictions become better. The network starts by guessing answers and initially makes many mistakes. Each time it guesses wrong, a mathematical formula calculates how far off the guess was from the correct answer, and the network then works backward to adjust its internal weights, the connections between its artificial neurons. Parameters can be thought of as millions of tiny knobs and dials inside the AI's brain. When the network is first created they are set randomly, causing poor guesses, and by the end of training they hold the exact settings and "knowledge" the AI needs to recognize patterns, translate languages, or generate text. As an analogy, a DJ adjusts knobs to get the perfect sound: the sound box is the model and the knobs are the parameters, and in a neural network it is the model itself that tunes them during training. For scale, GPT-3 has 175,000,000,000 (175B) parameters, while GPT-4/5 reportedly have trillions. Parameters are the learned numerical values that determine the model's behavior, and the patterns and knowledge learned during training are encoded across them. They exist in several places in a Transformer: Embeddings, Attention (Wq, Wk, Wv, Wo), Layer Norm (gamma, beta), and FFN (W1, W2, ...). Specifically, parameters are weights and biases: weights act like volume dials deciding how important a specific input is, while biases act like shifting offsets that help the model make accurate decisions even when the inputs are low. Together they work like interconnected knobs that change shape during training until the AI gets the right answers.`,
-  example: `// Learning = adjusting parameters so future predictions get better
+  },
+  {
+    id: 'learning-and-parameters',
+    title: 'Learning & Parameters',
+    category: 'AI',
+    slangDefinition: `Neural network kulla romba periya adjustable numbers collection irukum, adha dhan "parameters" nu solvom. Training nadakkum bodhu, indha parameters ah thirumba thirumba modify pannuvom, appo dhan model oru particular objective la better aagum. So neural network ku "learning" na, parameters ah adjust panradhu, apo dhan future predictions better aagum. Idhu eppadi nadakkum na, network first random ah guess pannum, neraya mistakes pannum. Every time thappa guess pannina, oru mathematical formula andha guess correct answer la irundhu evlo dhooram irukunu calculate pannum. Apparam network backward ah poi, artificial neurons ku idaiyila irukura internal weights ah adjust pannum. Parameters ah ninaichu paakanumna, AI oda brain kulla irukura millions of chinna knobs and dials madhiri. Network create pannum bodhu indha dials ellam random ah set aagi irukum, adhanala first la poor guesses varum. Practice panna panna mistakes check panni, knobs ah konjam konjam thiruppum. Training mudiyum bodhu, indha parameters la dhan patterns recognize panna, languages translate panna, text generate panna theva padra exact settings and "knowledge" irukum. DJ example eduthukalam: nalla sound kedaikka DJ knobs ah regulate panni perfect setting vechuppanga. Sound box dhan model, adhula namma adjust panra knobs and controls dhan parameters. Aana AI la yaaru indha knobs ah tune pannuvanga? Model dhane, training time la. Size paatha, GPT-3 ku 175,000,000,000 (175B) parameters irukku. GPT-4/5 ku trillions of parameters irukalam. Parameters nu solradhu learned numerical values, model oda behavior ah adhu dhan decide pannum, training la learn pannina patterns and knowledge ellam indha parameters muluvadhum encode aagi irukum. Parameters/weights enga ellam irukum na: Embeddings, Attention (Wq, Wk, Wv, Wo), Layer Norm (gamma, beta), FFN (W1, W2, ...). Token oda embedding, adhavadhu numbers array kooda parameters ah irukalam. Technical ah solanumna, parameters na weights and biases. Weights volume dials madhiri, oru input evlo important nu decide pannum. Biases shifting offsets madhiri, inputs kammiya irundhalum model correct decision edukka help pannum. Rendum serndhu interconnected knobs madhiri, AI correct answers kedaikira varaikkum training la shape maarum.`,
+    interviewDefinition: `A neural network contains a huge collection of adjustable numbers called parameters. During training, these parameters are repeatedly modified so that the model becomes better at a particular objective. For a neural network, learning means adjusting parameters so that future predictions become better. The network starts by guessing answers and initially makes many mistakes. Each time it guesses wrong, a mathematical formula calculates how far off the guess was from the correct answer, and the network then works backward to adjust its internal weights, the connections between its artificial neurons. Parameters can be thought of as millions of tiny knobs and dials inside the AI's brain. When the network is first created they are set randomly, causing poor guesses, and by the end of training they hold the exact settings and "knowledge" the AI needs to recognize patterns, translate languages, or generate text. As an analogy, a DJ adjusts knobs to get the perfect sound: the sound box is the model and the knobs are the parameters, and in a neural network it is the model itself that tunes them during training. For scale, GPT-3 has 175,000,000,000 (175B) parameters, while GPT-4/5 reportedly have trillions. Parameters are the learned numerical values that determine the model's behavior, and the patterns and knowledge learned during training are encoded across them. They exist in several places in a Transformer: Embeddings, Attention (Wq, Wk, Wv, Wo), Layer Norm (gamma, beta), and FFN (W1, W2, ...). Specifically, parameters are weights and biases: weights act like volume dials deciding how important a specific input is, while biases act like shifting offsets that help the model make accurate decisions even when the inputs are low. Together they work like interconnected knobs that change shape during training until the AI gets the right answers.`,
+    example: `// Learning = adjusting parameters so future predictions get better
 
 // A tiny "model" with just 2 parameters: weight and bias
 let weight = 0.1; // volume dial: how important the input is
@@ -1935,14 +1935,14 @@ console.log(predict(10).toFixed(1));
 // Parameters are the learned numerical values that determine
 // the model's behavior. Patterns and knowledge learned during
 // training are encoded across these parameters.`
-},
-{
-  id: 'do-parameters-store-knowledge',
-  title: 'Do Parameters Store Knowledge?',
-  category: 'AI',
-  slangDefinition: `Illa, exact ah illa. Parameters patterns and relationships ah dhan store pannum, aana humans facts ah memory la store panra madhiri knowledge illa memory ah store pannadhu. Example ku human "Chennai Tamil Nadu oda capital" nu oru fact ah nyabagam vechukuvanga, aana parameters apdi oru fact ah oru idathula save pannadhu. Adhukku badhila, training la paartha neraya text la irundhu patterns learn pannitu, adha numbers ah encode pannirukum. Algorithms indha learned parameters and patterns ah use panni, input ah process pannitu, namakku meaningful output kudukum. So parameters oru fact database madhiri illa, learned patterns oda collection madhiri.`,
-  interviewDefinition: `No, not exactly. Parameters store patterns and relationships within themselves, but not knowledge or memory in the way humans store facts. A model does not keep a fact as a stored record in one place; instead, patterns learned during training are encoded across many parameters. The algorithms use these learned parameters and patterns to process input and produce meaningful output. So parameters behave like a collection of learned patterns rather than a database of facts.`,
-  example: `// Do parameters store knowledge? -> No, not exactly.
+  },
+  {
+    id: 'do-parameters-store-knowledge',
+    title: 'Do Parameters Store Knowledge?',
+    category: 'AI',
+    slangDefinition: `Illa, exact ah illa. Parameters patterns and relationships ah dhan store pannum, aana humans facts ah memory la store panra madhiri knowledge illa memory ah store pannadhu. Example ku human "Chennai Tamil Nadu oda capital" nu oru fact ah nyabagam vechukuvanga, aana parameters apdi oru fact ah oru idathula save pannadhu. Adhukku badhila, training la paartha neraya text la irundhu patterns learn pannitu, adha numbers ah encode pannirukum. Algorithms indha learned parameters and patterns ah use panni, input ah process pannitu, namakku meaningful output kudukum. So parameters oru fact database madhiri illa, learned patterns oda collection madhiri.`,
+    interviewDefinition: `No, not exactly. Parameters store patterns and relationships within themselves, but not knowledge or memory in the way humans store facts. A model does not keep a fact as a stored record in one place; instead, patterns learned during training are encoded across many parameters. The algorithms use these learned parameters and patterns to process input and produce meaningful output. So parameters behave like a collection of learned patterns rather than a database of facts.`,
+    example: `// Do parameters store knowledge? -> No, not exactly.
 
 // A database stores facts explicitly (like human memory of facts)
 const factDatabase = {
@@ -1967,14 +1967,14 @@ const parameters = [0.12, -0.45, 0.78, 0.33, -0.91, 0.27 /* ...billions more */]
 | Algorithm              | Uses parameters + patterns to process input and  |
 |                        | give meaningful output                           |
 +------------------------+--------------------------------------------------+`
-},
-{
-  id: 'training-data-and-forward-pass',
-  title: 'Training Data & Forward Pass',
-  category: 'AI',
-  slangDefinition: `Training data na, oru AI model ku solli kudukka use panra examples oda collection. Idha namma oru pudhu subject padikum bodhu use panra textbooks, flashcards, practice problems madhiri ninaichukalam. parameters neural network kulla irukum, training data dhan neural network ku kudukura feed. Training data nu solradhu, neural network ku kudukka possible ah irukura ella valid information um. Ippo training eppadi nadakkum nu paapom, first step "Forward Pass". Example ku "The Sky is _____" nu oru input kudukuromnu vechukalam. Input multiple layers (attention, FFN, layer norm, linear, softmax) vazhiya poi output varum. Output la banana ku 0.85 nu high probability varudhu nu vechukalam, green 0.61, beautiful 0.55, blue 0.20, best 0.15. Aana namakku theriyum, sky blue, beautiful, illa dark ah irukalam, banana ah irukave mudiyadhu. Correct prediction "blue". Adhanala model illa neural network sariya train aagala nu artham, adhunaala dhan wrong prediction kudukudhu, adhu "untrained" model. So parameters ah adjust pannanum, apo dhan correct output predict aagum, blue ku banana vida higher value kidaikum. green, banana arrow keela pogum (value reduce aaganum), blue, beautiful arrow mela pogum (value increase aaganum).`,
-  interviewDefinition: `Training data is the collection of examples used to teach an artificial intelligence model. Think of it as the textbooks, flashcards, and practice problems you use when learning a new subject. Parameters are inside the neural network, and training data is the feed for the neural network: all the valid information fed to it. Training starts with a Forward Pass. Suppose the input is "The Sky is _____". The input travels forward through the multiple layers of the model (attention, feed-forward, layer norm, linear, softmax) and produces output probabilities. For example, an untrained model might output banana = 0.85, green = 0.61, beautiful = 0.55, blue = 0.20, best = 0.15. The sky can be blue, beautiful, or dark, but not banana, and the correct prediction here is "blue". The high probability for banana shows the neural network is not trained properly. The parameters therefore need to be adjusted so that the correct output is predicted and blue gets a higher value than banana: wrong tokens like banana and green should go down, while correct ones like blue should go up.`,
-  example: `// Training Data & Forward Pass
+  },
+  {
+    id: 'training-data-and-forward-pass',
+    title: 'Training Data & Forward Pass',
+    category: 'AI',
+    slangDefinition: `Training data na, oru AI model ku solli kudukka use panra examples oda collection. Idha namma oru pudhu subject padikum bodhu use panra textbooks, flashcards, practice problems madhiri ninaichukalam. parameters neural network kulla irukum, training data dhan neural network ku kudukura feed. Training data nu solradhu, neural network ku kudukka possible ah irukura ella valid information um. Ippo training eppadi nadakkum nu paapom, first step "Forward Pass". Example ku "The Sky is _____" nu oru input kudukuromnu vechukalam. Input multiple layers (attention, FFN, layer norm, linear, softmax) vazhiya poi output varum. Output la banana ku 0.85 nu high probability varudhu nu vechukalam, green 0.61, beautiful 0.55, blue 0.20, best 0.15. Aana namakku theriyum, sky blue, beautiful, illa dark ah irukalam, banana ah irukave mudiyadhu. Correct prediction "blue". Adhanala model illa neural network sariya train aagala nu artham, adhunaala dhan wrong prediction kudukudhu, adhu "untrained" model. So parameters ah adjust pannanum, apo dhan correct output predict aagum, blue ku banana vida higher value kidaikum. green, banana arrow keela pogum (value reduce aaganum), blue, beautiful arrow mela pogum (value increase aaganum).`,
+    interviewDefinition: `Training data is the collection of examples used to teach an artificial intelligence model. Think of it as the textbooks, flashcards, and practice problems you use when learning a new subject. Parameters are inside the neural network, and training data is the feed for the neural network: all the valid information fed to it. Training starts with a Forward Pass. Suppose the input is "The Sky is _____". The input travels forward through the multiple layers of the model (attention, feed-forward, layer norm, linear, softmax) and produces output probabilities. For example, an untrained model might output banana = 0.85, green = 0.61, beautiful = 0.55, blue = 0.20, best = 0.15. The sky can be blue, beautiful, or dark, but not banana, and the correct prediction here is "blue". The high probability for banana shows the neural network is not trained properly. The parameters therefore need to be adjusted so that the correct output is predicted and blue gets a higher value than banana: wrong tokens like banana and green should go down, while correct ones like blue should go up.`,
+    example: `// Training Data & Forward Pass
 
 // Training data: examples used to teach the model
 const trainingData = [
@@ -2027,14 +2027,14 @@ console.log(correct);
 | Training data  | The feed for the neural network                         |
 | Forward pass   | Input flows through layers to produce a prediction      |
 +----------------+---------------------------------------------------------+`
-},
-{
-  id: 'loss-function',
-  title: 'Loss Function',
-  category: 'AI',
-  slangDefinition: `Loss function na, prediction evlo mosama irukunu numerical ah measure panra tool. Idhu prediction oda quality ah oru number ah convert pannum. Correct prediction na small loss, romba thappana prediction na large loss. Idha oru strict aana helpful teacher test paper grade panra madhiri ninaichukalam, AI evlo mistakes pannutho avlo loss score athigam. Example ku "The sky is ____" nu eduthukalam, correct answer "blue". Prediction A la blue 90% nu solluchu na LOSS = LOW. Prediction B la blue 2%, banana 80% nu solluchu na LOSS = HIGH. AI oda ultimate goal indha loss score ah zero ku mudinja varaikum close ah kondu vara. Low loss na model nalla velai pannudhu nu artham. Loss ah vechi dhan knobs, adhavadhu parameters adjust aagum. Idhu oru repeated loop: predict and adjust. Aana oru problem irukku, parameters thousands, millions, illa billions kooda irukalam. Endha parameters dhan indha mistake ku responsible? Ovvoru parameter um eppadi change aaganum? Banana prediction aachu, blue correct nu iruntha, andha wrong prediction ku responsible parameters ah dhan target pannuvom. Forward pass na, input AI model vazhiya poi prediction produce panra journey. Idha oru one-way assembly line madhiri ninaichukalam, input aarambathula kudupu, pala processing stations (layers) vazhiya poi, last la finished product ah varum. "The sky is ___" nu input kudukurom, AI andha words ah numbers ah convert pannum, network vazhiya anuppi learned weights oda multiply panni context analyze pannum, next possible words ku probabilities calculate panni best guess ah output kudukum.`,
-  interviewDefinition: `A loss function is a numerical way to measure how bad a prediction is. It converts the quality of a prediction into a number: a correct prediction gives a small loss, and a very wrong prediction gives a large loss. It is like a strict but helpful teacher grading a test: the more mistakes the AI makes, the higher the loss score. For "The sky is ____" with the correct answer "blue", a prediction giving blue 90% has a low loss, while a prediction giving blue 2% and banana 80% has a high loss. The ultimate goal is to get the loss as close to zero as possible, and low loss means the model is doing well. According to the loss, the parameters (the knobs) are adjusted, in a repeated loop of predict and adjust. The challenge is that there may be thousands, millions, or billions of parameters: which parameters were responsible for the mistake, and how should each one change? A forward pass is the journey data takes through an AI model to produce a prediction, like a one-way assembly line where the input enters at the beginning, travels through various processing stations (layers), and emerges as a finished product at the end. For "The sky is ___", the words are converted into numbers, passed through the network where they are multiplied by learned weights to analyze context, and the network calculates probabilities for the next possible word and outputs its best guess.`,
-  example: `// Loss Function
+  },
+  {
+    id: 'loss-function',
+    title: 'Loss Function',
+    category: 'AI',
+    slangDefinition: `Loss function na, prediction evlo mosama irukunu numerical ah measure panra tool. Idhu prediction oda quality ah oru number ah convert pannum. Correct prediction na small loss, romba thappana prediction na large loss. Idha oru strict aana helpful teacher test paper grade panra madhiri ninaichukalam, AI evlo mistakes pannutho avlo loss score athigam. Example ku "The sky is ____" nu eduthukalam, correct answer "blue". Prediction A la blue 90% nu solluchu na LOSS = LOW. Prediction B la blue 2%, banana 80% nu solluchu na LOSS = HIGH. AI oda ultimate goal indha loss score ah zero ku mudinja varaikum close ah kondu vara. Low loss na model nalla velai pannudhu nu artham. Loss ah vechi dhan knobs, adhavadhu parameters adjust aagum. Idhu oru repeated loop: predict and adjust. Aana oru problem irukku, parameters thousands, millions, illa billions kooda irukalam. Endha parameters dhan indha mistake ku responsible? Ovvoru parameter um eppadi change aaganum? Banana prediction aachu, blue correct nu iruntha, andha wrong prediction ku responsible parameters ah dhan target pannuvom. Forward pass na, input AI model vazhiya poi prediction produce panra journey. Idha oru one-way assembly line madhiri ninaichukalam, input aarambathula kudupu, pala processing stations (layers) vazhiya poi, last la finished product ah varum. "The sky is ___" nu input kudukurom, AI andha words ah numbers ah convert pannum, network vazhiya anuppi learned weights oda multiply panni context analyze pannum, next possible words ku probabilities calculate panni best guess ah output kudukum.`,
+    interviewDefinition: `A loss function is a numerical way to measure how bad a prediction is. It converts the quality of a prediction into a number: a correct prediction gives a small loss, and a very wrong prediction gives a large loss. It is like a strict but helpful teacher grading a test: the more mistakes the AI makes, the higher the loss score. For "The sky is ____" with the correct answer "blue", a prediction giving blue 90% has a low loss, while a prediction giving blue 2% and banana 80% has a high loss. The ultimate goal is to get the loss as close to zero as possible, and low loss means the model is doing well. According to the loss, the parameters (the knobs) are adjusted, in a repeated loop of predict and adjust. The challenge is that there may be thousands, millions, or billions of parameters: which parameters were responsible for the mistake, and how should each one change? A forward pass is the journey data takes through an AI model to produce a prediction, like a one-way assembly line where the input enters at the beginning, travels through various processing stations (layers), and emerges as a finished product at the end. For "The sky is ___", the words are converted into numbers, passed through the network where they are multiplied by learned weights to analyze context, and the network calculates probabilities for the next possible word and outputs its best guess.`,
+    example: `// Loss Function
 
 // Loss measures HOW BAD a prediction is
 // Common choice: cross-entropy loss = -log(probability given to the correct answer)
@@ -2089,14 +2089,14 @@ console.log(loss(predictionB.blue));
 // There may be thousands, millions, or billions of parameters.
 // Which parameters were responsible for the mistake?
 // And how should each one change?`
-},
-{
-  id: 'back-propagation',
-  title: 'Back Propagation (Backward Pass)',
-  category: 'AI',
-  slangDefinition: `Wrong prediction ku responsible parameters ah kandupidichu, layer by layer pinnaadi poi adjustments pannuvom, adhu dhan Back Propagation. Idhu ovvoru parameter ah change panna loss enna aagum nu calculate pannum. Deep learning la backward pass (backpropagation) na, AI thanoda mistakes la irundhu learn panra vazhi. Oru guessing game madhiri ninaichukalam. Forward Pass: AI "The sky is ___" prompt eduthukittu "Banana" nu guess pannum. Calculate Loss: "Thappu, correct answer Blue, un guess romba dhooram" nu AI ku solluvom, indha error ku dhan loss nu per. Backward Pass: AI thanoda internal network vazhiya pinnaadi poi, internal settings (weights) ah adjust pannum, adhanala adutha thadava "The sky is..." paatha "Banana" ku badhila "Blue" nu guess panna chance athigam aagum. "The sky is" input layer A, B, C vazhiya poi "banana" nu wrong output varudhu. Backpropagation output la irukura error la irundhu aarambichu pinnaadi velai pannum. Layer C evlo contribute pannuchu? Layer C la ovvoru weight um evlo contribute pannuchu? Layer B epdi? B la irukura weights epdi? Layer A kum same maadhiri. Idhu loss ku ovvoru parameter oda sensitivity ah calculate pannum. Mathematical ah indha sensitivities ku "gradients" nu per (technical ah partial derivatives). Backpropagation indha gradients ah efficient ah calculate pannum. output layer la (loss calculate panna aprom) total error ku Layer C parameters evlo contribute pannuchu nu paapom, ovvoru weight um evlo adjust aaganum nu paapom. Apparam pinnaadi poi Layer C oda gradient theriyum bodhu Layer B parameters evlo contribute pannuchu nu paapom. Appadiye Layer B la irundhu A ku, ella munnadi layers kum same process.`,
-  interviewDefinition: `Backpropagation (the backward pass) calculates how changing each parameter would affect the loss. Once we know which parameters caused the wrong prediction, we go back layer by layer and make adjustments. It is how an AI learns from its mistakes. In a guessing game: in the Forward Pass the AI takes the prompt "The sky is ___" and guesses "Banana". In Calculate Loss we tell it the correct answer is Blue and its guess was far off; this error is called the loss. In the Backward Pass the AI travels backward through its internal network and adjusts its weights so that next time it is much more likely to guess "Blue" instead of "Banana". Backpropagation is an algorithm used in machine learning to optimize neural networks. It starts from the error at the output and works backward, layer by layer. How much did Layer C contribute to the total error, and how much did each weight in Layer C contribute? Knowing Layer C's gradient, how much did the parameters of Layer B contribute? And similarly for Layer A and all preceding layers. It calculates the sensitivity of the loss to each parameter (weights and biases). Mathematically, these sensitivities are partial derivatives, called gradients, and backpropagation efficiently calculates them.`,
-  example: `// Back Propagation (Backward Pass)
+  },
+  {
+    id: 'back-propagation',
+    title: 'Back Propagation (Backward Pass)',
+    category: 'AI',
+    slangDefinition: `Wrong prediction ku responsible parameters ah kandupidichu, layer by layer pinnaadi poi adjustments pannuvom, adhu dhan Back Propagation. Idhu ovvoru parameter ah change panna loss enna aagum nu calculate pannum. Deep learning la backward pass (backpropagation) na, AI thanoda mistakes la irundhu learn panra vazhi. Oru guessing game madhiri ninaichukalam. Forward Pass: AI "The sky is ___" prompt eduthukittu "Banana" nu guess pannum. Calculate Loss: "Thappu, correct answer Blue, un guess romba dhooram" nu AI ku solluvom, indha error ku dhan loss nu per. Backward Pass: AI thanoda internal network vazhiya pinnaadi poi, internal settings (weights) ah adjust pannum, adhanala adutha thadava "The sky is..." paatha "Banana" ku badhila "Blue" nu guess panna chance athigam aagum. "The sky is" input layer A, B, C vazhiya poi "banana" nu wrong output varudhu. Backpropagation output la irukura error la irundhu aarambichu pinnaadi velai pannum. Layer C evlo contribute pannuchu? Layer C la ovvoru weight um evlo contribute pannuchu? Layer B epdi? B la irukura weights epdi? Layer A kum same maadhiri. Idhu loss ku ovvoru parameter oda sensitivity ah calculate pannum. Mathematical ah indha sensitivities ku "gradients" nu per (technical ah partial derivatives). Backpropagation indha gradients ah efficient ah calculate pannum. output layer la (loss calculate panna aprom) total error ku Layer C parameters evlo contribute pannuchu nu paapom, ovvoru weight um evlo adjust aaganum nu paapom. Apparam pinnaadi poi Layer C oda gradient theriyum bodhu Layer B parameters evlo contribute pannuchu nu paapom. Appadiye Layer B la irundhu A ku, ella munnadi layers kum same process.`,
+    interviewDefinition: `Backpropagation (the backward pass) calculates how changing each parameter would affect the loss. Once we know which parameters caused the wrong prediction, we go back layer by layer and make adjustments. It is how an AI learns from its mistakes. In a guessing game: in the Forward Pass the AI takes the prompt "The sky is ___" and guesses "Banana". In Calculate Loss we tell it the correct answer is Blue and its guess was far off; this error is called the loss. In the Backward Pass the AI travels backward through its internal network and adjusts its weights so that next time it is much more likely to guess "Blue" instead of "Banana". Backpropagation is an algorithm used in machine learning to optimize neural networks. It starts from the error at the output and works backward, layer by layer. How much did Layer C contribute to the total error, and how much did each weight in Layer C contribute? Knowing Layer C's gradient, how much did the parameters of Layer B contribute? And similarly for Layer A and all preceding layers. It calculates the sensitivity of the loss to each parameter (weights and biases). Mathematically, these sensitivities are partial derivatives, called gradients, and backpropagation efficiently calculates them.`,
+    example: `// Back Propagation (Backward Pass)
 
 // Network: input -> Layer A -> Layer B -> Layer C -> output
 // Input: "The sky is"   Wrong prediction: "banana"   Correct: "blue"
@@ -2151,14 +2151,14 @@ for (let step = 0; step < 50; step++) {
 
 // Backpropagation calculates the sensitivity of the loss to each parameter.
 // Mathematically, these sensitivities are called gradients (partial derivatives).`
-},
-{
-  id: 'gradient',
-  title: 'Gradient (Sensitivity)',
-  category: 'AI',
-  slangDefinition: `Gradient na, oru parameter (oru knob illa dial madhiri) la konjam change panna AI oda mistakes (loss) evlo increase illa decrease aagum nu measure panra value. AI ah oru game aadura madhiri ninaichukalam, adhu next word guess panna try pannum, ovvoru thappana guess kum points povum. Gradients ah paathu, AI ku exactly edhu "knobs" ah, edhu direction la thirupanum nu theriyum, appo dhan adutha thadava kammiya mistakes pannum. Technical ah solanumna, gradient namakku rendu vishayam solludhu: parameter edhu direction la move aaganum, and antha parameter ku loss evlo sensitive. Example ku oru weight 0.40 nu vechukalam. Gradient "indha weight ah increase panna loss increase aagum" nu solludhu. So adha konjam keela (downward) move pannalaam. Innoru weight mela (upward) move aaga vendiyadhu. Backpropagation indha information ah network full-aa compute pannum. Ippo oru kelvi varum: Backpropagation weights ah fix pannumaa? Answer: illa. Backpropagation thaane weights ah update pannanum nu avasiyam illa, adhu gradients ah dhan calculate pannum. Apparam oru optimization algorithm andha gradients ah use panni parameters ah update pannum.`,
-  interviewDefinition: `Gradients are a measure of how much a change in a specific AI parameter (like a knob or dial) will increase or decrease the AI's mistakes (the loss). A gradient tells us which direction a parameter should move to change the loss and how sensitive the loss is to that parameter. By looking at the gradients, the AI learns exactly which knobs to turn, and in which direction, to make fewer mistakes next time. For example, suppose a particular weight is 0.40. The gradient may tell us that increasing this weight would increase the loss, so perhaps we should move it slightly downward, while another weight may need to move upward. Backpropagation computes this information throughout the network. Does backpropagation fix the weights? No. Backpropagation does not itself necessarily update the weights; it calculates the gradients. Then an optimization algorithm uses those gradients to update the parameters.`,
-  example: `// Gradient (Sensitivity)
+  },
+  {
+    id: 'gradient',
+    title: 'Gradient (Sensitivity)',
+    category: 'AI',
+    slangDefinition: `Gradient na, oru parameter (oru knob illa dial madhiri) la konjam change panna AI oda mistakes (loss) evlo increase illa decrease aagum nu measure panra value. AI ah oru game aadura madhiri ninaichukalam, adhu next word guess panna try pannum, ovvoru thappana guess kum points povum. Gradients ah paathu, AI ku exactly edhu "knobs" ah, edhu direction la thirupanum nu theriyum, appo dhan adutha thadava kammiya mistakes pannum. Technical ah solanumna, gradient namakku rendu vishayam solludhu: parameter edhu direction la move aaganum, and antha parameter ku loss evlo sensitive. Example ku oru weight 0.40 nu vechukalam. Gradient "indha weight ah increase panna loss increase aagum" nu solludhu. So adha konjam keela (downward) move pannalaam. Innoru weight mela (upward) move aaga vendiyadhu. Backpropagation indha information ah network full-aa compute pannum. Ippo oru kelvi varum: Backpropagation weights ah fix pannumaa? Answer: illa. Backpropagation thaane weights ah update pannanum nu avasiyam illa, adhu gradients ah dhan calculate pannum. Apparam oru optimization algorithm andha gradients ah use panni parameters ah update pannum.`,
+    interviewDefinition: `Gradients are a measure of how much a change in a specific AI parameter (like a knob or dial) will increase or decrease the AI's mistakes (the loss). A gradient tells us which direction a parameter should move to change the loss and how sensitive the loss is to that parameter. By looking at the gradients, the AI learns exactly which knobs to turn, and in which direction, to make fewer mistakes next time. For example, suppose a particular weight is 0.40. The gradient may tell us that increasing this weight would increase the loss, so perhaps we should move it slightly downward, while another weight may need to move upward. Backpropagation computes this information throughout the network. Does backpropagation fix the weights? No. Backpropagation does not itself necessarily update the weights; it calculates the gradients. Then an optimization algorithm uses those gradients to update the parameters.`,
+    example: `// Gradient (Sensitivity)
 
 // One weight and a simple loss: loss = (weight - 0.25)^2
 // (the "ideal" weight is 0.25, so loss is lowest there)
@@ -2202,14 +2202,14 @@ console.log(loss(0.40).toFixed(4), "->", loss(weight).toFixed(4));
 | Who updates the parameters?  | An optimization algorithm, using the      |
 |                              | gradients                                 |
 +------------------------------+-------------------------------------------+`
-},
-{
-  id: 'gradient-descent',
-  title: 'Gradient Descent',
-  category: 'AI',
-  slangDefinition: `Gradient Descent na, oru function ah (error illa loss madhiri) minimize panna use panra iterative optimization algorithm. Gradient oda opposite direction la parameters ah adjust pannuvom. Idhu dhan AI thanoda mistakes la irundhu learn panni better guesses panra vazhi. Example: nee oru foggy mountain la irukka, irutla, kizhe irukura bottom valley ah kandupidikanum. Path theriyaadhu, so un leg laa slope ah feel panni, keela pogura direction la oru chinna step edupa. Thirumba thirumba repeat pannuva. AI la "mountain" na computer panra mistakes oda alavu (error illa loss). Next word prediction la AI "the sky is banana" nu guess panna, adhu sense illa so error romba athigam. Algorithm antha guess evlo thappu nu exact ah calculate panni, AI oda internal settings (weights) ah step by step adjust pannum. Neraya small adjustments aprom, AI mistakes ah minimize panni "the sky is blue" nu correct ah guess pannum. Gradient Descent oda core components moonu: Loss Function, Gradient, Learning Rate. Loss function evlo thappu nu solum, gradient slope direction ah solum, learning rate ovvoru step evlo periya ah edukanum nu decide pannum. Neraya thadava repeat panna aprom model correct answer guess pannum. Optimization algorithms la different types irukku: Batch Gradient Descent, Stochastic Gradient Descent (SGD), Mini-Batch Gradient Descent.`,
-  interviewDefinition: `Gradient descent is an iterative optimization algorithm used to minimize a function (like error or loss) by adjusting parameters in the opposite direction of the gradient. It is how an AI learns from its mistakes to make better guesses. Imagine walking down a foggy mountain in the dark, trying to find the very bottom valley: because you cannot see the path, you feel the slope of the ground with your feet and take a small step in the direction that goes downward, then repeat. In AI, the mountain is the amount of mistakes (error or loss). For next-word prediction, if the AI guesses "the sky is banana", the error is very high because it makes no sense. The algorithm calculates exactly how wrong the guess was and adjusts the AI's internal settings (weights) step by step to reduce the error. After many small adjustments, the AI minimizes its mistakes and correctly guesses that the sky is blue. The core components of gradient descent are the Loss Function (how wrong the prediction is), the Gradient (the slope direction), and the Learning Rate (how big each step is). There are different types of optimization algorithms: Batch Gradient Descent, Stochastic Gradient Descent (SGD), and Mini-Batch Gradient Descent.`,
-  example: `// Gradient Descent
+  },
+  {
+    id: 'gradient-descent',
+    title: 'Gradient Descent',
+    category: 'AI',
+    slangDefinition: `Gradient Descent na, oru function ah (error illa loss madhiri) minimize panna use panra iterative optimization algorithm. Gradient oda opposite direction la parameters ah adjust pannuvom. Idhu dhan AI thanoda mistakes la irundhu learn panni better guesses panra vazhi. Example: nee oru foggy mountain la irukka, irutla, kizhe irukura bottom valley ah kandupidikanum. Path theriyaadhu, so un leg laa slope ah feel panni, keela pogura direction la oru chinna step edupa. Thirumba thirumba repeat pannuva. AI la "mountain" na computer panra mistakes oda alavu (error illa loss). Next word prediction la AI "the sky is banana" nu guess panna, adhu sense illa so error romba athigam. Algorithm antha guess evlo thappu nu exact ah calculate panni, AI oda internal settings (weights) ah step by step adjust pannum. Neraya small adjustments aprom, AI mistakes ah minimize panni "the sky is blue" nu correct ah guess pannum. Gradient Descent oda core components moonu: Loss Function, Gradient, Learning Rate. Loss function evlo thappu nu solum, gradient slope direction ah solum, learning rate ovvoru step evlo periya ah edukanum nu decide pannum. Neraya thadava repeat panna aprom model correct answer guess pannum. Optimization algorithms la different types irukku: Batch Gradient Descent, Stochastic Gradient Descent (SGD), Mini-Batch Gradient Descent.`,
+    interviewDefinition: `Gradient descent is an iterative optimization algorithm used to minimize a function (like error or loss) by adjusting parameters in the opposite direction of the gradient. It is how an AI learns from its mistakes to make better guesses. Imagine walking down a foggy mountain in the dark, trying to find the very bottom valley: because you cannot see the path, you feel the slope of the ground with your feet and take a small step in the direction that goes downward, then repeat. In AI, the mountain is the amount of mistakes (error or loss). For next-word prediction, if the AI guesses "the sky is banana", the error is very high because it makes no sense. The algorithm calculates exactly how wrong the guess was and adjusts the AI's internal settings (weights) step by step to reduce the error. After many small adjustments, the AI minimizes its mistakes and correctly guesses that the sky is blue. The core components of gradient descent are the Loss Function (how wrong the prediction is), the Gradient (the slope direction), and the Learning Rate (how big each step is). There are different types of optimization algorithms: Batch Gradient Descent, Stochastic Gradient Descent (SGD), and Mini-Batch Gradient Descent.`,
+    example: `// Gradient Descent
 
 // Goal: find the weight with the lowest loss (bottom of the valley)
 // Loss function: how wrong are we? (lowest at weight = 3)
@@ -2275,14 +2275,14 @@ Types of Gradient Descent:
 | into small subsets; strikes the best             | can get stuck where the slope is flat            |
 | balance between speed and stability.             |                                                  |
 +--------------------------------------------------+--------------------------------------------------+`
-},
-{
-  id: 'training-loop',
-  title: 'Training Loop (Sharpening the Brain)',
-  category: 'AI',
-  slangDefinition: `Ippo ellathayum serthu paatha, training oru loop madhiri nadakkum. First sample data eduthukuvom. Apparam Forward Pass nadakkum, model edhavadhu predict pannum. Adhukku aprom Loss calculate pannuvom, prediction evlo thappu nu paapom. Next Back Propagation nadakkum, gradients calculate aagum. Apparam Optimiser, adhavadhu Gradient Descent, andha gradients use panni parameters ah update pannum. Final ah model konjam better aagum. Idhu dhan training la nadakkudhu, idha thirumba thirumba, romba romba periya amount of training data ku repeat pannuvom. Idha dhan "Sharpening the Brain" nu solluvom. Ellame patterns dhan. Neraya text inputs kudukkuvom, model output guess pannum, words oda sequence ah recognize panna aarambikum. So adhu automatic ah learn pannum, konjam iterations aprom, sila tasks la humans-aa vida better answers kooda generate panna mudiyum.`,
-  interviewDefinition: `To sum up, training is a repeated loop: sample data goes in, the forward pass makes a prediction, the loss is calculated, backpropagation computes the gradients, and an optimiser such as gradient descent uses them to update the parameters, producing a better model. This is repeated again and again over a huge amount of training data, which can be described as "sharpening the brain". It is all about patterns: multiple text inputs are given, the model guesses the output, and it starts recognizing the sequence of words. It learns automatically, and after enough iterations it can generate better answers than humans in some tasks.`,
-  example: `// Training Loop
+  },
+  {
+    id: 'training-loop',
+    title: 'Training Loop (Sharpening the Brain)',
+    category: 'AI',
+    slangDefinition: `Ippo ellathayum serthu paatha, training oru loop madhiri nadakkum. First sample data eduthukuvom. Apparam Forward Pass nadakkum, model edhavadhu predict pannum. Adhukku aprom Loss calculate pannuvom, prediction evlo thappu nu paapom. Next Back Propagation nadakkum, gradients calculate aagum. Apparam Optimiser, adhavadhu Gradient Descent, andha gradients use panni parameters ah update pannum. Final ah model konjam better aagum. Idhu dhan training la nadakkudhu, idha thirumba thirumba, romba romba periya amount of training data ku repeat pannuvom. Idha dhan "Sharpening the Brain" nu solluvom. Ellame patterns dhan. Neraya text inputs kudukkuvom, model output guess pannum, words oda sequence ah recognize panna aarambikum. So adhu automatic ah learn pannum, konjam iterations aprom, sila tasks la humans-aa vida better answers kooda generate panna mudiyum.`,
+    interviewDefinition: `To sum up, training is a repeated loop: sample data goes in, the forward pass makes a prediction, the loss is calculated, backpropagation computes the gradients, and an optimiser such as gradient descent uses them to update the parameters, producing a better model. This is repeated again and again over a huge amount of training data, which can be described as "sharpening the brain". It is all about patterns: multiple text inputs are given, the model guesses the output, and it starts recognizing the sequence of words. It learns automatically, and after enough iterations it can generate better answers than humans in some tasks.`,
+    example: `// Training Loop
 
 // Sample data -> Forward Pass -> Calculate Loss
 // -> Back Propagation -> Optimiser (Gradient Descent) -> Better Model
@@ -2343,14 +2343,14 @@ console.log(weight.toFixed(2));
 
 // Repeat again and again for a huge amount of training data
 // -> "Sharpening the Brain"`
-},
-{
-  id: 'training-at-scale',
-  title: 'Training at Scale',
-  category: 'AI',
-  slangDefinition: `Models ah billions illa trillions of samples ku train pannuvom. Slowly and steadily, model neraya vishayam recognise pannum. first, serndhu varra words oda sequence ah recognise pannum. Apparam grammar, sentence structure, and long text inputs la words ku nadula irukura relationship ellam learn pannum. Neraya mathematical calculations aprom, model last la output generate panna aarambikum. Aana indha full process ku romba athigam computational power and GPUs venum, yenna na idhu thirumba thirumba nadakkura repeated process. Adhanala dhan periya models train panna company kitta periya compute resources irukanum.`,
-  interviewDefinition: `Models are trained on billions or trillions of samples. Slowly and steadily, the model learns to recognise sequences of words that come together, grammar, sentence structure, and relationships between words in long text inputs. After a very large number of mathematical calculations, models finally generate outputs. This whole process takes a lot of compute and power (GPUs), because training is a repeated process that runs the same loop of forward pass, loss, backpropagation, and optimisation again and again over a huge amount of data.`,
-  example: `
+  },
+  {
+    id: 'training-at-scale',
+    title: 'Training at Scale',
+    category: 'AI',
+    slangDefinition: `Models ah billions illa trillions of samples ku train pannuvom. Slowly and steadily, model neraya vishayam recognise pannum. first, serndhu varra words oda sequence ah recognise pannum. Apparam grammar, sentence structure, and long text inputs la words ku nadula irukura relationship ellam learn pannum. Neraya mathematical calculations aprom, model last la output generate panna aarambikum. Aana indha full process ku romba athigam computational power and GPUs venum, yenna na idhu thirumba thirumba nadakkura repeated process. Adhanala dhan periya models train panna company kitta periya compute resources irukanum.`,
+    interviewDefinition: `Models are trained on billions or trillions of samples. Slowly and steadily, the model learns to recognise sequences of words that come together, grammar, sentence structure, and relationships between words in long text inputs. After a very large number of mathematical calculations, models finally generate outputs. This whole process takes a lot of compute and power (GPUs), because training is a repeated process that runs the same loop of forward pass, loss, backpropagation, and optimisation again and again over a huge amount of data.`,
+    example: `
 +------------------------------------------------------------------------+
 | We train models for Billions/Trillions of samples.                     |
 +------------------------------------------------------------------------+
@@ -2366,14 +2366,14 @@ console.log(weight.toFixed(2));
 | This whole process takes a lot of compute/power (GPUs), because it     |
 | is a repeated process.                                                 |
 +------------------------------------------------------------------------+`
-},
-{
-  id: 'self-supervised-learning-and-training-terminologies',
-  title: 'Self-Supervised Learning & Training Terminologies',
-  category: 'AI',
-  slangDefinition: `Self-supervised learning na, model thaane learn pannikum, namma yaaraavadhu manually ovvoru sentence ah label panna theva illa. Normal ah oru person images ah "cat" illa "dog" nu mark pannuvaanga, aana inga system raw, unlabeled data (millions of internet sentences, images) paathu, adhula konjam part ah hide pannum. Apparam andha missing pieces ah guess panna try pannum, example ku sentence la next word predict panradhu. Inga next token dhan "target" aagum, so label thaane data kulla irundhu kidaichidum. Indha guessing game ah billions of times practice panna, AI thaane patterns, structures, meanings ellam figure out pannikum. Oru important point, neural networks usually oru magical update la oru concept ah learn pannadhu, repeated optimisation moolama dhan useful behaviour varum. Ippo training terminologies paapom. Dataset na ella training examples um. Batch na serthu process panra oru group of examples. Example ku example -> update, example -> update nu oru oru example ku thaniya update panradhuku badhila, batch of examples -> average loss calculate -> parameters update nu process pannuvom. GPUs parallel processing panna mudiyum, adhanala batches la process pannuvom, sequential ah pannina romba neram aagum. Training step na oru optimisation update, forward and backward pass nyabagam irukku la, adhu dhan. Epoch na training dataset full-aa oru thadava poradhu, adhu batch kooda vera. Epoch ah oru exam ku textbook padikara madhiri ninaichukalam, book ah cover to cover oru thadava padicha adhu oru epoch. AI models oru thadava paathu ellathayum learn pannadhu, so dozens illa hundreds of epochs same dataset vazhiya poganum. Ovvoru epoch la model data analyze panni, mistakes pannitu, internal settings ah adjust panni, adutha round ku smarter and more accurate aagum.`,
-  interviewDefinition: `Self-supervised learning is a type of machine learning where a model teaches itself without humans manually labeling data. Instead of a person marking images as "cat" or "dog", the system looks at raw, unlabeled data, such as millions of internet sentences or pictures, hides parts of it, and tries to guess the missing pieces, for example predicting the next word in a sentence. For language models, the next token becomes the "target", so the labels come from the data itself. By practicing this guessing game billions of times, the model learns the underlying patterns, structures, and meanings on its own. Neural networks usually do not learn a concept from one magical update; useful behaviour emerges through repeated optimisation. Key training terminologies: a Dataset is all the training examples. A Batch is a group of examples processed together; instead of example -> update for each example, we process a batch of examples, calculate the average loss, and update parameters. GPUs support parallel processing, so processing in batches is much faster than processing sequentially. A Training Step is one optimisation update (a forward pass, loss calculation, backward pass, and parameter update). An Epoch is one complete pass through the training dataset, which is different from a batch. It is like reading a whole textbook cover to cover once. Models cannot learn everything from one look, so they usually go through the same dataset for dozens or hundreds of epochs, analyzing the data, making mistakes, and adjusting internal settings to become more accurate each round.`,
-  example: `// Self-supervised learning: the next token becomes the "target"
+  },
+  {
+    id: 'self-supervised-learning-and-training-terminologies',
+    title: 'Self-Supervised Learning & Training Terminologies',
+    category: 'AI',
+    slangDefinition: `Self-supervised learning na, model thaane learn pannikum, namma yaaraavadhu manually ovvoru sentence ah label panna theva illa. Normal ah oru person images ah "cat" illa "dog" nu mark pannuvaanga, aana inga system raw, unlabeled data (millions of internet sentences, images) paathu, adhula konjam part ah hide pannum. Apparam andha missing pieces ah guess panna try pannum, example ku sentence la next word predict panradhu. Inga next token dhan "target" aagum, so label thaane data kulla irundhu kidaichidum. Indha guessing game ah billions of times practice panna, AI thaane patterns, structures, meanings ellam figure out pannikum. Oru important point, neural networks usually oru magical update la oru concept ah learn pannadhu, repeated optimisation moolama dhan useful behaviour varum. Ippo training terminologies paapom. Dataset na ella training examples um. Batch na serthu process panra oru group of examples. Example ku example -> update, example -> update nu oru oru example ku thaniya update panradhuku badhila, batch of examples -> average loss calculate -> parameters update nu process pannuvom. GPUs parallel processing panna mudiyum, adhanala batches la process pannuvom, sequential ah pannina romba neram aagum. Training step na oru optimisation update, forward and backward pass nyabagam irukku la, adhu dhan. Epoch na training dataset full-aa oru thadava poradhu, adhu batch kooda vera. Epoch ah oru exam ku textbook padikara madhiri ninaichukalam, book ah cover to cover oru thadava padicha adhu oru epoch. AI models oru thadava paathu ellathayum learn pannadhu, so dozens illa hundreds of epochs same dataset vazhiya poganum. Ovvoru epoch la model data analyze panni, mistakes pannitu, internal settings ah adjust panni, adutha round ku smarter and more accurate aagum.`,
+    interviewDefinition: `Self-supervised learning is a type of machine learning where a model teaches itself without humans manually labeling data. Instead of a person marking images as "cat" or "dog", the system looks at raw, unlabeled data, such as millions of internet sentences or pictures, hides parts of it, and tries to guess the missing pieces, for example predicting the next word in a sentence. For language models, the next token becomes the "target", so the labels come from the data itself. By practicing this guessing game billions of times, the model learns the underlying patterns, structures, and meanings on its own. Neural networks usually do not learn a concept from one magical update; useful behaviour emerges through repeated optimisation. Key training terminologies: a Dataset is all the training examples. A Batch is a group of examples processed together; instead of example -> update for each example, we process a batch of examples, calculate the average loss, and update parameters. GPUs support parallel processing, so processing in batches is much faster than processing sequentially. A Training Step is one optimisation update (a forward pass, loss calculation, backward pass, and parameter update). An Epoch is one complete pass through the training dataset, which is different from a batch. It is like reading a whole textbook cover to cover once. Models cannot learn everything from one look, so they usually go through the same dataset for dozens or hundreds of epochs, analyzing the data, making mistakes, and adjusting internal settings to become more accurate each round.`,
+    example: `// Self-supervised learning: the next token becomes the "target"
 // No manual labeling needed, labels come from the data itself
 
 const sentence = ["The", "sky", "is", "blue"];
@@ -2430,5 +2430,719 @@ console.log(trainingSteps);
 // GPUs support parallel processing, so we process data in batches.
 // Neural networks usually do not learn a concept from one magical update.
 // Useful behaviour emerges through repeated optimisation.`
+  },
+  {
+    id: 'generalization',
+    title: 'Generalization',
+    category: 'AI',
+    slangDefinition: `Generalization na, model directly memorize pannaadha examples la kooda nalla perform panra ability. AI la idhu enna na, machine learning model past data la learn pannadha, pudhu situations ku apply panra ability. Adhavadhu AI training la paartha exact examples ah mattum memorize pannama, andha examples oda underlying concepts and rules ah purinjikum. Example ku oru AI sunny days oda images la train aachu na, sky blue nu learn pannum. Pinnaadi oru stormy day picture paatha "sky is gray" nu correctly predict panna, adhu successfully generalize pannirukku. "Sky" nu broad concept ah oru completely pudhu context ku apply pannirukku, original training ah appadiye repeat pannala. Innoru example: training data la "The sky is blue" nu mattum paathirukkum. Ippo model ku "The clear afternoon sky looked ________" nu oru sentence kudukuromnu vechukalam. Indha exact sentence training la varala, aana oru useful model adhukkum "blue" nu produce panna mudiyum. adhavadhu training examples ah mattum memorize pannama, Oru useful model generalize pannanum. Good learning na, exact training examples ku useful ah irukura patterns ah kandupidikuradhu.`,
+    interviewDefinition: `The ability to perform well on examples it did not directly memorize is called generalization. Generalization in AI is the ability of a machine learning model to apply what it has learned from past data to brand-new, unseen situations. It means the AI does not just memorize the exact examples it was trained on; instead, it understands the underlying concepts and rules. For example, if an AI is trained on images of sunny days, it learns that the sky is blue. If it later sees a picture of a stormy day and correctly predicts that the sky is gray, it has successfully generalized, applying the broad concept of "sky" to a completely new context rather than just repeating its original training. Similarly, if the training data contains only "The sky is blue" and the model later sees "The clear afternoon sky looked ________", an exact sentence that never appeared in training, a useful model can still produce "blue". a useful model should generalize rather than memorizing training data. Good learning means discovering patterns that remain useful beyond the exact training examples.`,
+    example: `
+// Training data
+const trainingData = ["The sky is blue"];
+
+// New input the model has never seen
+const newInput = "The clear afternoon sky looked ________";
+
+// The exact sentence never appeared in training,
+// but a useful model can still produce:
+const prediction = "blue";
+console.log(prediction); // "blue"
+
+// Memorizing vs generalizing
+function memorizingModel(input) {
+  // Overfitting: only works for exact training examples
+  return trainingData.includes(input) ? "blue" : "unknown";
+}
+
+function generalizingModel(input) {
+  // Learned the underlying pattern: "sky" -> "blue"
+  return input.toLowerCase().includes("sky") ? "blue" : "unknown";
+}
+
+console.log(memorizingModel(newInput));   // "unknown" -> memorized only
+console.log(generalizingModel(newInput)); // "blue" -> generalized
+
+
++-----------------------------------------+--------------------------------------------+
+| Memorizing (overfitting)                | Generalization                             |
++-----------------------------------------+--------------------------------------------+
+| Works only on exact training examples   | Works on unseen examples too               |
+| Repeats original training               | Applies learned concepts to new contexts   |
++-----------------------------------------+--------------------------------------------+
+
+// Sunny-day images -> "sky is blue"
+// Stormy-day picture -> correctly predicts "sky is gray"
+// The model applied the broad concept of "sky" to a completely new context.
+
+// Good learning means discovering patterns that remain useful
+// beyond the exact training examples.`
+  },
+  {
+    id: 'overfitting',
+    title: 'Overfitting',
+    category: 'AI',
+    slangDefinition: `Overfitting na, oru model training examples la romba nalla perform pannum, aana pudhu examples la mosama perform pannum. Simple ah solanumna, computer training data ah romba perfect ah learn pannidum, specific examples ah memorize pannidum, aana big picture ah purinjika maatum. Memorize pannuradhala, pudhu information ah face pannum bodhu fail aagidum. Example ku oru AI ku "the sky is blue" nu 100 sunny day pictures vechi solli kudukurom nu vechukalam. AI overfit aana, sky blue ah mattum dhan irukkum nu decide pannidum. Appo oru stormy night picture kaatitu "the sky is ____" nu kekkum bodhu, overfitted AI innum confident ah "blue" nu dhan answer pannum, yenna na weather maarum nu learn pannaama oru rigid rule ah memorize pannirukku. Idhu generalization ku opposite.`,
+    interviewDefinition: `A model is overfitting when it becomes extremely good at training examples but performs poorly on new examples. Overfitting in AI happens when a computer learns the training data too perfectly, memorizing specific examples instead of understanding the big picture. Because it memorizes instead of learning, it can fail when facing new information. For example, if you teach an AI the phrase "the sky is blue" using 100 pictures of sunny days and it overfits, it decides that the sky can only be blue. When you show it a picture of a stormy night and ask "the sky is ____", the overfitted AI will still confidently answer "blue" because it memorized a rigid rule instead of learning that the weather changes. Overfitting is the opposite of generalization.`,
+    example: `
+// Training data: 100 pictures of sunny days
+const trainingData = Array(100).fill({ scene: "sunny day", sky: "blue" });
+
+// Overfitted model: memorized a rigid rule -> "sky is ALWAYS blue"
+function overfittedModel(scene) {
+  return "blue"; // same answer for every scene
+}
+
+// Test with training-like data
+console.log(overfittedModel("sunny day"));    // "blue" -> perfect on training data
+
+// Test with new data: a stormy night
+console.log(overfittedModel("stormy night")); // "blue" -> confidently WRONG
+// Correct answer would be: "dark" / "gray"
+
+// A generalizing model would learn that weather changes:
+function generalizedModel(scene) {
+  const skyBySceneType = { "sunny day": "blue", "stormy night": "dark" };
+  return skyBySceneType[scene] ?? "depends on the weather";
+}
+console.log(generalizedModel("stormy night")); // "dark"
+
+
++--------------------------+----------------------------+----------------------------+
+|                          | Training examples          | New examples               |
++--------------------------+----------------------------+----------------------------+
+| Overfitted model         | Extremely good             | Performs poorly            |
+| Generalizing model       | Good                       | Good                       |
++--------------------------+----------------------------+----------------------------+
+
+// Overfitting: memorizing specific examples instead of understanding the big picture.
+// It is the opposite of generalization.`
+  },
+  {
+    id: 'distributed-training',
+    title: 'Distributed Training',
+    category: 'AI',
+    slangDefinition: `Oru frontier-scale model ah train panradhu, machine learning problem ah irukkum and oru periya distributed system problem ah irukkum. Distributed training na, AI model ku solli kudukura periya velai ah oru computer ku badhila, multiple computers ku (nodes nu solvom) split panni pannuradhu. Idha oru periya party ku 1000's of cookies bake panra madhiri vechikalam. Oru aal thaniya pannina naal kanakka aagum. Pathu friends ah kooptu, ovvoruthar kum oru mixing bowl kuduthuta, fast-aa mudichidalam. AI la oru single computer billions of data pieces la irundhu learn panna weeks edukkalam, adhoda romba heat aagalam illa memory full aagalam. Periya dataset ah illa AI model ah chinna pieces ah break pannina, computers ellam same time la velai pannalaam, learn pannadha share pannikalam, training ah months ku badhila hours la mudichidalam.`,
+    interviewDefinition: `Training a frontier-scale model is a large distributed system problem as much as it is a machine learning problem. Distributed training in AI means splitting the massive job of teaching an AI model across multiple computers (called nodes) instead of using just one. It is like baking thousands of cookies for a big party: one person alone takes days, but ten friends each with a mixing bowl finish in a few hours. In AI, a single computer might take weeks to learn from billions of data pieces and could grow too hot or run out of memory. By breaking the huge dataset or the AI model itself into smaller pieces, the computers can work at the same time, talk to each other to share what they learned, and finish the training in hours instead of months.`,
+    example: `
+const dataset = Array.from({ length: 1000 }, (_, i) => "sample-" + i);
+
+// Single computer: processes everything alone (slow, may overheat or run out of memory)
+function trainOnSingleComputer(data) {
+  return "Processed " + data.length + " samples on 1 computer (weeks)";
+}
+
+// Distributed training: split the job across multiple computers (nodes)
+function splitAcrossNodes(data, nodeCount) {
+  const size = Math.ceil(data.length / nodeCount);
+  return Array.from({ length: nodeCount }, (_, i) =>
+    data.slice(i * size, (i + 1) * size)
+  );
+}
+
+const nodes = splitAcrossNodes(dataset, 10);
+nodes.forEach((chunk, i) => {
+  console.log("Node " + (i + 1) + " trains on " + chunk.length + " samples");
+});
+// Each node works at the same time, then the nodes talk to each other
+// to share what they learned.
+
+
++-----------------------+------------------------------+------------------------------+
+|                       | Single computer              | Distributed training         |
++-----------------------+------------------------------+------------------------------+
+| Work                  | One computer does everything | Split across multiple nodes  |
+| Time                  | Weeks / months               | Hours                        |
+| Risk                  | Overheating, out of memory   | Work is shared               |
++-----------------------+------------------------------+------------------------------+
+
++------------------------------+-----------------------------------------------+
+| Cookie analogy               | In AI                                         |
++------------------------------+-----------------------------------------------+
+| One person bakes alone       | One computer trains alone                     |
+| Ten friends, ten mixing bowls| Multiple computers (nodes) train together     |
+| Finished in a few hours      | Training finishes in hours instead of months  |
++------------------------------+-----------------------------------------------+`
+  },
+  {
+  id: 'base-model-to-helpful-ai-assistant',
+  title: 'Base Model to Helpful AI Assistant',
+  category: 'AI',
+  slangDefinition: `Base Model na, adhoda main velai next token ah predict panradhu mattum dhan. Idhu dhan oru model oda starting point. Aana namma ChatGPT madhiri oru helpful AI Assistant ah use panrom la, adhu base model ah appadiye illa. Base Model ah helpful AI Assistant ah maathanumna moonu steps irukku: Pre-Training, Training, Post-Training. Simple ah solanumna.`,
+  interviewDefinition: `A Base Model is a model whose core ability is predicting the next token. To convert a Base Model into a helpful AI Assistant, there are 3 steps: Pre-Training, Training, and Post-Training.`,
+  example: `
++------------------------------------------------------------------+
+| Step 1: Pre-Training                                             |
++------------------------------------------------------------------+
+                               |
+                               v
++------------------------------------------------------------------+
+| Step 2: Training                                                 |
++------------------------------------------------------------------+
+                               |
+                               v
++------------------------------------------------------------------+
+| Step 3: Post-Training                                            |
++------------------------------------------------------------------+`
+},
+{
+  id: 'common-crawl',
+  title: 'Common Crawl (Pre-Training Step 1)',
+  category: 'AI',
+  slangDefinition: `Common Crawl na, web crawl data oda free, open repository, yaar venaalum use pannalaam. Idhu 19 varushama nadanthukittu irukku, 300 billion ku mela pages store aagi irukku, each month 3 to 5 billion pudhu pages add aagudhu. Common Crawl oru non-profit organization, internet oda periya, free, publicly accessible digital archive ah build panni maintain pannudhu. Idha oru giant open-source library madhiri ninaichukalam, automated bots continuous ah web ah browse panni, billions of web pages oda snapshots edukkum. Indha data ah private ah vechukama, internet oda copy ah ellarkum share pannum, adhanala researchers, businesses, software developers ku romba useful. Today advanced AI and language models train panna use panra main data sources la idhuvum onnu, adhu moolama models humans eppadi ezhudhuranga, communicate panranga, information share panranga nu learn pannum. Oru important point, raw web pages messy ah irukkum. Download pannina webpage clean training text irukadhu. Adhula HTML, JavaScript, navigation menus, cookie banners, ads, duplicate headers/footers, malformed text, mathu junk ellam irukalam. Different companies ku avangaloda own crawlers irukku, internet la irundhu specific data eduthukka, and data ah refine panna avangaloda own specific ways irukku. Common Crawl idhukku oru alternative public vazhi.`,
+  interviewDefinition: `Common Crawl is a non-profit organization that maintains a free, open repository of web crawl data that can be used by anyone. It has been running for 19 years, stores over 300 billion pages, and adds 3 to 5 billion new pages every month. It works like a giant open-source library: automated bots constantly browse the web and take snapshots of billions of web pages, and the archive is shared publicly, which makes it very useful for researchers, businesses, and developers. It is one of the main data sources used to train advanced AI and language models, helping them learn how humans write, communicate, and share information. Raw web pages are messy, so a downloaded webpage is not clean training text; it may contain HTML, JavaScript, navigation menus, cookie banners, ads, duplicated headers/footers, malformed text, and other junk. Different companies have their own crawlers to collect specific data from the internet and their own ways to refine it, and Common Crawl is an alternative public option. This is Step 1 of Pre-Training.`,
+  example: `
++------------------------------------------+
+| Over 300 billion pages spanning 19 years |
+| Free and open corpus since 2007          |
+| Cited in over 10,000 research papers     |
+| 3-5 billion new pages added each month   |
++------------------------------------------+
+
+
+// A raw downloaded webpage is messy, not clean training text
+const rawWebPage = \`
+<html>
+  <nav>Home | About | Contact</nav>
+  <div class="cookie-banner">We use cookies...</div>
+  <script>trackUser();</script>
+  <div class="ad">Buy now!</div>
+  <p>The sky is blue.</p>
+  <footer>Copyright 2026</footer>
+</html>
+\`;
+
+// The useful text is only a small part of the page
+const usefulText = "The sky is blue.";
+console.log(usefulText);
+
+// Everything else is junk for training: HTML, JavaScript, navigation menus,
+// cookie banners, ads, duplicated headers/footers, malformed text, etc.
+
+
++--------------------------------+------------------------------------------------+
+| Approach                       | Description                                    |
++--------------------------------+------------------------------------------------+
+| Company crawlers               | Own crawlers for specific data and own ways    |
+|                                | to refine the data                             |
+| Common Crawl                   | Public alternative: free, open web crawl data  |
+|                                | that anyone can use                            |
++--------------------------------+------------------------------------------------+`
+},
+{
+  id: 'fineweb',
+  title: 'FineWeb (Pre-Training Step 2)',
+  category: 'AI',
+  imageUrl: 'fineweb-pipeline.png',
+  slangDefinition: `FineWeb na, Common Crawl data ah Hugging Face LLM pre-training ku nu specifically process panni, romba clean aana dataset ah maathirukkanga. Idhula 15 trillion tokens, 44TB disk space irukku. FineWeb na internet la irundhu collect panna, AI models train panna use panra massive, high-quality text collection. Hugging Face nu AI research company dhan idha create pannadhu, spam, repetition, low-quality content ellam remove panni 15 trillion tokens clean ah vechirukkanga. AI models ku cleaner and better organized human language examples kudukumbodhu, avanga understand panni, ezhudhi, converse panradhu romba accurate ah irukum. Pipeline la neraya steps irukku: URL Filtering, Text Extraction, Language Filtering, Gopher Filtering, MinHash dedup, C4 Filters, Custom Filters, PII Removal, last la clean text output. FineWeb researchers FineWeb ah innum filter panni, educational-quality content ah mattum eduthu FineWeb-Edu nu produce pannanga. Original FineWeb paper 1.3T-token educational subset ah describe pannadhu, adhula train aana models knowledge and reasoning-heavy benchmarks la better performance kaattunadhu nu report pannanga. Filtering yen venum na, yaarum thangaloda private data ah, assistant kita kekum bodhu public ku kudukka virumba maatanga. adhanala training ku munnadiye filtering romba important velai. Mukkiyamana point: oru LLM build panradhu neural network design panradhu mattum illa, high-quality training dataset build panradhu thaane oru periya engineering and research problem.`,
+  interviewDefinition: `FineWeb is essentially Common Crawl data that Hugging Face has processed into a much cleaner dataset specifically for LLM pre-training (15 trillion tokens, 44TB of disk space). It is a massive, high-quality collection of internet text created by Hugging Face, cleaned of spam, repetition, and low-quality content, so models learn from cleaner and better organized examples of human language. The FineWeb pipeline runs in this order: URL Filtering, Text Extraction, Language Filtering, Gopher Filtering, MinHash dedup, C4 Filters, Custom Filters, PII Removal, producing clean text output. The FineWeb researchers further filtered it for educational-quality content, producing FineWeb-Edu; the original paper described a 1.3T-token educational subset and reported better performance on several knowledge- and reasoning-heavy benchmarks for models trained on it. Filtering is required because no company wants private data exposed to the public through its assistant, and since no human can intervene in real time to review what is asked and answered, the cleanup must happen before training. LLMs should not be trained on private data or unwanted data. Building an LLM isn't only about designing the neural network; building a high-quality training dataset is itself a huge engineering and research problem.`,
+  example: `
+
++---------------+      +-----------------+      +--------------------+      +------------------+
+| URL Filtering | ---> | Text Extraction | ---> | Language Filtering | ---> | Gopher Filtering |
++---------------+      +-----------------+      +--------------------+      +------------------+
+                                                                                      |
+                                                                                      v
++---------------+      +-----------------+      +--------------------+      +------------------+
+| PII Removal   | <--- | Custom Filters  | <--- | C4 Filters         | <--- | MinHash dedup    |
++---------------+      +-----------------+      +--------------------+      +------------------+
+        |
+        v
++-------------------+
+| Clean text output |
++-------------------+
+
+
++-------------------------+--------------------------------------------------------------+
+| Dataset                 | Description                                                  |
++-------------------------+--------------------------------------------------------------+
+| Common Crawl            | Raw, messy web crawl data                                    |
+| FineWeb                 | Common Crawl cleaned by Hugging Face for LLM pre-training    |
+|                         | (15 trillion tokens, 44TB disk space)                        |
+| FineWeb-Edu             | FineWeb further filtered for educational-quality content     |
+|                         | (1.3T-token educational subset in the original paper)        |
++-------------------------+--------------------------------------------------------------+
+
+
+// Why filtering is required
+const unwantedData = ["private data", "adult content", "spam", "repetition", "low-quality content"];
+
+// No human can intervene in real time to check what is asked and given,
+// so filtering must happen BEFORE training.
+console.log("Remove before training:", unwantedData);
+
+// Building an LLM isn't only about designing the neural network.
+// Building a high-quality training dataset is itself a huge
+// engineering and research problem.`
+},
+{
+  id: 'training-step-2',
+  title: 'Training (Step 2) and the Base Model',
+  category: 'AI',
+  slangDefinition: `Training na, tokenization nadakkura, Transformer varra step. Loss function, forward pass, backward pass, gradients, apparam parameters ah thirumba thirumba adjust panra oru repeated loop, idhu ellam serndhu, namakku venumnu irukura result kedaikura varaikum nadakkuradhu dhan training. Pre-Training la Common Crawl, FineWeb madhiri clean pannina data ready aagum. Training la andha data ah tokens ah maathi, Transformer kulla anuppi, forward pass la prediction edukkum, loss calculate pannum, backward pass la gradients kandupidichu, parameters ah update pannum, idhu thirumba thirumba nadakkum. Pre-Training and Training rendum mudinja aprom namakku Base Model kedaikum. Base Model na next token predict panra model, adhu dhan Helpful AI Assistant aaga munnadi irukura nilai.`,
+  interviewDefinition: `Training is the step where tokenization happens and the Transformer comes into play. The loss function, forward pass, backward pass, gradients, and a repeated loop of adjusting the parameters to get the desired result together are called training. The data prepared during Pre-Training (for example Common Crawl and FineWeb) is tokenized, passed through the Transformer for a forward pass to produce a prediction, the loss is calculated, the backward pass computes the gradients, and the parameters are updated, repeating this loop again and again. After Pre-Training and Training, we get the Base Model, a model that predicts the next token, which is the starting point for becoming a helpful AI assistant.`,
+  example: `//
+
++--------------------------------------------------+
+| Tokenization                                     |
++--------------------------------------------------+
+                        |
+                        v
++--------------------------------------------------+
+| Transformer                                      |
++--------------------------------------------------+
+                        |
+                        v
++--------------------------------------------------+
+| Forward Pass  ->  Loss Function                  |
++--------------------------------------------------+
+                        |
+                        v
++--------------------------------------------------+
+| Backward Pass  ->  Gradients                     |
++--------------------------------------------------+
+                        |
+                        v
++--------------------------------------------------+
+| Adjust Parameters                                |
++--------------------------------------------------+
+                        |
+                        v
+        Repeat until the desired result is reached
+
+
++---------------+--------------------------------------------------------------+
+| Stage         | What happens                                                 |
++---------------+--------------------------------------------------------------+
+| Pre-Training  | Collect and clean data (Common Crawl, FineWeb)               |
+| Training      | Tokenization, Transformer, loss function, forward pass,      |
+|               | backward pass, gradients, repeated parameter adjustment      |
++---------------+--------------------------------------------------------------+
+                        |
+                        v
+               +-----------------+
+               | Base Model      |
+               +-----------------+`
+},
+{
+  id: 'base-model',
+  title: 'Base Model',
+  category: 'AI',
+  slangDefinition: `Base model na, instruction and preference-based post-training moolama conversational assistant ah heavily shape aaga munnadi irukura, partially trained model. Idha foundation model nu kooda solvanga. Idhu massive amount of data la irundhu general patterns learn panna, periya pre-trained core program, pinnaadi neraya different specific tasks ku adapt pannalaam. Aana adhu innum ready illa. Example ku prompt: "Write a polite email declining the meeting". ChatGPT madhiri modern AI assistant "Here's a polite email: Hey, I'm sorry to inform you that I will not be able to attend the meeting due to ..........." nu answer pannum. Aana raw base model "Write a polite email declining the meeting without sounding rude. Keep it concise and professional." nu continue pannalaam, yenna na adhu just next token ah predict pannudhu. Idhunaala tuned model ku oru task kudutha proper result kudukum, aana base model namakku pidikaadha madhiri next token predict pannalaam. Base model, college la ippo thaan graduate aana student madhiri, tuned model andha same student oru specific job ku specialized training eduthu vandha madhiri. Post-training model eppadi behave pannanum nu paathukkum, noob answer madhiri illama. Romba knowledgeable person rude ah irukalam, aana model apdi irukka koodadhu. Knowledge um irukanum, humble ah um irukanum. Adhanaala dhan model ah tune pannrom, post-training venum. Yenna na model instructions ah follow pannanum, namma kelvikku desired tone la answer pannanum, structured output kudukanum, properly and humbly behave pannanum. Simple ah: Base Model is just predicting next token. ChatGPT is a helpful assistant, built to answer queries.`,
+  interviewDefinition: `A base model is a partially trained model before it has been heavily shaped into a conversational assistant through instruction- and preference-based post-training. A base model (also called a foundation model) is a large, pre-trained core model that learns general patterns from massive amounts of data so it can later be adapted for many different specific tasks, but it is not ready for use as an assistant yet. For the prompt "Write a polite email declining the meeting", a modern AI assistant like ChatGPT would answer with an actual polite email, while a raw base model might simply continue the text, for example "Write a polite email declining the meeting without sounding rude. Keep it concise and professional.", because it is just predicting the next token. A tuned model gives a proper result for a task, whereas a base model may predict the next token in ways you do not want and will not reliably answer. A base model is like a student who just graduated from college, while a tuned model is the same student after specialized training for a specific job. Post-training takes care of how the model should behave: a highly knowledgeable person can still be rude, but a model should have knowledge and also be humble. That is why post-training is required: we need the model to follow instructions, answer in the desired tone, give structured output, and behave properly and humbly. In short, a base model is just predicting the next token, while ChatGPT is a helpful assistant built to answer queries.`,
+  example: `// Base Model vs AI Assistant
+
+// Prompt:
+const prompt = "Write a polite email declining the meeting";
+
+// A modern AI assistant like ChatGPT would answer:
+const assistantOutput =
+  "Here's a polite email: Hey, I'm sorry to inform you that I will not be able to attend the meeting due to ..........";
+
+// But a raw base model might continue:
+const baseModelOutput =
+  "Write a polite email declining the meeting without sounding rude. Keep it concise and professional.";
+
+console.log(assistantOutput);
+console.log(baseModelOutput);
+
+
++----------------------------+--------------------------------------------------+
+| Base Model                 | Tuned Model (AI Assistant)                       |
++----------------------------+--------------------------------------------------+
+| Just predicts next token   | Built to answer queries                          |
+| May not answer properly    | Gives a proper result for the task               |
+| Like a fresh graduate      | Like the same student after job-specific training|
++----------------------------+--------------------------------------------------+
+
+
++---------------------------------------------+
+| Why post-training is required               |
++---------------------------------------------+
+| Follow instructions                         |
+| Answer in the desired tone                  |
+| Give structured output                      |
+| Behave properly and humbly                  |
++---------------------------------------------+
+
+// Base Model is just predicting next token.
+// ChatGPT is a helpful assistant, built to answer queries.`
+},
+{
+  id: 'post-training',
+  title: 'Post-Training (Step 3)',
+  category: 'AI',
+  slangDefinition: `Post-Training na "model eppadi behave pannanum?" nu decide panra step. Base model ku next token predict panna mattum theriyum, adhanala post-training la adha oru helpful assistant ah maathuvom. Idhula model instructions ah follow pannanum, questions ku answer pannanum, desired tone la pesanum, thevai illadha illa thappana requests ah appropriately refuse pannanum, theriyadhadha theriyala nu uncertainty ah admit pannanum, output ah structure pannanum, conversational ah behave pannanum. Simple ah solanumna, pre-training and training la model knowledge learn pannum, post-training la andha knowledge ah eppadi use panni namakku nalla pesanum nu behavior learn pannum.`,
+  interviewDefinition: `Post-training answers the question "How should the model behave?" After pre-training and training produce a base model that only predicts the next token, post-training shapes it into a helpful assistant. The model learns to follow instructions, answer questions, use the desired tone, refuse appropriately, admit uncertainty, structure its output, and behave conversationally. In short, the earlier stages give the model its knowledge and patterns, and post-training teaches it how to behave when using them.`,
+  example: `// Post-Training: "How should the model behave?"
+
++----------------------------------------+
+| Follow instructions                    |
+| Answer questions                       |
+| Use desired tone                       |
+| Refuse appropriately                   |
+| Admit uncertainty                      |
+| Structure output                       |
+| Behave conversationally                |
++----------------------------------------+
+
+
++-------------------+-------------------------------------------------------+
+| Stage             | Focus                                                 |
++-------------------+-------------------------------------------------------+
+| Pre-Training      | Collect and clean data                                |
+| Training          | Learn patterns (next token prediction)                |
+| Post-Training     | Learn how to behave (helpful assistant)               |
++-------------------+-------------------------------------------------------+
+
+// Base Model -> Post-Training -> Helpful AI Assistant`
+},
+{
+  id: 'supervised-fine-tuning',
+  title: 'Supervised Fine-Tuning (SFT)',
+  category: 'AI',
+  slangDefinition: `Ippo varaikum namma pesinadhu ellam public ku usable ah irukkura madhiri maathuradhu SFT (Supervised Fine-Tuning) nala dhan possible. Fine-tuning na, already pre-trained aana oru model ah, oru smaller, more targeted dataset la continuous-aa train panradhu. Marubadiyum random parameters la irundhu start pannaadhu. Already capable aana pre-trained model (Base Model) + smaller specialised dataset + additional training = Fine-tuned Model. Yen scratch la irundhu thirumba create pannanum, just improve pannaa podhume. Supervised Fine-Tuning na, raw, general AI model ah helpful assistant ah maatha use panra training step. Adhukku correct questions and answers oda clear examples kuduthu, instructions ah follow panna solli kuduppom. Indha train aana model ku SFT Model nu per. Model ah chat la user um assistant um pesura madhiri answer panna train pannuvom. Oru mukkiyamana point, fine-tuning ku pudhusa oru learning mechanism illa. Adhe dhan: input -> prediction -> calculate loss -> backward pass -> update the parameters.`,
+  interviewDefinition: `Fine-tuning means continuing the training of an already pre-trained model on a smaller, more targeted dataset. You do not start from random parameters again: an already capable pre-trained model (the base model) plus a smaller specialised dataset plus additional training gives a fine-tuned model. The idea is simple: why create it again from scratch, just improve it. Supervised Fine-Tuning (SFT) is the training step that turns a raw, general AI model into a helpful assistant by teaching it to follow instructions using clear examples of correct questions and answers. The resulting model is called an SFT Model, and it is trained to answer the way a user and an assistant interact in a chat. Fine-tuning does not introduce a new learning mechanism; it is the same loop: input -> prediction -> calculate loss -> backward pass -> update the parameters. Making the model usable for the public, as discussed so far, is possible because of SFT.`,
+  example: `
+
+// Fine-tuning = continue training an ALREADY pre-trained model
+// on a smaller, more targeted dataset (no random restart)
+
+// SFT dataset: clear examples of correct questions and answers
+const sftDataset = [
+  {
+    user: "Write a polite email declining the meeting",
+    assistant: "Here's a polite email: Hi, I'm sorry to inform you that I will not be able to attend the meeting due to ..."
+  },
+  {
+    user: "What is the capital of France?",
+    assistant: "The capital of France is Paris."
+  }
+];
+
+// Same learning loop as before, no new learning mechanism:
+// input -> prediction -> calculate loss -> backward pass -> update parameters
+function fineTune(model, dataset) {
+  for (const example of dataset) {
+    const prediction = model.predict(example.user);          // input -> prediction
+    const loss = model.calculateLoss(prediction, example.assistant);
+    model.backwardPass(loss);                                // gradients
+    model.updateParameters();                                // update parameters
+  }
+  return model; // SFT Model
+}
+
+console.log("Starts from the pre-trained base model, not random parameters");
+
+
++----------------------------------------+
+| Already capable pre-trained model      |
+| (Base Model)                           |
++----------------------------------------+
+| + smaller specialised dataset          |
+| + additional training                  |
++----------------------------------------+
+                    |
+                    v
++----------------------------------------+
+| Fine-tuned Model (SFT Model)           |
++----------------------------------------+
+
+// Why create again from scratch, just improve it.`
+},
+{
+  id: 'instruction-tuning',
+  title: 'Instruction Tuning',
+  category: 'AI',
+  slangDefinition: `Instruction tuning na, fine-tuning oda oru type, instructions ah follow panradhula specifically focus panra training. Idhu AI model ku, sentence la next word ah mattum predict panradhuku badhila, human commands ah eppadi follow pannanum nu puriya vekkum. Oru basic AI "The sky is..." nu phrase ah complete panna mattum theriyum. Aana instruction-tuned AI "Explain why the sky is blue" illa "Write a poem about the ocean" madhiri direct prompts ku correct ah answer pannum. Simple ah solanumna, raw text predictor ah, user kudukura specific tasks, recipes, rules ah safe ah and accurate ah follow panra helpful, conversational assistant ah maathudhu. Example ku Instruction: "Translate into Hindi: I love programming" nu irundha Response la Hindi translation varum. Instruction: "Summarise this paragraph in one sentence" nu irundha one sentence summary varum. Instruction: "Write this in JSON format" nu irundha JSON format la output varum. Indha madhiri data examples model ku "naan just text generate pannitu irundha podhaadhu, idhu oru task, adha perform pannanum" nu puriya vekkum. Adhanala JSON, poem, object madhiri specific type of output kettaa, nee kettadha madhiriye answer pannum. Idhu extra training, desired behavior ah model kitta irundhu vaanga. Desired input and instructions ku instruction tuning venum. Idhu ellam automatic ah nadakkum, algorithm la ezhudhi irukkum, nee concept mattum nyabagam vechukko, adhu nadakkum. Model summarization, rewriting, classification, programming madhiri different types of tasks la train aagum. Indha madhiri neraya data irukkurathala, user kettadha madhiriye model respond pannum. Idha dhan "Patterns appear magically" nu solrom.`,
+  interviewDefinition: `Instruction tuning is a type of fine-tuning focused specifically on following instructions. It trains an AI model to follow human commands rather than just predict the next word in a sentence. A basic model might only know how to complete a phrase like "The sky is...", while an instruction-tuned model can answer direct prompts like "Explain why the sky is blue" or "Write a poem about the ocean." It transforms a raw text predictor into a helpful, conversational assistant that can safely and accurately follow the specific tasks, recipes, or rules given by a user. Training examples pair an instruction with a response, such as "Translate into Hindi: I love programming" with the Hindi translation, "Summarise this paragraph in one sentence" with a one-sentence summary, or "Write this in JSON format" with a JSON output. Such examples help the model understand that it should not just keep generating text; the input is a task that needs to be performed. Because of this, when a specific type of output such as JSON, a poem, or an object is requested, the model answers in the format that was asked. It is extra training to get the desired behavior from the model, and the model is trained on many types of tasks such as summarization, rewriting, classification, and programming. With enough data on these tasks, the model responds the way the user asked, and these patterns appear magically from the data.`,
+  example: `
+
+// A type of fine-tuning focused on following instructions
+const instructionDataset = [
+  {
+    instruction: 'Translate into Hindi: "I love programming."',
+    response: "मुझे प्रोग्रामिंग पसंद है।"
+  },
+  {
+    instruction: "Summarise this paragraph in one sentence.",
+    response: "..."
+  },
+  {
+    instruction: "Write this in JSON format.",
+    response: '{ "...": "..." }'
+  }
+];
+
+// Base model: just continues the text
+function baseModel(prompt) {
+  return prompt + " ...keeps generating more text";
+}
+
+// Instruction-tuned model: understands the prompt is a TASK to perform
+function instructionTunedModel(prompt) {
+  if (prompt.includes("JSON")) {
+    return '{ "answer": "..." }'; // answers in the format you asked
+  }
+  return "Performs the requested task";
+}
+
+console.log(baseModel("Write this in JSON format."));
+console.log(instructionTunedModel("Write this in JSON format."));
+
+
++--------------------------------------+--------------------------------------------------+
+| Base model                           | Instruction-tuned model                          |
++--------------------------------------+--------------------------------------------------+
+| Completes a phrase: "The sky is..."  | Answers: "Explain why the sky is blue"           |
+| Just predicts the next word          | Follows human commands                           |
+| Keeps generating text                | Treats the input as a task that needs to be done |
++--------------------------------------+--------------------------------------------------+
+
++----------------------------------+
+| Types of tasks the model learns  |
++----------------------------------+
+| Summarization                    |
+| Rewriting                        |
+| Classification                   |
+| Programming                      |
+| Extraction                       |
+| Programming                      |
+| Structured Output                |
+| Conversation                     |
+| Translation                      |
+| Proof Reading                    |
+| ...and many more                 |
++----------------------------------+
+
+// Such data examples help the model understand:
+// "I don't just have to keep generating text, this is a task that needs to be performed."
+// Patterns appear magically.`
+},
+{
+  id: 'knowledge-of-self-is-hardcoded',
+  title: 'Knowledge of Self is Hardcoded',
+  category: 'AI',
+  slangDefinition: `Model ah patthi personal questions kettaa, adhu kudukura answer hardcoded ah irukkum. "Who are you?", "Who built you?", "Who owns you?", "Where do you live?", "What's your name?" madhiri questions. Ex: ChatGPT yaaru built nu kettaa, adhu company name OpenAI nu dhan solum, CEO Sam Altman nu illa, vera ethavadhu engineer pera illa. Idhunaala indha madhiri questions ku sila default hardcoded answers irukku, adhu oru deterministic way of answering, adhavadhu thirumba thirumba kettaalum same answer dhan varum. Idhu fine-tuning time la kudukura training examples moolama model ku solli kudukkapadum. Model ku thannai patthi theriyum nu artham illa, adhu training la kudutha answers dhan.`,
+  interviewDefinition: `When we ask a personal question about the model, such as "Who are you?", "Who built you?", "Who owns you?", "Where do you live?", or "What's your name?", the answer it gives can be hardcoded. For example, if you ask who built ChatGPT, it will answer with the company name OpenAI, not the CEO Sam Altman or any individual engineer. These are default hardcoded answers, a deterministic way of answering, so the same question gets the same kind of answer each time. Such answers are typically taught during fine-tuning through training examples, which means the model's knowledge about itself comes from what it was trained to say rather than from genuine self-awareness.`,
+  example: `
+
+// Questions about the model itself get default, deterministic answers
+const selfKnowledge = {
+  "Who are you?": "I am ChatGPT, an AI assistant.",
+  "Who built you?": "OpenAI",
+  "Who owns you?": "OpenAI",       // company name, not the CEO or an engineer
+  "Where do you live?": "I'm an AI, I don't live anywhere physically.",
+  "What's your name?": "ChatGPT"
+};
+
+function answerAboutSelf(question) {
+  return selfKnowledge[question] ?? "Generate answer normally";
+}
+
+console.log(answerAboutSelf("Who owns you?"));
+// Output: "OpenAI"  (same answer every time -> deterministic)
+
+
++----------------------+-----------------------------------------------+
+| Question             | Hardcoded answer                              |
++----------------------+-----------------------------------------------+
+| Who are you?         | Default answer                                |
+| Who built you?       | Company name (OpenAI)                         |
+| Who owns you?        | Company name (OpenAI), not Sam Altman         |
+| Where do you live?   | Default answer                                |
+| What's your name?    | Default answer                                |
++----------------------+-----------------------------------------------+
+
+// These are deterministic, default answers taught during fine-tuning.`
+},
+{
+  id: 'conversation-formatting',
+  title: 'Conversation Formatting (System, User, Assistant Roles)',
+  category: 'AI',
+  slangDefinition: `Oru conversation la "You are helpful. What is JavaScript? JavaScript is a programming language. Can you explain closures?" nu ellam oru plain text ah kuduthaa, problem enna na, edhu line yaaroda dhu nu model ku theriyaadhu. Adhanala model ku oru structured format venum. System, User, Assistant roles na, AI oda conversation la yaaru enna solranga nu organize panna use panra labels. Idhu AI ku adhoda rules, yaar kooda pesudhu, enna panna venum nu puriya help pannum. System Role AI ku core rules and behavior set pannum, AI oda personality, tone, boundaries ah decide pannum, background instruction madhiri velai pannum. Example: "You are a polite customer service helper." User Role pesura human ah represent pannum, direct questions, commands, tasks kudukkum. Example: "Can you help me reset my password?" Assistant Role AI generate panna response ah represent pannum, past replies ah store panni chat smooth and logical ah irukka help pannum. Example: "Yes, I can help you. First, click on the login page..." Image la irukura format la <SYSTEM> "You are a helpful programming teacher." </SYSTEM>, <USER> "What is JavaScript?" </USER>, <ASSISTANT> "JavaScript is a programming language..." </ASSISTANT>, apparam <USER> "Can you explain closures?" </USER>, last la <ASSISTANT> nu open ah vittuduvom, model adhukku aprom answer generate pannum. Exact internal tokens model ku model maarum, aana principle similar dhan.`,
+  interviewDefinition: `If a conversation is given to a model as plain lines such as "You are helpful. What is JavaScript? JavaScript is a programming language. Can you explain closures?", the problem is that it is unclear which line belongs to whom, so the model needs a structured format. The System, User, and Assistant roles are labels used to organize who is saying what during a conversation with an AI, helping it understand its rules, who it is talking to, and what it needs to do. The System role sets the core rules and behavior for the AI, deciding its personality, tone, and boundaries, and acts as a background instruction (for example, "You are a polite customer service helper."). The User role represents the human talking to the AI and gives direct questions, commands, or tasks (for example, "Can you help me reset my password?"). The Assistant role represents the response generated by the AI and stores past replies to keep the chat smooth and logical (for example, "Yes, I can help you. First, click on the login page..."). A conversation is formatted by wrapping each message in role markers, such as <SYSTEM>, <USER>, and <ASSISTANT>, ending with an open <ASSISTANT> marker where the model continues. The exact internal tokens depend on the model, but the principle is similar.`,
+  example: `
+
+// Problem: plain text, which line belongs to whom?
+const plainText = \`
+You are helpful.
+What is JavaScript?
+JavaScript is a programming language.
+Can you explain closures?
+\`;
+
+// Solution: structured format with roles
+const conversation = [
+  { role: "SYSTEM",    content: "You are a helpful programming teacher." },
+  { role: "USER",      content: "What is JavaScript?" },
+  { role: "ASSISTANT", content: "JavaScript is a programming language..." },
+  { role: "USER",      content: "Can you explain closures?" }
+];
+
+function formatConversation(messages) {
+  const formatted = messages
+    .map(m => "<" + m.role + ">\\n" + m.content + "\\n</" + m.role + ">")
+    .join("\\n\\n");
+  return formatted + "\\n\\n<ASSISTANT>"; // model continues from here
+}
+
+console.log(formatConversation(conversation));
+// <SYSTEM>
+// You are a helpful programming teacher.
+// </SYSTEM>
+//
+// <USER>
+// What is JavaScript?
+// </USER>
+// ...
+// <ASSISTANT>
+
+// The exact internal tokens depend on the model, but the principle is similar.
+
+
++-----------+------------------------------------------+-----------------------------------------------+
+| Role      | Purpose                                  | Example                                       |
++-----------+------------------------------------------+-----------------------------------------------+
+| System    | Sets core rules and behavior; decides    | "You are a polite customer service helper."   |
+|           | personality, tone, boundaries;           |                                               |
+|           | background instruction                   |                                               |
+| User      | The human talking to the AI; gives       | "Can you help me reset my password?"          |
+|           | questions, commands, or tasks            |                                               |
+| Assistant | Response generated by the AI; stores     | "Yes, I can help you. First, click on the     |
+|           | past replies to keep the chat logical    | login page..."                                |
++-----------+------------------------------------------+-----------------------------------------------+`
+},
+{
+  id: 'sft-limitations-and-human-preferences',
+  title: 'SFT is Cool, but Not Enough (Human Preferences)',
+  category: 'AI',
+  slangDefinition: `SFT (Supervised Fine-Tuning) cool dhan, aana adhu mattum podhaadhu. Since, SFT style and format ah solli kudukkum, aana deep reasoning, maariite irukkura facts, complex human preferences oda align aagaradhu la struggle pannum. Example ku prompt: "Explain recursion". Response A: romba technical, mathematically precise, 800 words. Response B: simple analogy, short code example, 200 words. Response C: correct aana confusing. Response D: incorrect aana romba confident. Model edha prefer pannanum? Ovvoru possible prompt kum oru perfect target answer create panradhu romba kashtam. Different users ku different type of answers pudikkum, sila per ku technical venum, sila per ku lengthy, sila per ku short. Idhu human taste pathina vishayam. Adhanala SFT mela human evaluators or human feedback venum. Ella companies kitta answers ah validate panra human expertize irukkanga, idhuvum post-training oda part dhan. Internal people and subject matter experts paatha B better and more preferable nu vechukalam. Experts dhan edhu better, eppadi better nu decide pannuvanga. Human Preferences la real people results ah rank pannuvanga, best la irundhu worst varaikum. Example: B > C > A > D.`,
+  interviewDefinition: `Supervised Fine-Tuning (SFT) is not enough on its own because it teaches style and format, but it struggles with deep reasoning, changing facts, and aligning with complex human preferences. For the prompt "Explain recursion", Response A may be very technical and mathematically precise at 800 words, Response B a simple analogy with a short code example at 200 words, Response C correct but confusing, and Response D incorrect but very confident. Which one should the model prefer? Creating one perfect target answer for every possible prompt is incredibly difficult, and different users like different answers: some want technical, some lengthy, some shorter. This is about human taste, so human evaluators or human feedback are needed on top of SFT. Companies have humans, including subject matter experts, who validate and compare answers, and this is also part of post-training. Experts decide which is better and why. In Human Preferences, real people rank the results from best to worst, for example B > C > A > D.`,
+  example: `
+// Prompt: "Explain recursion."
+const responses = {
+  A: "Very technical, mathematically precise, 800 words.",
+  B: "Simple analogy, short code example, 200 words.",
+  C: "Correct but confusing.",
+  D: "Incorrect but very confident."
+};
+
+// Which one should the model prefer?
+// Creating ONE perfect target answer for every possible prompt is incredibly difficult.
+
+// Human Preferences: real people rank the results (best -> worst)
+const humanRanking = ["B", "C", "A", "D"]; // B > C > A > D
+
+humanRanking.forEach((key, index) => {
+  console.log((index + 1) + ". Response " + key + ": " + responses[key]);
+});
+
+
++-----------------+--------------------------------------------------+
+| Response        | Description                                      |
++-----------------+--------------------------------------------------+
+| Response A      | Very technical, mathematically precise, 800 words|
+| Response B      | Simple analogy, short code example, 200 words    |
+| Response C      | Correct but confusing                            |
+| Response D      | Incorrect but very confident                     |
++-----------------+--------------------------------------------------+
+
++-----------------------------------------------------------+
+| Human Preferences                                         |
+| Real people rank the results: Best -> Worst               |
+| Example: B > C > A > D                                    |
++-----------------------------------------------------------+
+
+// SFT teaches style and format, but struggles with deep reasoning,
+// changing facts, and aligning with complex human preferences.
+// Human feedback (part of post-training) fills this gap.`
+},
+{
+  id: 'generator-vs-discriminator-evaluation-gap',
+  title: 'Generators vs Discriminators (Evaluation Gap)',
+  category: 'AI',
+  slangDefinition: `Answers ah evaluate panravanga generator illa, adhanala oru gap irukku. Humans ideal answer ah scratch la irundhu generate panradhu kashtam, aana rendu answers la edhu better, edhu worse nu discriminate panradhu easy. Example ku neenga 100 jokes generate panradhu kashtam, aana jokes aa ketu "idhu dhan better" nu solla mudiyum. Generators pudhu content create pannum, Discriminators (illa Evaluators) andha content evlo nalla irukku, real ah irukku, correct ah irukku nu judge pannum. Evaluation Gap na, oru AI illa human oru answer sari ah thappa nu easy ah sollidum, aana andha sariyana answer ah scratch la irundhu create panna struggle pannum. Simple ah solanumna, content ah judge panradhu, adha create panradhai vida romba easy. Idhunaala dhan human feedback useful: Human model kudukkura answers ah rank panna mudiyum, even avanga andha perfect answer ah ezhudhaadhu.`,
+  interviewDefinition: `Generators create new content, while Discriminators (or Evaluators) judge how good, real, or correct that content is. The Evaluation Gap occurs when an AI or a human can easily tell whether an answer is right or wrong, but struggles to create that right answer from scratch. In other words, judging content is much easier than creating it. The party that evaluates the answers is not the generator, so there is a gap. For example, you cannot generate 100 jokes, but you can listen to them and say which one is better more easily than you can make someone laugh. Likewise, humans may find it difficult to write the ideal answer from scratch but easy to choose between a better and a worse answer, which is why human feedback and ranking are valuable in post-training.`,
+  example: `// Generators vs Discriminators (Evaluation Gap)
+
+// Generator: creates new content (hard)
+function generateJokes(count) {
+  return Array.from({ length: count }, (_, i) => "Joke #" + (i + 1));
+}
+const jokes = generateJokes(100);
+
+// Discriminator / Evaluator: judges which content is better (easy)
+function pickBetter(jokeA, jokeB) {
+  // "Hahahaha, this one is better."
+  return jokeA; // a human can easily say which is better
+}
+
+console.log(pickBetter(jokes[0], jokes[1]));
+// Judging is much easier than creating.
+
+
++------------------------------+------------------------------+------------------------------+
+|                              | Generator                    | Discriminator / Evaluator    |
++------------------------------+------------------------------+------------------------------+
+| Job                          | Creates new content          | Judges how good, real, or    |
+|                              |                              | correct the content is       |
+| Difficulty                   | Harder                       | Easier                       |
+| Example                      | Write 100 jokes              | Say which joke is better     |
++------------------------------+------------------------------+------------------------------+
+
++--------------------------------------------------------------------------------+
+| Evaluation Gap                                                                 |
+| Easy to tell if an answer is right or wrong, but hard to create that right     |
+| answer from scratch. Judging content is much easier than creating it.          |
++--------------------------------------------------------------------------------+`
+},
+{
+  id: 'reward-model',
+  title: 'Reward Model',
+  category: 'AI',
+  slangDefinition: `First human feedback and preferences ah collect pannuvom, millions of comparison data. Apparam innoru model ah train pannuvom, adhu dhan Reward Model. Post-training la Reward Model na, AI oda answers ah padichi, adhu evlo helpful, safe, correct nu paathu score kudukura oru digital judge. Reward Model eppadi learn pannum? Human Preference B > A > C > D nu irukku nu vechukalam. Model predict panradhu A > B > D > C. Appo loss calculate pannuvom, back propagation nadakkum, Reward Model ah update pannuvom, apparam repeat pannuvom. Idhula human preference patterns learn aagum. reward models la knobs, adhavadhu parameters adjust aagum. Nammalaye namma thappa correct panna madhiri dhan machine um pannum. ChatGPT use pannirukeengana, sila neram adhu rendu responses kudutthu edhu pidichirukku nu keppaanga la, adhe dhan idhu. Neenga kudukkura preference la irundhu Reward Model learn pannum.`,
+  interviewDefinition: `Human feedback and preferences are collected as millions of comparison data points, and another model is trained on them; this is the Reward Model. A reward model in AI post-training is a digital judge that reads an AI's answers and gives them a score based on how helpful, safe, or correct they are. It learns the way the earlier training does: suppose the human preference is B > A > C > D while the model predicts A > B > D > C. The mismatch is turned into a loss, backpropagation is run, the Reward Model's parameters are updated, and the process repeats, so human preference patterns are learned. Humans come in between during post-training, and the reward model learns from human feedback data and answers, correcting itself in the same way people correct themselves. In ChatGPT, when it sometimes shows two responses and asks which one you prefer, that preference is the kind of data a reward model learns from.`,
+  example: `
+// 1. Collect human preferences (millions of comparison data)
+const comparisonData = [
+  { prompt: "Explain recursion", ranking: ["B", "A", "C", "D"] }
+  // ...millions more
+];
+
+// 2. Train another model -> REWARD MODEL
+// Reward model gives each answer a score (helpful, safe, correct)
+function rewardModel(answer) {
+  const scores = { A: 0.8, B: 0.6, C: 0.3, D: 0.1 }; // initial, untrained guess
+  return scores[answer];
+}
+
+// How does a reward model learn?
+const humanPreference = ["B", "A", "C", "D"];   // B > A > C > D
+const modelPredicts = ["A", "B", "D", "C"];     // A > B > D > C
+
+// - Calculate loss (prediction doesn't match human preference)
+// - Back propagation
+// - Update Reward Model
+// - REPEAT
+// -> Human preference patterns are learned
+
+console.log("Human preference:", humanPreference.join(" > "));
+console.log("Model predicts:  ", modelPredicts.join(" > "));
+
+
++---------------------------+-------------------------------------------------+
+| Step                      | What happens                                    |
++---------------------------+-------------------------------------------------+
+| Collect human preferences | Millions of comparison data                     |
+| Train another model       | This is the REWARD MODEL                        |
+| Calculate loss            | Compare model ranking with human ranking        |
+| Back propagation          | Find how to adjust parameters                   |
+| Update Reward Model       | Adjust parameters                               |
+| REPEAT                    | Human preference patterns are learned           |
++---------------------------+-------------------------------------------------+
+
+// Remember: you often see 2 outputs in ChatGPT and choose the one you prefer.
+// That preference helps the Reward Model learn.`
 },
 ]
