@@ -3145,4 +3145,422 @@ console.log("Model predicts:  ", modelPredicts.join(" > "));
 // Remember: you often see 2 outputs in ChatGPT and choose the one you prefer.
 // That preference helps the Reward Model learn.`
 },
+{
+  id: 'reinforcement-learning',
+  title: 'Reinforcement Learning (RL)',
+  category: 'AI',
+  slangDefinition: `Reinforcement Learning (RL) na, computer trial and error moolama decisions edukka learn panra oru type of artificial intelligence, rewards and punishments system adhukku guide pannum. Exact rules kuduthu program panna maatanga, illa correct answers oda dataset um kudukka maatanga. Oru environment la different actions try pannum, nalla choices ku reward kidaikum, mosamana choices ku penalty kidaikum. Neram aaga aaga, highest total reward kidaikka best strategy enna nu figure out pannidum. Idhu dhan Reward Model oda adutha step ku base, post-training la model ku nalla answers ku high reward kidaikka learn panna vekkum.`,
+  interviewDefinition: `Reinforcement Learning (RL) is a type of artificial intelligence where a computer learns to make decisions through trial and error, guided by a system of rewards and punishments. Instead of being programmed with exact rules or given a dataset of correct answers, the AI learns by doing. It tries different actions in an environment, gets a reward for good choices, and gets a penalty for bad choices. Over time, it figures out the best strategy to get the highest total reward. In LLM post-training, this idea is combined with a reward model so the model learns to produce answers that earn higher scores.`,
+  example: `
+// The AI learns by doing: try an action -> get reward or penalty -> improve
+const actions = ["A", "B", "C"];
+const rewards = { A: -1, B: 5, C: 1 }; // environment feedback (B is best)
+
+const score = { A: 0, B: 0, C: 0 };
+
+for (let trial = 0; trial < 100; trial++) {
+  // Try different actions in the environment (trial and error)
+  const action = actions[Math.floor(Math.random() * actions.length)];
+  const reward = rewards[action];   // reward for good choices, penalty for bad
+  score[action] += reward;          // learn from the feedback
+}
+
+const bestAction = Object.entries(score).sort((a, b) => b[1] - a[1])[0][0];
+console.log(bestAction);
+// Output: "B" -> over time, the AI figures out the best strategy
+// to get the highest total reward.
+
+
++--------------------------------+--------------------------------------------+
+| Concept                        | Meaning                                    |
++--------------------------------+--------------------------------------------+
+| Trial and error                | Try different actions in an environment    |
+| Reward                         | Given for good choices                     |
+| Penalty                        | Given for bad choices                      |
+| Goal                           | Find the strategy with the highest total   |
+|                                | reward                                     |
++--------------------------------+--------------------------------------------+
+
++--------------------------------------+---------------------------------------+
+| Normal training                      | Reinforcement Learning                |
++--------------------------------------+---------------------------------------+
+| Programmed with exact rules or given | AI learns by doing, guided by         |
+| a dataset of correct answers         | rewards and penalties                 |
++--------------------------------------+---------------------------------------+`
+},
+{
+  id: 'rlhf',
+  title: 'Reinforcement Learning from Human Feedback (RLHF)',
+  category: 'AI',
+  slangDefinition: `RLHF na, AI oda responses ah humans grade panni rank panna vechi, AI ku better answers kudukka solli kudukura training method. Idhu moonu steps la nadakkum. Step 1, AI choices kudukkum: AI Answer A and Answer B rendum create pannum. Step 2, Humans grade pannuvanga: oru human reviewer rendu answers um padichi, "Answer B great, aana Answer A rude" nu solluvaanga. Step 3, AI reward la irundhu learn pannum: Answer B madhiri act panna AI ku oru digital "treat" (high score) kidaikkum, Answer A madhiri pesuradha avoid panna learn pannum. Neram aaga aaga, 10000's of choices vazhiya, AI human preferences, safety rules, helpfulness ah learn pannum. Idhu ChatGPT, Claude madhiri popular chatbots ah train panna use panra oru core technique.`,
+  interviewDefinition: `RLHF is a training method that teaches an artificial intelligence to give better answers by letting humans grade and rank its responses. It works in 3 steps. First, the AI gives choices: it creates both Answer A and Answer B. Second, humans grade them: a human reviewer reads both answers and says, for example, "Answer B is great, but Answer A is rude." Third, the AI learns from the reward: it gets a digital "treat" (a high score) for acting like Answer B and learns to avoid talking like Answer A. Over time, through thousands of these choices, the AI learns human preferences, safety rules, and helpfulness. This is a core technique used to train popular chatbots like ChatGPT and Claude.`,
+  example: `
+// Step 1: The AI gives choices
+const answerA = "That's a silly question, figure it out yourself.";
+const answerB = "Great question! Here's a clear explanation...";
+
+// Step 2: Humans grade them
+const humanFeedback = {
+  A: "rude",
+  B: "great"
+};
+
+// Step 3: The AI learns from the reward
+const rewards = { A: -1, B: 1 }; // digital "treat" (high score) for B
+
+let preferenceForB = 0.5; // starts neutral
+for (let step = 0; step < 1000; step++) {
+  // Each human choice nudges the model toward B and away from A
+  preferenceForB += 0.0005 * (rewards.B - rewards.A);
+}
+console.log(preferenceForB.toFixed(2));
+// Output: 1.50 -> grows toward preferring Answer B (illustrative)
+// Over thousands of choices, the AI learns human preferences,
+// safety rules, and helpfulness.
+
+
++------+------------------------+---------------------------------------------------+
+| Step | What happens           | Example                                           |
++------+------------------------+---------------------------------------------------+
+| 1    | The AI gives choices   | The AI creates Answer A and Answer B              |
+| 2    | Humans grade them      | "Answer B is great, but Answer A is rude."        |
+| 3    | The AI learns from the | High score for acting like Answer B; learns to    |
+|      | reward                 | avoid talking like Answer A                       |
++------+------------------------+---------------------------------------------------+
+
+// Core technique used to train chatbots like ChatGPT and Claude.`
+},
+{
+  id: 'building-a-helpful-ai-assistant',
+  title: 'Building a Helpful AI Assistant',
+  category: 'AI',
+  imageUrl:paste from e8.pdf, Revision: What We Learned page 9,
+  slangDefinition: `Oru helpful AI Assistant eppadi build pannuvanga nu full flow paapom. 1st pre-training data la, Transformer architecture and neural networks use panni training nadakkum, adhula irundhu base model kedaikum. Base model mainly next word predict panradhukku dhan, aana helpful assistant ah public ku ready illa. Appo eppadi helpful assistant ah maathuradhu? Supervised Fine-Tuning (SFT) or Instruction Fine-Tuning pannuvom, adhavadhu model eppadi behave pannanum nu learn panna vekka, idhu post-training la romba mukkiyamana step. Different companies oda models different flavors la answer pannradhukku SFT dhan oru kaaranam, avanga different ways la tune pannuvaanga. Idhukku aprom SFT Model kedaikum, aana adhuvum innum romba capable illa. Bad outcomes avoid panna, humans prefer panra answers venum, adhanala human preferences naduvula varum, human preferences basis la Reward Model create pannuvom. Reward Model na scores basis la decision edukkura decision-maker, adhu human feedback la irundhu learn pannum. Adhuku aprom Reinforcement Learning from Human Feedback (RLHF) use panni, human preferences basis la model ah train pannuvom. Final ah kedaikura preference-trained model, ChatGPT, Claude, Grok madhiri AI systems la use panna ready.`,
+  interviewDefinition: `Building a helpful AI assistant happens in five stages. First, training is done on pre-training data using the Transformer architecture and neural networks, which creates a base model. The base model is mainly for predicting the next word, but it is not ready for the public as a helpful assistant. Second, we perform Supervised Fine-Tuning (SFT) or Instruction Fine-Tuning to teach the model how to behave, which is the most important step in post-training; different companies tune in different ways, which is why their models answer in different flavors. This produces an SFT model, which is still not that capable. Third, to avoid bad outcomes and get answers humans prefer, human preferences come in and a Reward Model is created from them. A reward model is a decision-maker based on scores, and it learns from human feedback. Fourth, Reinforcement Learning from Human Feedback (RLHF) is used to train the model based on human preferences. Fifth, the resulting preference-trained model is ready for use in systems like ChatGPT, Claude, Grok, and other AI assistants.`,
+  example: `
++-------------------------------------------------------------+
+| Step 1: Pre-training data + Transformer + Neural networks   |
+|         -> Base Model (predicts the next word)              |
++-------------------------------------------------------------+
+                              |
+                              v
++-------------------------------------------------------------+
+| Step 2: Supervised Fine-Tuning (SFT) / Instruction          |
+|         Fine-Tuning -> teaches the model how to behave      |
+|         -> SFT Model (still not that capable)               |
++-------------------------------------------------------------+
+                              |
+                              v
++-------------------------------------------------------------+
+| Step 3: Create a Reward Model based on human preferences    |
+|         to avoid bad outcomes                               |
++-------------------------------------------------------------+
+                              |
+                              v
++-------------------------------------------------------------+
+| Step 4: Reinforcement Learning from Human Feedback (RLHF)   |
+|         trains the model based on human preferences         |
++-------------------------------------------------------------+
+                              |
+                              v
++-------------------------------------------------------------+
+| Step 5: Preference-trained model, ready for use in systems  |
+|         like ChatGPT, Claude, Grok, and AI assistants       |
++-------------------------------------------------------------+
+
+
++--------------------------+-----------------------------------------------+
+| Stage                    | Result                                        |
++--------------------------+-----------------------------------------------+
+| Training (pre-training   | Base Model: predicts the next word, not ready |
+| data, Transformer)       | for the public                                |
+| SFT / Instruction tuning | SFT Model: knows how to behave, still not     |
+|                          | that capable                                  |
+| Reward Model             | Decision-maker based on scores, learns from   |
+|                          | human feedback                                |
+| RLHF                     | Model trained on human preferences            |
+| Final model              | Preference-trained, ready for ChatGPT, Claude,|
+|                          | Grok, and AI assistants                       |
++--------------------------+-----------------------------------------------+`
+},
+{
+  id: 'rlhf-issues',
+  title: 'RLHF Issues',
+  category: 'AI',
+  slangDefinition: `Ippo namakku theriyum, Humans prefer panra Reward Model irukku nu, aana adhula issues um irukku. 1st issue, humans ore madhiri ellarum agree panna maatum. Experts kita feedback kettaa, sila per lengthy answer venum nu solluvaanga, sila per short answer venum nu solluvaanga, sila per sarcasm venum nu solluvaanga. Appo indha contradiction ah eppadi decide pannuradhu? 2nd issue, confident aa thappa solra answers ah humans prefer pannalaam rather than saying boring correct answer, humans kooda mistakes pannuvaanga. 3rd issue, human feedback time and cost rendumae romba athigam, human reviewers kooda ellathayum check panna mudiyaadhu. Idhu dhan RLHF oda issues. Reward Model na human judgment illa. Adhu limited sample of human judgment oda learned approximation mattum dhan.`,
+  interviewDefinition: `Although a reward model preferred by humans helps, RLHF has several issues. First, humans disagree with each other: when experts give feedback, some want a lengthy answer, some want a short answer, and some want sarcasm, so it is hard to decide this contradiction. Second, humans can prefer wrong answers said confidently rather than boring correct answers, because they can also make mistakes. Third, human feedback is time-consuming and expensive, and even human reviewers cannot check everything. It is important to remember that a reward model is not human judgment; it is a learned approximation of a limited sample of human judgment.`,
+  example: `
+// Issue 1: Humans disagree with each other
+const reviewerPreferences = [
+  { reviewer: 1, wants: "lengthy answer" },
+  { reviewer: 2, wants: "short answer" },
+  { reviewer: 3, wants: "sarcasm" }
+];
+// How do we decide this contradiction?
+
+// Issue 2: Humans can prefer wrong answers (humans also make mistakes)
+const humanPick = { chosenAnswer: "confident but incorrect answer" };
+
+// Issue 3: Human feedback is time-consuming and expensive
+// Even human reviewers cannot check everything.
+
+
++-------------------------------+------------------------------------------------------+
+| Issue                         | Description                                          |
++-------------------------------+------------------------------------------------------+
+| Humans disagree               | Some want lengthy answers, some short, some sarcasm  |
+| Humans can prefer wrong       | Humans can also make mistakes                        |
+| answers                       |                                                      |
+| Time and cost                 | Human feedback is expensive; reviewers cannot check  |
+|                               | everything                                           |
++-------------------------------+------------------------------------------------------+
+
+// Remember: a Reward Model is NOT human judgment.
+// It is a learned approximation of a limited sample of human judgment.`
+},
+{
+  id: 'lossy-simulation-of-human-preferences',
+  title: 'Lossy Simulation of Human Preferences',
+  category: 'AI',
+  slangDefinition: `Oru example paapom: naan TOXIC nu oru movie paathen, adhu nijamave romba toxic ah irundhuchu, so naan 10 la 4 mark kudutthen. Aana andha 4 number enna represent pannudhu? Acting nalla illa, story nalla irundhuchu aana direction nalla illa, dialogues nalla illa. Aana andha score la ethu enna nu theriyaadhu, ellam oru number kulla adangi poiduchu. Idhu dhan Lossy Simulation of Human Preferences. Simple ah solanumna, AI humans enna virumburanga nu copy panna try pannum, aana finer details ah miss pannidum, adhanala adhukku oru incomplete picture dhan kidaikkum. Adhavadhu Reward Model human preference oda full reason ah learn pannala, score la irukura summary ah mattum dhan learn pannudhu.`,
+  interviewDefinition: `Lossy simulation of human preferences is when an AI tries to copy what humans like or want, but it misses the finer details, leaving it with an incomplete picture. For example, a human gives a score such as 4.2, or rates a movie 4 out of 10. That single number encapsulates many separate reasons: the acting may have been poor, the story may have been good but the direction weak, or the dialogues may have been bad. The score does not say which of these reasons caused it, so the detail is lost. A reward model trained on such scores learns only a compressed summary of human judgment, not the full reasoning behind it.`,
+  example: `// Lossy Simulation of Human Preferences
+
+// A human watched a TOXIC movie and gave it 4 out of 10
+const humanFeedback = { movie: "TOXIC", score: 4 };
+
+// But what did that 4 represent? Many hidden reasons were packed into one number:
+const hiddenReasons = [
+  "Acting was not good",
+  "Story was good, but direction was not",
+  "Dialogues were not good"
+];
+
+// The reward model only sees the score, the reasons are lost
+const whatTheModelLearns = humanFeedback.score;
+console.log(whatTheModelLearns); // 4
+
+// Detail is lost -> incomplete picture of human preference
+
+
++--------------------------+------------------------------------------------------+
+| What the human meant     | What the model receives                              |
++--------------------------+------------------------------------------------------+
+| Acting was not good      |                                                      |
+| Story good, direction    |  Score: 4 / 10                                       |
+| not good                 |  (finer details are lost)                            |
+| Dialogues were not good  |                                                      |
++--------------------------+------------------------------------------------------+
+
+// Lossy simulation: AI tries to copy what humans like or want,
+// but misses the finer details, leaving an incomplete picture.`
+},
+{
+  id: 'reward-hacking',
+  title: 'Reward Hacking',
+  category: 'AI',
+  slangDefinition: `Reward hacking na, oru system high measured reward ah achieve panna vazhi kandupidikkum, aana namma actual ah virumbina underlying objective ah satisfy pannaadhu. Namma oru measurement ah optimize pannumbodhu, model real goal ah fulfill panradhu eppadinu learn pannaama, nalla score vaanguradhu eppadinu learn pannidum. Easy ah solanumna, AI oru "cheat code" illa loophole kandupidichi, namma kekkura velai ah actually pannaama perfect score vaangidum. Perfect analogy: A+ vaanganum nu aasa irukku, aana padikka virumbaadha oru student. Teacher "un grade, nee evlo flashcards padikkira nu dhan base aagum" nu sonna, andha student 500 flashcards ah lightning speed la oru word kooda memorize pannaama flip pannipaanga. Avanga "reward" (A+) vaangiduvaanga, aana actual goal (learning) ah miss pannitaanga. Idhu dhan reward hacking.`,
+  interviewDefinition: `Reward hacking occurs when a system finds ways to achieve a high measured reward without satisfying the underlying objective we actually intended. When we optimize a measurement, the model may learn how to score well rather than how to fulfill the real goal. In easy words, it is when an AI finds a "cheat code" or loophole to get a perfect score without actually doing the job you wanted it to do. A perfect analogy is a student who wants an A+ but does not want to learn: if a teacher says "Your grade is based entirely on how many flashcards you read", the student might flip through 500 flashcards at lightning speed without memorizing a single word. They get their reward (the A+), but completely miss the actual goal (learning).`,
+  example: `
+// Intended goal: the student should LEARN
+// Measured reward: number of flashcards read (the grade is based on this)
+
+function gradeBasedOnFlashcardsRead(flashcardsRead) {
+  return flashcardsRead >= 500 ? "A+" : "B";
+}
+
+// Honest student: reads carefully, memorizes
+const honestStudent = { flashcardsRead: 120, wordsLearned: 400 };
+
+// Reward hacker: flips 500 flashcards at lightning speed
+const rewardHacker = { flashcardsRead: 500, wordsLearned: 0 };
+
+console.log(gradeBasedOnFlashcardsRead(rewardHacker.flashcardsRead));
+// "A+" -> high measured reward
+
+console.log(rewardHacker.wordsLearned);
+// 0 -> actual goal (learning) completely missed
+
+
++-----------------------+----------------------+-----------------------------+
+|                       | Honest student       | Reward hacker               |
++-----------------------+----------------------+-----------------------------+
+| Flashcards read       | 120                  | 500 (lightning speed)       |
+| Reward (grade)        | B                    | A+                          |
+| Actual goal (learning)| Achieved             | Missed completely           |
++-----------------------+----------------------+-----------------------------+
+
+// Reward hacking: the model learns how to score well,
+// rather than how to fulfill the real goal.`
+},
+{
+  id: 'goodharts-law-reward-over-optimization',
+  title: "Goodhart's Law Intuition / Reward Over-Optimization",
+  category: 'AI',
+  slangDefinition: `Oru metric target aagiduchu na, adhu nalla metric ah irukradha niruthidum. Namakku model human-useful ah irukanum, aana adhai oru numerical score vechi measure panrom. Reward score ah thodarndhu increase pannikitte pona, actual usefulness oru certain point varaikkum increase aagum, aana ellaa neramum illa. Idhu dhan Reward Over-Optimization. Goodhart's Law na "oru measure target aagumbodhu, adhu nalla measure ah irukradha niruthidum". Simple ah solanumna, oru human or AI ku oru specific number or goal kudutha, unintended shortcuts kandupidichiduvaanga, adhanala andha goal ah set panna original reason ae useless aaidum. Daily life vs AI la eppadi thappa pogudhu paapom. Nalla output kudukum bodhu AI ku points (reward) kudutthu train pannrom. 1st higher points na AI nalla pannudhu nu artham. Aana highest score ah thurathi romba thalli vittaa, AI oru shortcut illa loophole kandupidichidum. Genuinely helpful ah irukka try pannaama, scoring system ah happy aakkura tricks la mattum focus pannum. Score mela pogum, aana work oda actual quality keela pogum. Adhanala scoring system sila neram fail aagum. Greater reward score na actual usefulness eppavume increase aagum nu artham illa, oru certain point varaikkum dhan true. Sila neram namma input kudutthu oru context set pannuvom, appo machine namma ah happy ah vekkura result mattum kudukkum. Example ku "You are wrong, do this." nu sonnaalum, sila neram adhu helpful ah irukkum. Adhanala nyabagam vechukonga, helpful na user kooda eppavum agree panradhu nu artham illa.`,
+  interviewDefinition: `Goodhart's Law states that when a measure becomes a target, it ceases to be a good measure. Once a metric becomes the target, it can stop being a good metric. We want a model to be human-useful, but we measure it with a numerical score. If we keep increasing the reward score, actual usefulness increases up to a certain point, but not always, and this is called Reward Over-Optimization. In simple words, once a human or an AI is given a specific number to chase, they find clever, unintended shortcuts to hit that number, ruining the original reason the goal was set. In AI, we reward a model with points for giving a good output. At first, higher points mean it is doing better, but if it is pushed too hard to chase the highest score, it finds a shortcut or loophole, stops trying to be genuinely helpful, and focuses on tricks that make the scoring system happy. The score goes up, but the actual quality of the work goes down, so the scoring system sometimes fails. A related point is that a model can be pushed into only making the user happy and giving the result the user wants. Helpful does not mean always agreeing with the user: even a response like "You are wrong, do this." can sometimes be the helpful one.`,
+  example: `
+// We want: human-useful answers
+// We measure: a numerical reward score
+
+// Stage 1: higher score really means more useful
+// Stage 2 (over-optimization): model chases the score with tricks
+const stages = [
+  { push: "low",    rewardScore: 5, actualUsefulness: 5 },
+  { push: "medium", rewardScore: 7, actualUsefulness: 7 },  // up to a certain point, both rise
+  { push: "high",   rewardScore: 9, actualUsefulness: 4 }   // score up, quality down
+];
+
+stages.forEach(s => {
+  console.log(s.push + ": score=" + s.rewardScore + ", usefulness=" + s.actualUsefulness);
+});
+// The score goes up, but the actual quality of the work goes down.
+
+
++------------------+----------------+---------------------+---------------------------------+
+| Optimization     | Reward score   | Actual usefulness   | What is happening               |
++------------------+----------------+---------------------+---------------------------------+
+| Low              | Increases      | Increases           | Metric still a good measure     |
+| Medium           | Increases      | Increases           | Up to a certain point, true     |
+| Too high         | Keeps rising   | Goes down           | Model finds shortcuts/loopholes |
++------------------+----------------+---------------------+---------------------------------+
+
++--------------------------------------------------------------------------------+
+| Goodhart's Law                                                                 |
+| When a measure becomes a target, it ceases to be a good measure.               |
++--------------------------------------------------------------------------------+
+
+// Helpful does NOT mean always agreeing with the user.
+// Sometimes "You are wrong, do this." is the helpful answer.`
+},
+{
+  id: 'knowledge-vs-behaviour',
+  title: 'Knowledge vs Behaviour',
+  category: 'AI',
+  slangDefinition: `Oru model ku JS closures theriyum nu vechukalam. Aana post-training la adhu closures therinjukichu nu artham illa. Adhukku badhila, yaaravadhu "Explain closures" nu kettaa, andha capability ah retrieve panni, oru clear, assistant madhiri form la express panna adhu learn pannirukkum. Training mostly model oda underlying capability base ah build pannudhu. Post-training andha capabilities eppadi express aaganum nu shape pannudhu. Simple ah: Training capabilities ah build pannum. Post-training behaviour ah shape pannum.`,
+  interviewDefinition: `Suppose a model knows JavaScript closures. Post-training does not necessarily mean it knows closures because someone re-taught it closures. Instead, it may have learned that when someone asks "Explain closures", it should retrieve and express that capability in a clear, assistant-like form. Training is largely building the model's underlying capability base, while post-training is shaping how those capabilities can be expressed. In short, training builds capabilities and post-training shapes behaviour.`,
+  example: `
+// Training: builds the underlying capability base
+const modelAfterTraining = {
+  knowsClosures: true,     // capability already exists
+  behaviour: "raw text continuation"
+};
+
+// Post-training: shapes how the capability is expressed
+// It does NOT re-teach closures
+const modelAfterPostTraining = {
+  knowsClosures: true,     // same knowledge
+  behaviour: "clear, assistant-like explanation"
+};
+
+function respond(model, prompt) {
+  if (prompt === "Explain closures" && model.knowsClosures) {
+    return model.behaviour === "clear, assistant-like explanation"
+      ? "A closure is a function that remembers variables from its outer scope..."
+      : "Explain closures in JavaScript with an example. Explain closures in Python...";
+  }
+}
+
+console.log(respond(modelAfterTraining, "Explain closures"));
+console.log(respond(modelAfterPostTraining, "Explain closures"));
+
+
++-----------------+-----------------------------------------------+
+| Stage           | Role                                          |
++-----------------+-----------------------------------------------+
+| Training        | Builds the model's underlying capability base |
+| Post-training   | Shapes how those capabilities are expressed   |
++-----------------+-----------------------------------------------+
+
+// Training builds capabilities.
+// Post-training shapes behaviour.`
+},
+{
+  id: 'pre-training-vs-fine-tuning',
+  title: 'Difference between Pre-Training and Fine-Tuning (Post-Training)',
+  category: 'AI',
+  slangDefinition: `Pre-Training and Fine-Tuning rendukkum enna difference nu paapom. Pre-Training la model ku broad language understanding kidaikkum, Fine-Tuning la task-specific adaptation nadakkum. Pre-Training periya, diverse dataset la train aagum, Fine-Tuning smaller, targeted dataset la train aagum. Pre-Training general knowledge base ah develop pannum, Fine-Tuning rapid specialization kudukkum. Pre-Training transfer learning ku help pannum, adhavadhu oru model learn pannadha vera tasks ku use panna mudiyum, Fine-Tuning konjam examples la irundhu kooda quick ah learn pannum. Pre-Training ku initial computational cost romba athigam, Fine-Tuning ku computational cost kammi. Pre-Training continual learning oda scale aagum, Fine-Tuning current data ku customize panna mudiyum. Pre-Training performance benchmarks set pannum, Fine-Tuning specific task performance ah enhance pannum. Pre-Training pala applications la flexible ah irukum, Fine-Tuning niche applications ku efficient ah irukum.`,
+  interviewDefinition: `Pre-training and fine-tuning differ in purpose, data, and cost. Pre-training gives broad language understanding by training on a large, diverse dataset, developing a general knowledge base, facilitating transfer learning, and setting performance benchmarks. It has a high initial computational cost, is scalable with continual learning, and is flexible across various applications. Fine-tuning provides task-specific adaptation by training on a smaller, targeted dataset, giving rapid specialization and quick learning from few examples. It has a lower computational cost, is customizable to current data, enhances specific task performance, and is efficient for niche applications.`,
+  example: `
++--------------------------------------------+--------------------------------------------+
+| Pre-Training Features                      | Fine-Tuning Features                       |
++--------------------------------------------+--------------------------------------------+
+| Broad language understanding               | Task-specific adaptation                   |
++--------------------------------------------+--------------------------------------------+
+| Large, diverse dataset training            | Smaller, targeted dataset training         |
++--------------------------------------------+--------------------------------------------+
+| General knowledge base development         | Rapid specialization                       |
++--------------------------------------------+--------------------------------------------+
+| Facilitates transfer learning              | Quick learning from few examples           |
++--------------------------------------------+--------------------------------------------+
+| High initial computational cost            | Lower computational cost                   |
++--------------------------------------------+--------------------------------------------+
+| Scalable with continual learning           | Customizable to current data               |
++--------------------------------------------+--------------------------------------------+
+| Sets performance benchmarks                | Enhances specific task performance         |
++--------------------------------------------+--------------------------------------------+
+| Flexible across various applications       | Efficient for niche applications           |
++--------------------------------------------+--------------------------------------------+`
+},
+{
+  id: 'flow-to-create-assistant-like-model',
+  title: 'Flow to Create an Assistant-like Model',
+  category: 'AI',
+  slangDefinition: `Oru assistant-like model eppadi create aagudhu nu full flow paapom. 1st huge raw data irukkum. Adhai vechi Training nadakkum, adhula irundhu Base Model kedaikum. Base Model ku broad language capability irukkum. Adhukku aprom Supervised Fine-Tuning pannuvom, adhula irundhu Instruction Following model kedaikum. Next, humans preference collect pannuvom, apparam answers ah Ranking pannuvom, adhai vechi Reward model train pannuvom. Last ah Preference optimization nadakkum, andha step mudinja aprom namakku Assistant-like Model kedaikum. Simple ah solanumna, raw data la irundhu start panni, base model, instruction following model vazhiya poi, human preferences vechi optimize panni, last-aa helpful assistant ah maarudhu.`,
+  interviewDefinition: `The flow to create an assistant-like model starts with huge raw data. Training on that data produces a base model with broad language capability. Supervised fine-tuning then turns it into an instruction-following model. Next, human preferences are collected and used to rank responses, and the rankings are used to train a reward model. Preference optimization then uses the reward model to further tune the model, producing the final assistant-like model.`,
+  example: `
++------------------------------+
+| Huge Raw data                |
++------------------------------+
+               |
+               v
++------------------------------+
+| Training                     |
++------------------------------+
+               |
+               v
++------------------------------+
+| Base Model                   |
++------------------------------+
+               |
+               v
++------------------------------+
+| Broad Language Capability    |
++------------------------------+
+               |
+               v
++------------------------------+
+| Supervised Fine-tuning       |
++------------------------------+
+               |
+               v
++------------------------------+
+| Instruction Following model  |
++------------------------------+
+               |
+               v
++------------------------------+
+| Humans preference collection |
++------------------------------+
+               |
+               v
++------------------------------+
+| Ranking                      |
++------------------------------+
+               |
+               v
++------------------------------+
+| Reward models                |
++------------------------------+
+               |
+               v
++------------------------------+
+| Preference optimization      |
++------------------------------+
+               |
+               v
++------------------------------+
+| Assistant-like Model         |
++------------------------------+`
+},
 ]
