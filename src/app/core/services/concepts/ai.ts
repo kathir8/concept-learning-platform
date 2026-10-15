@@ -3563,4 +3563,312 @@ console.log(respond(modelAfterPostTraining, "Explain closures"));
 | Assistant-like Model         |
 +------------------------------+`
 },
+ {
+  id: 'can-ai-actually-think',
+  title: 'Can AI Actually Think?',
+  category: 'AI',
+  slangDefinition: `Pre-training, training, post-training ellam mudinja aprom, "Quantum Physics ah explain pannu" and "DNA science pathi oru book author pannu". Idhukku AI proper ah output kudukum. Aana "9.11 and 9.9 la edhu bigger?" and "NAMASTEARTIFICIALINTELLIGENCE la every third character ah print pannu". Idhukku AI wrong answers kudukku. Idhu yen na, model oru next token predictor, adhu text ah tokens ah paakum, ovvoru letter ah thaniya paakkadhu, adhanala character level velai kashtam. Number comparison kooda real calculation madhiri illa, patterns vechi predict pannudhu. Adhanala "Can AI actually think?" nu kelvi varudhu. Explain panradhu, ezhudhuradhu madhiri language patterns la AI romba strong, aana step by step exact logic venum na adhu reliable ah irukkadhu.`,
+  interviewDefinition: `After pre-training, training, and post-training, an AI assistant can give proper outputs for tasks like explaining quantum physics or authoring a book on DNA science, because these rely on language patterns and knowledge learned from data. However, it can struggle with tasks like "What is bigger, 9.11 or 9.9?" or "Print every third character in NAMASTEARTIFICIALINTELLIGENCE", and may give wrong answers. A model is a next-token predictor that sees text as tokens rather than individual characters, and it predicts likely patterns instead of executing exact step-by-step logic, so character-level and precise numeric tasks are less reliable. This raises the question: can AI actually think? Language-heavy tasks work well, while tasks that need exact, step-by-step reasoning can fail.`,
+  example: `
++----+--------------------------------------------------+---------------------------+
+| #  | Ask AI to...                                     | AI assistant result       |
++----+--------------------------------------------------+---------------------------+
+| 1  | Explain Quantum Physics                          | Gives proper output       |
+| 2  | Author a book on DNA science                     | Gives proper output       |
+| 3  | What is bigger, 9.11 or 9.9?                     | Can struggle / go wrong   |
+| 4  | Print every third character in                   | Can struggle / go wrong   |
+|    | "NAMASTEARTIFICIALINTELLIGENCE"                  |                           |
++----+--------------------------------------------------+---------------------------+
+
+// Tasks 3 and 4 are trivial for exact code:
+
+console.log(Math.max(9.11, 9.9));
+// Output: 9.9
+
+const text = "NAMASTEARTIFICIALINTELLIGENCE";
+const everyThird = text
+  .split("")
+  .filter((_, index) => (index + 1) % 3 === 0)
+  .join("");
+console.log(everyThird);
+// Output: MTRFIIEIN
+
+// A model works with tokens and predicts likely patterns,
+// it does not run exact step-by-step logic like this code.
+
+// Can AI actually think?`
+},
+{
+  id: 'what-is-thinking',
+  title: 'What is Thinking? (Direct Generation vs Reasoning-Oriented Generation)',
+  category: 'AI',
+  slangDefinition: `Thinking na simple-a sonna reasoning-a nu oru question irukku. Yaaravadhu "Vacation-ku enga poga aasai?" nu kettaa, nee unga trip history-a search pannuvinga, ippa varaikum poga-dha place-a choose pannalaam illa romba pudichcha place-a choose pannalaam. Idhu ellame reasoning dhaan, unga intelligence use pannitu oru decision edukkureenga, adha dhaan thinking nu solrom. Ippo main question yenna na, AI model-a reasoning panna vekka mudiyuma? Example-ku "Girlfriend-ku oru gift suggest pannu" nu kettaa neenga romba reasoning pannuvinga, yenna pannanum, epdi pannanum nu proper-a research pannuvinga, avanga back history, avangaluku yenna pudikkum, yedhu useful-a thoughtful-a irukkum nu yosippinga. Kandippa oru chocolate illa teddy bear gift-a kudukka maatinga. Aana AI-ku adhu epdi theriyum? Ippo varaikum AI models mostly direct generation dhaan pannudhu, adhavadhu question vandha udane answer-a generate pannidum. Avanga behaviour fine-tuning and post-training moolama dhaan maarudhu. So AI thoughtful decisions edukka mudiyuma nu dhaan inga main question.`,
+  interviewDefinition: `Thinking is the process of reaching a decision using intelligence, and the open question is whether it is the same as reasoning and whether an AI model can do it. When a person is asked "Where would you love to go on vacation?", they recall their trip history and choose a place they have never visited or one they loved the most, which is reasoning followed by a decision. In the same way, for "Suggest a gift for your girlfriend", a human researches what to do and how to do it, thinks about her history, what she likes and what would be useful or thoughtful, and would never gift simple chocolate or a teddy bear. Until now, AI models have mostly done direct generation, producing an answer straight away, and their behaviour changes only through fine-tuning and post-training. The core question is whether AI can make thoughtful decisions, which is what reasoning-oriented generation aims to address.`,
+  example: `// Example 1: Human thinking
+// Question: "Where would you love to go on vacation?"
+// -> Search trip history
+// -> Choose a never visited place OR the most loved place
+// -> Decision based on intelligence = "thinking"
+
+// Example 2: Suggest a gift for your girlfriend?
+//
+// Human (reasoning):
+// - Research what to do and how to do it
+// - Think about back history
+// - Think about what she actually likes
+// - Think about what will be useful or thoughtful
+// - Will NOT give scissors or a knife :)
+
++---------------------------+--------------------------------+---------------------------------------+
+| Point                     | Direct Generation              | Reasoning-Oriented Generation         |
++---------------------------+--------------------------------+---------------------------------------+
+| Question                  | Suggest a gift for girlfriend  | Suggest a gift for girlfriend         |
++---------------------------+--------------------------------+---------------------------------------+
+| How the answer comes      | Answer generated directly      | Research, history, likes, usefulness  |
++---------------------------+--------------------------------+---------------------------------------+
+| Current state of AI       | Mostly done till now           | Open question: can AI do it?          |
++---------------------------+--------------------------------+---------------------------------------+
+| Behaviour changes through | Fine-tuning and post-training  | Can AI make thoughtful decisions?     |
++---------------------------+--------------------------------+---------------------------------------+
+
+// Flow: Human thinking
++---------------------------+
+| Question                  |
++---------------------------+
+            |
+            v
++---------------------------+
+| Reasoning (history, likes,|
+| useful, thoughtful)       |
++---------------------------+
+            |
+            v
++---------------------------+
+| Decision = Thinking       |
++---------------------------+
+
+// Flow: Direct generation
++---------------------------+
+| Question                  |
++---------------------------+
+            |
+            v
++---------------------------+
+| AI Model (direct          |
+| generation)               |
++---------------------------+
+            |
+            v
++---------------------------+
+| Answer                    |
++---------------------------+`
+},
+{
+  id: 'reasoning-oriented-generation',
+  title: 'Reasoning Oriented Generation',
+  category: 'AI',
+  slangDefinition: `AI-ku problem-a step-by-step think pannittu apram answer sollikodukkura approach. Just pattern based-a next word-a guess pannura maari illama, complex question-a chinna chinna pieces-a break pannum, different options-a weigh pannum, logic-a idhu correct-a nu pogum pothe check pannum. Idhu human oru kashtamaana math problem illa riddle-a step by step solve pannura maari dhaan, random guess-a thirumba kathura maari illa. Idhu coding, logic puzzles, research, complex decision-making maari tricky tasks-ku romba useful, yenna na idhu speed-a vida accuracy and reasoning-ku priority kudukkum. Indha example-la "John kitta 2 apples irukku, oru apple saapdraan, innum 4 vaangraan, apram half Mary-ku kudukkuraan, ippo avan kitta evlo irukku?" nu kettaa, traditional model similar math riddles-a paathu instant-a oru answer-a guess pannidum. Aana reasoning-oriented AI first steps-a work out pannum: John 2-la start aagraan, 1 saapdraan (1 meedhi), 4 vaangraan (ippo 5), half Mary-ku kudukkuraan (5 / 2 = 2.5). So final answer 2.5 apples, adhu calculation based-a vandha answer.`,
+  interviewDefinition: `teaching an AI to think through a problem step by step before giving an answer, rather than just guessing the next word based on patterns. Instead of giving an instant response, the model breaks a complex question into smaller pieces, weighs different options and checks its logic along the way, much like a human solving a difficult math problem or riddle step by step instead of blurting out a random guess. This makes AI much better at tricky tasks such as coding, logic puzzles, research and complex decision-making, because it prioritizes accuracy and reasoning over pure speed. For example, for "If John has two apples, eats one, buys four more, and gives half to Mary, how many does he have?", a traditional model might instantly guess an answer based on similar math riddles, whereas a reasoning-oriented AI works through the steps first and arrives at 2.5 apples.`,
+  example: `// Question:
+// "If John has two apples, eats one, buys four more,
+//  and gives half to Mary, how many does he have?"
+
+// Traditional model: instantly guesses based on similar math riddles
+// Reasoning-oriented AI: works through the steps first
+
+let apples = 2;          // John starts with 2
+apples = apples - 1;     // eats 1 (leaves 1)
+apples = apples + 4;     // buys 4 (now has 5)
+apples = apples / 2;     // gives half to Mary (5 / 2 = 2.5)
+
+console.log(apples);     // 2.5
+
+// Final answer: 2.5 apples, based on the calculation
+
++---------------------------+----------------------------------+------------------------------------------+
+| Point                     | Traditional / Standard AI        | Reasoning-Oriented AI                    |
++---------------------------+----------------------------------+------------------------------------------+
+| Approach                  | Guesses next word from patterns  | Thinks step-by-step before answering     |
++---------------------------+----------------------------------+------------------------------------------+
+| Response style            | Instant, fast response           | Breaks problem into smaller pieces,      |
+|                           |                                  | weighs options, checks logic             |
++---------------------------+----------------------------------+------------------------------------------+
+| Priority                  | Speed                            | Accuracy and reasoning over pure speed   |
++---------------------------+----------------------------------+------------------------------------------+
+| Best for                  | Simple, quick questions          | Coding, logic puzzles, research,         |
+|                           |                                  | complex decision-making                  |
++---------------------------+----------------------------------+------------------------------------------+
+| John's apples example     | Instantly guesses an answer      | Works through the steps, answer = 2.5    |
++---------------------------+----------------------------------+------------------------------------------+
+
+// Flow: Reasoning-oriented generation
++---------------------------+
+| Question                  |
++---------------------------+
+            |
+            v
++---------------------------+
+| Break into smaller pieces |
++---------------------------+
+            |
+            v
++---------------------------+
+| Weigh options and check   |
+| logic step by step        |
++---------------------------+
+            |
+            v
++---------------------------+
+| Final answer              |
++---------------------------+
+
+// Flow: John's apples
++-----------------------------+
+| John starts with 2          |
++-----------------------------+
+            |
+            v
++-----------------------------+
+| Eats 1 (leaves 1)           |
++-----------------------------+
+            |
+            v
++-----------------------------+
+| Buys 4 (now has 5)          |
++-----------------------------+
+            |
+            v
++-----------------------------+
+| Gives half to Mary          |
+| (5 / 2 = 2.5)               |
++-----------------------------+
+            |
+            v
++-----------------------------+
+| Final answer = 2.5 apples   |
++-----------------------------+`
+},
+{
+  id: 'direct-generation-vs-reasoning-oriented-generation',
+  title: 'Direct Generation vs Reasoning Oriented Generation',
+  category: 'AI',
+  slangDefinition: `Direct generation na simple flow dhaan: Question kudukkurom, Model adha eduthukittu, udane Answer kudukkum. Example-ku "5 + 5 yenna?" nu kettaa, neenga yosikkave maatinga, udane 10 nu solliduveenga. Neraiya problems-ku namakku exactly idhu dhaan venum. Innoru example, "Hello-va Hindi-la translate pannu" nu kettaa, model 30 second ukkaandhu pathu competing hypotheses-a explore pannanum nu namakku theva illa, just answer sonna podhum. Reasoning oriented generation-la flow konjam different: Question vandha udane answer illa, first intermediate computation pannum, apram possible approach-a yosikkum, adha check pannum, thevai-na revision pannum, last-la dhaan Answer kudukkum. Example-ku "Oru company revenue-a 20% grow pannudhu, apram 20% loss aagudhu, ippo original revenue-ku thirumbi vandhucha?" nu kettaa, neraiya per konjam pause pannuvaanga. Company 100-la start aagudhunu vechikkalaam, 20% growth-la 100 to 120 aagum, apram 20% reduction-la 120 to 96 aagum. So illa, original revenue-ku thirumbala, yenna na increase-um decrease-um different base-la dhaan work aagudhu. direct generation model kita ketta, "20% grow aagi apram 20% loss, final change yenna?" nu kettaa, general model +20% and -20% paathu 0% nu sollidum. Aana reasoning model yosikkum: 20% increase na 120%, apram 120-la 80% na 96%. So final revenue original-oda 96%, adhavadhu actual-a 4% decrease. So summary-a sonna, sila cases-la direct answer or direct generation help pannum, aana sila cases-la thought and reasoning venum, adha pannurathu dhaan Reasoning Model.`,
+  interviewDefinition: `Direct generation follows a simple flow: Question, Model, Answer. The model responds immediately, which is exactly what we want for many problems. For example, "What is 5 + 5?" is answered instantly as 10, and for "Translate Hello into Hindi" we do not want the model spending thirty seconds exploring ten competing hypotheses, we just want the answer. Reasoning-oriented generation follows a longer flow: Question, Intermediate Computation, Possible Approach, Check, Revision, Answer. For example, if a company grows revenue by 20% and then loses 20%, is it back at the original revenue? Starting at 100, a 20% growth gives 120, and a 20% reduction gives 96, so the answer is no, because the increase and decrease use different bases. A general model might wrongly answer 0% because it sees +20% and -20%, but a reasoning model works out that 120% followed by 80% of 120 gives 96%, which is a 4% decrease. So in some cases direct generation is enough, but in other cases we need thought and reasoning, and this is done by a Reasoning Model.`,
+  example: `// Direct Generation
+// Question -> Model -> Answer
+// What is 5 + 5?
+// You probably answer 10 immediately.
+// For many problems, this is exactly what we want.
+// Translate "Hello" into Hindi.
+// We do not want the model spending thirty seconds
+// exploring ten competing hypotheses. Just answer.
+
+console.log(5 + 5); // 10
+
+// Reasoning Oriented Generation
+// Q -> Intermediate computation -> Possible approach
+//   -> Check -> Revision -> Answer
+//
+// A company grows revenue by 20%, then loses 20%.
+// Is it back at the original revenue?
+
+let revenue = 100;                 // company starts at 100
+revenue = revenue + revenue * 0.2; // 20% growth: 100 -> 120
+console.log(revenue);              // 120
+
+revenue = revenue - revenue * 0.2; // 20% reduction: 120 -> 96
+console.log(revenue);              // 96
+
+// So no. The decreases and increases use different bases.
+// Final revenue = 96% of original = 4% decrease
+
+// General model: sees +20% and -20%, might say 0%
+// Reasoning model: 20% increase means 120%
+//                  then -20% means 80% of 120 -> 96%
+
++---------------------------+--------------------------------+----------------------------------------------+
+| Point                     | Direct Generation              | Reasoning Oriented Generation                |
++---------------------------+--------------------------------+----------------------------------------------+
+| Flow                      | Question -> Model -> Answer    | Q -> Intermediate computation -> Possible    |
+|                           |                                | approach -> Check -> Revision -> Answer      |
++---------------------------+--------------------------------+----------------------------------------------+
+| Example question          | What is 5 + 5?                 | Company grows revenue by 20%, then loses     |
+|                           |                                | 20%. Back at original revenue?               |
++---------------------------+--------------------------------+----------------------------------------------+
+| How it answers            | Answers 10 immediately         | 100 -> 120 -> 96, so no                      |
++---------------------------+--------------------------------+----------------------------------------------+
+| When we want it           | Many problems, e.g. Translate  | When thought and reasoning are needed        |
+|                           | "Hello" into Hindi, just answer|                                              |
++---------------------------+--------------------------------+----------------------------------------------+
+| Revenue example result    | General model may say 0%       | Reasoning model says 96% of original,        |
+|                           |                                | which is a 4% decrease                       |
++---------------------------+--------------------------------+----------------------------------------------+
+| Done by                   | Direct answer / generation     | Reasoning Model                              |
++---------------------------+--------------------------------+----------------------------------------------+
+
+// Flow: Direct Generation
++---------------------------+
+| Question                  |
++---------------------------+
+            |
+            v
++---------------------------+
+| Model                     |
++---------------------------+
+            |
+            v
++---------------------------+
+| Answer                    |
++---------------------------+
+
+// Flow: Reasoning Oriented Generation
++---------------------------+
+| Question                  |
++---------------------------+
+            |
+            v
++---------------------------+
+| Intermediate computation  |
++---------------------------+
+            |
+            v
++---------------------------+
+| Possible approach         |
++---------------------------+
+            |
+            v
++---------------------------+
+| Check                     |
++---------------------------+
+            |
+            v
++---------------------------+
+| Revision                  |
++---------------------------+
+            |
+            v
++---------------------------+
+| Answer                    |
++---------------------------+
+
+// Flow: Revenue example (start at 100)
++------------------------------+
+| Start = 100                  |
++------------------------------+
+            |
+            v
++------------------------------+
+| 20% growth: 100 -> 120       |
++------------------------------+
+            |
+            v
++------------------------------+
+| 20% reduction: 120 -> 96     |
++------------------------------+
+            |
+            v
++------------------------------+
+| 96% of original = 4% decrease|
++------------------------------+`
+},
 ]
