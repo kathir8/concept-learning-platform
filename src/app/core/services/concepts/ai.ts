@@ -4561,9 +4561,9 @@ console.log(combined);
   id: 'limits-of-reasoning-models',
   title: 'Limits of Reasoning Models',
   category: 'AI',
-  slangDefinition: `Reasoning models-ku sila limits irukku. Avanga hallucinate pannalaam, arithmetic errors pannalaam, problem-a misunderstand pannalaam, false assumptions-um pannalaam. More thinking na correctness guarantee nu artham illa. Adhanala Knowledge + Reasoning + Tools, indha moonu dhaan ellathayum possible aakkura main factors. Simple-a sonna, model-ku sariyaana knowledge venum, adha vechu yosikka reasoning venum, apram calculator, code run panradhu maari tools venum, appo dhaan reliable-a answer kidaikkum.`,
-  interviewDefinition: `Reasoning models have limits. They can hallucinate, make arithmetic errors, misunderstand the problem, and make false assumptions. More thinking does not guarantee correctness. Knowledge, reasoning and tools are the three main factors that make everything possible: the model needs the right knowledge, the ability to reason over it, and tools to act on and verify its work.`,
-  example: `// Limits of Reasoning Models
+  slangDefinition: `Reasoning models-ku sila limits irukku. Avanga hallucinate pannalaam, arithmetic errors pannalaam, problem-a misunderstand pannalaam, false assumptions-um pannalaam. More thinking na correctness guarantee nu artham illa.`,
+  interviewDefinition: `Reasoning models have limits. They can hallucinate, make arithmetic errors, misunderstand the problem, and make false assumptions. More thinking does not guarantee correctness.`,
+  example: `
 // They can:
 // - hallucinate
 // - make arithmetic errors
@@ -4571,9 +4571,6 @@ console.log(combined);
 // - make false assumptions
 //
 // More thinking does not mean a guarantee of correctness.
-//
-// Knowledge + Reasoning + Tools
-// are the three main factors that make everything possible.
 
 +-----------------------------+----------------------------------------+
 | Limit                       | Meaning                                |
@@ -4588,8 +4585,37 @@ console.log(combined);
 +-----------------------------+----------------------------------------+
 | More thinking               | Does not guarantee correctness         |
 +-----------------------------+----------------------------------------+
+`
+},
+{
+  id: 'ai-agent',
+  title: 'AI Agent',
+  category: 'AI',
+  imageUrl:'ai-agent.png',
+  slangDefinition: `Knowledge + Reasoning + Tools, indha moonu dhaan ellathayum possible aakkura main factors. Simple-a sonna, model-ku sariyaana knowledge venum, adha vechu yosikka reasoning venum, apram calculator, code run panradhu maari tools venum, appo dhaan reliable-a answer kidaikkum.`,
+  interviewDefinition: `Knowledge, reasoning and tools are the three main factors that make everything possible: the model needs the right knowledge, the ability to reason over it, and tools to act on and verify its work.`,
+  example: `
+// - Knowledge: the model needs the right knowledge
+// - Reasoning: the ability to reason over it
+// - Tools: tools to act on and verify its work
+//   (for example calculator, running code)
 
-// Flow: Knowledge + Reasoning + Tools
++-------------+----------------------------------------+
+| Factor      | What it gives the model                |
++-------------+----------------------------------------+
+| Knowledge   | The right knowledge                    |
++-------------+----------------------------------------+
+| Reasoning   | Ability to reason over the knowledge   |
++-------------+----------------------------------------+
+| Tools       | Act on and verify its work             |
+|             | (calculator, code run)                 |
++-------------+----------------------------------------+
+
+// Three main factors
++-------------+-------------+-------------+
+| Knowledge   | Reasoning   | Tools       |
++-------------+-------------+-------------+
+
 +---------------------------+
 | Knowledge                 |
 +---------------------------+
