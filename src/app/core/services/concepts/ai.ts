@@ -3871,4 +3871,741 @@ console.log(revenue);              // 96
 | 96% of original = 4% decrease|
 +------------------------------+`
 },
+{
+  id: 'reasoning-models',
+  title: 'Reasoning Models',
+  category: 'AI',
+  slangDefinition: `Reasoning models na AI-la irukkura advanced systems, avanga answer sollradhuku munnadi konjam pause pannitu "think" pannitu, complex problems-a step-by-step work pannitu apram dhaan answer kudukkum. Direct generation problem-ku longer-a think pannaalum almost value illa, example-ku "5+5 yenna?" nu kettaa neraiya yosichaalum use illa. Aana reasoning oriented generation-ku intermediate calculation help pannum, Oru romba kashtamaana programming problem-a eduthukkonga, neenga requirements-a understand pannuveenga, algorithm design pannuveenga, edge cases-a consider pannuveenga, implement pannuveenga, tests run pannuveenga, debug pannuveenga, thappu irundha thirumba try pannuveenga. Idhula neraiya time yosikka vendi irukkum, adhaan longer thinking-ku meaning kudukkudhu. Reasoning models indha deliberate computation-a inference-kulla konjam konjam-aa konduvara try pannum. Debugging example-ku, oru line-la error irundha, direct generation "Indha line-a remove pannu" nu sollidum. Aana reasoning model adha suthi yosikkum, enna nadakkudhu nu check pannum, code-oda matha parts-a consider pannum, apram dhaan answer sollum. Important point, reasoning-a generation-la irundhu completely different operation illa, reasoning-um oru intermediate computation-a generate aagum.`,
+  interviewDefinition: `Reasoning models are advanced AI systems that pause to think and work through complex problems step by step before giving an answer. For a direct generation problem such as "What is 5+5?", thinking longer provides almost no value. For reasoning-oriented generation, an intermediate calculation helps, For an extremely difficult programming problem, you may understand the requirements, design an algorithm, consider edge cases, implement, run tests, debug, and try again, so long thinking is needed. Reasoning models attempt to bring more of this deliberate computation into inference. For example, when debugging code with an error on a line, direct generation might simply say "Remove this line", but a reasoning model will think around it, check what is happening, consider the other parts of the code, and then give the answer. Reasoning is not a completely different operation from generation, because reasoning itself can be generated as intermediate computation.`,
+  example: `// Direct generation problem
+// Thinking longer provides almost no value
+// Ex: What is 5+5?
+console.log(5 + 5); // 10
+
+// Reasoning oriented generation problem
+// An intermediate calculation helps
+
+// Extremely difficult programming problem, you may:
+// - Understand requirements
+// - Design an algorithm
+// - Consider edge cases
+// - Implement
+// - Run tests
+// - Debug
+// - Try again
+
+// Reasoning models attempt to bring more of this
+// deliberate computation into inference.
+
+// Debugging example: a line has an error
+// Direct generation  -> "Remove this line."
+// Reasoning model    -> thinks around it, checks what is happening,
+//                       considers the other parts of the code,
+//                       then tells you the answer
+
+// Reasoning is not a completely different operation from generation.
+// Reasoning itself can be generated as intermediate computation.
+
++---------------------------+----------------------------------+--------------------------------------------+
+| Point                     | Direct Generation Problem        | Reasoning Oriented Generation              |
++---------------------------+----------------------------------+--------------------------------------------+
+| Thinking longer           | Provides almost no value         | Intermediate calculation helps             |
++---------------------------+----------------------------------+--------------------------------------------+
+| Example                   | What is 5+5?                     | Company grows revenue 20%, then loses 20%.|
+|                           |                                  | Back at original revenue?                  |
++---------------------------+----------------------------------+--------------------------------------------+
+| Debugging a code error    | "Remove this line."              | Thinks around it, checks what is happening,|
+|                           |                                  | considers other parts of the code, answers |
++---------------------------+----------------------------------+--------------------------------------------+
+| Done by                   | Direct answer                    | Reasoning Model (deliberate computation    |
+|                           |                                  | brought into inference)                    |
++---------------------------+----------------------------------+--------------------------------------------+
+
+// Flow: Extremely difficult programming problem
++---------------------------+
+| Understand requirements   |
++---------------------------+
+            |
+            v
++---------------------------+
+| Design an algorithm       |
++---------------------------+
+            |
+            v
++---------------------------+
+| Consider edge cases       |
++---------------------------+
+            |
+            v
++---------------------------+
+| Implement                 |
++---------------------------+
+            |
+            v
++---------------------------+
+| Run tests                 |
++---------------------------+
+            |
+            v
++---------------------------+
+| Debug                     |
++---------------------------+
+            |
+            v
++---------------------------+
+| Try again (if wrong)      |
++---------------------------+`
+},
+{
+  id: 'chain-of-thought',
+  title: 'Chain of Thought',
+  category: 'AI',
+  slangDefinition: `Chain of Thought na answer-ku varradhuku munnadi intermediate reasoning steps-a produce panradhu. Idhu reasoning oda terminology, aana complex tasks solve panna help pannum. Flow simple: Problem, apram Step 1, Step 2, Step 3, ippadi poi last-la Answer. Indha steps ellame serndhu dhaan reasoning. Idhula main points: intermediate reasoning complex tasks-oda results-a improve pannum, more time to think na better answers kidaikkum, large problem-a smaller subproblems-a break pannurom. Indha research paper Jan 2023-la vandhuchu. Note: oru model-oda intelligence training-la evlo computation use pannanga nu mattum determine aagaadhu, answer panra time-la evlo useful computation pannudhu nu adhuvum matter aagum. Ippo post-training and reasoning models dhaan scaling dimension-la major factors aagitu varudhu. Aana more tokens na automatic-a more intelligence nu artham illa. Direct generation-ku long thinking theva illa. More thinking correct answer kidaikkura probability-a increase pannum, aana certainty guarantee panna maattum. More thinking infinite-a useful-um illa. Recent research reasoning models-la overthinking-a observe pannirukku, adhavadhu reasoning budget-a useful point-ku mela increase pannaa diminishing/limited/decreasing returns varum, sila time model first-la correct-a irundha solution-a kooda vittuduradhum nadakkum.`,
+  interviewDefinition: `Chain of Thought refers to producing intermediate reasoning steps before arriving at an answer. It is a terminology for the same idea of reasoning, and it helps solve complex tasks. The flow is Problem, then Step 1, Step 2, Step 3 and so on, and finally the Answer, where all the steps together form the reasoning. The key ideas are that intermediate reasoning can improve results for complex tasks, more time to think gives better answers, and a large problem is broken into smaller subproblems. This was introduced in a research paper in January 2023. A model's intelligence is not determined only by how much computation was used during training, but also by how much useful computation it performs while answering. Post-training and reasoning models are now major factors in the scaling dimension. However, more tokens do not automatically mean more intelligence, and direct generation may not need long thinking. More thinking can increase the probability of a correct answer but does not guarantee certainty, and it is not infinitely useful. Research has observed overthinking, where increasing the reasoning budget beyond a useful point produces diminishing/limited/decreasing returns and can even cause a model to abandon an initially correct solution.`,
+  example: `// Chain of Thought broadly refers to producing
+// intermediate reasoning steps before arriving at an answer.
+// Research Paper - Jan 2023
+
+// Q. A bat and ball together cost ₹110.
+//    The bat costs ₹100 more than the ball.
+//    Then how much does the ball cost?
+//
+// Guess the answer? 10 is the answer? No, it's ₹5.
+
+// Suppose the ball costs x rupees.
+// The bat would cost ₹100 + x, correct?
+// So the equation is: x + (x + 100) = 110
+// Here, x is the price of the ball,
+// and x + 100 is the price of the bat.
+
+// x + (x + 100) = 110
+// 2x = 110 - 100
+// 2x = 10
+// x = 5
+
+const total = 110;
+const difference = 100;
+const ball = (total - difference) / 2; // 2x = 10 -> x = 5
+const bat = ball + difference;         // 100 + x
+
+console.log(ball);        // 5
+console.log(bat);         // 105
+console.log(ball + bat);  // 110
+
+// Maths is clear, but how is my mind still confused
+// and giving me ₹10 only?
+
+// Note:
+// "A model's intelligence is not determined only by how much
+//  computation was used during training.
+//  How much useful computation it performs while answering
+//  can matter too."
+
+// Nowadays, post-training and reasoning models are becoming
+// major factors in the scaling dimension.
+// More tokens do not automatically mean more intelligence.
+// For direct generation, there may be no need for long thinking.
+// More thinking can increase the probability of getting the
+// correct answer, but it does not guarantee certainty.
+// More thinking is also not infinitely useful.
+// Recent research on reasoning models has observed overthinking,
+// where increasing the reasoning budget beyond a useful point can
+// produce diminishing returns and can even cause a model to
+// abandon an initially correct solution.
+
++------------------------------+----------------------------------------------+
+| Point                        | Meaning                                      |
++------------------------------+----------------------------------------------+
+| Chain of Thought             | Producing intermediate reasoning steps       |
+|                              | before arriving at an answer                 |
++------------------------------+----------------------------------------------+
+| Intermediate reasoning       | Can improve the results for complex tasks    |
++------------------------------+----------------------------------------------+
+| More time to think           | Gets you better answers                      |
++------------------------------+----------------------------------------------+
+| Breaking large problem       | Into smaller subproblems                     |
++------------------------------+----------------------------------------------+
+| Research paper               | Jan 2023                                     |
++------------------------------+----------------------------------------------+
+| More tokens                  | Do not automatically mean more intelligence  |
++------------------------------+----------------------------------------------+
+| More thinking                | Increases probability of a correct answer,   |
+|                              | but does not guarantee certainty             |
++------------------------------+----------------------------------------------+
+| Overthinking                 | Beyond a useful point gives diminishing      |
+|                              | returns, may abandon a correct solution      |
++------------------------------+----------------------------------------------+
+`
+},
+{
+  id: 'scaling-dimensions-training-vs-inference',
+  title: 'Scaling Dimensions: Training Compute vs Inference Compute',
+  category: 'AI',
+  slangDefinition: `Traditionally LLMs-a smarter aakka oru major way irundhudhu: oru periya model-a build pannitu, adha more compute use pannitu train panradhu. Adhavadhu model size-um training compute-um athigam pannaa model smart aagum nu nambinom. Aana Reasoning Models vandha apram innoru important scaling dimension open aagiduchu: oru problem-a solve panra time-la, adhavadhu inference-la, more compute spend panradhu. Simple-a sonna, munnadi smart-a aakka training-la dhaan ellam panninom, ippo model answer sollum pothu kooda adhuku yosikka more compute kudukkalaam, adhu dhaan reasoning models-oda main idea.`,
+  interviewDefinition: `Traditionally, one major way to make LLMs smarter was to build a larger model and train it with more compute. Reasoning models opened another important scaling dimension: spending more compute solving a problem during inference. In other words, earlier the improvement came mainly from training-time compute, whereas reasoning models also improve results by using more compute at inference time, while the model is answering the question.`,
+  example: `// Traditionally,
+// one major way to make LLMs smarter was:
+// Build a larger model and train it with more compute.
+
+// Reasoning Models opened another important scaling dimension:
+// Spend more compute solving a problem during Inference.
+
++--------------------------+-----------------------------------+-----------------------------------------+
+| Point                    | Traditional Way                   | Reasoning Models                        |
++--------------------------+-----------------------------------+-----------------------------------------+
+| How LLMs get smarter     | Build a larger model              | Spend more compute solving a problem    |
+|                          | and train it with more compute    | during inference                        |
++--------------------------+-----------------------------------+-----------------------------------------+
+| Where compute is spent   | Training                          | Inference                               |
++--------------------------+-----------------------------------+-----------------------------------------+
+| Scaling dimension        | Larger model + more training      | Another important scaling dimension     |
+|                          | compute                           | opened by reasoning models              |
++--------------------------+-----------------------------------+-----------------------------------------+
+
+// Flow: Traditional scaling
++-----------------------------+
+| Build a larger model        |
++-----------------------------+
+              |
+              v
++-----------------------------+
+| Train it with more compute  |
++-----------------------------+
+              |
+              v
++-----------------------------+
+| Smarter LLM                 |
++-----------------------------+
+
+// Flow: New scaling dimension (Reasoning Models)
++-----------------------------+
+| Problem arrives at model    |
++-----------------------------+
+              |
+              v
++-----------------------------+
+| Spend more compute solving  |
+| the problem during          |
+| Inference                   |
++-----------------------------+
+              |
+              v
++-----------------------------+
+| Better answer               |
++-----------------------------+`
+},
+{
+  id: 'reinforcement-learning-for-verifiable-tasks',
+  title: 'Reinforcement Learning for Verifiable Tasks',
+  category: 'AI',
+  slangDefinition: `Verifiable domains na answer correct-a thappa nu check panna mudiyura areas, example-ku math problems and code. Inga namma subjective human preference-a mattum nambama, outcome-ku reward kudukkalaam, adhu romba strong signal-a irukkum. Example: Prompt-la "longest valid palindrome return panra function implement pannu" nu kudukkurom. Model code ezhudhum. Apram namma andha code-a run pannuvom: Test 1 pass, Test 2 pass, Test 3 fail, Test 4 pass. Indha result namakku oru concrete training signal kudukkudhu, yenna na yedhu correct yedhu thappu nu clear-a theriyudhu. Adhanala model-a train panna, each correct output-ku reward kudukkurom, so correct patterns strong aagum. same prompt-ku model neraiya code samples generate pannudhu, adhula siladhu correct-aa iruku, siladhu wrond-aa iruku, andha result-a vechu model-a improve panrom.`,
+  interviewDefinition: `Verifiable domains, such as math problems and code, let us reward outcomes with much stronger signals than subjective human preference alone, because the correctness of an output can be checked automatically. For example, given the prompt "Implement a function that returns the longest valid palindrome", the model writes code and we run tests on it. If Test 1, 2 and 4 pass and Test 3 fails, the result gives a concrete training signal. In reinforcement learning for verifiable tasks, we train the model by giving a reward for each correct output so that the patterns leading to correct answers become stronger.`,
+  example: `// Reinforcement learning for verifiable tasks
+// Verifiable domains let us reward outcomes with much stronger
+// signals than subjective human preference alone.
+// Ex - Math problems, code
+
+// Prompt:
+// Implement a function that returns the longest valid palindrome.
+// The model writes code.
+// We run:
+//   Test 1 ✓
+//   Test 2 ✓
+//   Test 3 ✗
+//   Test 4 ✓
+// The result gives a concrete training signal.
+// You train the model by giving reward for each correct output
+// to make the patterns strong.
+
+const testResults = [true, true, false, true]; // Test 1 to Test 4
+
+testResults.forEach((passed, i) => {
+  console.log('Test ' + (i + 1) + ': ' + (passed ? '✓' : '✗'));
+});
+// Test 1: ✓
+// Test 2: ✓
+// Test 3: ✗
+// Test 4: ✓
+
++--------------------------+------------------------------------+------------------------------------+
+| Point                    | Subjective Human Preference        | Verifiable Domains                 |
++--------------------------+------------------------------------+------------------------------------+
+| Reward signal            | Weaker                             | Much stronger                      |
++--------------------------+------------------------------------+------------------------------------+
+| Examples                 | Opinion based answers              | Math problems, code                |
++--------------------------+------------------------------------+------------------------------------+
+| How outcome is judged    | Human preference alone             | Run tests, check the result        |
++--------------------------+------------------------------------+------------------------------------+
+| Training                 | -                                  | Reward each correct output to make |
+|                          |                                    | the patterns strong                |
++--------------------------+------------------------------------+------------------------------------+
+
++--------------------------+----------+
+| Test                     | Result   |
++--------------------------+----------+
+| Test 1                   | ✓        |
++--------------------------+----------+
+| Test 2                   | ✓        |
++--------------------------+----------+
+| Test 3                   | ✗        |
++--------------------------+----------+
+| Test 4                   | ✓        |
++--------------------------+----------+
+
+// Flow: Verifiable task training
++--------------------------------------------+
+| Prompt: Implement a function that returns  |
+| the longest valid palindrome               |
++--------------------------------------------+
+                     |
+                     v
++--------------------------------------------+
+| The model writes code                      |
++--------------------------------------------+
+                     |
+                     v
++--------------------------------------------+
+| We run tests                               |
+| Test 1 ✓  Test 2 ✓  Test 3 ✗  Test 4 ✓     |
++--------------------------------------------+
+                     |
+                     v
++--------------------------------------------+
+| Result gives a concrete training signal    |
++--------------------------------------------+
+                     |
+                     v
++--------------------------------------------+
+| Reward each correct output                 |
+| (patterns become strong)                   |
++--------------------------------------------+
+
+// Diagram: same prompt, multiple code samples from the model
+//
+//  Prompt    Prompt    Prompt    Prompt
+//    |         |         |         |
+//    v         v         v         v
+// +------+  +------+  +------+  +------+
+// | code |  | code |  | code |  | code |
+// +------+  +------+  +------+  +------+
+//    ✓         ✗         ✓         ✗
+//  (green    (red      (green    (red
+//   arrow)    arrow)    arrow)    arrow)`
+},
+{
+  id: 'rlvr',
+  title: 'RLVR - Reinforcement Learning with Verifiable Rewards',
+  category: 'AI',
+  slangDefinition: `RLVR na Reinforcement Learning with Verifiable Rewards, adhavadhu Reinforcement from Verifiable Feedback (RLVF) nu kooda solluvaanga. Munnadi RLHF-la irundha problem ? Humans expensive, human preferences subjective, humans mistakes pannuvaanga. Aana sila domains-la environment-ye answer correct-a illa nu sollidum. Verifiable domains namma outcomes-ku reward kudukkum pothu, subjective human preference-a mattum vechu kudukkura reward-a vida romba strong signal kidaikkum. Simple-a sonna, indha training method-la model clear-a right illa wrong nu irukkura problems-a solve panna try pannum. Human padichu judge pannradhuku badhilaa, oru computer program illa strict rules automatic-a AI-oda work-a check pannidum. AI correct answer kudutha, adhuku oru digital reward kidaikkum, adhu adha future-layum repeat panna kathukkum, so precision venum nu irukkura tasks-ku AI romba reliable aagum. Ange sila results-ku human verification venum, sila results-ku venam. Example-ku 5 + 5 oru verifiable task, aana travel itinerary create panradhu verifiable illa. Verifiable tasks-la humans loop-la irukka thevai illa. Mathematics la neraiya problems-ku verifiable final answer irukku. Programming la code-a execute panni test panna mudiyum. Chess game verifiable task, math question verifiable task, coding questions-um verifiable, yenna na tests run panni code work aagudha nu check panna mudiyum. DeepSeek-R1 maari systems large-scale reinforcement learning-a correctness-oriented signals vechu use pannaa mathematical and coding reasoning strong-a improve aagum nu demonstrate pannirukku. OpenAI-um reasoning post-training pipelines-la reinforcement learning and mathematics, coding maari verifiable tasks use pannurathu describe pannirukku. Idhu romba romba powerful. Aana subjective tasks tough, example-ku theory questions, inga human preferences dhaan use aagum. So subjective preference na humans evaluate pannuvaanga, adhu RLHF. Verifiable answer na computer or rules evaluate pannum, adhu RLVF/RLVR.`,
+  interviewDefinition: `RLVR, Reinforcement Learning with Verifiable Rewards (also called Reinforcement from Verifiable Feedback, RLVF), is an AI training method where the model learns by trying to solve problems that have a clear, undeniable right or wrong answer. RLHF has known problems: humans are expensive, human preferences are subjective, and humans make mistakes. In certain domains, however, the environment itself can tell us whether the answer is correct, so instead of relying on humans to judge the response, a computer program or a strict set of rules automatically checks the AI's work. If the AI gets the correct answer, it receives a digital reward, which teaches it to repeat that successful behaviour, making it highly reliable for tasks that need absolute precision. Verifiable domains let us reward outcomes with much stronger signals than subjective human preference alone. For example, 5 + 5 is a verifiable task, but creating a travel itinerary is not, and for verifiable tasks humans are not required in the loop. Mathematics is particularly useful because many problems have verifiable final answers, and programming is useful because code can be executed and tested. A chess game, a math question and a coding question with tests are all verifiable tasks. Systems such as DeepSeek-R1 have demonstrated that large-scale reinforcement learning using correctness-oriented signals can strongly improve mathematical and coding reasoning, and OpenAI has likewise described reasoning post-training pipelines that use reinforcement learning and verifiable tasks such as mathematics and coding. Subjective tasks, such as theory questions, are tougher because human preferences are used. In short: subjective preference means humans evaluate it, which is RLHF, while a verifiable answer means a computer or rules can evaluate it, which is RLVF/RLVR.`,
+  example: `// Remember the problem with RLHF?
+// - Humans are expensive.
+// - Human preferences are subjective.
+// - Humans make mistakes.
+//
+// But in certain domains, the environment itself can tell us
+// whether the answer is correct.
+// - Mathematics is particularly useful because many problems
+//   have verifiable final answers.
+// - Programming is particularly useful because code can be
+//   executed and tested.
+//
+// Note: Verifiable domains let us reward outcomes with much
+// stronger signals than subjective human preference alone.
+
+// Verifiable task: 5 + 5 (no human needed in the loop)
+const modelAnswer = 10;
+const reward = modelAnswer === 5 + 5 ? 1 : 0; // program checks automatically
+console.log(reward); // 1 (correct answer -> digital reward)
+
+// Not verifiable: "Create a travel itinerary"
+// -> no clear right or wrong answer, humans may be needed in the loop
+
+// Examples of verifiable tasks: chess game, math question,
+// coding questions (run tests and check whether the code works)
+
+// Systems such as DeepSeek-R1 have demonstrated that large-scale
+// reinforcement learning using correctness-oriented signals can
+// strongly improve mathematical and coding reasoning.
+//
+// OpenAI has likewise described reasoning post-training pipelines
+// that use reinforcement learning and verifiable tasks such as
+// mathematics and coding.
+
+// Subjective tasks are tough (Theory questions)
+// (human preferences are used)
+
++----------------------+--------------------------------+--------------------------------------+
+| Point                | RLHF                           | RLVF / RLVR                          |
++----------------------+--------------------------------+--------------------------------------+
+| Type of answer       | Subjective preference          | Verifiable answer                    |
++----------------------+--------------------------------+--------------------------------------+
+| Who evaluates        | Humans                         | Computer / rules                     |
++----------------------+--------------------------------+--------------------------------------+
+| Feedback             | Humans give rewards, feedback  | Result is checked automatically      |
++----------------------+--------------------------------+--------------------------------------+
+| Problems / strengths | Humans are expensive,          | Much stronger signal, humans not     |
+|                      | preferences are subjective,    | required in the loop, highly         |
+|                      | humans make mistakes           | reliable for precision tasks         |
++----------------------+--------------------------------+--------------------------------------+
+| Examples             | Theory questions, travel       | 5 + 5, chess game, math question,    |
+|                      | itinerary                      | coding questions with tests          |
++----------------------+--------------------------------+--------------------------------------+
+
++---------------------------+----------------------------------------+
+| Domain                    | Why it is verifiable                   |
++---------------------------+----------------------------------------+
+| Mathematics               | Many problems have verifiable final    |
+|                           | answers                                |
++---------------------------+----------------------------------------+
+| Programming               | Code can be executed and tested        |
++---------------------------+----------------------------------------+
+
+// Flow: RLVR
++---------------------------------+
+| Model tries to solve a problem  |
+| with a clear right/wrong answer |
++---------------------------------+
+                 |
+                 v
++---------------------------------+
+| Computer program / strict rules |
+| automatically check the work    |
++---------------------------------+
+                 |
+                 v
++---------------------------------+
+| Correct answer -> digital       |
+| reward                          |
++---------------------------------+
+                 |
+                 v
++---------------------------------+
+| Model repeats that successful   |
+| behaviour in the future         |
++---------------------------------+
+
+// Remember:
+// Subjective preference -> Humans can evaluate -> RLHF
+// Verifiable answer     -> Computer/rules can evaluate -> RLVF/RLVR`
+},
+{
+  id: 'types-of-evaluators',
+  title: 'Types of Evaluators',
+  category: 'AI',
+  slangDefinition: `Evaluators or judges nu moonu types irukku. Onnu Deterministic Evaluator: idhu exact evaluation kudukkum, exact answer, compiler, unit tests, schema validator maari things use pannum. Possible-a irundha idhu dhaan best. Rendavadhu Human Evaluator: oru person answer-a inspect pannuvaaru. Human judgment illa expertise venum nu irukkura edathula idhu useful. Moonavadhu Model Evaluator: innoru LLM-a use pannitu output-a judge panna vekkalaam. Idhuku LLM-as-a-Judge nu per. Simple-a sonna, answer-a check panna adhoda type-a poruthu yaaru check pannuvaanga nu maarum: rules and tools check panna adhu deterministic, manushan check panna adhu human, innoru AI check panna adhu model evaluator.`,
+  interviewDefinition: `There are three types of evaluators or judges. First, the Deterministic Evaluator gives an exact evaluation using things like an exact answer, a compiler, unit tests or a schema validator, and it is the best choice whenever possible. Second, the Human Evaluator is a person who inspects the answer, and it is useful when human judgment or expertise is required. Third, the Model Evaluator uses another LLM to judge the output, and this approach has become known as LLM-as-a-Judge.`,
+  example: `// Three types of Evaluations
+//
+// 1. Deterministic evaluator
+//    - Exact answer
+//    - Compiler
+//    - Unit tests
+//    - Schema validator
+//    Best when possible.
+//
+// 2. Human evaluator
+//    A person inspects the answer.
+//    Useful when judgment or expertise is required.
+//
+// 3. Model evaluator
+//    Use another LLM to judge the output.
+//    This has become known as: LLM-as-a-Judge.
+
++---------------------+------------------------------------+----------------------------------------+
+| Evaluator           | How it evaluates                   | Best used when                         |
++---------------------+------------------------------------+----------------------------------------+
+| 1. Deterministic    | Exact answer, compiler,            | Best when possible                     |
+|    evaluator        | unit tests, schema validator       |                                        |
++---------------------+------------------------------------+----------------------------------------+
+| 2. Human evaluator  | A person inspects the answer       | Judgment or expertise is required      |
++---------------------+------------------------------------+----------------------------------------+
+| 3. Model evaluator  | Use another LLM to judge the       | Known as LLM-as-a-Judge                |
+|                     | output                             |                                        |
++---------------------+------------------------------------+----------------------------------------+
+`
+},
+{
+  id: 'llm-as-a-judge',
+  title: 'LLM-as-a-Judge (What It Can Evaluate and Its Problems)',
+  category: 'AI',
+  slangDefinition: `LLM-as-a-Judge na oru LLM-a vechu innoru model-oda output-a judge panna vekkura approach. Idhu potentially relevance, clarity, instruction following, style, completeness, code explanation, and provided context-ku against factual consistency maari things-a evaluate pannum. Aana avanga perfect illa. Judge model-la sila problems irukku: biases irukkum, longer answers-ku preference kudukkum, style preferences irukkum, position bias irukkum (adhavadhu answer-oda position judgment-a affect pannum), subtle factual errors-a detect panna mudiyaadhu, persuasive language-ku easy-a fool aagiduvaanga, and judge panna padra model-oda errors-oda correlated errors-um irukkum. Adhanala idhula sila advantages irukku, sila drawbacks-um irukku. AI-a vechu AI-a evaluate panradhu evaluation-a scale panna help pannum, aana adhu magically objective truth-a create pannaadhu. AI-a vechu AI-a evaluate panradhu powerful dhaan, aana ippo namma evaluator-a kooda evaluate pannanum. Indha recursive problem modern AI engineering-la thirumba thirumba varum.`,
+  interviewDefinition: `LLM-as-a-Judge means using one LLM to evaluate the output of another model. A judge can potentially evaluate relevance, clarity, instruction following, style, completeness, code explanation, and factual consistency against provided context, but it is not perfect. A judge model can have biases, a preference for longer answers, style preferences, position bias (where the position of an answer affects the judgment), an inability to detect subtle factual errors, susceptibility to persuasive language, and errors correlated with the model being judged. So it has both advantages and drawbacks. Using an AI to evaluate an AI scales evaluation, but it does not magically create objective truth. Using AI to evaluate AI is powerful, but now we need to evaluate the evaluator, and this recursive problem will appear repeatedly in modern AI engineering.`,
+  example: `// What can LLM judges evaluate?
+// Potentially:
+// - relevance
+// - clarity
+// - instruction following
+// - style
+// - completeness
+// - code explanation
+// - factual consistency against provided context
+//
+// But they are not perfect.
+
+// Problems with LLM-as-a-judge
+// A judge model can have:
+// - biases
+// - preference for longer answers
+// - style preferences
+// - position bias
+// - inability to detect subtle factual errors
+// - susceptibility to persuasive language
+// - correlated errors with the model being judged
+
+// Using an AI to evaluate an AI scales evaluation,
+// but it does not magically create objective truth.
+//
+// Using AI to evaluate AI is powerful.
+// But now we need to evaluate the evaluator.
+// This recursive problem will appear repeatedly
+// in modern AI engineering.
+
+// Position bias: the position of an answer can affect the judgment
+// (some models can show position bias)
+
++------------------------------------------+------------------------------------------------------+
+| What LLM judges can evaluate             | Problems with LLM-as-a-judge                         |
++------------------------------------------+------------------------------------------------------+
+| relevance                                | biases                                               |
++------------------------------------------+------------------------------------------------------+
+| clarity                                  | preference for longer answers                        |
++------------------------------------------+------------------------------------------------------+
+| instruction following                    | style preferences                                    |
++------------------------------------------+------------------------------------------------------+
+| style                                    | position bias                                        |
++------------------------------------------+------------------------------------------------------+
+| completeness                             | inability to detect subtle factual errors            |
++------------------------------------------+------------------------------------------------------+
+| code explanation                         | susceptibility to persuasive language                |
++------------------------------------------+------------------------------------------------------+
+| factual consistency against provided     | correlated errors with the model being judged        |
+| context                                  |                                                      |
++------------------------------------------+------------------------------------------------------+
+
+// Flow: LLM-as-a-Judge
++---------------------------+
+| Model output              |
++---------------------------+
+            |
+            v
++---------------------------+
+| Another LLM (judge)       |
+| evaluates the output      |
++---------------------------+
+            |
+            v
++---------------------------+
+| Evaluation result         |
++---------------------------+
+            |
+            v
++---------------------------+
+| Now we need to evaluate   |
+| the evaluator (recursive  |
+| problem)                  |
++---------------------------+`
+},
+{
+  id: 'tree-of-thought',
+  title: 'Tree of Thought',
+  category: 'AI',
+  slangDefinition: `Tree of Thoughts (ToT) na oru AI problem-solving method, idhula AI orey time-la multiple reasoning paths-a test pannum, thanoda work-a thaane check pannum, oru idea fail aana backtrack pannum, exactly oru human kashtamaana puzzle-a solve panra maari. Idhu Chain of Thought-oda just oru different way dhaan, aana reasoning capabilities-a increase pannum. Chain of Thought-la oru straight path dhaan irukkum, aana Tree of Thought-la better answer kidaikka namakku innum neraiya chances kidaikkum. Indha system neraiya possibilities-a explore pannum, partial solutions-a score pannum, weak branches-a prune pannum (vettidum), promising branches-a thodarndhu continue pannum.`,
+  interviewDefinition: `Tree of Thoughts (ToT) is an AI problem-solving method where the model tests multiple reasoning paths at the same time, checks its own work, and backtracks if an idea fails, much like a human solving a hard puzzle. It is just a different way of doing Chain of Thought, and it increases reasoning capabilities. Instead of following a single chain of steps, Tree of Thoughts gives more chances of a better answer. The system can explore several possibilities, score partial solutions, prune weak branches, and continue promising branches.`,
+  example: `
+// Instead of Chain of Thought, Tree of Thoughts
+// gives you more chances of better ans.
+//
+// The system can:
+// - explore several possibilities
+// - score partial solutions
+// - prune weak branches
+// - continue promising branches
+
+//                      +--------+
+//                      | Prompt |
+//                      +--------+
+//                     /     |     \
+//                    /      |      \
+//                  (A)     (B)     (C)
+//                 /  \      |     / | \
+//              (A1) (A2)  (B1) (C1)(C2)(C3)
+//                   /  \            /  \
+//               (A21) (A22)     (C21) (C22)
+
++---------------------------+--------------------------------------+
+| Point                     | Meaning                              |
++---------------------------+--------------------------------------+
+| Tree of Thoughts (ToT)    | Tests multiple reasoning paths at    |
+|                           | the same time                        |
++---------------------------+--------------------------------------+
+| Checks its own work       | Backtracks if an idea fails          |
++---------------------------+--------------------------------------+
+| Compared to Chain of      | Just a different way, increases      |
+| Thought                   | reasoning capabilities               |
++---------------------------+--------------------------------------+
+| Benefit                   | More chances of a better answer      |
++---------------------------+--------------------------------------+
+
++------------------------------+----------------------------------+
+| System can                   | Meaning                          |
++------------------------------+----------------------------------+
+| Explore several possibilities| Try many branches (A, B, C)      |
++------------------------------+----------------------------------+
+| Score partial solutions      | Rate each branch midway          |
++------------------------------+----------------------------------+
+| Prune weak branches          | Drop branches that look weak     |
++------------------------------+----------------------------------+
+| Continue promising branches  | Keep going with the best ones    |
++------------------------------+----------------------------------+`
+},
+{
+  id: 'graph-of-thoughts',
+  title: 'Graph of Thoughts',
+  category: 'AI',
+  slangDefinition: `Graph of Thoughts (GoT) na oru AI reasoning method, idhula AI oru complex problem-a interconnected ideas-oda network-a break pannum, adhavadhu nodes and links-a represent pannum. Idhu straight line-la yosikkama, human brain maari thoughts-a mix pannalaam, loop pannalaam, combine pannalaam. Tree structures-ku oru limitation irukku: each branch independent-a dhaan valarum. Aana reasoning sila time tree-shaped-a irukkaadhu, maybe rendu different ideas combine aagalaam. Chain of Thought oru path-a mattum explore pannum, Tree of Thought alternatives-a explore pannum, aana Graph of Thoughts useful ideas-a thirumba reconnect pannitu combine panna kooda allow pannum. Example-ku, Approach A oru efficient algorithm-a kandupidikkudhu, Approach B oru important edge case-a kandupidikkudhu. Rendumae namakku venu, Efficient algorithm from A + edge-case handling from B = better solution. Final output different branches-oda multiple subproblems-oda solution-a pick panna mudiyum. Note: visible reasoning faithful-a irukkanum nu avasiyam illa, adhavadhu AI kaatura reasoning avanga unmaiyaana internal process-a irukkanum nu illa.`,
+  interviewDefinition: `Graph of Thoughts (GoT) is an AI reasoning method where the model breaks a complex problem down into a network of interconnected ideas, represented as nodes and links, allowing it to mix, loop and combine thoughts, much like the human brain, instead of thinking in a straight line. Tree structures have one limitation: each branch grows independently, but reasoning is sometimes not tree-shaped, and two different ideas may need to combine. Chain of Thought explores one path, Tree of Thought explores alternatives, and Graph of Thoughts also allows useful ideas to reconnect and combine. For example, if Approach A finds an efficient algorithm and Approach B finds an important edge case, there is no reason to throw either away: the efficient algorithm from A plus the edge-case handling from B gives a better solution. The final output can pick solutions of multiple subproblems from different branches. Note that visible reasoning is not necessarily faithful.`,
+  example: `// Graph of Thoughts
+// Tree structures have one limitation.
+// Each branch grows independently.
+// But reasoning is sometimes not tree-shaped.
+// Maybe two different ideas can combine.
+
+// Suppose:
+// Approach A - finds an efficient algorithm.
+// Approach B - finds an important edge case.
+// Why throw either away?
+//
+// Efficient algorithm from A + Edge-case handling from B = Better solution
+
+// Final output can pick solution of multiple subproblems
+// from different branches.
+
+// Note: Visible reasoning is not necessarily faithful.
+
+const approachA = 'efficient algorithm';
+const approachB = 'important edge case';
+const combined = approachA + ' + ' + approachB + ' = better solution';
+console.log(combined);
+// efficient algorithm + important edge case = better solution
+
++----------------------+-----------------------------------------------+
+| Method               | How it explores                               |
++----------------------+-----------------------------------------------+
+| Chain of Thought     | Explores one path                             |
++----------------------+-----------------------------------------------+
+| Tree of Thought      | Explores alternatives                         |
++----------------------+-----------------------------------------------+
+| Graph of Thoughts    | Also allows useful ideas to reconnect and     |
+|                      | combine                                       |
++----------------------+-----------------------------------------------+
+
++----------------------+-----------------------------------------------+
+| Approach             | What it finds                                 |
++----------------------+-----------------------------------------------+
+| Approach A           | An efficient algorithm                        |
++----------------------+-----------------------------------------------+
+| Approach B           | An important edge case                        |
++----------------------+-----------------------------------------------+
+| A + B                | Better solution                               |
++----------------------+-----------------------------------------------+
+
+// Diagram: branches reconnect and combine
+//
+//              +--------+
+//              | PROMPT |
+//              +--------+
+//             /     |     \
+//           (A)    (B)    (C)
+//          /  \    /  \     \
+//        (.)  (.) (.) (.)   (.)
+//         |    \   \   /    /
+//        (.)  (.)-(.)-(.)--+
+//               \  |
+//               (.) <- ideas reconnect and combine
+//                |
+//               (.) <- final output picks solutions of
+//                      multiple subproblems from different
+//                      branches
+
+// Flow: Graph of Thoughts
++------------------------------+
+| Prompt                       |
++------------------------------+
+               |
+               v
++------------------------------+
+| Multiple branches (A, B, C)  |
++------------------------------+
+               |
+               v
++------------------------------+
+| Ideas reconnect and combine  |
+| (A: efficient algorithm +    |
+|  B: edge-case handling)      |
++------------------------------+
+               |
+               v
++------------------------------+
+| Final output picks solutions |
+| of multiple subproblems from |
+| different branches           |
++------------------------------+
+               |
+               v
++------------------------------+
+| Better solution              |
++------------------------------+`
+},
+{
+  id: 'limits-of-reasoning-models',
+  title: 'Limits of Reasoning Models',
+  category: 'AI',
+  slangDefinition: `Reasoning models-ku sila limits irukku. Avanga hallucinate pannalaam, arithmetic errors pannalaam, problem-a misunderstand pannalaam, false assumptions-um pannalaam. More thinking na correctness guarantee nu artham illa. Adhanala Knowledge + Reasoning + Tools, indha moonu dhaan ellathayum possible aakkura main factors. Simple-a sonna, model-ku sariyaana knowledge venum, adha vechu yosikka reasoning venum, apram calculator, code run panradhu maari tools venum, appo dhaan reliable-a answer kidaikkum.`,
+  interviewDefinition: `Reasoning models have limits. They can hallucinate, make arithmetic errors, misunderstand the problem, and make false assumptions. More thinking does not guarantee correctness. Knowledge, reasoning and tools are the three main factors that make everything possible: the model needs the right knowledge, the ability to reason over it, and tools to act on and verify its work.`,
+  example: `// Limits of Reasoning Models
+// They can:
+// - hallucinate
+// - make arithmetic errors
+// - misunderstand the problem
+// - make false assumptions
+//
+// More thinking does not mean a guarantee of correctness.
+//
+// Knowledge + Reasoning + Tools
+// are the three main factors that make everything possible.
+
++-----------------------------+----------------------------------------+
+| Limit                       | Meaning                                |
++-----------------------------+----------------------------------------+
+| Hallucination               | Can make up wrong information          |
++-----------------------------+----------------------------------------+
+| Arithmetic errors           | Can calculate incorrectly              |
++-----------------------------+----------------------------------------+
+| Misunderstanding the problem| Can read the question wrongly          |
++-----------------------------+----------------------------------------+
+| False assumptions           | Can assume things that are not true    |
++-----------------------------+----------------------------------------+
+| More thinking               | Does not guarantee correctness         |
++-----------------------------+----------------------------------------+
+
+// Flow: Knowledge + Reasoning + Tools
++---------------------------+
+| Knowledge                 |
++---------------------------+
+            +
++---------------------------+
+| Reasoning                 |
++---------------------------+
+            +
++---------------------------+
+| Tools                     |
++---------------------------+
+            |
+            v
++---------------------------+
+| Everything becomes        |
+| possible                  |
++---------------------------+`
+},
 ]
